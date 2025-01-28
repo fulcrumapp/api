@@ -22,22 +22,11 @@ function euroDate(date){
 ```
 
 Then replace all `FORMATDATE` (there are four of them) in the BODY section with this new function, `euroDate`:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/ad72711-8dd698c-euroDate.png",
-        "8dd698c-euroDate.png",
-        1956,
-        1184,
-        "#000000"
-      ],
-      "caption": "EU Date format"
-    }
-  ]
-}
-[/block]
+
+<Image title="8dd698c-euroDate.png" alt={1956} src="https://files.readme.io/ad72711-8dd698c-euroDate.png">
+  EU Date format
+</Image>
+
 # Format date to dd/mm/yyyy for the date field
 
 Add the following code to the end of SCRIPT section:
@@ -58,20 +47,8 @@ Then add the following code just before the very last `<% } else { %>` in the BO
           <h2 class='field-label'><%= element.label %></h2>
           <div class='field-value pre'><%= formatDate(value) %></div>
       </div>
-````
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/48bc08e-2d11f58-datetimefield.png",
-        "2d11f58-datetimefield.png",
-        1948,
-        960,
-        "#000000"
-      ],
-      "caption": "date time field"
-    }
-  ]
-}
-[/block]
+```
+
+<Image title="2d11f58-datetimefield.png" alt={1948} src="https://files.readme.io/48bc08e-2d11f58-datetimefield.png">
+  date time field
+</Image>
