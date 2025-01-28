@@ -14,25 +14,25 @@ The Audio API gives you access to a record's audio files, including the GPS trac
 
 # Properties
 
-| Property | Type | Required | Readonly | Description |
-|----------|------|----------|----------|-------------|
-| access_key | string | yes | no | The id of the audio. |
-| created_at | string | no | yes | Timestamp when the audio was created. |
-| updated_at | string | no | yes | Timestamp when the audio was last updated. |
-| created_by | string | no | yes | The name of user who created the audio. |
-| created_by_id | string | no | yes | The id of user who created the audio. |
-| updated_by | string | no | yes | The name of user who last updated the audio. |
-| updated_by_id | string | no | yes | The id of user who last updated the audio. |
-| uploaded | boolean | no | yes | The file has been uploaded, but might not be fully stored on the backend yet. This is the least useful indicator unless you're writing a synchronizer. |
-| stored | boolean | no | yes | The `original` attribute is available for download. |
-| processed | boolean | no | yes | The additional versions of the media are available for download. (thumbnails or small versions). |
-| record_id | string | no | yes | The id of the record the audio is associated with. |
-| form_id | string | no | yes | The id of the form the audio is associated with. |
-| file_size | number | no | yes | The size of the audio file in bytes. |
-| content_type | string | no | yes | The content type of the audio file. |
-| url | string | no | yes | The URL to access the audio recording. |
-| track | string | no | yes | The URL to access the audio GPS track. |
-| metadata | metadata object | no | yes | The audio's metadata (varies by device). |
+| Property        | Type            | Required | Readonly | Description                                                                                                                                            |
+| --------------- | --------------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| access\_key     | string          | yes      | no       | The id of the audio.                                                                                                                                   |
+| created\_at     | string          | no       | yes      | Timestamp when the audio was created.                                                                                                                  |
+| updated\_at     | string          | no       | yes      | Timestamp when the audio was last updated.                                                                                                             |
+| created\_by     | string          | no       | yes      | The name of user who created the audio.                                                                                                                |
+| created\_by\_id | string          | no       | yes      | The id of user who created the audio.                                                                                                                  |
+| updated\_by     | string          | no       | yes      | The name of user who last updated the audio.                                                                                                           |
+| updated\_by\_id | string          | no       | yes      | The id of user who last updated the audio.                                                                                                             |
+| uploaded        | boolean         | no       | yes      | The file has been uploaded, but might not be fully stored on the backend yet. This is the least useful indicator unless you're writing a synchronizer. |
+| stored          | boolean         | no       | yes      | The `original` attribute is available for download.                                                                                                    |
+| processed       | boolean         | no       | yes      | The additional versions of the media are available for download. (thumbnails or small versions).                                                       |
+| record\_id      | string          | no       | yes      | The id of the record the audio is associated with.                                                                                                     |
+| form\_id        | string          | no       | yes      | The id of the form the audio is associated with.                                                                                                       |
+| file\_size      | number          | no       | yes      | The size of the audio file in bytes.                                                                                                                   |
+| content\_type   | string          | no       | yes      | The content type of the audio file.                                                                                                                    |
+| url             | string          | no       | yes      | The URL to access the audio recording.                                                                                                                 |
+| track           | string          | no       | yes      | The URL to access the audio GPS track.                                                                                                                 |
+| metadata        | metadata object | no       | yes      | The audio's metadata (varies by device).                                                                                                               |
 
 # Validations
 
@@ -40,10 +40,10 @@ The following properties must be included in order to create/update an audio obj
 
 ## Required Properties
 
-| Property | Type | Description | Example |
-|----------|------|-------------|---------|
-| audio[access_key] | string | The id of the audio. | `"2d956eb0-bc2a-747f-fc56-1100936ce515"` |
-| audio[file] | multipart/form-data | The audio file. | See [example](#upload-a-new-audio-file) below. |
+| Property            | Type                | Description          | Example                                        |
+| ------------------- | ------------------- | -------------------- | ---------------------------------------------- |
+| audio\[access\_key] | string              | The id of the audio. | `"2d956eb0-bc2a-747f-fc56-1100936ce515"`       |
+| audio\[file]        | multipart/form-data | The audio file.      | See [example](#upload-a-new-audio-file) below. |
 
 Example validation response if `access_key` is not included:
 
@@ -59,7 +59,7 @@ Example validation response if `access_key` is not included:
 
 # Notes
 
-- There is no `DELETE` method for audio. Audio files can be effectively deleted by unlinking them from their associated record.
+* There is no `DELETE` method for audio. Audio files can be effectively deleted by unlinking them from their associated record.
 
 # Sample Response
 
