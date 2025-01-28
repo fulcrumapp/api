@@ -3,3 +3,4 @@
 - changesets-get-single
 - changesets-create
 - changesets-update
+- changesets-close
