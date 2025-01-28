@@ -14,7 +14,7 @@ Converts a specified string to uppercase.
 
 # Parameters
 
-`value` String (__required__) - The string to convert to uppercase.
+`value` String (**required**) - The string to convert to uppercase.
 
 # Returns
 
