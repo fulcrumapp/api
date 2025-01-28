@@ -22,7 +22,7 @@ Creates a Polygon Feature from an Array of Positions.
 
 # Returns
 
-Feature <Polygon> - Polygon Feature
+Feature &lt;Polygon&gt; - Polygon Feature
 
 # Examples
 
