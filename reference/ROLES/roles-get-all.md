@@ -3,7 +3,7 @@ title: Get All Roles
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-roles-json
+  operationId: roles-get-all
 deprecated: false
 hidden: false
 metadata:

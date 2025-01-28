@@ -3,7 +3,7 @@ title: Update Webhook
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: put_v-version-webhooks-webhook-id-json
+  operationId: webhooks-update
 deprecated: false
 hidden: false
 metadata:

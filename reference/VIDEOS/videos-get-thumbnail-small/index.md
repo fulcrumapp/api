@@ -3,7 +3,7 @@ title: Get Small Video Thumbnail
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-video-id-thumbnail-small-jpg
+  operationId: videos-get-thumbnail-small
 deprecated: false
 hidden: false
 metadata:

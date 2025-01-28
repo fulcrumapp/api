@@ -3,7 +3,7 @@ title: Get Single Webhook
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-webhooks-webhook-id-json
+  operationId: webhooks-get-single
 deprecated: false
 hidden: false
 metadata:

@@ -3,7 +3,7 @@ title: Get Small Video File
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-video-id-small-mp4
+  operationId: videos-get-small-file
 deprecated: false
 hidden: false
 metadata:

@@ -3,7 +3,7 @@ title: Get GeoJSON Video Track
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-video-id-track-geojson
+  operationId: videos-get-single-track-geojson
 deprecated: false
 hidden: false
 metadata:

@@ -3,7 +3,7 @@ title: Get Large Square Video Thumbnail
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-video-id-thumbnail-large-square-jpg
+  operationId: videos-get-thumbnail-large-square
 deprecated: false
 hidden: false
 metadata:

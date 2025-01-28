@@ -3,7 +3,7 @@ title: Get KML Video Track
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-video-id-track-kml
+  operationId: videos-get-single-track-kml
 deprecated: false
 hidden: false
 metadata:

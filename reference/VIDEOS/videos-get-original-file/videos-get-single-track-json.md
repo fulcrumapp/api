@@ -3,7 +3,7 @@ title: Get JSON Video Track
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-video-id-track-json
+  operationId: videos-get-single-track-json
 deprecated: false
 hidden: false
 metadata:

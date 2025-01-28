@@ -3,7 +3,7 @@ title: Signature Thumbnail File
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-signatures-signature-id-thumbnail-png
+  operationId: signatures-get-thumbnail-file
 deprecated: false
 hidden: false
 metadata:

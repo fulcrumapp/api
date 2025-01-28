@@ -3,7 +3,7 @@ title: Get GPX Tracks for All Videos
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-tracks-gpx
+  operationId: videos-get-all-tracks-gpx
 deprecated: false
 hidden: false
 metadata:

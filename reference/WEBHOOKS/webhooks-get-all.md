@@ -3,7 +3,7 @@ title: Get All Webhooks
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-webhooks-json
+  operationId: webhooks-get-all
 deprecated: false
 hidden: false
 metadata:

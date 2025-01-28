@@ -3,7 +3,7 @@ title: Get Original Video File
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-video-id-mp4
+  operationId: videos-get-original-file
 deprecated: false
 hidden: false
 metadata:

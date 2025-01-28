@@ -3,7 +3,7 @@ title: Get Single Report Template (COPY)
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-report-templates-id-json-copy
+  operationId: report-templates-get-single
 deprecated: false
 hidden: true
 metadata:

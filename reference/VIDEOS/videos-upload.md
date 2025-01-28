@@ -3,7 +3,7 @@ title: Upload Video
 excerpt: Upload video with optional track file
 api:
   file: rest-api.json
-  operationId: post_v-version-videos-upload-json
+  operationId: videos-upload
 deprecated: false
 hidden: false
 metadata:

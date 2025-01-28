@@ -3,7 +3,7 @@ title: Get KML Tracks for All Videos
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-tracks-kml
+  operationId: videos-get-all-tracks-kml
 deprecated: false
 hidden: false
 metadata:

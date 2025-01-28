@@ -3,7 +3,7 @@ title: Get User Information
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-users-json
+  operationId: users-get-user
 deprecated: false
 hidden: false
 metadata:

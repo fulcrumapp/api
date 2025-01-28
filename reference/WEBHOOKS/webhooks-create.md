@@ -3,7 +3,7 @@ title: Create Webhook
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-webhooks-json
+  operationId: webhooks-create
 deprecated: false
 hidden: false
 metadata:

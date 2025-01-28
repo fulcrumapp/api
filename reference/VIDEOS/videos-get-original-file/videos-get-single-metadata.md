@@ -3,7 +3,7 @@ title: Get Video Metadata
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-video-id-json
+  operationId: videos-get-single-metadata
 deprecated: false
 hidden: false
 metadata:

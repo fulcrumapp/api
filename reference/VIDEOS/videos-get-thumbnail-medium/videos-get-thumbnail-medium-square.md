@@ -3,7 +3,7 @@ title: Get Medium Square Video Thumbnail
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-video-id-thumbnail-medium-square-jpg
+  operationId: videos-get-thumbnail-medium-square
 deprecated: false
 hidden: false
 metadata:

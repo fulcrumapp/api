@@ -3,7 +3,7 @@ title: Update Report Template
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: put_v-version-report-templates-id-json
+  operationId: report-templates-update
 deprecated: false
 hidden: false
 metadata:

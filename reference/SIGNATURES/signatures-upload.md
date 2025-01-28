@@ -3,7 +3,7 @@ title: Upload Signature
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-signatures-json
+  operationId: signatures-upload
 deprecated: false
 hidden: false
 metadata:

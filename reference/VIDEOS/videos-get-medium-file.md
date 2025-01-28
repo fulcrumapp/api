@@ -3,7 +3,7 @@ title: Get Medium Video File
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-video-id-medium-mp4
+  operationId: videos-get-medium-file
 deprecated: false
 hidden: false
 metadata:

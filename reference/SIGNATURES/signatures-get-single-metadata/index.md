@@ -3,7 +3,7 @@ title: Get Single Signature Metadata
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-signatures-signature-id-json
+  operationId: signatures-get-single-metadata
 deprecated: false
 hidden: false
 metadata:

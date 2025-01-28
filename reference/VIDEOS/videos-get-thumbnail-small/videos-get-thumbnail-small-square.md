@@ -3,7 +3,7 @@ title: Get Small Square Video Thumbnail
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-video-id-thumbnail-small-square-jpg
+  operationId: videos-get-thumbnail-small-square
 deprecated: false
 hidden: false
 metadata:

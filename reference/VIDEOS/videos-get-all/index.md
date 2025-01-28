@@ -3,7 +3,7 @@ title: Get All Videos
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-videos-json
+  operationId: videos-get-all
 deprecated: false
 hidden: false
 metadata:
