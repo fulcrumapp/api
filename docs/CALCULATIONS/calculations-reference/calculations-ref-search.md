@@ -14,11 +14,11 @@ Returns the position at which a specified string is first found within a block o
 
 # Parameters
 
-`search_for` String (__required__) - String to search for within `text_to_search`.
+`search_for` String (**required**) - String to search for within `text_to_search`.
 
-`text_to_search` String (__required__) - Text to search for the first instance of `search_for`.
+`text_to_search` String (**required**) - Text to search for the first instance of `search_for`.
 
-`starting_at` Number (__required__) - argument Position index to begin the search.
+`starting_at` Number (**required**) - argument Position index to begin the search.
 
 # Returns
 
