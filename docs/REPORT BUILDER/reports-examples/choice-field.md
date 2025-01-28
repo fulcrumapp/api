@@ -21,19 +21,7 @@ Scroll all the way down to the last `<% } else { %>` block of code in the BODY s
         <div class='field-value pre'><%= CHOICEVALUES($multiple_choice_field).join("\n") %></div>
       </div>
 ```
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/8b87e02-f1e43b7-mc_value_list.png",
-        "f1e43b7-mc_value_list.png",
-        2054,
-        964,
-        "#000000"
-      ],
-      "caption": "multiple choice field label"
-    }
-  ]
-}
-[/block]
+
+<Image title="f1e43b7-mc_value_list.png" alt={2054} src="https://files.readme.io/8b87e02-f1e43b7-mc_value_list.png">
+  multiple choice field label
+</Image>
