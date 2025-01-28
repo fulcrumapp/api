@@ -18,9 +18,9 @@ PROGRESS displays a non-dismissible message that can be used to provide feedback
 
 # Parameters
 
-`title` String (__required__) - A short title for the progress message
+`title` String (**required**) - A short title for the progress message
 
-`message` String (__required__) - The message content for the progress alert
+`message` String (**required**) - The message content for the progress alert
 
 # Examples
 
