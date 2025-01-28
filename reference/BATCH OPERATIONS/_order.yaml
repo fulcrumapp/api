@@ -2,3 +2,4 @@
 - get-all-batches
 - get-single-batch
 - create-batch-to-bulk-update-records
+- create-batch
