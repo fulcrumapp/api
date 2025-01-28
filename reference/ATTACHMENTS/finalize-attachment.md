@@ -17,13 +17,13 @@ next:
 ---
 # Sample Error Responses
 
-If you see this error message:
+If you see this error message:\
 `{
   "error": "At least one owner type and owner ID is required"
-}`
+}`\
 You will need to include an `owner` in your finalize request.
 
-It is possible you will see an unauthorized error when using a valid api token if your token does not have permission to edit the form.
+It is possible you will see an unauthorized error when using a valid api token if your token does not have permission to edit the form.\
 `{
   "error": "Unauthorized"
 }`
