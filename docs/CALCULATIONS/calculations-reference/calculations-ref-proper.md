@@ -14,7 +14,7 @@ Capitalizes each word in a string (title case).
 
 # Parameters
 
-`value` String (__required__) - String to capitalize words within.
+`value` String (**required**) - String to capitalize words within.
 
 # Returns
 
