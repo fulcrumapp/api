@@ -14,24 +14,51 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nobj = {\n  \"webhook\": {\n    \"name\": \"Fire Hydrant Inventory Emails\",\n    \"url\": \"https://my-webhook-processing-script.php\"\n  }\n}\n\nobj = json.loads(obj)\n\nwebhook = fulcrum.webhooks.create(obj)\nprint(webhook['webhook']['id'] + ' has been created!')",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nconst obj = {\n  \"name\": \"Fire Hydrant Inventory Emails\",\n  \"url\": \"https://my-webhook-processing-script.php\"\n};\n\nclient.webhooks.create(obj)\n  .then((webhook) => {\n    console.log(webhook.id + ' has been created!');\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\nwebhook = {\n  \"name\"=>\"Fire Hydrant Inventory Emails\",\n  \"url\"=>\"https://my-webhook-processing-script.php\"\n}\n\nresponse = client.webhooks.create(webhook)\n\nputs response['id'] + ' has been created!'",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+obj = {
+  "webhook": {
+    "name": "Fire Hydrant Inventory Emails",
+    "url": "https://my-webhook-processing-script.php"
+  }
 }
-[/block]
+
+obj = json.loads(obj)
+
+webhook = fulcrum.webhooks.create(obj)
+print(webhook['webhook']['id'] + ' has been created!')
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+const obj = {
+  "name": "Fire Hydrant Inventory Emails",
+  "url": "https://my-webhook-processing-script.php"
+};
+
+client.webhooks.create(obj)
+  .then((webhook) => {
+    console.log(webhook.id + ' has been created!');
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+
+webhook = {
+  "name"=>"Fire Hydrant Inventory Emails",
+  "url"=>"https://my-webhook-processing-script.php"
+}
+
+response = client.webhooks.create(webhook)
+
+puts response['id'] + ' has been created!'
+```
