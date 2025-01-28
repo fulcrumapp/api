@@ -14,7 +14,7 @@ Returns the greatest common divisor of one or more integers.
 
 # Parameters
 
-`var_args_values` Number (__required__) - Value(s) to consider to calculate the greatest common divisor.
+`var_args_values` Number (**required**) - Value(s) to consider to calculate the greatest common divisor.
 
 # Returns
 
@@ -27,7 +27,6 @@ GCD(5, 9)
 
 // returns 1
 ```
-
 
 ```js
 GCD(14, 21, 42)
