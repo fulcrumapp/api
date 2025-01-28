@@ -14,11 +14,11 @@ Adds an amount of time to a given time
 
 # Parameters
 
-`startTimeField` String (__required__) - The time field containing the start time
+`startTimeField` String (**required**) - The time field containing the start time
 
-`amount` Number (__required__) - The amount of time to add to the given time (number of minutes or hours)
+`amount` Number (**required**) - The amount of time to add to the given time (number of minutes or hours)
 
-`format` String (optional)  [default = 'hours'] - The format of the amount. Either `hours` (default) or `minutes`.
+`format` String (optional)  \[default = 'hours'] - The format of the amount. Either `hours` (default) or `minutes`.
 
 # Returns
 
