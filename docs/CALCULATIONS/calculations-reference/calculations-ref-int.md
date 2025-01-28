@@ -14,7 +14,7 @@ Rounds a number down to the nearest integer that is less than or equal to it.
 
 # Parameters
 
-`value` Number (__required__) - Value to round down to the nearest integer.
+`value` Number (**required**) - Value to round down to the nearest integer.
 
 # Returns
 
