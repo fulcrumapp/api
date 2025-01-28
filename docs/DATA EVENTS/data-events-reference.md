@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-Data Events allow users to perform ​_actions_​ on the mobile device when certain ​_events_​ are triggered. Actions include custom alerts and validation messages, setting field values, choices, labels, descriptions, requirement & visibility settings, HTTP requests and more. Event triggers include record loading, editing, validating, saving, value changing, and more. This enables listening for record changes, programmatically changing values (including status, project, and geometry), as well as building dynamic hyperlinks, writing custom quality assurance logic and much more! Data Events are written in standard JavaScript with some custom functions for accessing form data and record values.
+Data Events allow users to perform ​*actions*​ on the mobile device when certain ​*events*​ are triggered. Actions include custom alerts and validation messages, setting field values, choices, labels, descriptions, requirement & visibility settings, HTTP requests and more. Event triggers include record loading, editing, validating, saving, value changing, and more. This enables listening for record changes, programmatically changing values (including status, project, and geometry), as well as building dynamic hyperlinks, writing custom quality assurance logic and much more! Data Events are written in standard JavaScript with some custom functions for accessing form data and record values.
 
 # Record Events
 
@@ -73,7 +73,7 @@ ON('new-record', callback);
 | blur   | Fires when a text or numeric input field has lost focus.                                                                              | `ON('blur', 'field', callback);`               |
 | click  | Fires when a hyperlink field is tapped.                                                                                               | `ON('click', 'my_hyperlink_field', callback);` |
 
-There are some cases where the `change` event is not fired. Default values do not trigger a `change` event when  
+There are some cases where the `change` event is not fired. Default values do not trigger a `change` event when\
 creating a new record. Also, `change` events are not triggered after manually setting a value with `SETVALUE`.  However, they are triggered on changes to calculated fields which may result from changes triggered by `SETVALUE` or `SETLOCATION,` for example.
 
 Calculation field value changes **DO** trigger field events. 
@@ -107,7 +107,7 @@ The callback for field events is passed an event parameter with `name`, `field`,
 | load-repeatable     | Fires when a repeatable editor is displayed.                                                                                                                                                                                                                                                                                                                  | `ON('load-repeatable', 'repeatable_field', callback);`     |
 | unload-repeatable   | Acts as the opposite of `load-repeatable` and fires when the repeatable editor is closed. Does not fire when the record is saved.                                                                                                                                                                                                                             | `ON('unload-repeatable', 'repeatable_field', callback);`   |
 | new-repeatable      | Fires when a new repeatable is created, after `load-repeatable`.                                                                                                                                                                                                                                                                                              | `ON('new-repeatable', 'repeatable_field', callback);`      |
-| edit-repeatable     | Fires when an existing repeatable is edited, after `load-repeatable`.  This event is only fired when opening existing repeatables.                                                                                                                                                                                                                           | `ON('edit-repeatable', 'repeatable_field', callback);`     |
+| edit-repeatable     | Fires when an existing repeatable is edited, after `load-repeatable`.  This event is only fired when opening existing repeatables.                                                                                                                                                                                                                            | `ON('edit-repeatable', 'repeatable_field', callback);`     |
 | save-repeatable     | Fires immediately before repeatable is saved, and after it's been validated. The callback is passed an `event` parameter that contains `isValid` and `isDraft` properties. The `isValid` property indicates if the record is valid according to the built-in validation rules. The `isDraft` property indicates whether the record is being saved as a draft. | `ON('save-repeatable', 'repeatable_field', callback);`     |
 | cancel-repeatable   | Fires when a repeatable editing session is cancelled, before `unload-repeatable`.                                                                                                                                                                                                                                                                             | `ON('cancel-repeatable', 'repeatable_field', callback);`   |
 | validate-repeatable | Fires right before the repeatable is saved to check any validations. The callback is passed an `event` parameter that contains `isValid` and `isDraft` properties. The `isValid` property indicates if the record is valid according to the built-in validation rules. The `isDraft` property indicates whether the record is being saved as a draft.         | `ON('validate-repeatable', 'repeatable_field', callback);` |
@@ -213,8 +213,8 @@ The callback for `remove-photo` events is passed an event parameter with `name`,
 
 The callback for `replace-photo` events is passed an event parameter with `name`, `field`, and `value` attributes. The value attribute is an object containing photo metadata with the following additional keys:
 
-- `annotated`: boolean describing if the replacement is the result of annotation saving
-- `replaced`: the ID of the photo being replaced
+* `annotated`: boolean describing if the replacement is the result of annotation saving
+* `replaced`: the ID of the photo being replaced
 
 ```json
 {
@@ -308,7 +308,7 @@ If you require pulling in data from an outside source, you can use the [REQUEST]
 
 `REQUEST` requires two parameters-- an options object containing the url and other request parameters, and a callback function that is called after the request finishes. HTTP requests are performed asynchronously, so code that processes the response needs to be contained within the callback function body.
 
-Tips: You should use the _data name_ of the field that you want to populate. You also will want to make sure that you are returning one value (in the code below we are only grabbing the first row, `row[0]`).
+Tips: You should use the *data name* of the field that you want to populate. You also will want to make sure that you are returning one value (in the code below we are only grabbing the first row, `row[0]`).
 
 ```js
 function doThis() {
