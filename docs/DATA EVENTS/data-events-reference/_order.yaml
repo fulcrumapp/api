@@ -42,3 +42,4 @@
 - data-events-setstatusfilter
 - data-events-setstatushidden
 - data-events-setstatusreadonly
+- data-events-settimeout
