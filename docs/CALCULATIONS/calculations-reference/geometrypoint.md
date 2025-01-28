@@ -22,7 +22,7 @@ Creates a Point Feature from an Array of Positions.
 
 # Returns
 
-Feature <Point> - Point Feature
+Feature `<Point>` - Point Feature
 
 # Examples
 
