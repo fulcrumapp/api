@@ -14,7 +14,7 @@ Returns the length of a string value.
 
 # Parameters
 
-`value` String (__required__) - The string from which to return the length.
+`value` String (**required**) - The string from which to return the length.
 
 # Returns
 
