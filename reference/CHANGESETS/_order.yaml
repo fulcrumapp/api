@@ -2,3 +2,4 @@
 - changesets-get-all
 - changesets-get-single
 - changesets-create
+- changesets-update
