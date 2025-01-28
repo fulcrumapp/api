@@ -14,9 +14,9 @@ Returns the result of the modulo operator, the remainder after a division operat
 
 # Parameters
 
-`dividend` Number (__required__) - The number to be divided to find the remainder.
+`dividend` Number (**required**) - The number to be divided to find the remainder.
 
-`divisor` Number (__required__) - The number to divide by.
+`divisor` Number (**required**) - The number to divide by.
 
 # Returns
 
