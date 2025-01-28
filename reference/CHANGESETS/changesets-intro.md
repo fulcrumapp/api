@@ -14,29 +14,29 @@ Changesets are used to group sets of changes to any number of records. Changeset
 
 # Properties
 
-| Property | Type | Required | Readonly | Description |
-|----------|------|----------|----------|-------------|
-| form_id | string | yes | no | The id of the form associated with the changeset. |
-| metadata | object | no | no | An object containing arbitrary metadata describing the changeset. Often used to log comments, apps, versions and user agents. |
-| min_lat | number | no | yes | The minimum latitude of the spatial extent of the changeset. |
-| max_lat | number | no | yes | The maximum  latitude of the spatial extent of the changeset. |
-| min_lon | number | no | yes | The minimum  longitude of the spatial extent of the changeset. |
-| max_lon | number | no | yes | The maximum  longitude of the spatial extent of the changeset. |
-| number_of_changes | number | no | yes | The number of changed records included in this changeset. |
-| id | string | no | yes | The id for this changeset. |
-| created_at | string | no | yes | Timestamp when the changeset was created. |
-| updated_at | string | no | yes | Timestamp when the changeset was last updated. |
-| created_by | string | no | yes | The name of user who created the changeset. |
-| created_by_id | string | no | yes | The ID of user who created the changeset. |
-| updated_by | string | no | yes | The name of user who last updated the changeset. |
-| updated_by_id | string | no | yes | The ID of user who last updated the changeset. |
-| closed_at | string | no | yes | Timestamp when the changeset was closed. |
-| closed_by | string | no | yes | The name of user who closed the changeset. |
-| closed_by_id | string | no | yes | The ID of user who closed the changeset. |
-| gravatar_email | string | no | yes | The email associated with the gravatar of the user who created the changeset.
-| number_created | number | no | yes | The number of records created in this changeset. |
-| number_updated | number | no | yes | The number of records updated in this changeset. |
-| number_deleted | number | no | yes | The number of records deleted in this changeset. |
+| Property            | Type   | Required | Readonly | Description                                                                                                                   |
+| ------------------- | ------ | -------- | -------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| form\_id            | string | yes      | no       | The id of the form associated with the changeset.                                                                             |
+| metadata            | object | no       | no       | An object containing arbitrary metadata describing the changeset. Often used to log comments, apps, versions and user agents. |
+| min\_lat            | number | no       | yes      | The minimum latitude of the spatial extent of the changeset.                                                                  |
+| max\_lat            | number | no       | yes      | The maximum  latitude of the spatial extent of the changeset.                                                                 |
+| min\_lon            | number | no       | yes      | The minimum  longitude of the spatial extent of the changeset.                                                                |
+| max\_lon            | number | no       | yes      | The maximum  longitude of the spatial extent of the changeset.                                                                |
+| number\_of\_changes | number | no       | yes      | The number of changed records included in this changeset.                                                                     |
+| id                  | string | no       | yes      | The id for this changeset.                                                                                                    |
+| created\_at         | string | no       | yes      | Timestamp when the changeset was created.                                                                                     |
+| updated\_at         | string | no       | yes      | Timestamp when the changeset was last updated.                                                                                |
+| created\_by         | string | no       | yes      | The name of user who created the changeset.                                                                                   |
+| created\_by\_id     | string | no       | yes      | The ID of user who created the changeset.                                                                                     |
+| updated\_by         | string | no       | yes      | The name of user who last updated the changeset.                                                                              |
+| updated\_by\_id     | string | no       | yes      | The ID of user who last updated the changeset.                                                                                |
+| closed\_at          | string | no       | yes      | Timestamp when the changeset was closed.                                                                                      |
+| closed\_by          | string | no       | yes      | The name of user who closed the changeset.                                                                                    |
+| closed\_by\_id      | string | no       | yes      | The ID of user who closed the changeset.                                                                                      |
+| gravatar\_email     | string | no       | yes      | The email associated with the gravatar of the user who created the changeset.                                                 |
+| number\_created     | number | no       | yes      | The number of records created in this changeset.                                                                              |
+| number\_updated     | number | no       | yes      | The number of records updated in this changeset.                                                                              |
+| number\_deleted     | number | no       | yes      | The number of records deleted in this changeset.                                                                              |
 
 # Validations
 
@@ -44,9 +44,9 @@ The following properties must be included in order to create/update a changeset 
 
 ## Required Properties
 
-| Property | Type | Description | Example |
-|----------|------|-------------|---------|
-| form_id | string | The id of the form associated with the changeset. | `"8821a0d5-e767-47a9-815b-c72bdfa64043"` |
+| Property | Type   | Description                                       | Example                                  |
+| -------- | ------ | ------------------------------------------------- | ---------------------------------------- |
+| form\_id | string | The id of the form associated with the changeset. | `"8821a0d5-e767-47a9-815b-c72bdfa64043"` |
 
 Example validation response if `form_id` is not included:
 
@@ -62,7 +62,7 @@ Example validation response if `form_id` is not included:
 
 # Notes
 
-- The entire changeset object is required when making an update. Omitting fields with existing data will result in data loss! The typical workflow for updating an existing changeset is to fetch the changeset object, modify it, and then submit the PUT request.
+* The entire changeset object is required when making an update. Omitting fields with existing data will result in data loss! The typical workflow for updating an existing changeset is to fetch the changeset object, modify it, and then submit the PUT request.
 
 # Sample Response
 
