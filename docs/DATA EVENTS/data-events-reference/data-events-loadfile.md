@@ -10,16 +10,16 @@ metadata:
 next:
   description: ''
 ---
-**Description**  
+**Description**\
 The `LOADFILE` function loads a specific file from reference files and initializes a variable with its content, making it suitable for further processing. This is useful for reusing scripts, configurations, or other resources across different forms or components within your application.
 
 **Parameters**
 
-- `options` object (required) - An object containing the parameters for the function.
-  - `name` string (required) - The name of the file to be loaded.
-  - `form_name` string (optional) - The name of the form from which to load the file. If not provided, the current form is used.
-  - `form_id` string (optional) - The ID of the form from which to load the file. This can be used as an alternative to `form_name`.
-  - `variable` string (optional) - The name of the global variable to initialize with the content of the loaded file.
+* `options` object (required) - An object containing the parameters for the function.
+  * `name` string (required) - The name of the file to be loaded.
+  * `form_name` string (optional) - The name of the form from which to load the file. If not provided, the current form is used.
+  * `form_id` string (optional) - The ID of the form from which to load the file. This can be used as an alternative to `form_name`.
+  * `variable` string (optional) - The name of the global variable to initialize with the content of the loaded file.
 
 **Usage**
 
