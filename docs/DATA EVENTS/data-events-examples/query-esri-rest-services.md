@@ -23,7 +23,7 @@ metadata:
 next:
   description: ''
 ---
-``` js
+```js
 function getFloodInfo() {
 
   var options = {
