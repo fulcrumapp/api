@@ -14,24 +14,41 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nsignatures = fulcrum.signatures.search(url_params={'form_id':'{id}'})\n\nfor signature in signatures['signatures']:\n  # print(signature) # entire signature\n  print(signature['access_key']) # just the signature key",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.signatures.all({'form_id':'{id}'})\n  .then((page) => {\n    page.objects.forEach(signature => {\n      // console.log(signature); // entire signature metadata\n      console.log(signature.access_key); // just the signature key\n    });\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\nsignatures = client.signatures.all({'form_id':'{id}'})\n\nfor signature in signatures.objects do\n  # puts signature # entire signature metadata\n  puts signature['access_key'] # just the signature key\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+signatures = fulcrum.signatures.search(url_params={'form_id':'{id}'})
+
+for signature in signatures['signatures']:
+  # print(signature) # entire signature
+  print(signature['access_key']) # just the signature key
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.signatures.all({'form_id':'{id}'})
+  .then((page) => {
+    page.objects.forEach(signature => {
+      // console.log(signature); // entire signature metadata
+      console.log(signature.access_key); // just the signature key
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+
+signatures = client.signatures.all({'form_id':'{id}'})
+
+for signature in signatures.objects do
+  # puts signature # entire signature metadata
+  puts signature['access_key'] # just the signature key
+end
+```
