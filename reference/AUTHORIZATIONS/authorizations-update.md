@@ -14,24 +14,49 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nobj = {\n  \"authorization\": {\n    \"organization_id\": \"organization-id-from-get-user\",\n    \"note\": \"Updated Authorization\"\n  }\n}\n\nauthorization = fulcrum.authorizations.update('{id}', obj)\nprint(authorization['authorization']['id'] + ' has been updated!')",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nconst obj = {\n  \"organization_id\": \"organization-id-from-get-user\",\n  \"note\": \"Updated Authorization\"\n};\n\nclient.authorizations.update('{id}', obj)\n  .then((authorization) => {\n    console.log(authorization.id + ' has been updated!');\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\nauthorization = {\n  \"organization_id\"=>\"organization-id-from-get-user\",\n  \"note\"=>\"Updated Authorization\"\n};\n\nresponse = client.authorizations.update('{id}', authorization)\n\nputs response['id'] + ' has been updated!'",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+obj = {
+  "authorization": {
+    "organization_id": "organization-id-from-get-user",
+    "note": "Updated Authorization"
+  }
 }
-[/block]
+
+authorization = fulcrum.authorizations.update('{id}', obj)
+print(authorization['authorization']['id'] + ' has been updated!')
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+const obj = {
+  "organization_id": "organization-id-from-get-user",
+  "note": "Updated Authorization"
+};
+
+client.authorizations.update('{id}', obj)
+  .then((authorization) => {
+    console.log(authorization.id + ' has been updated!');
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+
+authorization = {
+  "organization_id"=>"organization-id-from-get-user",
+  "note"=>"Updated Authorization"
+};
+
+response = client.authorizations.update('{id}', authorization)
+
+puts response['id'] + ' has been updated!'
+```
