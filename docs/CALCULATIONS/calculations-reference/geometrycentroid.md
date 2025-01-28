@@ -19,7 +19,7 @@ Takes one or more features and calculates the centroid using the mean of all ver
 
 # Returns
 
-Feature <Point> - the centroid of the input features
+Feature `<Point>` - the centroid of the input features
 
 # Examples
 
