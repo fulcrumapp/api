@@ -14,24 +14,35 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nrecord = fulcrum.records.find('{id}')\n\nprint(record['record']) # entire record\n# print(record['record']['id']) # just the record id",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.records.find('{id}')\n  .then((record) => {\n    console.log(record); // entire record\n    // console.log(record.id); // just the record id\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\nrecord = client.records.find('{id}')\n\n# puts record # entire record definition\nputs record['id'] # just the record id",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+record = fulcrum.records.find('{id}')
+
+print(record['record']) # entire record
+# print(record['record']['id']) # just the record id
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.records.find('{id}')
+  .then((record) => {
+    console.log(record); // entire record
+    // console.log(record.id); // just the record id
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+record = client.records.find('{id}')
+
+# puts record # entire record definition
+puts record['id'] # just the record id
+```
