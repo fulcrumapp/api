@@ -14,9 +14,9 @@ Converts a provided date string in a known format to a date value.
 
 # Parameters
 
-`dateString` String (__required__) - a string containing a date
+`dateString` String (**required**) - a string containing a date
 
-`timeString` String (__optional__) - a string containing a time
+`timeString` String (**optional**) - a string containing a time
 
 # Returns
 
