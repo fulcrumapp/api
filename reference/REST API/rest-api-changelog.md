@@ -19,13 +19,15 @@ To support new product features, an [Attachments API](https://fulcrum.readme.io/
 # May 2021
 
 To support new product features, `attachment_ids` has been added to the `/api/v2/forms` response. It represents the Reference Files associated with the form(s) for which the request was made. It contains 2 attributes:
-- `attachment_id` - The id of the attached file
+
+* `attachment_id` - The id of the attached file
 
 # April 2021
 
 To support new product features, `current_organization` has been added to the `/api/v2/users` response. It represents the organization associated with the API Key with which the request was made. It contains 2 attributes:
-- `id` - The organization id
-- `name` - The organization name
+
+* `id` - The organization id
+* `name` - The organization name
 
 # February 2020
 
