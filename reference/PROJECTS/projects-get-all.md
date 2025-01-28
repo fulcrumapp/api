@@ -14,24 +14,41 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nprojects = fulcrum.projects.search()\n\nfor project in projects['projects']:\n  # print(project) # entire project\n  print(project['name']) # just the project name",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.projects.all()\n  .then((page) => {\n    page.objects.forEach(project => {\n      // console.log(project);  // entire project\n      console.log(project.name); //  just the project name\n    });\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\nprojects = client.projects.all()\n\nfor project in projects.objects do\n  # puts project # entire project definition\n  puts project['name'] # just the projects name\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+projects = fulcrum.projects.search()
+
+for project in projects['projects']:
+  # print(project) # entire project
+  print(project['name']) # just the project name
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.projects.all()
+  .then((page) => {
+    page.objects.forEach(project => {
+      // console.log(project);  // entire project
+      console.log(project.name); //  just the project name
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+
+projects = client.projects.all()
+
+for project in projects.objects do
+  # puts project # entire project definition
+  puts project['name'] # just the projects name
+end
+```
