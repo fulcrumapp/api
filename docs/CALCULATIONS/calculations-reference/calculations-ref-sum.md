@@ -14,7 +14,7 @@ Calculates the sum of a range of values.
 
 # Parameters
 
-`var_args_values` Number (__required__) - Values to add together.
+`var_args_values` Number (**required**) - Values to add together.
 
 # Returns
 
