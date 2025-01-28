@@ -14,7 +14,7 @@ Returns true if all of the provided arguments are logically true, and false if a
 
 # Parameters
 
-`var_args_expressions` * (__required__) - An expression or reference that represents some logical value, i.e. `true` or `false`, or an expression that can be converted to a logical value.
+`var_args_expressions` \* (**required**) - An expression or reference that represents some logical value, i.e. `true` or `false`, or an expression that can be converted to a logical value.
 
 # Returns
 
@@ -27,7 +27,6 @@ AND(1, 0, false)
 
 // returns false
 ```
-
 
 ```js
 AND(3 + 3 == 6, 10 + 2 == 12)
