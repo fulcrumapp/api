@@ -14,7 +14,7 @@ Converts any value to a number
 
 # Parameters
 
-`value` * (__required__) - a value to convert to a number
+`value` \* (**required**) - a value to convert to a number
 
 # Returns
 
