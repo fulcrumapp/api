@@ -14,21 +14,21 @@ The Layers API gives you access to the [map layers](http://help.fulcrumapp.com/m
 
 # Properties
 
-| Property     | Type   | Required | Readonly | Description                                                                      |
-| ------------ | ------ | -------- | -------- | -------------------------------------------------------------------------------- |
-| name         | string | yes      | no       | The name of the layer.                                                           |
-| type         | string | yes      | no       | The layer type (fulcrum, xyz, tilejson, geojson, mbtiles, wms, feature-service). |
-| source       | string | yes      | no       | The layer source.                                                                |
-| description  | string | no       | no       | Optional layer description.                                                      |
-| bounds       | array  | no       | yes      | The layer bounds.                                                                |
-| center       | number | no       | yes      | The layer center.                                                                |
-| maxzoom      | number | no       | yes      | The layer maximum zoom.                                                          |
-| minzoom      | number | no       | yes      | The layer minimum zoom.                                                          |
-| access_token | string | yes      | no       | The layer access token.                                                          |
-| id           | string | no       | yes      | The id of the layer.                                                             |
-| created_at   | string | no       | yes      | Timestamp when the layer was created.                                            |
-| updated_at   | string | no       | yes      | Timestamp when the layer was last updated.                                       |
-| file_size    | number | no       | yes      | The file size (for mbtiles).                                                     |
+| Property      | Type   | Required | Readonly | Description                                                                      |
+| ------------- | ------ | -------- | -------- | -------------------------------------------------------------------------------- |
+| name          | string | yes      | no       | The name of the layer.                                                           |
+| type          | string | yes      | no       | The layer type (fulcrum, xyz, tilejson, geojson, mbtiles, wms, feature-service). |
+| source        | string | yes      | no       | The layer source.                                                                |
+| description   | string | no       | no       | Optional layer description.                                                      |
+| bounds        | array  | no       | yes      | The layer bounds.                                                                |
+| center        | number | no       | yes      | The layer center.                                                                |
+| maxzoom       | number | no       | yes      | The layer maximum zoom.                                                          |
+| minzoom       | number | no       | yes      | The layer minimum zoom.                                                          |
+| access\_token | string | yes      | no       | The layer access token.                                                          |
+| id            | string | no       | yes      | The id of the layer.                                                             |
+| created\_at   | string | no       | yes      | Timestamp when the layer was created.                                            |
+| updated\_at   | string | no       | yes      | Timestamp when the layer was last updated.                                       |
+| file\_size    | number | no       | yes      | The file size (for mbtiles).                                                     |
 
 # Validations
 
@@ -58,8 +58,8 @@ Example validation response if `type` is not included:
 
 # Notes
 
-- The entire layer object is required when making an update. Omitting fields with existing data will result in data loss! The typical workflow for updating an existing layer is to fetch the layer object, modify it, and then submit the PUT request.
-- For more information on uploading MBTiles files, please see [AWS Interactions](https://docs.fulcrumapp.com/reference/aws-interactions)
+* The entire layer object is required when making an update. Omitting fields with existing data will result in data loss! The typical workflow for updating an existing layer is to fetch the layer object, modify it, and then submit the PUT request.
+* For more information on uploading MBTiles files, please see [AWS Interactions](https://docs.fulcrumapp.com/reference/aws-interactions)
 
 # Sample Response
 
