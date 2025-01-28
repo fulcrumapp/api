@@ -14,9 +14,9 @@ Checks whether a given choice is selected for a choice field or classification f
 
 # Parameters
 
-`value` * (__required__) - The choice field, classification field to check for a value being selected
+`value` \* (**required**) - The choice field, classification field to check for a value being selected
 
-`choice` String (__required__) - The choice value to check for
+`choice` String (**required**) - The choice value to check for
 
 # Returns
 
