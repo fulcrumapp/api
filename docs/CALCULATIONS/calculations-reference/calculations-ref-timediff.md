@@ -14,11 +14,11 @@ Returns the difference between 2 time fields
 
 # Parameters
 
-`startTimeField` String (__required__) - The time field containing the start time
+`startTimeField` String (**required**) - The time field containing the start time
 
-`endTimeField` String (__required__) - The time field containing the end time
+`endTimeField` String (**required**) - The time field containing the end time
 
-`format` String (optional)  [default = 'hours'] - The format of the output. Either `hours` (default) or `minutes`.
+`format` String (optional)  \[default = 'hours'] - The format of the output. Either `hours` (default) or `minutes`.
 
 # Returns
 
