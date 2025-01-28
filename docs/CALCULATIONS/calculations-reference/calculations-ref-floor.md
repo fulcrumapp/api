@@ -14,9 +14,9 @@ Rounds a number down to the nearest integer multiple of specified significance.
 
 # Parameters
 
-`value` Number (__required__) - Number to round down.
+`value` Number (**required**) - Number to round down.
 
-`significance` Number (__required__) - The number to whose multiples `value` will be rounded.
+`significance` Number (**required**) - The number to whose multiples `value` will be rounded.
 
 # Returns
 
@@ -29,7 +29,6 @@ FLOOR(126.25, 1)
 
 // returns 126
 ```
-
 
 ```js
 FLOOR(126.25, 10)
