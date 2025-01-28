@@ -3,7 +3,7 @@ title: Get All Records
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-records-json
+  operationId: records-get-all
 deprecated: false
 hidden: false
 metadata:
