@@ -14,7 +14,7 @@ Returns the label of a given field
 
 # Parameters
 
-`field` String (__required__) - the Data Name of the field
+`field` String (**required**) - the Data Name of the field
 
 # Returns
 
