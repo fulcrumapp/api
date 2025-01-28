@@ -20,8 +20,6 @@ Display a text field to get input from the user and a callback to respond to the
 
 `callback` function (**required**) - invoked when the message box is dismissed
 
-
-
 # `result` properties
 
 `input` String - the text value that was entered by the user
