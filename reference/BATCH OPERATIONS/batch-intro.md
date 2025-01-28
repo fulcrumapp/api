@@ -16,20 +16,20 @@ Use this endpoint to update or delete multiple records from an app in a single r
 
 # Properties
 
-| Property        | Type   | Required | Readonly | Description                                                        |
-| --------------- | ------ | -------- | -------- | ------------------------------------------------------------------ |
-| id              | string | no       | yes      | Id of the batch operation                                          |
-| status          | string | no       | yes      | The status of the batch. "pending \| running \| success \| failed" |
-| objects_total   | int    | no       | yes      | Amount of affected objects                                         |
-| objects_success | int    | no       | yes      | Amount of successful changes                                       |
-| created_at      | string | no       | yes      | Timestamp of batch creation                                        |
-| updated_at      | string | no       | yes      | Timestamp of last batch update                                     |
-| created_by      | string | no       | yes      | Name of the user who created the batch                             |
-| created_by_id   | string | no       | yes      | ID of the user who created the batch                               |
-| updated_by      | string | no       | yes      | Name of the user who created the batch                             |
-| updated_by_id   | string | no       | yes      | ID of the user who updated the batch                               |
-| started_at      | string | no       | yes      | Time that the batch started at                                     |
-| completed_at    | string | no       | yes      | Time that the batch completed at                                   |
+| Property         | Type   | Required | Readonly | Description                                                        |
+| ---------------- | ------ | -------- | -------- | ------------------------------------------------------------------ |
+| id               | string | no       | yes      | Id of the batch operation                                          |
+| status           | string | no       | yes      | The status of the batch. "pending \| running \| success \| failed" |
+| objects\_total   | int    | no       | yes      | Amount of affected objects                                         |
+| objects\_success | int    | no       | yes      | Amount of successful changes                                       |
+| created\_at      | string | no       | yes      | Timestamp of batch creation                                        |
+| updated\_at      | string | no       | yes      | Timestamp of last batch update                                     |
+| created\_by      | string | no       | yes      | Name of the user who created the batch                             |
+| created\_by\_id  | string | no       | yes      | ID of the user who created the batch                               |
+| updated\_by      | string | no       | yes      | Name of the user who created the batch                             |
+| updated\_by\_id  | string | no       | yes      | ID of the user who updated the batch                               |
+| started\_at      | string | no       | yes      | Time that the batch started at                                     |
+| completed\_at    | string | no       | yes      | Time that the batch completed at                                   |
 
 # Creating a batch
 
@@ -79,9 +79,9 @@ You can also create a batch but not immediately start it by setting the `start` 
 
 ## Notes
 
-- Once a batch change has started it CANNOT BE TERMINATED
-- Do not include multiple operations within the same batch. Only the first operation will run.
-- The maximum amount of records that can be deleted per batch request at this time is 10,000
+* Once a batch change has started it CANNOT BE TERMINATED
+* Do not include multiple operations within the same batch. Only the first operation will run.
+* The maximum amount of records that can be deleted per batch request at this time is 10,000
 
 # Sample Response
 
