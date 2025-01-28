@@ -18,9 +18,9 @@ The `SETINTERVAL` function can be used to repeatedly call a function at a specif
 
 # Parameters
 
-`function` function (__required__) - The function to execute at the interval
+`function` function (**required**) - The function to execute at the interval
 
-`interval` Number (__required__) - The number of milliseconds to delay between each call (e.g. 1000 is 1 second)
+`interval` Number (**required**) - The number of milliseconds to delay between each call (e.g. 1000 is 1 second)
 
 # Examples
 
