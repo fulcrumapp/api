@@ -22,18 +22,18 @@ The Query API endpoint can be used on it's own for simple GET requests in the br
 
 # Notes
 
-- The Query API is read-only and _cannot modify data_ in your account.
+* The Query API is read-only and *cannot modify data* in your account.
 
-- All requests to the Query API require an authentication token and an SQL query.
+* All requests to the Query API require an authentication token and an SQL query.
 
-- The Query API is subject to the same 5,000 calls an hour per user rate limits as the REST API. Additionally, queries cannot exceed 10 seconds of processing time to complete.
+* The Query API is subject to the same 5,000 calls an hour per user rate limits as the REST API. Additionally, queries cannot exceed 10 seconds of processing time to complete.
 
-- You can use the Query API in conjunction with the [Records API](/dev/rest/endpoints/records/) to make updates to specific records by fetching the IDs of the records you want to PUT/DELETE.
+* You can use the Query API in conjunction with the [Records API](/dev/rest/endpoints/records/) to make updates to specific records by fetching the IDs of the records you want to PUT/DELETE.
 
-- As of May 19th 2023 the Query API can be used to index all the same objects that the REST API can index except for authorizations, audit logs, layers, workflows and groups.
+* As of May 19th 2023 the Query API can be used to index all the same objects that the REST API can index except for authorizations, audit logs, layers, workflows and groups.
 
 > ❗️ Don't expose your API tokens!
-> 
+>
 > Be careful sharing queries that expose your API token. Even though the Query API is read-only, if a token with write privileges is used, your data could still be compromised. Consider creating a [custom role](http://help.fulcrumapp.com/user-management/how-can-i-create-custom-roles-with-specific-access-rights) with restricted permissions (uncheck all boxes for read-only).
 
 # Sample Response
@@ -41,7 +41,7 @@ The Query API endpoint can be used on it's own for simple GET requests in the br
 Unlike the REST API, which always returns JSON, the Query API can return data in a variety of standard formats, including CSV, JSON, GeoJSON, and even PostgreSQL.
 
 > 📘 Don't forget your geometries!
-> 
+>
 > Note that the GeoJSON and Postgres formats require the `_geometry` column in the query for spatial support.
 
 ```text CSV
@@ -218,45 +218,106 @@ SELECT
 
 The basic `SELECT * FROM tables;` query will return all of the tables available for use and is a good place to start when exploring the capabilities of the Query API.
 
-[block:parameters]
-{
-  "data": {
-    "h-0": "Type",
-    "h-1": "Description",
-    "0-0": "form",
-    "0-1": "These tables contain the records for each form. These are the primary tables used in the Query API and contain all the main record data.",
-    "1-0": "repeatable",
-    "1-1": "These tables contain child records. Child tables have some additional columns, `_child_record_id` and \\_parent_id that can be used to link child records to the parent records. Note that because Fulcrum supports nested child records, it's possible that child records have their own child records. Using `_child_record_id`, `_parent_id` and \\_record_id it's possible to construct queries that can link records together going down or up repeatable levels.",
-    "2-0": "link",
-    "2-1": "These tables help you join linked records. They are join tables for connecting linked apps. For each Record Link field, there will be a join table that contains a row for each link between records. You can think of this table as representing the \"arrows\" between related records when using Record Link fields. There will be a row for each \"arrow\" and `source_record_id` is the start of the arrow and `linked_record_id` is the arrowhead.",
-    "3-0": "media",
-    "3-1": "These tables help you join media with records. Each photo, video, and audio field will have its own associated table that can be used to connect the record data with the `photos`, `audio` and `videos` system tables. Each media field also has an array column on the record table containing the ID's, but these `media` tables let you use more conventional SQL joins to connect the data rather than more complex array operations to link multiple photos in a single photo to the `photos` table.",
-    "4-0": "system",
-    "4-1": "These tables contain metadata and configuration information that supports the overall functionality of the Fulcrum platform. They are not directly related to record-level data collected in forms but instead provide the supporting framework for managing the organization, users, and application settings. They are crucial for integrating Fulcrum with external systems, enabling advanced analytics, and maintaining operational consistency across the platform.  \n  \nBelow is a detailed description of each system table and its specific purpose:  \n  \n1. Audio: Stores metadata about audio files uploaded to records.\n2. Changesets: Tracks batches of changes made to records, including metadata and statistics about the changes.\n3. Choice Lists: Defines lists of choices for dropdown or multi-select fields in forms.\n4. Classification Sets: Contains grouped classification options used in forms.\n5. Forms: Stores metadata about forms, including configurations and status.\n6. Memberships: Details user memberships within the organization, including roles and statuses.\n7. Photos: Tracks photos uploaded to records, including metadata and geolocation.\n8. Projects: Represents projects to organize records.\n9. Roles: Defines roles and permissions for users in the organization.\n10. Signatures: Stores signature images uploaded to records.\n11. Videos: Manages video files uploaded to records, including their metadata.\n12. Record Links: Tracks links between related records in different forms.\n13. Record Series: Configures recurring record creation with assigned users and projects.\n14. Devices: Tracks information about devices used to collect data.\n15. Memberships Devices: Maps users to devices they have used.\n16. Memberships Forms: Maps users to forms they have access to.\n17. Memberships Projects: Maps users to projects they are assigned to.\n18. Memberships Layers: Maps users to layers they have access to."
-  },
-  "cols": 2,
-  "rows": 5,
-  "align": [
-    null,
-    null
-  ]
-}
-[/block]
+<Table>
+  <thead>
+    <tr>
+      <th>
+        Type
+      </th>
 
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
 
-_Note_: If a query returns `{"error":"relation \"organization_1234.form_123456_undefined_view\" does not exist"}` this is an error that can happen with longer form names. Postgres has a table name limitation of [63 characters](https://www.postgresql.org/docs/current/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS), so with queries containing form/repeatable names > 63 characters, you might see this and will either need to shorten the names or use the form ID _(see below)_.
+  <tbody>
+    <tr>
+      <td>
+        form
+      </td>
+
+      <td>
+        These tables contain the records for each form. These are the primary tables used in the Query API and contain all the main record data.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        repeatable
+      </td>
+
+      <td>
+        These tables contain child records. Child tables have some additional columns, `_child_record_id` and \_parent\_id that can be used to link child records to the parent records. Note that because Fulcrum supports nested child records, it's possible that child records have their own child records. Using `_child_record_id`, `_parent_id` and \_record\_id it's possible to construct queries that can link records together going down or up repeatable levels.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        link
+      </td>
+
+      <td>
+        These tables help you join linked records. They are join tables for connecting linked apps. For each Record Link field, there will be a join table that contains a row for each link between records. You can think of this table as representing the "arrows" between related records when using Record Link fields. There will be a row for each "arrow" and `source_record_id` is the start of the arrow and `linked_record_id` is the arrowhead.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        media
+      </td>
+
+      <td>
+        These tables help you join media with records. Each photo, video, and audio field will have its own associated table that can be used to connect the record data with the `photos`, `audio` and `videos` system tables. Each media field also has an array column on the record table containing the ID's, but these `media` tables let you use more conventional SQL joins to connect the data rather than more complex array operations to link multiple photos in a single photo to the `photos` table.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        system
+      </td>
+
+      <td>
+        These tables contain metadata and configuration information that supports the overall functionality of the Fulcrum platform. They are not directly related to record-level data collected in forms but instead provide the supporting framework for managing the organization, users, and application settings. They are crucial for integrating Fulcrum with external systems, enabling advanced analytics, and maintaining operational consistency across the platform.  
+
+        Below is a detailed description of each system table and its specific purpose:  
+
+        1. Audio: Stores metadata about audio files uploaded to records.
+        2. Changesets: Tracks batches of changes made to records, including metadata and statistics about the changes.
+        3. Choice Lists: Defines lists of choices for dropdown or multi-select fields in forms.
+        4. Classification Sets: Contains grouped classification options used in forms.
+        5. Forms: Stores metadata about forms, including configurations and status.
+        6. Memberships: Details user memberships within the organization, including roles and statuses.
+        7. Photos: Tracks photos uploaded to records, including metadata and geolocation.
+        8. Projects: Represents projects to organize records.
+        9. Roles: Defines roles and permissions for users in the organization.
+        10. Signatures: Stores signature images uploaded to records.
+        11. Videos: Manages video files uploaded to records, including their metadata.
+        12. Record Links: Tracks links between related records in different forms.
+        13. Record Series: Configures recurring record creation with assigned users and projects.
+        14. Devices: Tracks information about devices used to collect data.
+        15. Memberships Devices: Maps users to devices they have used.
+        16. Memberships Forms: Maps users to forms they have access to.
+        17. Memberships Projects: Maps users to projects they are assigned to.
+        18. Memberships Layers: Maps users to layers they have access to.
+      </td>
+    </tr>
+  </tbody>
+</Table>
+
+*Note*: If a query returns `{"error":"relation \"organization_1234.form_123456_undefined_view\" does not exist"}` this is an error that can happen with longer form names. Postgres has a table name limitation of [63 characters](https://www.postgresql.org/docs/current/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS), so with queries containing form/repeatable names > 63 characters, you might see this and will either need to shorten the names or use the form ID *(see below)*.
 
 # Form Tables
 
 Fulcrum form tables hold the records for each form in your account.
 
-- You can query a form by its name (`SELECT * FROM "Park Inventory";`) or its ID (`SELECT * FROM "19da1bbc-43e4-49b3-b70f-a63ec680268e";`).
+* You can query a form by its name (`SELECT * FROM "Park Inventory";`) or its ID (`SELECT * FROM "19da1bbc-43e4-49b3-b70f-a63ec680268e";`).
 
-- Repeatable records can be accessed with the following table name pattern: `"Table Name/repeatable_column"`.
+* Repeatable records can be accessed with the following table name pattern: `"Table Name/repeatable_column"`.
 
-- Record links can be accessed with the following table name pattern: `"Table Name/record_link_column"`.
+* Record links can be accessed with the following table name pattern: `"Table Name/record_link_column"`.
 
-- Media records (photos, video, audio, signatures) can be accessed with the following table name pattern: `"Table Name/media_column"`.
+* Media records (photos, video, audio, signatures) can be accessed with the following table name pattern: `"Table Name/media_column"`.
 
 ## System Columns
 
@@ -288,8 +349,8 @@ Every Fulcrum form contains standard system columns, in addition to your custom 
 
 # SQL Reference Material
 
-- [SQL Tutorial](http://sqlzoo.net/)
-- [A Primer on SQL](https://leanpub.com/aprimeronsql/read)
-- [Learn SQL the Hard Way](https://learncodethehardway.org/sql/)
-- [A beginners guide to thinking in SQL](http://www.sohamkamani.com/blog/2016/07/07/a-beginners-guide-to-sql/)
-- [PostgreSQL JSON Functions and Operators](https://www.postgresql.org/docs/current/static/functions-json.html)
+* [SQL Tutorial](http://sqlzoo.net/)
+* [A Primer on SQL](https://leanpub.com/aprimeronsql/read)
+* [Learn SQL the Hard Way](https://learncodethehardway.org/sql/)
+* [A beginners guide to thinking in SQL](http://www.sohamkamani.com/blog/2016/07/07/a-beginners-guide-to-sql/)
+* [PostgreSQL JSON Functions and Operators](https://www.postgresql.org/docs/current/static/functions-json.html)
