@@ -14,7 +14,7 @@ Returns the string representation of a value. This function is useful for troubl
 
 # Parameters
 
-`value` Number (__required__) - The value to inspect
+`value` Number (**required**) - The value to inspect
 
 # Returns
 
