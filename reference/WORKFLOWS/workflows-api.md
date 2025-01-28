@@ -16,34 +16,34 @@ This page is still under construction! More information on the step types is in 
 
 # Properties
 
-| Property             | Type           | Required | Readonly | Description                                                                                                                                                                                |
-| -------------------- | -------------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| id                   | string         | no       | yes      | The workflow ID                                                                                                                                                                            |
-| created_at           | string         | no       | yes      | Timestamp of the workflow creation.                                                                                                                                                        |
-| updated_at           | string         | no       | yes      | Timestamp of the last update to the workflow.                                                                                                                                              |
-| created_by           | string         | no       | yes      | The name of user who created the workflow.                                                                                                                                                 |
-| created_by_id        | string         | no       | yes      | The id of user who created the workflow.                                                                                                                                                   |
-| updated_by           | string         | no       | yes      | The name of user who last updated the record.                                                                                                                                              |
-| updated_by_id        | string         | no       | yes      | The id of user who last updated the record.                                                                                                                                                |
-| name                 | string         | yes      | no       | The name of the workflow                                                                                                                                                                   |
-| description          | string         | no       | no       | The description of the workflow                                                                                                                                                            |
-| object_type          | string         | yes      | yes      | In almost all cases, will be `form`                                                                                                                                                        |
-| object_resource_id   | string         | yes      | no       | The ID of the form associated with the workflow                                                                                                                                            |
-| active               | boolean        | yes      | no       | Whether or not the workflow is currently processing events (`true` in this case means the workflow is active)                                                                              |
-| run_for_bulk_actions | boolean        | no       | no       | Default: true. If true, this workflow will execute once per each action made during a bulk action. If false, this workflow will not be triggered by any bulk actions made to your records. |
-| steps                | array of steps | yes      | no       | The steps that make up the workflow                                                                                                                                                        |
-| event_type           | string         | yes      | no       | One of  'record_created', 'record_deleted', 'record_updated', or 'record_created_or_updated'                                                                                               |
+| Property                | Type           | Required | Readonly | Description                                                                                                                                                                                |
+| ----------------------- | -------------- | -------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| id                      | string         | no       | yes      | The workflow ID                                                                                                                                                                            |
+| created\_at             | string         | no       | yes      | Timestamp of the workflow creation.                                                                                                                                                        |
+| updated\_at             | string         | no       | yes      | Timestamp of the last update to the workflow.                                                                                                                                              |
+| created\_by             | string         | no       | yes      | The name of user who created the workflow.                                                                                                                                                 |
+| created\_by\_id         | string         | no       | yes      | The id of user who created the workflow.                                                                                                                                                   |
+| updated\_by             | string         | no       | yes      | The name of user who last updated the record.                                                                                                                                              |
+| updated\_by\_id         | string         | no       | yes      | The id of user who last updated the record.                                                                                                                                                |
+| name                    | string         | yes      | no       | The name of the workflow                                                                                                                                                                   |
+| description             | string         | no       | no       | The description of the workflow                                                                                                                                                            |
+| object\_type            | string         | yes      | yes      | In almost all cases, will be `form`                                                                                                                                                        |
+| object\_resource\_id    | string         | yes      | no       | The ID of the form associated with the workflow                                                                                                                                            |
+| active                  | boolean        | yes      | no       | Whether or not the workflow is currently processing events (`true` in this case means the workflow is active)                                                                              |
+| run\_for\_bulk\_actions | boolean        | no       | no       | Default: true. If true, this workflow will execute once per each action made during a bulk action. If false, this workflow will not be triggered by any bulk actions made to your records. |
+| steps                   | array of steps | yes      | no       | The steps that make up the workflow                                                                                                                                                        |
+| event\_type             | string         | yes      | no       | One of  'record\_created', 'record\_deleted', 'record\_updated', or 'record\_created\_or\_updated'                                                                                         |
 
 # Workflow Steps
 
-| Property   | Type               | Required | Readonly | Description                                                                    |
-| ---------- | ------------------ | -------- | -------- | ------------------------------------------------------------------------------ |
-| id         | string             | no       | yes      | The step ID                                                                    |
-| name       | string             | no       | no       | The name of the step                                                           |
-| step_type  | string             | yes      | no       | One of 'filter', 'email', 'sms', 'webhook', 'assign_record', or 'create_issue' |
-| arguments  | object             | no       | no       | The arguments of the workflow step                                             |
-| next_steps | array of step ID's | no       | no       | The ID of the step that should succeed this step                               |
-| initial    | boolean            | yes      | no       | `true` means that this is the first step in the workflow                       |
+| Property    | Type               | Required | Readonly | Description                                                                      |
+| ----------- | ------------------ | -------- | -------- | -------------------------------------------------------------------------------- |
+| id          | string             | no       | yes      | The step ID                                                                      |
+| name        | string             | no       | no       | The name of the step                                                             |
+| step\_type  | string             | yes      | no       | One of 'filter', 'email', 'sms', 'webhook', 'assign\_record', or 'create\_issue' |
+| arguments   | object             | no       | no       | The arguments of the workflow step                                               |
+| next\_steps | array of step ID's | no       | no       | The ID of the step that should succeed this step                                 |
+| initial     | boolean            | yes      | no       | `true` means that this is the first step in the workflow                         |
 
 # Step Types
 
@@ -51,13 +51,13 @@ There are 5 different types of steps that can be defined in the `step_type` para
 
 ## The `email` type
 
-| Property   | Type             | Required | Readonly | Description                                                                                |
-| ---------- | ---------------- | -------- | -------- | ------------------------------------------------------------------------------------------ |
-| to         | string           | yes      | no       | Comma-separated string of the emails that the workflow should send an email to             |
-| subject    | string           | yes      | no       | Subject of the email                                                                       |
-| html_body  | string           | yes      | no       | The body of the email in HTML format. In most cases, will be the same value as `text_body` |
-| text_body  | string           | yes      | no       | The body of the email in text format                                                       |
-| report_ids | array of strings | no       | no       | Array that includes the ID of the desired report                                           |
+| Property    | Type             | Required | Readonly | Description                                                                                |
+| ----------- | ---------------- | -------- | -------- | ------------------------------------------------------------------------------------------ |
+| to          | string           | yes      | no       | Comma-separated string of the emails that the workflow should send an email to             |
+| subject     | string           | yes      | no       | Subject of the email                                                                       |
+| html\_body  | string           | yes      | no       | The body of the email in HTML format. In most cases, will be the same value as `text_body` |
+| text\_body  | string           | yes      | no       | The body of the email in text format                                                       |
+| report\_ids | array of strings | no       | no       | Array that includes the ID of the desired report                                           |
 
 email type arguments: 
 
