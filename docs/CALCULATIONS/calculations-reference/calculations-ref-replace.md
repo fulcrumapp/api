@@ -14,13 +14,13 @@ Replaces a piece of a text string with a different string.
 
 # Parameters
 
-`text` String (__required__) - A piece of text to be searched.
+`text` String (**required**) - A piece of text to be searched.
 
-`start_position` Number (__required__) - Position within the string to begin the search.
+`start_position` Number (**required**) - Position within the string to begin the search.
 
-`num_characters` Number (__required__) - Number of characters in original string to be replaced.
+`num_characters` Number (**required**) - Number of characters in original string to be replaced.
 
-`replacement` String (__required__) - String to replace `num_characters` with.
+`replacement` String (**required**) - String to replace `num_characters` with.
 
 # Returns
 
