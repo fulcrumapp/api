@@ -14,24 +14,40 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nforms = fulcrum.forms.search()\n\nfor form in forms['forms']:\n  # print(form) # entire form definition\n  print(form['name']) # just the form name",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.forms.all({schema: false})\n  .then((page) => {\n    page.objects.forEach(form => {\n      // console.log(form); // entire form definition\n      console.log(form.name); // just the form name\n    });\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\nforms = client.forms.all()\n\nfor form in forms.objects do\n  # puts form # entire form definition\n  puts form['name'] # just the form name\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+forms = fulcrum.forms.search()
+
+for form in forms['forms']:
+  # print(form) # entire form definition
+  print(form['name']) # just the form name
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.forms.all({schema: false})
+  .then((page) => {
+    page.objects.forEach(form => {
+      // console.log(form); // entire form definition
+      console.log(form.name); // just the form name
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+forms = client.forms.all()
+
+for form in forms.objects do
+  # puts form # entire form definition
+  puts form['name'] # just the form name
+end
+```
