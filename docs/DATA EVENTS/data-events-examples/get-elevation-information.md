@@ -16,7 +16,7 @@ metadata:
 next:
   description: ''
 ---
-``` js
+```js
 function getElevation() {
   var options = {
     url: 'https://open.mapquestapi.com/elevation/v1/profile',
