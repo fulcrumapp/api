@@ -14,7 +14,7 @@ Tests whether a value is non-textual.
 
 # Parameters
 
-`value` String (__required__) - The value to test as non-text.
+`value` String (**required**) - The value to test as non-text.
 
 # Returns
 
