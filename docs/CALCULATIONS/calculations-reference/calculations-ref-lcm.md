@@ -14,7 +14,7 @@ Returns the least common multiple of one or more integers.
 
 # Parameters
 
-`var_args_values` Number (__required__) - Value(s) to consider to calculate the least common multiple.
+`var_args_values` Number (**required**) - Value(s) to consider to calculate the least common multiple.
 
 # Returns
 
