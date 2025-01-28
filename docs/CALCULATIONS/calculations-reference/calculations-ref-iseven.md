@@ -14,7 +14,7 @@ Checks whether the provided value is an even number.
 
 # Parameters
 
-`value` Number (__required__) - The value to be verified as even.
+`value` Number (**required**) - The value to be verified as even.
 
 # Returns
 
