@@ -2,3 +2,4 @@
 - webhooks-get-all
 - webhooks-get-single
 - webhooks-create
+- webhooks-update
