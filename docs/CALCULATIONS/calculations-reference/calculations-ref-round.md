@@ -14,9 +14,9 @@ Rounds a number to a specified number of decimal places according to standard ro
 
 # Parameters
 
-`value` Number (__required__) - The value to be rounded to `places`.
+`value` Number (**required**) - The value to be rounded to `places`.
 
-`places` Number (__required__) - The number of decimal places to which to round `value`.
+`places` Number (**required**) - The number of decimal places to which to round `value`.
 
 # Returns
 
