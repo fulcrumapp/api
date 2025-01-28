@@ -61,3 +61,4 @@
 - validate-yesno-in-repeatable-and-set-status
 - verify-special-choice-option
 - working-with-inline-geojson
+- set-fields-to-hidden-based-on-user-role
