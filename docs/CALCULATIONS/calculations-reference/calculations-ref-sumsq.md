@@ -14,7 +14,7 @@ Calculates the sum of the squares of a range of values.
 
 # Parameters
 
-`var_args_values` Number (__required__) - Values to square and sum.
+`var_args_values` Number (**required**) - Values to square and sum.
 
 # Returns
 
