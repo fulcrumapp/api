@@ -14,11 +14,11 @@ Pads a string on the left side
 
 # Parameters
 
-`value` String (__required__) - The string to pad
+`value` String (**required**) - The string to pad
 
-`count` Number (__required__) - The number of characters to pad
+`count` Number (**required**) - The number of characters to pad
 
-`character` String (optional)  [default = ' '] - The character to use for padding
+`character` String (optional)  \[default = ' '] - The character to use for padding
 
 # Returns
 
