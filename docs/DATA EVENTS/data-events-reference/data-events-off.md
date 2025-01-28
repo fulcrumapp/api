@@ -14,9 +14,9 @@ Detaches an event handler set by `ON`.
 
 # Parameters
 
-`event` string (__required__) - The event name
+`event` string (**required**) - The event name
 
-`callback` function (__required__) - The function to detach
+`callback` function (**required**) - The function to detach
 
 # Examples
 
