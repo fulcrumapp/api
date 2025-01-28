@@ -18,7 +18,7 @@ The CLEARTIMEOUT function clears a timeout that was previously started with [SET
 
 # Parameters
 
-`timerID` Number (__required__) - The timer ID to clear
+`timerID` Number (**required**) - The timer ID to clear
 
 # Examples
 
