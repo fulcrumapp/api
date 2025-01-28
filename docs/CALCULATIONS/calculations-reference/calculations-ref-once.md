@@ -14,7 +14,7 @@ Returns a value once, given the current value. This is useful to perform a calcu
 
 # Parameters
 
-`value` Number (__required__) - argument
+`value` Number (**required**) - argument
 
 # Returns
 
