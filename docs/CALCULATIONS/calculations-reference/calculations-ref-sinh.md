@@ -14,7 +14,7 @@ Returns the hyperbolic sine of a number
 
 # Parameters
 
-`value` Number (__required__) - The value for which to calculate the hyperbolic sine.
+`value` Number (**required**) - The value for which to calculate the hyperbolic sine.
 
 # Returns
 
