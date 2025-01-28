@@ -16,15 +16,15 @@ For more general information about webhooks, or details of responsibilities your
 
 # Properties
 
-| Property             | Type    | Required | Readonly | Description                                                                                                                                                                              |
-| -------------------- | ------- | -------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| name                 | string  | yes      | no       | The name of the webhook.                                                                                                                                                                 |
-| url                  | string  | yes      | no       | The HTTP URL that will receive event requests as they occur.                                                                                                                             |
-| active               | boolean | no       | no       | Default: true. If true, this webhook will receive event requests. If false, this webhook will not receive event requests.                                                                |
-| run_for_bulk_actions | boolean | no       | no       | Default: true. If true, this webhook will execute once per each action made during a bulk action. If false, this webhook will not be triggered by any bulk actions made to your records. |
-| id                   | string  | no       | yes      | The id of the webhook.                                                                                                                                                                   |
-| created_at           | string  | no       | yes      | Timestamp when the webhook was created.                                                                                                                                                  |
-| updated_at           | string  | no       | yes      | Timestamp when the webhook was last updated.                                                                                                                                             |
+| Property                | Type    | Required | Readonly | Description                                                                                                                                                                              |
+| ----------------------- | ------- | -------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| name                    | string  | yes      | no       | The name of the webhook.                                                                                                                                                                 |
+| url                     | string  | yes      | no       | The HTTP URL that will receive event requests as they occur.                                                                                                                             |
+| active                  | boolean | no       | no       | Default: true. If true, this webhook will receive event requests. If false, this webhook will not receive event requests.                                                                |
+| run\_for\_bulk\_actions | boolean | no       | no       | Default: true. If true, this webhook will execute once per each action made during a bulk action. If false, this webhook will not be triggered by any bulk actions made to your records. |
+| id                      | string  | no       | yes      | The id of the webhook.                                                                                                                                                                   |
+| created\_at             | string  | no       | yes      | Timestamp when the webhook was created.                                                                                                                                                  |
+| updated\_at             | string  | no       | yes      | Timestamp when the webhook was last updated.                                                                                                                                             |
 
 # Validations
 
@@ -51,7 +51,7 @@ Example validation response if `url` is not included:
 
 # Notes
 
-- Your plan must include the [Developer Pack](https://www.fulcrumapp.com/plans/#fulcrum-developer-pack) and the member must have a role with permissions to `Change Organization Profile` to manage webhooks.
+* Your plan must include the [Developer Pack](https://www.fulcrumapp.com/plans/#fulcrum-developer-pack) and the member must have a role with permissions to `Change Organization Profile` to manage webhooks.
 
 # Sample Response
 
