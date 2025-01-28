@@ -14,7 +14,7 @@ Returns the numeric Unicode map value of the first character in the string provi
 
 # Parameters
 
-`text` String (__required__) - The string whose first character's Unicode map value will be returned.
+`text` String (**required**) - The string whose first character's Unicode map value will be returned.
 
 # Returns
 
