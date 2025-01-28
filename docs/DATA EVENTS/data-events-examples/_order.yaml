@@ -18,3 +18,4 @@
 - conditionally-persist-values-across-records
 - >-
   create-a-summary-field-of-comments-entered-when-record-is-edited-multiple-times
+- create-buffer-from-point
