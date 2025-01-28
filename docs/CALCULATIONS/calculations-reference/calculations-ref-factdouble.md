@@ -14,7 +14,7 @@ Returns the double factorial of a number.
 
 # Parameters
 
-`value` Number (__required__) - The value for which to calculate the double factorial.
+`value` Number (**required**) - The value for which to calculate the double factorial.
 
 # Returns
 
