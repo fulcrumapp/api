@@ -43,10 +43,9 @@ INSPECT(GEOMETRYALONG(lineString, 5))
 // {
 //   type: 'Feature',
 //   properties: {},
-//     geometry: {
-//       type: 'Point',
-//       coordinates: [ -82.47576689405734, 27.977757676187323 ]
-//     }
+//   geometry: {
+//     type: 'Point',
+//     coordinates: [ -82.47576689405734, 27.977757676187323 ]
 //   }
 // }
 ```
