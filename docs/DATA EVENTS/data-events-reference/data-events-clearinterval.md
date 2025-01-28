@@ -18,7 +18,7 @@ The CLEARINTERVAL function clears an interval that was previously started with [
 
 # Parameters
 
-`intervalID` Number (__required__) - The interval ID to clear
+`intervalID` Number (**required**) - The interval ID to clear
 
 # Examples
 
