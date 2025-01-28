@@ -43,3 +43,4 @@
 - prevent-editing-an-old-record
 - prevent-users-from-uploading-photos-from-the-device-gallery
 - query-a-geoserver-instance
+- query-esri-rest-services
