@@ -67,3 +67,4 @@
 - geometryintersects
 - geometrylength
 - geometrylinestring
+- geometrynearestpoint
