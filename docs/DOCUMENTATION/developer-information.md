@@ -14,9 +14,9 @@ While Fulcrum is designed to be user-friendly, it's also developer-friendly and 
 
 # What can you build on the platform?
 
-- Use the [REST API](https://docs.fulcrumapp.com/reference#rest-api-intro) to programmatically create or update records, forms and other objects.
-- Use the [Query API](https://docs.fulcrumapp.com/reference#query-intro) to fetch data for reporting, analytics, or mapping applications.
-- Register a [Webhook](https://docs.fulcrumapp.com/docs/webhooks) to receive real-time event notifications or integrate with other services via [Zapier](https://help.fulcrumapp.com/en/articles/4028786-automated-integrations-with-zapier).
+* Use the [REST API](https://docs.fulcrumapp.com/reference#rest-api-intro) to programmatically create or update records, forms and other objects.
+* Use the [Query API](https://docs.fulcrumapp.com/reference#query-intro) to fetch data for reporting, analytics, or mapping applications.
+* Register a [Webhook](https://docs.fulcrumapp.com/docs/webhooks) to receive real-time event notifications or integrate with other services via [Zapier](https://help.fulcrumapp.com/en/articles/4028786-automated-integrations-with-zapier).
 
 # Develop Custom Applications
 
@@ -40,6 +40,6 @@ Data within your Fulcrum account is always available to you, to export in a vari
 
 There are several open source libraries available for working with the Fulcrum API in your language of choice.
 
-- [Fulcrum JavaScript](https://github.com/fulcrumapp/fulcrum-js)
-- [Fulcrum Python](https://github.com/fulcrumapp/fulcrum-python)
-- [Fulcrum Ruby](https://github.com/fulcrumapp/fulcrum-ruby)
+* [Fulcrum JavaScript](https://github.com/fulcrumapp/fulcrum-js)
+* [Fulcrum Python](https://github.com/fulcrumapp/fulcrum-python)
+* [Fulcrum Ruby](https://github.com/fulcrumapp/fulcrum-ruby)
