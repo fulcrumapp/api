@@ -14,7 +14,7 @@ Set the project of a record.
 
 # Parameters
 
-`project` String (__required__) - The project name, or `null` to clear the project
+`project` String (**required**) - The project name, or `null` to clear the project
 
 # Examples
 
