@@ -3,7 +3,7 @@ title: Get Single Record
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-records-record-id-json
+  operationId: records-get-single
 deprecated: false
 hidden: false
 metadata:
