@@ -14,13 +14,13 @@ Formats a number into a locale-specific currency format. This function is useful
 
 # Parameters
 
-`value` Number (__required__) - a dollar amount
+`value` Number (**required**) - a dollar amount
 
-`decimals` Number (optional)  [default = 2] - the number of decimal places (default is 2)
+`decimals` Number (optional)  \[default = 2] - the number of decimal places (default is 2)
 
-`currency` String (optional)  [default = locale default] - the currency code to display (e.g. USD, EUR, or AUD)
+`currency` String (optional)  \[default = locale default] - the currency code to display (e.g. USD, EUR, or AUD)
 
-`language` String (optional)  [default = locale default] - the language locale used to format the currency. (e.g. en-US, pt-BR, or en-GB)
+`language` String (optional)  \[default = locale default] - the language locale used to format the currency. (e.g. en-US, pt-BR, or en-GB)
 
 # Returns
 
@@ -34,14 +34,12 @@ DOLLAR(1234.567)
 // returns "$1,234.57"
 ```
 
-
 ```js
 // USD formatted in French
 DOLLAR(1234.567, 2, 'USD', 'fr-FR')
 
 // returns "1 234,57 $US"
 ```
-
 
 ```js
 // Euro formatted in Portuguese
