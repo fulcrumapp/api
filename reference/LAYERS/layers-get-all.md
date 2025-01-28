@@ -14,24 +14,32 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nlayers = fulcrum.layers.search()\n\nfor layer in layers['layers']:\n  # print(layer)\n  print(layer['name'])",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.layers.all()\n  .then((page) => {\n    page.objects.forEach(layer => {\n      // console.log(layer);\n      console.log(layer.name);\n    });\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "# Not currently supported",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+layers = fulcrum.layers.search()
+
+for layer in layers['layers']:
+  # print(layer)
+  print(layer['name'])
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.layers.all()
+  .then((page) => {
+    page.objects.forEach(layer => {
+      // console.log(layer);
+      console.log(layer.name);
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+# Not currently supported
+```
