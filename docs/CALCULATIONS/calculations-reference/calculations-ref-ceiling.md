@@ -12,9 +12,9 @@ next:
 ---
 # Parameters
 
-`value` Number (__required__) - The value to round up to the nearest integer multiple of factor.
+`value` Number (**required**) - The value to round up to the nearest integer multiple of factor.
 
-`factor` Number (optional)  [default = 1] - The number to whose multiples value will be rounded.
+`factor` Number (optional)  \[default = 1] - The number to whose multiples value will be rounded.
 
 # Returns
 
@@ -27,7 +27,6 @@ CEILING(139.85, 0.1)
 
 // returns 139.9
 ```
-
 
 ```js
 CEILING(139.001)
