@@ -14,7 +14,7 @@ Returns the data names of the form fields
 
 # Parameters
 
-`type` String (optional)  [default = any] - Optional field type.
+`type` String (optional)  \[default = any] - Optional field type.
 
 If you include a [field type](https://docs.fulcrumapp.com/reference/forms-intro#form-element-properties-all-field-types) then you will only get back the data names of fields matching this type.
 
