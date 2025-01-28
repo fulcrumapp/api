@@ -468,23 +468,9 @@ Leave Blank
 
 Here is an example of what the form's PDF will resemble.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/98046c5-App_Builder_-_Fulcrum_Team_Fulcrum_2024-03-06_at_12.51.28_PM.jpg",
-        "",
-        "Simple App Schema"
-      ],
-      "align": "center",
-      "border": true,
-      "caption": "Simple App Schema"
-    }
-  ]
-}
-[/block]
-
+<Image alt="Simple App Schema" align="center" border={true} src="https://files.readme.io/98046c5-App_Builder_-_Fulcrum_Team_Fulcrum_2024-03-06_at_12.51.28_PM.jpg">
+  Simple App Schema
+</Image>
 
 # Print the Form Schema (Detailed)
 
@@ -996,19 +982,6 @@ function formatValue(element, value, { defaultFormatter }) {
 
 Here is an example of what the form's PDF will look like.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/f6eb3c6-image.png",
-        null,
-        null
-      ],
-      "align": "center",
-      "sizing": "600px",
-      "caption": "Detailed App Schema"
-    }
-  ]
-}
-[/block]
+<Image alt="Detailed App Schema" align="center" width="600px" src="https://files.readme.io/f6eb3c6-image.png">
+  Detailed App Schema
+</Image>
