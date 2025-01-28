@@ -13,13 +13,10 @@ metadata:
 next:
   description: ''
 ---
-[block:callout]
-{
-  "type": "info",
-  "body": "Photo elements have two properties. They look like this: ```json {\"photo_id: \"\", \"caption\": \"Test caption\"}```.",
-  "title": "Note"
-}
-[/block]
+> 📘 Note
+>
+> Photo elements have two properties. They look like this: `json {"photo_id: "", "caption": "Test caption"}`.
+
 ```js
 var photo;
 
