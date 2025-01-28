@@ -10,3 +10,5 @@
 - capture-timestamp
 - capturing-vector-coordinates
 - change-a-records-status
+- >-
+  check-fields-in-sections-for-values-and-either-add-a-checkmark-or-a-x-to-the-section-label
