@@ -4,3 +4,4 @@
 - get-group-resource
 - create-group
 - update-group-permissions
+- update-group-name-description
