@@ -14,9 +14,9 @@ Set the description of a field.
 
 # Parameters
 
-`field` String (__required__) - The data name for the field
+`field` String (**required**) - The data name for the field
 
-`value` String (__required__) - The value to set for the field's description, or `null` to restore the original description
+`value` String (**required**) - The value to set for the field's description, or `null` to restore the original description
 
 # Examples
 
