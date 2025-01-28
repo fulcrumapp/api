@@ -34,34 +34,9 @@ You must select a format for displaying the expression result.
 You can enable verbose error reporting in the app when building or troubleshooting complex expressions by setting `SHOWERRORS(true)`. Another useful way to interactively test expressions is to use the `eval()` function in combination with a text field and `INSPECT()`. This allows you to type in your code and immediately inspect how it is being evaluated.
 
 ## Setting Up An Eval Calculation
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/f026eef-calc-eval.png",
-        "calc-eval.png",
-        672,
-        341,
-        "#e8e8e8"
-      ]
-    }
-  ]
-}
-[/block]
+
+![672](https://files.readme.io/f026eef-calc-eval.png "calc-eval.png")
+
 ## Evaluating A Calculation
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/135b8f2-calc-eval-demo.png",
-        "calc-eval-demo.png",
-        770,
-        75,
-        "#f5f5f5"
-      ]
-    }
-  ]
-}
-[/block]
+
+![770](https://files.readme.io/135b8f2-calc-eval-demo.png "calc-eval-demo.png")
