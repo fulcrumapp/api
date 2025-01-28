@@ -14,7 +14,7 @@ Returns the number of blank values in a dataset.
 
 # Parameters
 
-`value` Array (__required__) - an array of items
+`value` Array (**required**) - an array of items
 
 # Returns
 
