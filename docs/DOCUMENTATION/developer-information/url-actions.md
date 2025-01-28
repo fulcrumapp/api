@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-# Introduction
+# Introduction 
 
 You can directly launch Fulcrum, create new records and update existing records via URL parameters on both the web and mobile apps. This allows you to easily integrate Fulcrum with other applications and services to build custom workflows, such as:
 
