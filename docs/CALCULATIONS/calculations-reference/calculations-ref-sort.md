@@ -14,7 +14,7 @@ Returns the sorted values within an array
 
 # Parameters
 
-`values` Array (__required__) - The values to sort
+`values` Array (**required**) - The values to sort
 
 `callback` function (optional) - A transform function to use when sorting objects
 
