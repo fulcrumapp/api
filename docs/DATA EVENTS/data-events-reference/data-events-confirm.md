@@ -15,29 +15,18 @@ Display a question to the user with an "Okay" or "Cancel" response and a callbac
 # Description
 
 CONFIRM displays a message to the user and allows a callback function that will be invoked to respond to the result of the question.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/90d7d2c-confirm.gif",
-        "confirm.gif",
-        304,
-        540,
-        "#e7e7e8"
-      ],
-      "caption": "Confirm"
-    }
-  ]
-}
-[/block]
+
+<Image title="confirm.gif" alt={304} src="https://files.readme.io/90d7d2c-confirm.gif">
+  Confirm
+</Image>
+
 # Parameters
 
-`title` String (__required__) - A short title for the alert
+`title` String (**required**) - A short title for the alert
 
-`message` String (__required__) - The message content for the alert
+`message` String (**required**) - The message content for the alert
 
-`callback` function (__required__) - invoked when the message box is dismissed
+`callback` function (**required**) - invoked when the message box is dismissed
 
 # Examples
 
