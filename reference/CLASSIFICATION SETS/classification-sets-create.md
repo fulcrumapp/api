@@ -14,24 +14,220 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nobj = {\n  \"classification_set\": {\n    \"name\": \"Wildlife Types\",\n    \"items\": [{\n      \"label\": \"Bird\",\n      \"value\": \"Bird\",\n      \"child_classifications\": [{\n        \"label\": \"Cormorant\",\n        \"value\": \"Cormorant\"\n      }, {\n        \"label\": \"Egret\",\n        \"value\": \"Egret\"\n      }, {\n        \"label\": \"Frigate Bird\",\n        \"value\": \"Frigate Bird\"\n      }, {\n        \"label\": \"Heron\",\n        \"value\": \"Heron\"\n      }, {\n        \"label\": \"Osprey\",\n        \"value\": \"Osprey\"\n      }, {\n        \"label\": \"Pelican\",\n        \"value\": \"Pelican\"\n      }, {\n        \"label\": \"Pigeon\",\n        \"value\": \"Pigeon\"\n      }, {\n        \"label\": \"Tern\",\n        \"value\": \"Tern\"\n      }]\n    }, {\n      \"label\": \"Butterfly\",\n      \"value\": \"Butterfly\"\n    }, {\n      \"label\": \"Fish\",\n      \"value\": \"Fish\"\n    }, {\n      \"label\": \"Manatee\",\n      \"value\": \"Manatee\"\n    }, {\n      \"label\": \"Shellfish\",\n      \"value\": \"Shellfish\",\n      \"child_classifications\": [{\n        \"label\": \"Crab\",\n        \"value\": \"Crab\",\n        \"child_classifications\": [{\n          \"label\": \"Blue Crab\",\n          \"value\": \"Blue Crab\"\n        }, {\n          \"label\": \"Fiddler Crab\",\n          \"value\": \"Fiddler Crab\"\n        }, {\n          \"label\": \"Hermit Crab\",\n          \"value\": \"Hermit Crab\"\n        }]\n      }]\n    }, {\n      \"label\": \"Turtle\",\n      \"value\": \"Turtle\"\n    }]\n  }\n}\n\nclassification_set = fulcrum.classification_sets.create(obj)\nprint(classification_set['classification_set']['id'] + ' has been created!')",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nconst obj = {\n  \"name\": \"Wildlife Types\",\n  \"items\": [{\n    \"label\": \"Bird\",\n    \"value\": \"Bird\",\n    \"child_classifications\": [{\n      \"label\": \"Cormorant\",\n      \"value\": \"Cormorant\"\n    }, {\n      \"label\": \"Egret\",\n      \"value\": \"Egret\"\n    }, {\n      \"label\": \"Frigate Bird\",\n      \"value\": \"Frigate Bird\"\n    }, {\n      \"label\": \"Heron\",\n      \"value\": \"Heron\"\n    }, {\n      \"label\": \"Osprey\",\n      \"value\": \"Osprey\"\n    }, {\n      \"label\": \"Pelican\",\n      \"value\": \"Pelican\"\n    }, {\n      \"label\": \"Pigeon\",\n      \"value\": \"Pigeon\"\n    }, {\n      \"label\": \"Tern\",\n      \"value\": \"Tern\"\n    }]\n  }, {\n    \"label\": \"Butterfly\",\n    \"value\": \"Butterfly\"\n  }, {\n    \"label\": \"Fish\",\n    \"value\": \"Fish\"\n  }, {\n    \"label\": \"Manatee\",\n    \"value\": \"Manatee\"\n  }, {\n    \"label\": \"Shellfish\",\n    \"value\": \"Shellfish\",\n    \"child_classifications\": [{\n      \"label\": \"Crab\",\n      \"value\": \"Crab\",\n      \"child_classifications\": [{\n        \"label\": \"Blue Crab\",\n        \"value\": \"Blue Crab\"\n      }, {\n        \"label\": \"Fiddler Crab\",\n        \"value\": \"Fiddler Crab\"\n      }, {\n        \"label\": \"Hermit Crab\",\n        \"value\": \"Hermit Crab\"\n      }]\n    }]\n  }, {\n    \"label\": \"Turtle\",\n    \"value\": \"Turtle\"\n  }]\n};\n\nclient.classificationSets.create(obj)\n  .then((classificationSet) => {\n    console.log(classificationSet.id + ' has been created!');\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\nclassification_set = {\n  \"name\"=>\"Wildlife Types\",\n  \"items\"=>[{\n    \"label\"=>\"Bird\",\n    \"value\"=>\"Bird\",\n    \"child_classifications\"=>[{\n      \"label\"=>\"Cormorant\",\n      \"value\"=>\"Cormorant\"\n    }, {\n      \"label\"=>\"Egret\",\n      \"value\"=>\"Egret\"\n    }, {\n      \"label\"=>\"Frigate Bird\",\n      \"value\"=>\"Frigate Bird\"\n    }, {\n      \"label\"=>\"Heron\",\n      \"value\"=>\"Heron\"\n    }, {\n      \"label\"=>\"Osprey\",\n      \"value\"=>\"Osprey\"\n    }, {\n      \"label\"=>\"Pelican\",\n      \"value\"=>\"Pelican\"\n    }, {\n      \"label\"=>\"Pigeon\",\n      \"value\"=>\"Pigeon\"\n    }, {\n      \"label\"=>\"Tern\",\n      \"value\"=>\"Tern\"\n    }]\n  }, {\n    \"label\"=>\"Butterfly\",\n    \"value\"=>\"Butterfly\"\n  }, {\n    \"label\"=>\"Fish\",\n    \"value\"=>\"Fish\"\n  }, {\n    \"label\"=>\"Manatee\",\n    \"value\"=>\"Manatee\"\n  }, {\n    \"label\"=>\"Shellfish\",\n    \"value\"=>\"Shellfish\",\n    \"child_classifications\"=>[{\n      \"label\"=>\"Crab\",\n      \"value\"=>\"Crab\",\n      \"child_classifications\"=>[{\n        \"label\"=>\"Blue Crab\",\n        \"value\"=>\"Blue Crab\"\n      }, {\n        \"label\"=>\"Fiddler Crab\",\n        \"value\"=>\"Fiddler Crab\"\n      }, {\n        \"label\"=>\"Hermit Crab\",\n        \"value\"=>\"Hermit Crab\"\n      }]\n    }]\n  }, {\n    \"label\"=>\"Turtle\",\n    \"value\"=>\"Turtle\"\n  }]\n};\n\nresponse = client.classification_sets.create(classification_set)\n\nputs response['id'] + ' has been created!'",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+obj = {
+  "classification_set": {
+    "name": "Wildlife Types",
+    "items": [{
+      "label": "Bird",
+      "value": "Bird",
+      "child_classifications": [{
+        "label": "Cormorant",
+        "value": "Cormorant"
+      }, {
+        "label": "Egret",
+        "value": "Egret"
+      }, {
+        "label": "Frigate Bird",
+        "value": "Frigate Bird"
+      }, {
+        "label": "Heron",
+        "value": "Heron"
+      }, {
+        "label": "Osprey",
+        "value": "Osprey"
+      }, {
+        "label": "Pelican",
+        "value": "Pelican"
+      }, {
+        "label": "Pigeon",
+        "value": "Pigeon"
+      }, {
+        "label": "Tern",
+        "value": "Tern"
+      }]
+    }, {
+      "label": "Butterfly",
+      "value": "Butterfly"
+    }, {
+      "label": "Fish",
+      "value": "Fish"
+    }, {
+      "label": "Manatee",
+      "value": "Manatee"
+    }, {
+      "label": "Shellfish",
+      "value": "Shellfish",
+      "child_classifications": [{
+        "label": "Crab",
+        "value": "Crab",
+        "child_classifications": [{
+          "label": "Blue Crab",
+          "value": "Blue Crab"
+        }, {
+          "label": "Fiddler Crab",
+          "value": "Fiddler Crab"
+        }, {
+          "label": "Hermit Crab",
+          "value": "Hermit Crab"
+        }]
+      }]
+    }, {
+      "label": "Turtle",
+      "value": "Turtle"
+    }]
+  }
 }
-[/block]
+
+classification_set = fulcrum.classification_sets.create(obj)
+print(classification_set['classification_set']['id'] + ' has been created!')
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+const obj = {
+  "name": "Wildlife Types",
+  "items": [{
+    "label": "Bird",
+    "value": "Bird",
+    "child_classifications": [{
+      "label": "Cormorant",
+      "value": "Cormorant"
+    }, {
+      "label": "Egret",
+      "value": "Egret"
+    }, {
+      "label": "Frigate Bird",
+      "value": "Frigate Bird"
+    }, {
+      "label": "Heron",
+      "value": "Heron"
+    }, {
+      "label": "Osprey",
+      "value": "Osprey"
+    }, {
+      "label": "Pelican",
+      "value": "Pelican"
+    }, {
+      "label": "Pigeon",
+      "value": "Pigeon"
+    }, {
+      "label": "Tern",
+      "value": "Tern"
+    }]
+  }, {
+    "label": "Butterfly",
+    "value": "Butterfly"
+  }, {
+    "label": "Fish",
+    "value": "Fish"
+  }, {
+    "label": "Manatee",
+    "value": "Manatee"
+  }, {
+    "label": "Shellfish",
+    "value": "Shellfish",
+    "child_classifications": [{
+      "label": "Crab",
+      "value": "Crab",
+      "child_classifications": [{
+        "label": "Blue Crab",
+        "value": "Blue Crab"
+      }, {
+        "label": "Fiddler Crab",
+        "value": "Fiddler Crab"
+      }, {
+        "label": "Hermit Crab",
+        "value": "Hermit Crab"
+      }]
+    }]
+  }, {
+    "label": "Turtle",
+    "value": "Turtle"
+  }]
+};
+
+client.classificationSets.create(obj)
+  .then((classificationSet) => {
+    console.log(classificationSet.id + ' has been created!');
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+
+classification_set = {
+  "name"=>"Wildlife Types",
+  "items"=>[{
+    "label"=>"Bird",
+    "value"=>"Bird",
+    "child_classifications"=>[{
+      "label"=>"Cormorant",
+      "value"=>"Cormorant"
+    }, {
+      "label"=>"Egret",
+      "value"=>"Egret"
+    }, {
+      "label"=>"Frigate Bird",
+      "value"=>"Frigate Bird"
+    }, {
+      "label"=>"Heron",
+      "value"=>"Heron"
+    }, {
+      "label"=>"Osprey",
+      "value"=>"Osprey"
+    }, {
+      "label"=>"Pelican",
+      "value"=>"Pelican"
+    }, {
+      "label"=>"Pigeon",
+      "value"=>"Pigeon"
+    }, {
+      "label"=>"Tern",
+      "value"=>"Tern"
+    }]
+  }, {
+    "label"=>"Butterfly",
+    "value"=>"Butterfly"
+  }, {
+    "label"=>"Fish",
+    "value"=>"Fish"
+  }, {
+    "label"=>"Manatee",
+    "value"=>"Manatee"
+  }, {
+    "label"=>"Shellfish",
+    "value"=>"Shellfish",
+    "child_classifications"=>[{
+      "label"=>"Crab",
+      "value"=>"Crab",
+      "child_classifications"=>[{
+        "label"=>"Blue Crab",
+        "value"=>"Blue Crab"
+      }, {
+        "label"=>"Fiddler Crab",
+        "value"=>"Fiddler Crab"
+      }, {
+        "label"=>"Hermit Crab",
+        "value"=>"Hermit Crab"
+      }]
+    }]
+  }, {
+    "label"=>"Turtle",
+    "value"=>"Turtle"
+  }]
+};
+
+response = client.classification_sets.create(classification_set)
+
+puts response['id'] + ' has been created!'
+```
