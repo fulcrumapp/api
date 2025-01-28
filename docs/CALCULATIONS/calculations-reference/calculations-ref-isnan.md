@@ -14,7 +14,7 @@ Test whether a value is not a number
 
 # Parameters
 
-`value` Number (__required__) - a value
+`value` Number (**required**) - a value
 
 # Returns
 
