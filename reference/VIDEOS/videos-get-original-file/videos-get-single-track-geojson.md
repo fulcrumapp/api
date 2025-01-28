@@ -14,24 +14,36 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nimport json\nfulcrum = Fulcrum('{token}')\n\ntracks = fulcrum.videos.track('{id}', 'geojson')\n\nwith open('track.geojson', 'w') as f:\n  json.dump(tracks, f)",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst fs = require('fs');\nconst client = new Client('{token}');\n\nclient.videos.track('{id}', 'geojson')\n  .then(track => fs.writeFile('track.geojson', track, function () {\n    console.log('track downloaded!');\n  }))\n  .catch(err => console.log(err));",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\ntrack = client.videos.track('{id}', 'geojson')\n\nFile.open('track.geojson','w') do |f|\n  f.write(track)\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+import json
+fulcrum = Fulcrum('{token}')
+
+tracks = fulcrum.videos.track('{id}', 'geojson')
+
+with open('track.geojson', 'w') as f:
+  json.dump(tracks, f)
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const fs = require('fs');
+const client = new Client('{token}');
+
+client.videos.track('{id}', 'geojson')
+  .then(track => fs.writeFile('track.geojson', track, function () {
+    console.log('track downloaded!');
+  }))
+  .catch(err => console.log(err));
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+
+track = client.videos.track('{id}', 'geojson')
+
+File.open('track.geojson','w') do |f|
+  f.write(track)
+end
+```
