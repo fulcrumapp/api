@@ -14,8 +14,8 @@ next:
 
 Creating attachments and MBTiles through the API requires a PUT request to an AWS S3 URL. There are two ways to get this URL:
 
-- If you would like to create attachments, you can send a POST request to the [Create Attachments](https://docs.fulcrumapp.com/reference/create-attachment) endpoint: `https://api.fulcrumapp.com/api/v2/attachments`
-- If you would like to create MBTiles layers, you can send a GET request to the Files endpoint: `https://api.fulcrumapp.com/api/v2/file/upload_url.json`
+* If you would like to create attachments, you can send a POST request to the [Create Attachments](https://docs.fulcrumapp.com/reference/create-attachment) endpoint: `https://api.fulcrumapp.com/api/v2/attachments`
+* If you would like to create MBTiles layers, you can send a GET request to the Files endpoint: `https://api.fulcrumapp.com/api/v2/file/upload_url.json`
 
 While these endpoints are different, they will return similar objects.
 
@@ -43,22 +43,9 @@ Once you have these JSONs parsed, you need to make a PUT request to the `url` re
 
 In the example of uploading attachments over Postman, here is what the PUT request would look like:
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/6cdbd0b-Screen_Shot_2022-11-10_at_7.19.07_PM.png",
-        "Screen Shot 2022-11-10 at 7.19.07 PM.png",
-        792
-      ],
-      "align": "center",
-      "caption": "The same `form-data` body selection would be used for MBTiles as well"
-    }
-  ]
-}
-[/block]
-
+<Image title="Screen Shot 2022-11-10 at 7.19.07 PM.png" alt={792} align="center" src="https://files.readme.io/6cdbd0b-Screen_Shot_2022-11-10_at_7.19.07_PM.png">
+  The same `form-data` body selection would be used for MBTiles as well
+</Image>
 
 The final step in this process is finalizing the file you are looking to upload. 
 
