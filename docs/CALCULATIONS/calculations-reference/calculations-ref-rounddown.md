@@ -14,9 +14,9 @@ Rounds a number down to a desired number of decimal places.
 
 # Parameters
 
-`value` Number (__required__) - The value to round down.
+`value` Number (**required**) - The value to round down.
 
-`places` Number (__required__) - The number of places to which to round down.
+`places` Number (**required**) - The number of places to which to round down.
 
 # Returns
 
