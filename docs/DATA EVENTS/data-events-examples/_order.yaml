@@ -56,3 +56,4 @@
 - snap-point-to-line
 - basic-timer
 - update-carto-table-from-fulcrum
+- validate-if-point-is-in-polygon
