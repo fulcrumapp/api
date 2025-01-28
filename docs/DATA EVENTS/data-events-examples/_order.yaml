@@ -36,3 +36,4 @@
 - make-all-fields-within-a-section-read-only
 - make-fields-read-only-based-on-user-role
 - measure-area-and-length-of-polygon
+- measure-length-of-line
