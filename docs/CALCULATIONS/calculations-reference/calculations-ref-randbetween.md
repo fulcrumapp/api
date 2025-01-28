@@ -14,9 +14,9 @@ Returns a random integer between two values.
 
 # Parameters
 
-`value` Number (__required__) - Low value of the range.
+`value` Number (**required**) - Low value of the range.
 
-`value` Number (__required__) - High value of the range.
+`value` Number (**required**) - High value of the range.
 
 # Returns
 
