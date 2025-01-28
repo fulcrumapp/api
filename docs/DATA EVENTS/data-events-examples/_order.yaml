@@ -16,3 +16,5 @@
 - compare-photo-location-to-record-location
 - compare-photo-timestamp-with-current-time
 - conditionally-persist-values-across-records
+- >-
+  create-a-summary-field-of-comments-entered-when-record-is-edited-multiple-times
