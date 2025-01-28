@@ -16,22 +16,10 @@ Please consider the [Record Auditing Duration](https://www.fulcrumapp.com/blog/a
 
 The `SETTIMEOUT` function can also be used for similar situations, such as [alerting a user with a message](https://docs.fulcrumapp.com/docs/data-events-settimeout) after a specified amount of time.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/f0e5500-44ab8cb-CleanShot202022-09-1620at2014.57.16.gif",
-        "44ab8cb-CleanShot202022-09-1620at2014.57.16.gif",
-        796,
-        308,
-        "#000000"
-      ],
-      "caption": "Timer GIF"
-    }
-  ]
-}
-[/block]
+<Image title="44ab8cb-CleanShot202022-09-1620at2014.57.16.gif" alt={796} src="https://files.readme.io/f0e5500-44ab8cb-CleanShot202022-09-1620at2014.57.16.gif">
+  Timer GIF
+</Image>
+
 ```js
 // this Data Event utilizes a Yes/No field (timer) with the N/A choice enabled,
 // respectively representing Start/Pause and Reset actions,
