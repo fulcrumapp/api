@@ -22,3 +22,4 @@
 - disable-auto-sync
 - disable-requirements-by-user-or-role
 - display-the-current-gps-info-on-the-form
+- dynamically-translate-form-elements
