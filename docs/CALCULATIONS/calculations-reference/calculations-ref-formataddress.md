@@ -14,7 +14,7 @@ Formats an address field object into a string
 
 # Parameters
 
-`address` Object (__required__) - the address field object
+`address` Object (**required**) - the address field object
 
 # Returns
 
@@ -27,7 +27,6 @@ FORMATADDRESS({sub_thoroughfare: '360', thoroughfare: 'Central Avenue', suite: '
 
 // returns "360 Central Avenue #200nSt. Petersburg FL 33701"
 ```
-
 
 ```js
 FORMATADDRESS({sub_thoroughfare: '360', thoroughfare: 'Central Avenue', suite: '200', locality: 'St. Petersburg', sub_admin_area: 'Pinellas', admin_area: 'FL', postal_code: '33701'}, {lineSeparator: ', '})
