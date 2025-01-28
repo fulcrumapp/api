@@ -14,9 +14,9 @@ Takes a set of points and a set of polygons and/or multipolygons and performs a 
 
 # Parameters
 
-`points` FeatureCollection <Point> (**required**) - input points
+`points` FeatureCollection &lt;Point&gt; (**required**) - input points
 
-`polygons` FeatureCollection <Polygon> (**required**) - input polygons
+`polygons` FeatureCollection &lt;Polygon&gt; (**required**) - input polygons
 
 `field` string - property in polygons to add to joined features
 
@@ -24,7 +24,7 @@ Takes a set of points and a set of polygons and/or multipolygons and performs a 
 
 # Returns
 
-FeatureCollection <Point> - points with containingPolyId property containing values from polyId
+FeatureCollection &lt;Point&gt; - points with containingPolyId property containing values from polyId
 
 # Examples
 
