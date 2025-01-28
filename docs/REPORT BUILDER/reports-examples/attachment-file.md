@@ -29,22 +29,10 @@ As you've noticed, the attachment field value displays the number of attachment 
       </div>
 ```
 
-Three things you will need to edit from this code is 
-[1] 'Attachment File Field' on line 309 to your attachment file field's label 
-[2 & 3] $attachment_field_field on line 313 and 316 to your attachment file field's data name
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/90bb56a-04b28c3-attach_file_names.png",
-        "04b28c3-attach_file_names.png",
-        1948,
-        968,
-        "#000000"
-      ],
-      "caption": "attachment file field data name"
-    }
-  ]
-}
-[/block]
+Three things you will need to edit from this code is\
+\[1] 'Attachment File Field' on line 309 to your attachment file field's label\
+\[2 & 3] $attachment\_field\_field on line 313 and 316 to your attachment file field's data name
+
+<Image title="04b28c3-attach_file_names.png" alt={1948} src="https://files.readme.io/90bb56a-04b28c3-attach_file_names.png">
+  attachment file field data name
+</Image>
