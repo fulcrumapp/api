@@ -19,19 +19,7 @@ If your Organization's Logo is a rectangular shape, this example will help you s
 ```html
 <img src="<%= IMAGEURL("photo_url") %>" />
 ```
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/847fb7a-2b9f17c-footer_org_image_rect.png",
-        "2b9f17c-footer_org_image_rect.png",
-        1920,
-        974,
-        "#000000"
-      ],
-      "caption": "footer org image"
-    }
-  ]
-}
-[/block]
+
+<Image title="2b9f17c-footer_org_image_rect.png" alt={1920} src="https://files.readme.io/847fb7a-2b9f17c-footer_org_image_rect.png">
+  footer org image
+</Image>
