@@ -15,17 +15,17 @@ next:
 ---
 # Notes
 
-- Users with a role of _Owner_ always have access to all resources within the organization.
+* Users with a role of *Owner* always have access to all resources within the organization.
 
-- The `change_permissions` endpoint accepts a JSON object labeled `change` with three parameters.
+* The `change_permissions` endpoint accepts a JSON object labeled `change` with three parameters.
 
-- The first parameter is `type`, which indicates which object you want to change the membership permissions of. Valid type values are `project_members`, `form_members`, and `layer_members`.
+* The first parameter is `type`, which indicates which object you want to change the membership permissions of. Valid type values are `project_members`, `form_members`, and `layer_members`.
 
-- The second parameter is the id of the object you want to change the permission of. Valid ID keys are `project_id`, `form_id` and `layer_id`. Values must be valid resource IDs.
+* The second parameter is the id of the object you want to change the permission of. Valid ID keys are `project_id`, `form_id` and `layer_id`. Values must be valid resource IDs.
 
-- The third parameter is the changeset you would like to add or remove. This is a key of either `add` or `remove` with the value an array of valid member IDs that you would like to alter.
+* The third parameter is the changeset you would like to add or remove. This is a key of either `add` or `remove` with the value an array of valid member IDs that you would like to alter.
 
-- Permissions provided from [Groups](https://docs.fulcrumapp.com/reference/groups-api) take priority over normal permissions. If you attempt to remove a member's Group-provided access to a form, project, or layer, the request will fail with a 422 status code response and the member's permissions will not change
+* Permissions provided from [Groups](https://docs.fulcrumapp.com/reference/groups-api) take priority over normal permissions. If you attempt to remove a member's Group-provided access to a form, project, or layer, the request will fail with a 422 status code response and the member's permissions will not change
 
 # API Library Examples
 
