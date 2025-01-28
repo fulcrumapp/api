@@ -16,26 +16,26 @@ Audit Logs provide a single source of all user activity within a Fulcrum organiz
 
 # Properties
 
-| Property | Type | Description |
-|----------|------|-------------|
-| source_type | string | Type of log entry (export, data_export, membership, layer, project, audit_log, role, form, data_share, classification_set, authorization, choice_list, import, organization, webhook) |
-| source_id | string | ID of the source entity |
-| action | string | Action logged (update, create, permission_update, download, delete, reset, share_enabled, share_disabled, update_credit_card, plan_change, billing_emails_change, update_storage, add_credit, change_default) |
-| description | string | Brief description of the logged activity |
-| data | object | Additional data for certain activities |
-| ip | string | Internet Protocol address of the device that triggered the activity |
-| user_agent | string | User Agent of the web browser from the device that triggered the activity |
-| location | string | Approximate IP location from the device that triggered the activity |
-| latitude | number | Approximate IP latitude from the device that triggered the activity |
-| longitude | number | Approximate IP longitude from the device that triggered the activity |
-| admin_area | string | State, parsed from the approximate IP location of the device that triggered the activity |
-| country | string | Country, parsed from the approximate IP location of the device that triggered the activity |
-| locality | string | City, parsed from the approximate IP location of the device that triggered the activity |
-| postal_code | string | Postal Code, parsed from the approximate IP location of the device that triggered the activity |
-| id | string | ID of the audit log record |
-| actor | string | Name of the Fulcrum member that triggered the activity | 
-| actor_id | string | ID of the Fulcrum member that triggered the activity |
-| time | string | Timestamp when the log was recorded |
+| Property     | Type   | Description                                                                                                                                                                                                              |
+| ------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| source\_type | string | Type of log entry (export, data\_export, membership, layer, project, audit\_log, role, form, data\_share, classification\_set, authorization, choice\_list, import, organization, webhook)                               |
+| source\_id   | string | ID of the source entity                                                                                                                                                                                                  |
+| action       | string | Action logged (update, create, permission\_update, download, delete, reset, share\_enabled, share\_disabled, update\_credit\_card, plan\_change, billing\_emails\_change, update\_storage, add\_credit, change\_default) |
+| description  | string | Brief description of the logged activity                                                                                                                                                                                 |
+| data         | object | Additional data for certain activities                                                                                                                                                                                   |
+| ip           | string | Internet Protocol address of the device that triggered the activity                                                                                                                                                      |
+| user\_agent  | string | User Agent of the web browser from the device that triggered the activity                                                                                                                                                |
+| location     | string | Approximate IP location from the device that triggered the activity                                                                                                                                                      |
+| latitude     | number | Approximate IP latitude from the device that triggered the activity                                                                                                                                                      |
+| longitude    | number | Approximate IP longitude from the device that triggered the activity                                                                                                                                                     |
+| admin\_area  | string | State, parsed from the approximate IP location of the device that triggered the activity                                                                                                                                 |
+| country      | string | Country, parsed from the approximate IP location of the device that triggered the activity                                                                                                                               |
+| locality     | string | City, parsed from the approximate IP location of the device that triggered the activity                                                                                                                                  |
+| postal\_code | string | Postal Code, parsed from the approximate IP location of the device that triggered the activity                                                                                                                           |
+| id           | string | ID of the audit log record                                                                                                                                                                                               |
+| actor        | string | Name of the Fulcrum member that triggered the activity                                                                                                                                                                   |
+| actor\_id    | string | ID of the Fulcrum member that triggered the activity                                                                                                                                                                     |
+| time         | string | Timestamp when the log was recorded                                                                                                                                                                                      |
 
 # Sample Response
 
