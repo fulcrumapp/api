@@ -14,7 +14,7 @@ Returns the sine of a value, in radians.
 
 # Parameters
 
-`value` Number (__required__) - The value for which to calculate the sine.
+`value` Number (**required**) - The value for which to calculate the sine.
 
 # Returns
 
