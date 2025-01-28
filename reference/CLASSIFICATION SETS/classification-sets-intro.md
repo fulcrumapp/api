@@ -14,34 +14,34 @@ The Classification Sets API gives you access to the [classification sets](http:/
 
 # Properties
 
-| Property | Type | Required | Readonly | Description |
-|----------|------|----------|----------|-------------|
-| name | string | yes | no | The name of the classification set. |
-| items | array of classification set objects | yes | no | The classification set options. |
-| description | string | no | no | Optional classification set description. |
-| version | number | no | yes | Autoincremented version of the choice list for history tracking. |
-| id | string | no | yes | The id of the classification set. |
-| created_at | string | no | yes | Timestamp when the choice list was created. |
-| updated_at | string | no | yes | Timestamp when the choice list was last updated. |
+| Property    | Type                                | Required | Readonly | Description                                                      |
+| ----------- | ----------------------------------- | -------- | -------- | ---------------------------------------------------------------- |
+| name        | string                              | yes      | no       | The name of the classification set.                              |
+| items       | array of classification set objects | yes      | no       | The classification set options.                                  |
+| description | string                              | no       | no       | Optional classification set description.                         |
+| version     | number                              | no       | yes      | Autoincremented version of the choice list for history tracking. |
+| id          | string                              | no       | yes      | The id of the classification set.                                |
+| created\_at | string                              | no       | yes      | Timestamp when the choice list was created.                      |
+| updated\_at | string                              | no       | yes      | Timestamp when the choice list was last updated.                 |
 
 # Validations
 
-The following properties must be included in order to create/update a classification_set object in our system. Any validation errors will return a `422` and an object with a list of validation errors.
+The following properties must be included in order to create/update a classification\_set object in our system. Any validation errors will return a `422` and an object with a list of validation errors.
 
 ## Required Properties
 
-| Property | Type | Description | Example |
-|----------|------|-------------|---------|
-| name | string | The name of the choice list. | `"Inspection Conditions"`
-| items | array of classification set objects | The classification set options. | See classification sets properties table below.
+| Property | Type                                | Description                     | Example                                         |
+| -------- | ----------------------------------- | ------------------------------- | ----------------------------------------------- |
+| name     | string                              | The name of the choice list.    | `"Inspection Conditions"`                       |
+| items    | array of classification set objects | The classification set options. | See classification sets properties table below. |
 
 ## Classification Sets Properties
 
-| Property | Type | Required | Readonly | Description |
-|----------|------|----------|----------|-------------|
-| label | string | yes | no | Choice label. |
-| value | string | no | no | Choice value, stored in the database. |
-| child_classifications | array of label/value/child_classifications objects | no | Child classifications associated with this parent. |
+| Property               | Type                                                | Required | Readonly                                           | Description                           |
+| ---------------------- | --------------------------------------------------- | -------- | -------------------------------------------------- | ------------------------------------- |
+| label                  | string                                              | yes      | no                                                 | Choice label.                         |
+| value                  | string                                              | no       | no                                                 | Choice value, stored in the database. |
+| child\_classifications | array of label/value/child\_classifications objects | no       | Child classifications associated with this parent. |                                       |
 
 Example validation response if `items` array is not included:
 
@@ -57,7 +57,7 @@ Example validation response if `items` array is not included:
 
 # Notes
 
-- The entire `classification_set` object is required when making an update. Omitting fields with existing data will result in data loss! The typical workflow for updating an existing classification set is to fetch the `choice_list` object, modify it, and then submit the PUT request.
+* The entire `classification_set` object is required when making an update. Omitting fields with existing data will result in data loss! The typical workflow for updating an existing classification set is to fetch the `choice_list` object, modify it, and then submit the PUT request.
 
 # Sample Response
 
