@@ -44,3 +44,4 @@
 - data-events-setstatusreadonly
 - data-events-settimeout
 - data-events-setvalue
+- data-events-storage
