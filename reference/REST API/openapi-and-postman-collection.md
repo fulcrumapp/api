@@ -10,25 +10,11 @@ metadata:
 next:
   description: ''
 ---
-The Fulcrum REST API's OpenAPI JSON can be found at this link: <https://docs.fulcrumapp.com/openapi/5f29a2f7dbacf8001851acc1>
+The Fulcrum REST API's OpenAPI JSON can be found at this link: [https://docs.fulcrumapp.com/openapi/5f29a2f7dbacf8001851acc1](https://docs.fulcrumapp.com/openapi/5f29a2f7dbacf8001851acc1)
 
 You can use this URL to import all REST API endpoints into HTTP request apps like [Postman](https://www.postman.com/). First open Postman and click the Import button
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/9a0500e-image.png",
-        null,
-        ""
-      ],
-      "align": "center"
-    }
-  ]
-}
-[/block]
-
+<Image align="center" src="https://files.readme.io/9a0500e-image.png" />
 
 Paste the URL into the resulting window and then import the API as a Postman Collection
 
