@@ -27,10 +27,7 @@ ON('validate-record', function (event) {
   }
 })
 ```
-[block:callout]
-{
-  "type": "info",
-  "body": "If the fields are still set as required though the app designer, both the system and the data event alerts will be displayed when you save the root level record. Removing the system field requirements will result in a cleaner alert message when saving the root level record, but will also remove the alert presented when saving the child record in the repeatable section.",
-  "title": "Note"
-}
-[/block]
+
+> 📘 Note
+>
+> If the fields are still set as required though the app designer, both the system and the data event alerts will be displayed when you save the root level record. Removing the system field requirements will result in a cleaner alert message when saving the root level record, but will also remove the alert presented when saving the child record in the repeatable section.
