@@ -14,24 +14,35 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nsignature = fulcrum.signatures.media('{id}', 'thumbnail')\n\nwith open('{id}.jpg', 'wb') as f:\n  f.write(signature)",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nconst fs = require('fs');\nconst writeStream = fs.createWriteStream('{id}.jpg');\n\nclient.signatures.media('{id}', 'thumbnail')\n  .then(signature => signature.pipe(writeStream))\n  .catch(error => console.log(error));",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\nclient.signatures.thumbnail('{id}') do |input|\n  File.open('{id}.jpg', 'wb') do |output|\n    output.write(input.read)\n  end\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+signature = fulcrum.signatures.media('{id}', 'thumbnail')
+
+with open('{id}.jpg', 'wb') as f:
+  f.write(signature)
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+const fs = require('fs');
+const writeStream = fs.createWriteStream('{id}.jpg');
+
+client.signatures.media('{id}', 'thumbnail')
+  .then(signature => signature.pipe(writeStream))
+  .catch(error => console.log(error));
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+
+client.signatures.thumbnail('{id}') do |input|
+  File.open('{id}.jpg', 'wb') do |output|
+    output.write(input.read)
+  end
+end
+```
