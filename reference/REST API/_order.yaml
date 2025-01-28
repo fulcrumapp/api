@@ -2,3 +2,4 @@
 - rest-api-auth
 - rest-api-timestamps
 - rest-api-unique-ids
+- rest-api-pagination
