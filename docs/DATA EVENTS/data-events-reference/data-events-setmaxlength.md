@@ -18,9 +18,9 @@ The `SETMAXLENGTH` function can be used to set the maximum number of characters 
 
 # Parameters
 
-`field` String (__required__) - The data name for the field
+`field` String (**required**) - The data name for the field
 
-`length` number,null (__required__) - The maximum length of the field
+`length` number,null (**required**) - The maximum length of the field
 
 # Examples
 
