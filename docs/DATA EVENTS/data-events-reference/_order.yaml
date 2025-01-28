@@ -29,3 +29,4 @@
 - setgeometry
 - data-events-sethidden
 - data-events-setinterval
+- data-events-setlabel
