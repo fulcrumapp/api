@@ -14,7 +14,7 @@ Returns the absolute value of a number
 
 # Parameters
 
-`value` Number (__required__) - The number of which to return the absolute value.
+`value` Number (**required**) - The number of which to return the absolute value.
 
 # Returns
 
@@ -27,7 +27,6 @@ ABS(-1)
 
 // returns 1
 ```
-
 
 ```js
 ABS(42)
