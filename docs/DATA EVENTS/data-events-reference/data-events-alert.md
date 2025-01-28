@@ -18,9 +18,9 @@ ALERT displays a message to the user. You can provide both the title and message
 
 # Parameters
 
-`title` String (__required__) - A short title for the alert
+`title` String (**required**) - A short title for the alert
 
-`message` String (__required__) - The message content for the alert
+`message` String (**required**) - The message content for the alert
 
 # Examples
 
