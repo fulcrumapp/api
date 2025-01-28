@@ -14,24 +14,41 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nwebhooks = fulcrum.webhooks.search()\n\nfor webhook in webhooks['webhooks']:\n  # print(webhook) # entire webhook\n  print(webhook['name']) # just the webhook name",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.webhooks.all()\n  .then((page) => {\n    page.objects.forEach(webhook => {\n      // console.log(webhook); // entire webhook\n      console.log(webhook.name); // just the webhook name\n    });\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\nwebhooks = client.webhooks.all()\n\nfor webhook in webhooks.objects do\n  # puts webhook # entire webhook\n  puts webhook['name'] # just the webhook name\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+webhooks = fulcrum.webhooks.search()
+
+for webhook in webhooks['webhooks']:
+  # print(webhook) # entire webhook
+  print(webhook['name']) # just the webhook name
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.webhooks.all()
+  .then((page) => {
+    page.objects.forEach(webhook => {
+      // console.log(webhook); // entire webhook
+      console.log(webhook.name); // just the webhook name
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+
+webhooks = client.webhooks.all()
+
+for webhook in webhooks.objects do
+  # puts webhook # entire webhook
+  puts webhook['name'] # just the webhook name
+end
+```
