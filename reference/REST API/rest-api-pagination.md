@@ -20,10 +20,7 @@ All of the index views use pagination. The following information will be returne
   "per_page": 50
 }
 ```
-[block:callout]
-{
-  "type": "info",
-  "body": "By default, all requests are paginated to the maximum value of 20,000 items per request.",
-  "title": "Default Pagination"
-}
-[/block]
+
+> 📘 Default Pagination
+>
+> By default, all requests are paginated to the maximum value of 20,000 items per request.
