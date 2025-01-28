@@ -5,3 +5,4 @@
 - create-group
 - update-group-permissions
 - update-group-name-description
+- delete-group
