@@ -14,9 +14,9 @@ Returns a number raised to a power.
 
 # Parameters
 
-`base` Number (__required__) - The number to be raised to the `exponent` power.
+`base` Number (**required**) - The number to be raised to the `exponent` power.
 
-`exponent` Number (__required__) - The exponent to raise `base` to.
+`exponent` Number (**required**) - The exponent to raise `base` to.
 
 # Returns
 
