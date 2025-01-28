@@ -41,3 +41,4 @@
 - data-events-setstatus
 - data-events-setstatusfilter
 - data-events-setstatushidden
+- data-events-setstatusreadonly
