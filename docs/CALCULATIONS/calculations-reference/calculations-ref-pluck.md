@@ -14,9 +14,9 @@ Extract property values from an object
 
 # Parameters
 
-`array` Array (__required__) - An array of objects to extract properties from
+`array` Array (**required**) - An array of objects to extract properties from
 
-`property` String (__required__) - The property name to extract
+`property` String (**required**) - The property name to extract
 
 # Returns
 
