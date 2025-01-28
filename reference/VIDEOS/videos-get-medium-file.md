@@ -14,24 +14,35 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nvideo = fulcrum.videos.media('{id}', 'medium')\n\nwith open('{id}.mp4', 'wb') as f:\n  f.write(video)",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst fs = require('fs');\nconst client = new Client('{token}');\n\nconst writeStream = fs.createWriteStream('{id}.mp4');\n\nclient.videos.media('{id}', 'medium')\n  .then(video => video.pipe(writeStream))\n  .catch(error => console.log(error));",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\nclient.videos.medium('{id}') do |input|\n  File.open('{id}.mp4', 'wb') do |output|\n    output.write(input.read)\n  end\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+video = fulcrum.videos.media('{id}', 'medium')
+
+with open('{id}.mp4', 'wb') as f:
+  f.write(video)
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const fs = require('fs');
+const client = new Client('{token}');
+
+const writeStream = fs.createWriteStream('{id}.mp4');
+
+client.videos.media('{id}', 'medium')
+  .then(video => video.pipe(writeStream))
+  .catch(error => console.log(error));
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+
+client.videos.medium('{id}') do |input|
+  File.open('{id}.mp4', 'wb') do |output|
+    output.write(input.read)
+  end
+end
+```
