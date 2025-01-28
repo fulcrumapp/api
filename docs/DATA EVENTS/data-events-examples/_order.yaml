@@ -24,3 +24,4 @@
 - display-the-current-gps-info-on-the-form
 - dynamically-translate-form-elements
 - enforce-regex-pattern-validation-by-role
+- fetch-data-from-a-socrata-service
