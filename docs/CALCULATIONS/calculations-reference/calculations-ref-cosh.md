@@ -14,7 +14,7 @@ Returns the hyperbolic cosine of a number.
 
 # Parameters
 
-`value` Number (__required__) - The real number for which to calculate the hyperbolic cosine.
+`value` Number (**required**) - The real number for which to calculate the hyperbolic cosine.
 
 # Returns
 
