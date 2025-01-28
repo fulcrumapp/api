@@ -14,7 +14,7 @@ Enable verbose errors to displays in the app. This is useful for troubleshooting
 
 # Parameters
 
-`show` Boolean (optional)  [default = true] - Show full error messages. This can help diagnose problems in expressions on the mobile device.
+`show` Boolean (optional)  \[default = true] - Show full error messages. This can help diagnose problems in expressions on the mobile device.
 
 # Returns
 
