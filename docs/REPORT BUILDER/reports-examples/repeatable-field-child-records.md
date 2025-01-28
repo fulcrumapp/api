@@ -14,22 +14,9 @@ next:
 
 In BODY section, you can scroll down to line 246 or search (ctrl+f or command+f) for `repeatable_break`.  Two lines below `repeatable_break`, you will find `<div class='field-repeatable-item'>`.  Since you want to add a page break before every repeatable record, you will add `page-break-before` to the same class.
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/0ac90f9-5671cb7-repeat_page_break.png",
-        "5671cb7-repeat_page_break.png",
-        1944
-      ],
-      "align": "center",
-      "caption": "page break before screenshot"
-    }
-  ]
-}
-[/block]
-
+<Image title="5671cb7-repeat_page_break.png" alt={1944} align="center" src="https://files.readme.io/0ac90f9-5671cb7-repeat_page_break.png">
+  page break before screenshot
+</Image>
 
 # Add additional info for all repeatable record
 
