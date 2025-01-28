@@ -19,3 +19,4 @@
 - >-
   create-a-summary-field-of-comments-entered-when-record-is-edited-multiple-times
 - create-buffer-from-point
+- disable-auto-sync
