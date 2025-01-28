@@ -18,9 +18,9 @@ The SETTIMEOUT function can be used to delay execution of a function for a speci
 
 # Parameters
 
-`function` function (__required__) - The function to execute after the delay
+`function` function (**required**) - The function to execute after the delay
 
-`delay` Number (__required__) - The number of milliseconds to delay (e.g. 1000 is 1 second)
+`delay` Number (**required**) - The number of milliseconds to delay (e.g. 1000 is 1 second)
 
 # Examples
 
