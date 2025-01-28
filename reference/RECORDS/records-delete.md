@@ -3,7 +3,7 @@ title: Delete Record
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: delete_v-version-records-record-id-json
+  operationId: records-delete
 deprecated: false
 hidden: false
 metadata:
@@ -25,7 +25,7 @@ print('{id} has been deleted!')
 ```javascript JavaScript
 const { Client } = require('fulcrum-app');
 const client = new Client('{token}');
-  
+
 client.records.delete('{id}')
   .then((record) => {
     console.log('{id} has been deleted!');

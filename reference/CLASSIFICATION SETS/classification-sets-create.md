@@ -3,7 +3,7 @@ title: Create Classification Set
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-classification-sets-json
+  operationId: classification-sets-create
 deprecated: false
 hidden: false
 metadata:

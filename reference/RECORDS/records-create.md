@@ -3,7 +3,7 @@ title: Create Record
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-records-json
+  operationId: records-create
 deprecated: false
 hidden: false
 metadata:

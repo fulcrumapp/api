@@ -3,7 +3,7 @@ title: Update Layer
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: put_v-version-layers-layer-id-json
+  operationId: layers-update
 deprecated: false
 hidden: false
 metadata:

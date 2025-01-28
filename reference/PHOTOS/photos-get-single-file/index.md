@@ -3,7 +3,7 @@ title: Get Single Photo File
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-photos-photo-id-jpg
+  operationId: photos-get-single-file
 deprecated: false
 hidden: false
 metadata:

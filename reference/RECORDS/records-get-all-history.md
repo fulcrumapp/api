@@ -5,7 +5,7 @@ excerpt: >-
   records for a deleted form.
 api:
   file: rest-api.json
-  operationId: get_v-version-records-history-json
+  operationId: records-get-all-history
 deprecated: false
 hidden: false
 metadata:

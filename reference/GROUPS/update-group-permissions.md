@@ -3,7 +3,7 @@ title: Update Group Permissions
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-groups-change-permissions-json
+  operationId: groups-update-permissions
 deprecated: false
 hidden: false
 metadata:

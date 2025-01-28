@@ -3,7 +3,7 @@ title: Delete Choice List
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: delete_v-version-choice-lists-choice-list-id-json
+  operationId: choice-lists-delete
 deprecated: false
 hidden: false
 metadata:
@@ -25,7 +25,7 @@ print('{id} has been deleted!')
 ```javascript JavaScript
 const { Client } = require('fulcrum-app');
 const client = new Client('{token}');
-  
+
 client.choiceLists.delete('{id}')
   .then((choiceList) => {
     console.log('{id} has been deleted!');

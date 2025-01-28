@@ -3,7 +3,7 @@ title: Delete Project
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: delete_v-version-projects-project-id-json
+  operationId: projects-delete
 deprecated: false
 hidden: false
 metadata:
@@ -25,7 +25,7 @@ print('{id} has been deleted!')
 ```javascript JavaScript
 const { Client } = require('fulcrum-app');
 const client = new Client('{token}');
-  
+
 client.projects.delete('{id}')
   .then((project) => {
     console.log('{id} has been deleted!');

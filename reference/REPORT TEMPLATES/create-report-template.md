@@ -3,7 +3,7 @@ title: Create Report Template
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-report-templates-json
+  operationId: report-templates-create
 deprecated: false
 hidden: false
 metadata:

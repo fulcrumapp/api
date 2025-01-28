@@ -3,7 +3,7 @@ title: Get Record History
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-records-record-id-history-json
+  operationId: records-get-history
 deprecated: false
 hidden: false
 metadata:

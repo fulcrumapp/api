@@ -3,7 +3,7 @@ title: GET Query
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-query
+  operationId: query-get
 deprecated: false
 hidden: false
 metadata:
@@ -22,7 +22,7 @@ fulcrum = Fulcrum('{token}')
 
 response = fulcrum.query('SELECT * FROM "My App" LIMIT 10;', 'geojson')
 # print(response)
-with open('data.geojson', 'w') as outfile:  
+with open('data.geojson', 'w') as outfile:
   json.dump(response, outfile)
 ```
 ```javascript JavaScript

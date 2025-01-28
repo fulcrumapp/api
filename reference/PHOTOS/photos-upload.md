@@ -3,7 +3,7 @@ title: Upload Photo
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-photos-json
+  operationId: photos-upload
 deprecated: false
 hidden: false
 metadata:

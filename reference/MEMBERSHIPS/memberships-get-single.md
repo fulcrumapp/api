@@ -3,7 +3,7 @@ title: Get Single Membership
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-memberships-membership-id-json
+  operationId: memberships-get-single
 deprecated: false
 hidden: false
 metadata:

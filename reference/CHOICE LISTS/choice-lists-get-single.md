@@ -3,7 +3,7 @@ title: Get Single Choice List
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-choice-lists-choice-list-id-json
+  operationId: choice-lists-get-single
 deprecated: false
 hidden: false
 metadata:

@@ -3,7 +3,7 @@ title: Create Project
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-projects-json
+  operationId: projects-create
 deprecated: false
 hidden: false
 metadata:

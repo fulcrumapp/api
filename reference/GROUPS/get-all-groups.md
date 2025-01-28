@@ -3,7 +3,7 @@ title: Get All Groups
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-groups-json
+  operationId: groups-get-all
 deprecated: false
 hidden: false
 metadata:

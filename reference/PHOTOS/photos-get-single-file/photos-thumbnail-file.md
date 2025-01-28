@@ -3,7 +3,7 @@ title: Photo Thumbnail File
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-photos-photo-id-thumbnail-jpg
+  operationId: photos-thumbnail-file
 deprecated: false
 hidden: false
 metadata:

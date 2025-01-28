@@ -3,7 +3,7 @@ title: Create Choice List
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-choice-lists-json
+  operationId: choice-lists-create
 deprecated: false
 hidden: false
 metadata:

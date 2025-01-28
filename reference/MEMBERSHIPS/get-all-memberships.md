@@ -3,7 +3,7 @@ title: Get Membership Permissions
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-permissions-json
+  operationId: memberships-get-permissions
 deprecated: false
 hidden: false
 metadata:

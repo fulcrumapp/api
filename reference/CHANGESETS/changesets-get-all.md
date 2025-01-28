@@ -3,7 +3,7 @@ title: Get All Changesets
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-changesets-json
+  operationId: changesets-get-all
 deprecated: false
 hidden: false
 metadata:

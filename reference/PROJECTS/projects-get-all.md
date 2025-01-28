@@ -3,7 +3,7 @@ title: Get All Projects
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-projects-json
+  operationId: projects-get-all
 deprecated: false
 hidden: false
 metadata:

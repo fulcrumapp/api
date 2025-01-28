@@ -3,7 +3,7 @@ title: Create Changeset
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-changesets-json
+  operationId: changesets-create
 deprecated: false
 hidden: false
 metadata:

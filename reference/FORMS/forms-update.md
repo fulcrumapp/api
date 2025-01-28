@@ -3,7 +3,7 @@ title: Update Form
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: put_v-version-forms-form-id-json
+  operationId: forms-update
 deprecated: false
 hidden: false
 metadata:

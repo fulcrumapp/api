@@ -3,7 +3,7 @@ title: Delete Layer
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: delete_v-version-layers-layer-id-json
+  operationId: layers-delete
 deprecated: false
 hidden: false
 metadata:
@@ -25,7 +25,7 @@ print('{id} has been deleted!')
 ```javascript JavaScript
 const { Client } = require('fulcrum-app');
 const client = new Client('{token}');
-  
+
 client.layers.delete('{id}')
   .then((layer) => {
     console.log('{id} has been deleted!');

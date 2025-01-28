@@ -3,7 +3,7 @@ title: Get Group Resource
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-groups-group-id-resource-json
+  operationId: groups-get-resource
 deprecated: false
 hidden: false
 metadata:

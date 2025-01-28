@@ -3,7 +3,7 @@ title: Get Single Layer
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-layers-layer-id-json
+  operationId: layers-get-single
 deprecated: false
 hidden: false
 metadata:

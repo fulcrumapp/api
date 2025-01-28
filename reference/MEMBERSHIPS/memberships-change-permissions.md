@@ -3,7 +3,7 @@ title: Change Permissions
 excerpt: Add or remove membership permissions from layers, forms, or projects
 api:
   file: rest-api.json
-  operationId: post_v-version-memberships-change-permissions-json
+  operationId: memberships-change-permissions
 deprecated: false
 hidden: false
 metadata:

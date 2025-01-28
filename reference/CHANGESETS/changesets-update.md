@@ -3,7 +3,7 @@ title: Update Changeset
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: put_v-version-changesets-changeset-id-json
+  operationId: changesets-update
 deprecated: false
 hidden: false
 metadata:

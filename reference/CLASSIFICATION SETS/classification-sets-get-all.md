@@ -3,7 +3,7 @@ title: Get All Classification Sets
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-classification-sets-json
+  operationId: classification-sets-get-all
 deprecated: false
 hidden: false
 metadata:

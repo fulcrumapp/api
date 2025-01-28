@@ -3,7 +3,7 @@ title: Get All Memberships
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-memberships-json
+  operationId: memberships-get-all
 deprecated: false
 hidden: false
 metadata:

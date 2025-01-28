@@ -3,7 +3,7 @@ title: Delete Classification Set
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: delete_v-version-classification-sets-classification-set-id-json
+  operationId: classification-sets-delete
 deprecated: false
 hidden: false
 metadata:
@@ -25,7 +25,7 @@ print('{id} has been deleted!')
 ```javascript JavaScript
 const { Client } = require('fulcrum-app');
 const client = new Client('{token}');
-  
+
 client.classificationSets.delete('{id}')
   .then((classificationSet) => {
     console.log('{id} has been deleted!');

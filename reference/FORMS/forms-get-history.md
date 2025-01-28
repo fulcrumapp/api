@@ -3,7 +3,7 @@ title: Get Form History
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-forms-form-id-history-json
+  operationId: forms-get-history
 deprecated: false
 hidden: false
 metadata:

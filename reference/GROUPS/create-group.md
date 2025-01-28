@@ -3,7 +3,7 @@ title: Create Group
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-groups-json
+  operationId: groups-create
 deprecated: false
 hidden: false
 metadata:

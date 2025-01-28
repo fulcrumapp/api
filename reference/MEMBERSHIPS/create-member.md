@@ -3,7 +3,7 @@ title: Create Member
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-memberships-json
+  operationId: memberships-create
 deprecated: false
 hidden: false
 metadata:

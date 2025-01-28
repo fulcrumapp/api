@@ -3,7 +3,7 @@ title: Update Classification Set
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: put_v-version-classification-sets-classification-set-id-json
+  operationId: classification-sets-update
 deprecated: false
 hidden: false
 metadata:

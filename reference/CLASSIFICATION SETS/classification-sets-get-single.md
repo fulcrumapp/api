@@ -3,7 +3,7 @@ title: Get Single Classification Set
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-classification-sets-classification-set-id-json
+  operationId: classification-sets-get-single
 deprecated: false
 hidden: false
 metadata:

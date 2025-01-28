@@ -3,7 +3,7 @@ title: Get Single Changeset
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-changesets-changeset-id-json
+  operationId: changesets-get-single
 deprecated: false
 hidden: false
 metadata:

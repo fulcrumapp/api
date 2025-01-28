@@ -3,7 +3,7 @@ title: Update Choice List
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: put_v-version-choice-lists-choice-list-id-json
+  operationId: choice-lists-update
 deprecated: false
 hidden: false
 metadata:

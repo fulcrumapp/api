@@ -3,7 +3,7 @@ title: Get Single Form
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-forms-form-id-json
+  operationId: forms-get-single
 deprecated: false
 hidden: false
 metadata:

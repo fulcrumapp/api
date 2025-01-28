@@ -3,7 +3,7 @@ title: Get Single Project
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-projects-project-id-json
+  operationId: projects-get-single
 deprecated: false
 hidden: false
 metadata:

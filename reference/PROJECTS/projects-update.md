@@ -3,7 +3,7 @@ title: Update Project
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: put_v-version-projects-project-id-json
+  operationId: projects-update
 deprecated: false
 hidden: false
 metadata:

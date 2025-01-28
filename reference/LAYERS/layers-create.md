@@ -3,7 +3,7 @@ title: Create Layer
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-layers-json
+  operationId: layers-create
 deprecated: false
 hidden: false
 metadata:

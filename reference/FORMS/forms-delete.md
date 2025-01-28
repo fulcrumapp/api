@@ -3,7 +3,7 @@ title: Delete Form
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: delete_v-version-forms-form-id-json
+  operationId: forms-delete
 deprecated: false
 hidden: false
 metadata:

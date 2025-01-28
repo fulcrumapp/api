@@ -3,7 +3,7 @@ title: Get All Choice Lists
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-choice-lists-json
+  operationId: choice-lists-get-all
 deprecated: false
 hidden: false
 metadata:

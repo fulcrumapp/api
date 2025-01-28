@@ -3,8 +3,7 @@ title: Update Group Name / Description
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: put_v-version-groups-group-id-json
-deprecated: false
+  operationId: groups-update
 hidden: false
 metadata:
   title: ''

@@ -3,7 +3,7 @@ title: Update Record
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: put_v-version-records-record-id-json
+  operationId: records-update
 deprecated: false
 hidden: false
 metadata:

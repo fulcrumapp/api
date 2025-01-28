@@ -3,7 +3,7 @@ title: Get All Layers
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-layers-json
+  operationId: layers-get-all
 deprecated: false
 hidden: false
 metadata:

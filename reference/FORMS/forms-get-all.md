@@ -3,7 +3,7 @@ title: Get All Forms
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-forms-json
+  operationId: forms-get-all
 deprecated: false
 hidden: false
 metadata:

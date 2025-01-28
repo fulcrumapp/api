@@ -3,7 +3,7 @@ title: Create Form
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-forms-json
+  operationId: forms-create
 deprecated: false
 hidden: false
 metadata:
