@@ -14,7 +14,7 @@ Returns the the logarithm of a number, base 10.
 
 # Parameters
 
-`value` Number (__required__) - The value for which to calculate the logarithm, base 10.
+`value` Number (**required**) - The value for which to calculate the logarithm, base 10.
 
 # Returns
 
