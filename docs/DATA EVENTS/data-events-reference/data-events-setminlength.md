@@ -18,9 +18,9 @@ The SETMINLENGTH function can be used to set the minimum number of characters fo
 
 # Parameters
 
-`field` String (__required__) - The data name for the field
+`field` String (**required**) - The data name for the field
 
-`length` number,null (__required__) - The minimum length of the field
+`length` number,null (**required**) - The minimum length of the field
 
 # Examples
 
