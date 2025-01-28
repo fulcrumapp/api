@@ -14,24 +14,32 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nclassification_set = fulcrum.classification_sets.find('{id}')\n\nprint(classification_set['classification_set'])",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.classificationSets.find('{id}')\n  .then((classificationSet) => {\n    console.log(classificationSet);\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\nclassification_set = client.classification_sets.find('{id}')\n\nputs classification_set",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+classification_set = fulcrum.classification_sets.find('{id}')
+
+print(classification_set['classification_set'])
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.classificationSets.find('{id}')
+  .then((classificationSet) => {
+    console.log(classificationSet);
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+classification_set = client.classification_sets.find('{id}')
+
+puts classification_set
+```
