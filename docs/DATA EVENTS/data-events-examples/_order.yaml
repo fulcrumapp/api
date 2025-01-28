@@ -60,3 +60,4 @@
 - validate-record-is-within-geographic-area
 - validate-yesno-in-repeatable-and-set-status
 - verify-special-choice-option
+- working-with-inline-geojson
