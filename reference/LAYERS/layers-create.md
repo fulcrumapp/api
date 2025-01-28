@@ -14,24 +14,40 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nobj = {\n  \"layer\": {\n    \"name\": \"USGS Topo\",\n    \"type\": \"xyz\",\n    \"source\": \"http://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}\"\n  }\n}\n\nlayer = fulcrum.layers.create(obj)\nprint(layer['layer']['id'] + ' has been created!')",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nconst obj = {\n  \"name\": \"USGS Topo\",\n  \"type\": \"xyz\",\n  \"source\": \"http://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}\"\n};\n\nclient.layers.create(obj)\n  .then((layer) => {\n    console.log(layer.id + ' has been created!');\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "# Not currently supported",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+obj = {
+  "layer": {
+    "name": "USGS Topo",
+    "type": "xyz",
+    "source": "http://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
+  }
 }
-[/block]
+
+layer = fulcrum.layers.create(obj)
+print(layer['layer']['id'] + ' has been created!')
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+const obj = {
+  "name": "USGS Topo",
+  "type": "xyz",
+  "source": "http://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
+};
+
+client.layers.create(obj)
+  .then((layer) => {
+    console.log(layer.id + ' has been created!');
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+# Not currently supported
+```
