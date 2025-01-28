@@ -10,11 +10,11 @@ metadata:
 next:
   description: ''
 ---
-Checks whether the current user&#39;s role is one of the arguments
+Checks whether the current user's role is one of the arguments
 
 # Parameters
 
-`var_args_values` String (__required__) - The role values to check
+`var_args_values` String (**required**) - The role values to check
 
 # Returns
 
