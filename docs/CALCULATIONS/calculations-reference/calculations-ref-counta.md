@@ -14,7 +14,7 @@ Returns a count of values in a dataset.
 
 # Parameters
 
-`value` Array (__required__) - an array of values
+`value` Array (**required**) - an array of values
 
 # Returns
 
@@ -27,7 +27,6 @@ COUNTA([11, 22, 33, 44, 55])
 
 // returns 5
 ```
-
 
 ```js
 // since it counts all arguments
