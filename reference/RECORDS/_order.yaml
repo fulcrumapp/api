@@ -5,3 +5,4 @@
 - records-get-all-history
 - records-create
 - records-update
+- records-delete
