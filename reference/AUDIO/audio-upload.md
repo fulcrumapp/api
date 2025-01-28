@@ -3,7 +3,7 @@ title: Upload Audio
 excerpt: Upload audio with optional track file
 api:
   file: rest-api.json
-  operationId: post_v-version-audio-upload-json
+  operationId: audio-upload
 deprecated: false
 hidden: false
 metadata:

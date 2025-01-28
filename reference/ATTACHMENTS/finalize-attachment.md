@@ -5,7 +5,7 @@ excerpt: >-
   endpoint to tell Fulcrum that your attachment has been uploaded.
 api:
   file: rest-api.json
-  operationId: post_v-version-attachments-finalize
+  operationId: finalize-attachment
 deprecated: false
 hidden: false
 metadata:

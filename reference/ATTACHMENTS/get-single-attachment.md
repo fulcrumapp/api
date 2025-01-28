@@ -3,7 +3,7 @@ title: Get Single Attachment
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-attachments-attachment-id
+  operationId: get-single-attachment
 deprecated: false
 hidden: false
 metadata:

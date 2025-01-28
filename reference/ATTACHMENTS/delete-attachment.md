@@ -6,7 +6,7 @@ excerpt: >-
   an attachment from the record and the attachment will be deleted.
 api:
   file: rest-api.json
-  operationId: delete_v-version-attachments-attachment-id
+  operationId: delete-attachment
 deprecated: false
 hidden: false
 metadata:

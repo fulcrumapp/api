@@ -11,7 +11,7 @@ excerpt: >-
   response will provide the `url` to upload (PUT) the file to.
 api:
   file: rest-api.json
-  operationId: post_v-version-attachments
+  operationId: create-attachment
 deprecated: false
 hidden: false
 metadata:

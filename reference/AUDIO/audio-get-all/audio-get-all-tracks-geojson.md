@@ -3,7 +3,7 @@ title: Get GeoJSON Tracks for All Audio
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-audio-tracks-geojson
+  operationId: audio-get-all-tracks-geojson
 deprecated: false
 hidden: false
 metadata:
