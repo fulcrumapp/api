@@ -22,39 +22,15 @@ ON('click', 'increment', function(event) {
 ```
 
 Another approach to a tally counter uses a numeric field with the data name `tally_count` and a Default Value of `0`. Also used is a Yes/No field with the data name of `tally` with these substitutions below:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/fdf404f-4ca4bdb-tally-settings_1.png",
-        "4ca4bdb-tally-settings (1).png",
-        664,
-        206,
-        "#000000"
-      ],
-      "caption": "Tally example Yes/No field settings"
-    }
-  ]
-}
-[/block]
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/ddfcfa2-4e6ec32-tally.gif",
-        "4e6ec32-tally.gif",
-        796,
-        281,
-        "#000000"
-      ],
-      "caption": "Tally GIF"
-    }
-  ]
-}
-[/block]
+<Image title="4ca4bdb-tally-settings (1).png" alt={664} src="https://files.readme.io/fdf404f-4ca4bdb-tally-settings_1.png">
+  Tally example Yes/No field settings
+</Image>
+
+<Image title="4e6ec32-tally.gif" alt={796} src="https://files.readme.io/ddfcfa2-4e6ec32-tally.gif">
+  Tally GIF
+</Image>
+
 ```js
 ON('change', 'tally', function (event) {
   if ($tally == 'add') {
