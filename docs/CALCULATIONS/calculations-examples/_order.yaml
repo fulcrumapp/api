@@ -35,3 +35,4 @@
 - track-who-has-updated-a-record
 - transfer-photos-through-payloads
 - unix-timestamp-for-unique-record-value
+- values-from-choice-field-in-repeatable
