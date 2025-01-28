@@ -3,3 +3,4 @@
 - classification-sets-get-single
 - classification-sets-create
 - classification-sets-update
+- classification-sets-delete
