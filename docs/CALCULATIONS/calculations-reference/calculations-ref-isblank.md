@@ -14,7 +14,7 @@ Checks whether the field's value is empty.
 
 # Parameters
 
-`value` String (__required__) - Field value to check.
+`value` String (**required**) - Field value to check.
 
 # Returns
 
