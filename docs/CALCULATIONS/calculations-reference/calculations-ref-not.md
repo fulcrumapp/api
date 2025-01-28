@@ -14,7 +14,7 @@ Returns the opposite of a logical value - NOT(true) returns false; NOT(false) re
 
 # Parameters
 
-`value` Boolean (__required__) - The expression or value representing a logical value (`true` or `false`).
+`value` Boolean (**required**) - The expression or value representing a logical value (`true` or `false`).
 
 # Returns
 
