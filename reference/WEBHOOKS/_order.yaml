@@ -3,3 +3,4 @@
 - webhooks-get-single
 - webhooks-create
 - webhooks-update
+- webhooks-delete
