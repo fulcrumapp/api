@@ -14,7 +14,7 @@ Returns the inverse cosine of a value, in radians.
 
 # Parameters
 
-`value` Number (__required__) - The value for which to calculate the inverse cosine. Must be between -1 and 1, inclusive.
+`value` Number (**required**) - The value for which to calculate the inverse cosine. Must be between -1 and 1, inclusive.
 
 # Returns
 
@@ -24,7 +24,7 @@ Number
 
 # Parameters
 
-`value` Number (__required__) - The value for which to calculate the inverse hyperbolic cosine. Must be greater than or equal to 1.
+`value` Number (**required**) - The value for which to calculate the inverse hyperbolic cosine. Must be greater than or equal to 1.
 
 # Returns
 
@@ -32,7 +32,7 @@ Number
 
 # Examples
 
-```js
+````js
 ACOSH(7)
 
 // returns 2.6339157938496336
@@ -41,4 +41,4 @@ ACOSH(7)
 ACOS(0.8)
 
 // returns 0.6435011087932843
-```
+````
