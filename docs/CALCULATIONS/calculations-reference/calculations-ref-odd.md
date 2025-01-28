@@ -14,7 +14,7 @@ Rounds a number up to the nearest odd integer.
 
 # Parameters
 
-`value` Number (__required__) - The number to round to the nearest odd integer.
+`value` Number (**required**) - The number to round to the nearest odd integer.
 
 # Returns
 
