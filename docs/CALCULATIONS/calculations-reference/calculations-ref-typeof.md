@@ -14,7 +14,7 @@ Returns the type of a value
 
 # Parameters
 
-`value` (__required__) - A value to get the type of
+`value` (**required**) - A value to get the type of
 
 # Returns
 
