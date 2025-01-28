@@ -14,24 +14,33 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nauthorization = fulcrum.authorizations.find('{id}')\n\nprint(authorization['authorization'])",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.authorizations.find('{id}')\n  .then((authorization) => {\n    console.log(authorization); // entire authorization\n    // console.log(authorization.id); // just the authorization id\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\nauthorization = client.authorizations.find('{id}')\n\nputs authorization",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+authorization = fulcrum.authorizations.find('{id}')
+
+print(authorization['authorization'])
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.authorizations.find('{id}')
+  .then((authorization) => {
+    console.log(authorization); // entire authorization
+    // console.log(authorization.id); // just the authorization id
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+authorization = client.authorizations.find('{id}')
+
+puts authorization
+```
