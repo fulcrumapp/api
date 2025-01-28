@@ -24,12 +24,12 @@ Use this endpoint to manage a group's members, layers, projects and forms. To ch
 
 The body of your request should contain these properties as required:
 
-| Property | Type             | Required | Description                                              |
-| -------- | ---------------- | -------- | -------------------------------------------------------- |
-| type     | string           | yes      | The type of update (reference the type slug table above) |
-| group_id | string           | yes      | The group ID                                             |
-| add      | array of strings | no       | The collection of entities to add to the group           |
-| remove   | array of strings | no       | The collection of entities to remove from the group      |
+| Property  | Type             | Required | Description                                              |
+| --------- | ---------------- | -------- | -------------------------------------------------------- |
+| type      | string           | yes      | The type of update (reference the type slug table above) |
+| group\_id | string           | yes      | The group ID                                             |
+| add       | array of strings | no       | The collection of entities to add to the group           |
+| remove    | array of strings | no       | The collection of entities to remove from the group      |
 
 ## JSON Body Examples
 
