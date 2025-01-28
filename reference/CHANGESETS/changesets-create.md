@@ -14,24 +14,61 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nobj = {\n  \"changeset\": {\n    \"form_id\": \"my-form-id\",\n    \"metadata\": {\n      \"comment\": \"Daily status update\",\n      \"app_created_by\": \"ACME Engineering\",\n      \"app_name\": \"Fulcrum Update Script\"\n    }\n  }\n}\n\nchangeset = fulcrum.changesets.create(obj)\nprint(changeset['changeset']['id'] + ' has been created!')",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nconst obj = {\n  \"form_id\": \"my-form-id\",\n  \"metadata\": {\n    \"comment\": \"Daily status update\",\n    \"app_created_by\": \"ACME Engineering\",\n    \"app_name\": \"Fulcrum Update Script\"\n  }\n};\n\nclient.changesets.create(obj)\n  .then((changeset) => {\n    console.log(changeset.id + ' has been created!');\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\nchangeset = {\n  \"form_id\"=>\"my-form-id\",\n  \"metadata\"=>{\n    \"comment\"=>\"Daily status update\",\n    \"app_created_by\"=>\"ACME Engineering\",\n    \"app_name\"=>\"Fulcrum Update Script\"\n  }\n}\n\nresponse = client.changesets.create(changeset)\n\nputs response['id'] + ' has been created!'",
-      "language": "ruby",
-      "name": "Ruby"
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+obj = {
+  "changeset": {
+    "form_id": "my-form-id",
+    "metadata": {
+      "comment": "Daily status update",
+      "app_created_by": "ACME Engineering",
+      "app_name": "Fulcrum Update Script"
     }
-  ]
+  }
 }
-[/block]
+
+changeset = fulcrum.changesets.create(obj)
+print(changeset['changeset']['id'] + ' has been created!')
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+const obj = {
+  "form_id": "my-form-id",
+  "metadata": {
+    "comment": "Daily status update",
+    "app_created_by": "ACME Engineering",
+    "app_name": "Fulcrum Update Script"
+  }
+};
+
+client.changesets.create(obj)
+  .then((changeset) => {
+    console.log(changeset.id + ' has been created!');
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+
+changeset = {
+  "form_id"=>"my-form-id",
+  "metadata"=>{
+    "comment"=>"Daily status update",
+    "app_created_by"=>"ACME Engineering",
+    "app_name"=>"Fulcrum Update Script"
+  }
+}
+
+response = client.changesets.create(changeset)
+
+puts response['id'] + ' has been created!'
+```
