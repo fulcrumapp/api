@@ -14,7 +14,7 @@ Returns the maximum value in a given set of values.
 
 # Parameters
 
-`var_args_values` Number (__required__) - Values in which to find the maximum value.
+`var_args_values` Number (**required**) - Values in which to find the maximum value.
 
 # Returns
 
