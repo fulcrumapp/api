@@ -24,9 +24,9 @@ The `choices` parameter can be in 3 possible formats. The first format is provid
 
 # Parameters
 
-`field` String (__required__) - The data name for the field
+`field` String (**required**) - The data name for the field
 
-`choices` Array,null (__required__) - The choices for the choice field, or `null` to restore the original choices.
+`choices` Array,null (**required**) - The choices for the choice field, or `null` to restore the original choices.
 
 # Examples
 
