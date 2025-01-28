@@ -14,7 +14,7 @@ Set the visibility of the status field.
 
 # Parameters
 
-`hidden` boolean,null (__required__) - Boolean value representing whether the field should be hidden, or `null` to restore the original value
+`hidden` boolean,null (**required**) - Boolean value representing whether the field should be hidden, or `null` to restore the original value
 
 # Examples
 
