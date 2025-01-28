@@ -27,7 +27,7 @@ Remove the following two lines after `<figure>`:\
 
 then replace `item.caption` with `photoDate`.
 
-<Image title="cbc4a80-photo_date_stamp.png" alt={1798} src="https://files.readme.io/4fd5d17-cbc4a80-photo_date_stamp.png">
+<Image title="cbc4a80-photo_date_stamp.png" alt={1798} src="https://files.readme.io/4fd5d17-cbc4a80-photo_date_stamp.png"> 
   change this to photoDate screenshot
 </Image>
 
