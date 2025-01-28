@@ -14,7 +14,7 @@ Checks whether a value is true or false.
 
 # Parameters
 
-`value` String (__required__) - The value to be verified as `true` or `false`.
+`value` String (**required**) - The value to be verified as `true` or `false`.
 
 # Returns
 
