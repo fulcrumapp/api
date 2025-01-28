@@ -11,22 +11,11 @@ next:
   description: ''
 ---
 Suppose you have a choice list with numeric values as shown below:
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/53f4b91-12bfed6-choice_list.png",
-        "12bfed6-choice_list.png",
-        1502,
-        862,
-        "#000000"
-      ],
-      "caption": "choice list numbers"
-    }
-  ]
-}
-[/block]
+
+<Image title="12bfed6-choice_list.png" alt={1502} src="https://files.readme.io/53f4b91-12bfed6-choice_list.png">
+  choice list numbers
+</Image>
+
 You can use a set of choice fields using this pre-defined choice list and a calculation field to calculate the scores.  The example below is adding up 5 choice field values and assumes that they are all required fields.
 
 ```js
