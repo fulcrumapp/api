@@ -13,25 +13,14 @@ next:
 # Highlight all Section labels
 
 In the BODY section, add `style="background-color: #FFFF00"` under `if (element.isSectionElement)` block of code shown below.  If you are familiar with CSS & HTML, you may create a .highlight class in the STYLES section with the background color of #FFFF00 and add it to the corresponding class.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/9d6dd7b-9484d3a-highlight_section.png",
-        "9484d3a-highlight_section.png",
-        1942,
-        968,
-        "#000000"
-      ],
-      "caption": "Highlight section"
-    }
-  ]
-}
-[/block]
+
+<Image title="9484d3a-highlight_section.png" alt={1942} src="https://files.readme.io/9d6dd7b-9484d3a-highlight_section.png">
+  Highlight section
+</Image>
+
 # Highlight a certain field
 
-Replace the last `else` function in the BODY section with the following code except you use your report’s field label instead of 'FIELD_LABEL':
+Replace the last `else` function in the BODY section with the following code except you use your report’s field label instead of 'FIELD\_LABEL':
 
 ```html
 <div class='field'>
@@ -44,28 +33,18 @@ Replace the last `else` function in the BODY section with the following code exc
 <% } %>
 </div>
 ```
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/e5fbfc6-c0805d8-highlight_field1.png",
-        "c0805d8-highlight_field1.png",
-        1976,
-        962,
-        "#000000"
-      ],
-      "caption": "field label screenshot"
-    }
-  ]
-}
-[/block]
+
+<Image title="c0805d8-highlight_field1.png" alt={1976} src="https://files.readme.io/e5fbfc6-c0805d8-highlight_field1.png">
+  field label screenshot
+</Image>
+
 # Highlight with a condition
 
 Here is an example with a field label `Size`.  Suppose you want to highlight the field only when `Size` equals `Small`.  In this case, your `if (element.label == 'Size')` statement needs an additional condition:
 
 ```js
 if (element.label == 'Size' && record.formValues.find('size').displayValue == 'Small')
+
 [block:image]
 {
   "images": [
@@ -82,3 +61,7 @@ if (element.label == 'Size' && record.formValues.find('size').displayValue == 'S
   ]
 }
 [/block]
+
+
+ 
+```
