@@ -19,7 +19,7 @@ Takes a Feature or a FeatureCollection and returns a convex hull Polygon.
 
 # Returns
 
-Feature <Polygon> - the convex hull
+Feature `<Polygon>` - the convex hull
 
 # Examples
 
