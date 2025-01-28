@@ -14,24 +14,41 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\naudios = fulcrum.audio.search(url_params={'form_id':'{id}'})\n\nfor audio in audios['audio']:\n  # print(audio) # entire audio metadata\n  print(audio['access_key']) # just the audio key",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.audio.all({'form_id':'{id}'})\n  .then((page) => {\n    page.objects.forEach(audio => {\n      // console.log(audio); // entire audio metadata\n      console.log(audio.access_key); // just the audio key\n    });\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\naudios = client.audio.all({'form_id':'{id}'})\n\nfor audio in audios.objects do\n  # puts audio # entire audio metadata\n  puts audio['access_key'] # just the audio key\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+audios = fulcrum.audio.search(url_params={'form_id':'{id}'})
+
+for audio in audios['audio']:
+  # print(audio) # entire audio metadata
+  print(audio['access_key']) # just the audio key
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.audio.all({'form_id':'{id}'})
+  .then((page) => {
+    page.objects.forEach(audio => {
+      // console.log(audio); // entire audio metadata
+      console.log(audio.access_key); // just the audio key
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+
+audios = client.audio.all({'form_id':'{id}'})
+
+for audio in audios.objects do
+  # puts audio # entire audio metadata
+  puts audio['access_key'] # just the audio key
+end
+```
