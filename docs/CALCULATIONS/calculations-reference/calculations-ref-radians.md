@@ -14,7 +14,7 @@ Converts a number of degrees to radians.
 
 # Parameters
 
-`value` Number (__required__) - The number of degrees to be converted.
+`value` Number (**required**) - The number of degrees to be converted.
 
 # Returns
 
