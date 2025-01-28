@@ -14,7 +14,7 @@ Returns the result of multiplying a series of numbers together.
 
 # Parameters
 
-`var_args_values` Number (__required__) - Values to multiply together.
+`var_args_values` Number (**required**) - Values to multiply together.
 
 # Returns
 
