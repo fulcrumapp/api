@@ -13,7 +13,7 @@ metadata:
 next:
   description: ''
 ---
-For this to work, each field you want to make hidden should have the 'Hidden' checkbox checked in the app builder so that the field is hidden by default. It's desirable to have the logic be based on who _can_ see it, rather than who _cannot_ see it.
+For this to work, each field you want to make hidden should have the 'Hidden' checkbox checked in the app builder so that the field is hidden by default. It's desirable to have the logic be based on who *can* see it, rather than who *cannot* see it.
 
 ```js
 ON('load-record', function(event) {
