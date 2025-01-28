@@ -2,3 +2,4 @@
 - get-all-attachments
 - get-single-attachment
 - create-attachment
+- finalize-attachment
