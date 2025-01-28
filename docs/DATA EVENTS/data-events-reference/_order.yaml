@@ -40,3 +40,4 @@
 - data-events-setrequired
 - data-events-setstatus
 - data-events-setstatusfilter
+- data-events-setstatushidden
