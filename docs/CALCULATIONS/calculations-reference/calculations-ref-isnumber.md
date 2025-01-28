@@ -14,7 +14,7 @@ Tests whether a value is a number.
 
 # Parameters
 
-`value` Number (__required__) - The value to be verified as a number.
+`value` Number (**required**) - The value to be verified as a number.
 
 # Returns
 
