@@ -15,3 +15,4 @@
 - check-if-a-photos-altitude-is-within-5m-of-currentlocation-altitude
 - compare-photo-location-to-record-location
 - compare-photo-timestamp-with-current-time
+- conditionally-persist-values-across-records
