@@ -10,17 +10,17 @@ metadata:
 next:
   description: ''
 ---
-**Description**  
+**Description**\
 The `RECOGNIZETEXT` function is used to retrieve text recognized from a photo. This function is particularly useful for extracting textual content from images, which can then be used in further data processing or stored in database fields.
 
 **Parameters**
 
-- `options` object (required) - An object containing the parameters for the function.
-  - `photo_id` string (required) - The ID of the photo from which to recognize text.
-- `callback` function (required) - A function that gets called once the text recognition is complete.
-  - `error` object (optional) - An error object if the recognition fails.
-  - `result` object (required) - An object containing the recognized text.  
-        - `text` string - The recognized text from the photo.
+* `options` object (required) - An object containing the parameters for the function.
+  * `photo_id` string (required) - The ID of the photo from which to recognize text.
+* `callback` function (required) - A function that gets called once the text recognition is complete.
+  * `error` object (optional) - An error object if the recognition fails.
+  * `result` object (required) - An object containing the recognized text.\
+        \- `text` string - The recognized text from the photo.
 
 ## Examples
 
@@ -48,8 +48,8 @@ This function is typically used in scenarios where text needs to be extracted fr
 
 To use the example above you will need to change the following fields:
 
-- Line 10 - Change the field name `image_text` to the field name you want the text to extract into.
-- Line 15 - Change the field name `photos` to the name of the photo field from which you are extracting text. 
+* Line 10 - Change the field name `image_text` to the field name you want the text to extract into.
+* Line 15 - Change the field name `photos` to the name of the photo field from which you are extracting text. 
 
 For example, you might use this functionality to automatically recognize and store text from photos of receipts, documents, or labels added to a record in your application.
 
