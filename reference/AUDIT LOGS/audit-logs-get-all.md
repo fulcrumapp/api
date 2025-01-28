@@ -14,24 +14,40 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nlogs = fulcrum.audit_logs.search(url_params={'per_page':5,'page':1})\n\nfor log in logs['audit_logs']:\n  # print(log) # entire audit log\n  print(log['description']) # just the audit log description",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.auditLogs.all({'per_page':5,'page':1})\n  .then((page) => {\n    page.objects.forEach(log => {\n      // console.log(log); // entire audit log\n      console.log(log.description); // just the audit log description\n    });\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\nlogs = client.audit_logs.all({'per_page':5,'page':1})\n\nfor log in logs.objects do\n  # puts log # entire log definition\n  puts log['description'] # just the log description\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+logs = fulcrum.audit_logs.search(url_params={'per_page':5,'page':1})
+
+for log in logs['audit_logs']:
+  # print(log) # entire audit log
+  print(log['description']) # just the audit log description
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.auditLogs.all({'per_page':5,'page':1})
+  .then((page) => {
+    page.objects.forEach(log => {
+      // console.log(log); // entire audit log
+      console.log(log.description); // just the audit log description
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+logs = client.audit_logs.all({'per_page':5,'page':1})
+
+for log in logs.objects do
+  # puts log # entire log definition
+  puts log['description'] # just the log description
+end
+```
