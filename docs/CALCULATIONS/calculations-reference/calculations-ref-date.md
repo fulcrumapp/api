@@ -14,11 +14,11 @@ Converts a provided year, month, and day into a date.
 
 # Parameters
 
-`year` Number (__required__) - year
+`year` Number (**required**) - year
 
-`month` Number (__required__) - month
+`month` Number (**required**) - month
 
-`day` Number (__required__) - day
+`day` Number (**required**) - day
 
 # Returns
 
