@@ -21,7 +21,7 @@ Creates a LineString Feature from an Array of Positions.
 
 # Returns
 
-Feature <LineString> - LineString Feature
+Feature `<LineString>` - LineString Feature
 
 # Examples
 
