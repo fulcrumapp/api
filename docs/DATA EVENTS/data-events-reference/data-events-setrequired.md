@@ -14,9 +14,9 @@ Set whether or not a field is required.
 
 # Parameters
 
-`field` String (__required__) - The data name for the field
+`field` String (**required**) - The data name for the field
 
-`required` boolean,null (__required__) - Boolean value representing whether the field should be required, or `null` to restore the original state
+`required` boolean,null (**required**) - Boolean value representing whether the field should be required, or `null` to restore the original state
 
 # Examples
 
