@@ -17,13 +17,11 @@ API calls are authenticated with a simple API Token that is provided with the re
 API Tokens are unique for each organization you have a membership with.
 
 You can find your tokens by browsing to the [Settings/API page](https://web.fulcrumapp.com/settings/api). You can generate separate tokens for different purposes. Keep in mind that when generating tokens, you’ll only get one shot at storing it somewhere, so copy and keep them in a safe place.
-[block:callout]
-{
-  "type": "danger",
-  "body": "Your API Token can be used to access and modify all data which you have permission to access within that organization, so be sure to keep the token private. Only share it with others if you want them to have that access. It is bad practice to put tokens in source code, especially if it’s publicly available. If you think your API Token has been compromised, you can generate a new one from your Fulcrum account API settings page or the [Authorizations API](#authorizations-intro).",
-  "title": "Secure your API Tokens!"
-}
-[/block]
+
+> ❗️ Secure your API Tokens!
+>
+> Your API Token can be used to access and modify all data which you have permission to access within that organization, so be sure to keep the token private. Only share it with others if you want them to have that access. It is bad practice to put tokens in source code, especially if it’s publicly available. If you think your API Token has been compromised, you can generate a new one from your Fulcrum account API settings page or the [Authorizations API](#authorizations-intro).
+
 # HTTP Request Header
 
 You can send the API Token using the `X-ApiToken` HTTP request header.
