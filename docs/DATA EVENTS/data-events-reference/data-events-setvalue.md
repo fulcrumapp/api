@@ -14,9 +14,9 @@ Set the value of a field.
 
 # Parameters
 
-`field` String (__required__) - The data name for the field to set
+`field` String (**required**) - The data name for the field to set
 
-`value` String (__required__) - The value to set for the field, or `null` to clear the value
+`value` String (**required**) - The value to set for the field, or `null` to clear the value
 
 # Examples
 
