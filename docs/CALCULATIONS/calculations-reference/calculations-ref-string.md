@@ -14,7 +14,7 @@ Converts the given parameter to a string value. If the parameter is a number tha
 
 # Parameters
 
-`anything` Object (__required__) - Any value
+`anything` Object (**required**) - Any value
 
 # Returns
 
