@@ -37,3 +37,4 @@
 - data-events-setprojecthidden
 - data-events-setprojectreadonly
 - data-events-setreadonly
+- data-events-setrequired
