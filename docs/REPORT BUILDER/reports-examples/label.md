@@ -12,7 +12,7 @@ next:
 ---
 # How to make all label fields full width
 
-You first need to go the SCRIPT section and add `isLabel()` function: 
+You first need to go the SCRIPT section and add `isLabel()` function:
 
 ```js
 function isLabel(field) {
@@ -40,7 +40,7 @@ Within the `element.isLabelElement` if statement, you can add conditional logic 
       <% var fontWeight = "normal"; %>
       <% if(element.label==="your_label_dataname") fontWeight = "bold" %>
       <div class='field'>
-        <h2 class='field-label-full' style="font-weight:<%=fontWeight%>;"><%= element.label %></h2>
+        <h2 class='field-label-full' style={{ fontWeight: "<%=fontWeight%>" }}><%= element.label %></h2>
       </div>
     <% } else { %>
 ```
