@@ -14,24 +14,35 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nlog = fulcrum.audit_logs.find('{id}')\n\nprint(log['audit_log']) # entire log\n# print(log['audit_log']['description']) # just the log description",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.auditLogs.find('{id}')\n  .then((log) => {\n    console.log(log);\n  })\n  .catch((error) => {\n    // There was a problem with the request. Is the API token correct?\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\nlog = client.audit_logs.find('{id}')\n\nputs log # entire log definition\n# puts log['description'] # just the log description",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+log = fulcrum.audit_logs.find('{id}')
+
+print(log['audit_log']) # entire log
+# print(log['audit_log']['description']) # just the log description
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.auditLogs.find('{id}')
+  .then((log) => {
+    console.log(log);
+  })
+  .catch((error) => {
+    // There was a problem with the request. Is the API token correct?
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+log = client.audit_logs.find('{id}')
+
+puts log # entire log definition
+# puts log['description'] # just the log description
+```
