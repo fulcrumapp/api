@@ -26,12 +26,12 @@ The following properties will be included in a `/groups.json` or  `/groups/{id}.
 
 Example: `https://api.fulcrumapp.com/api/v2/groups.json?associations=true`
 
-| Property    | Type             | Description               |
-| ----------- | ---------------- | ------------------------- |
-| member_ids  | array of strings | The members in the group  |
-| layer_ids   | array of strings | The layers in the group   |
-| project_ids | array of strings | The projects in the group |
-| form_ids    | array of strings | The forms in the group    |
+| Property     | Type             | Description               |
+| ------------ | ---------------- | ------------------------- |
+| member\_ids  | array of strings | The members in the group  |
+| layer\_ids   | array of strings | The layers in the group   |
+| project\_ids | array of strings | The projects in the group |
+| form\_ids    | array of strings | The forms in the group    |
 
 But to change these properties, you will need to use the [Update Group Permissions endpoint](https://docs.fulcrumapp.com/reference/update-group-permissions)
 
@@ -94,19 +94,19 @@ To change one of the permission properties of a group, you will need to include 
 
 The body of your request should contain these properties as required:
 
-| Property | Type             | Required | Description                                              |
-| -------- | ---------------- | -------- | -------------------------------------------------------- |
-| type     | string           | yes      | The type of update (reference the type slug table above) |
-| group_id | string           | yes      | The group ID                                             |
-| add      | array of strings | no       | The collection of entities to add to the group           |
-| remove   | array of strings | no       | The collection of entities to remove from the group      |
+| Property  | Type             | Required | Description                                              |
+| --------- | ---------------- | -------- | -------------------------------------------------------- |
+| type      | string           | yes      | The type of update (reference the type slug table above) |
+| group\_id | string           | yes      | The group ID                                             |
+| add       | array of strings | no       | The collection of entities to add to the group           |
+| remove    | array of strings | no       | The collection of entities to remove from the group      |
 
 # Notes
 
-- In a successful [Update Group Permissions request](https://docs.fulcrumapp.com/reference/update-group-permissions), nothing will be returned, even if you set `associations=true`
-- Permissions provided from [Groups](https://docs.fulcrumapp.com/reference/groups-api) take priority over normal permissions. If you attempt to remove a member's Group-provided access to a form, project, or layer, the request will fail with a 422 status code response and the member's permissions will not change
+* In a successful [Update Group Permissions request](https://docs.fulcrumapp.com/reference/update-group-permissions), nothing will be returned, even if you set `associations=true`
+* Permissions provided from [Groups](https://docs.fulcrumapp.com/reference/groups-api) take priority over normal permissions. If you attempt to remove a member's Group-provided access to a form, project, or layer, the request will fail with a 422 status code response and the member's permissions will not change
 
-# **Sample Response from a `/groups.json` or `/groups/{id}.json` endpoint with `associations=true` query parameter**
+# **Sample Response from a`/groups.json` or `/groups/{id}.json` endpoint with `associations=true` query parameter**
 
 ```json
 {
