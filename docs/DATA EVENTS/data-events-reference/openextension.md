@@ -27,7 +27,7 @@ Use Cases
 
 # Parameters
 
-`options` Object (__required__) - The options for the extension
+`options` Object (**required**) - The options for the extension
 
 # Example Data Event
 
@@ -47,7 +47,7 @@ ON('click', 'some_button', () => {
 
 # Example HTML
 
-This is the HTML page hosted at https://fulcrumapp.github.io/app-extensions/build/examples/simple/index.html
+This is the HTML page hosted at [https://fulcrumapp.github.io/app-extensions/build/examples/simple/index.html](https://fulcrumapp.github.io/app-extensions/build/examples/simple/index.html)
 
 ```js
 <!DOCTYPE html>
