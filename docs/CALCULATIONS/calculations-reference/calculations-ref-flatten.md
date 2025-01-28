@@ -14,7 +14,7 @@ Flatten nested arrays into a flat array
 
 # Parameters
 
-`value` Array (__required__) - Array to flatten
+`value` Array (**required**) - Array to flatten
 
 # Returns
 
@@ -27,7 +27,6 @@ FLATTEN([[1, 2, 3]])
 
 // returns [1,2,3]
 ```
-
 
 ```js
 FLATTEN([[1, 2, 3], [4, 5, 6]])
