@@ -22,7 +22,7 @@ Takes a Point and a LineString and calculates the closest Point on the (Multi)Li
 
 # Returns
 
-Feature <Point> - closest point on the line to point. The properties object will contain three values: index : closest point was found on nth line part, dist : distance between pt and the closest point, location : distance along the line between start and the closest point.
+Feature &lt;Point&gt; - closest point on the line to point. The properties object will contain three values: index : closest point was found on nth line part, dist : distance between pt and the closest point, location : distance along the line between start and the closest point.
 
 # Examples
 
