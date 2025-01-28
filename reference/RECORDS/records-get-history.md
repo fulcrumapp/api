@@ -14,24 +14,36 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nhistory = fulcrum.records.history('{id}')\n\nprint(history)",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.records.history('{id}')\n  .then((page) => {\n    page.objects.forEach(version => {\n      console.log(version);\n    });\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\nhistory = client.records.history('{id}')\n\nfor version in history.objects do\n  puts version\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+history = fulcrum.records.history('{id}')
+
+print(history)
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.records.history('{id}')
+  .then((page) => {
+    page.objects.forEach(version => {
+      console.log(version);
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+history = client.records.history('{id}')
+
+for version in history.objects do
+  puts version
+end
+```
