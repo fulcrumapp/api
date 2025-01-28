@@ -25,23 +25,23 @@ Allows you to configure specific device functionality and behaviors at the form 
 
 The following table contains the available properties that be set:
 
-| Property | Type | Description | Default |
-| ------------ | -------- | ---------------- | ----------- |
-| `auto_sync_enabled` | boolean | auto-sync this record after saving | user-preference |
-| `auto_location_enabled` | boolean | auto-populate the record location | true |
-| `auto_location_minimum_accuracy` | integer | minimum accuracy in meters for the auto-populated location | 1500 |
-| `manual_location_enabled` | boolean | allow manually changing the record location | true |
-| `media_gallery_enabled` | boolean | allow media from the gallery or camera roll | true |
-| `media_capture_enabled` | boolean | allow media from the camera | true |
-| `photo_quality` | integer | maximum dimension of photos in pixels, or 'native' | user-preference |
-| `video_quality` | string | video resolution, one of: 480p, 720p, 1080p, 2160p (device/platform dependent) | user-preference |
-| `drafts_enabled` | boolean | allow saving record as a draft | true |
-| `edit_locations_enabled` | boolean | track the locations of record edits | true |
-| `edit_durations_enabled` | boolean | track the durations of record edits | true |
+| Property                         | Type    | Description                                                                    | Default         |
+| -------------------------------- | ------- | ------------------------------------------------------------------------------ | --------------- |
+| `auto_sync_enabled`              | boolean | auto-sync this record after saving                                             | user-preference |
+| `auto_location_enabled`          | boolean | auto-populate the record location                                              | true            |
+| `auto_location_minimum_accuracy` | integer | minimum accuracy in meters for the auto-populated location                     | 1500            |
+| `manual_location_enabled`        | boolean | allow manually changing the record location                                    | true            |
+| `media_gallery_enabled`          | boolean | allow media from the gallery or camera roll                                    | true            |
+| `media_capture_enabled`          | boolean | allow media from the camera                                                    | true            |
+| `photo_quality`                  | integer | maximum dimension of photos in pixels, or 'native'                             | user-preference |
+| `video_quality`                  | string  | video resolution, one of: 480p, 720p, 1080p, 2160p (device/platform dependent) | user-preference |
+| `drafts_enabled`                 | boolean | allow saving record as a draft                                                 | true            |
+| `edit_locations_enabled`         | boolean | track the locations of record edits                                            | true            |
+| `edit_durations_enabled`         | boolean | track the durations of record edits                                            | true            |
 
 # Parameters
 
-`config` Object (__required__) - A configuration object with the following optional properties
+`config` Object (**required**) - A configuration object with the following optional properties
 
 # Examples
 
