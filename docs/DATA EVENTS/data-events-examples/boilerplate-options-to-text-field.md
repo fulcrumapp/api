@@ -12,7 +12,7 @@ metadata:
 next:
   description: ''
 ---
-Add a multichoice field called, Templates, with options of boilerplate text field you want to use. 
+Add a multichoice field called, Templates, with options of boilerplate text field you want to use.\
 Add a text field called, Narrative. 
 
 ```js
@@ -21,18 +21,4 @@ ON('change', 'templates', () => {
 })
 ```
 
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/3cdb522-CleanShot_2023-01-05_at_10.48.59.gif",
-        "CleanShot 2023-01-05 at 10.48.59.gif",
-        484,
-        756,
-        "#000000"
-      ]
-    }
-  ]
-}
-[/block]
+![484](https://files.readme.io/3cdb522-CleanShot_2023-01-05_at_10.48.59.gif "CleanShot 2023-01-05 at 10.48.59.gif")
