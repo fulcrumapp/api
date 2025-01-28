@@ -5,7 +5,7 @@ excerpt: >-
   update project, assignee, or status values on multiple records.
 api:
   file: rest-api.json
-  operationId: post_v-version-batch-batch-id-operations-json
+  operationId: add-batch-operations
 deprecated: false
 hidden: false
 metadata:
@@ -18,18 +18,18 @@ next:
 # POST /api/v2/batch/:id/operations
 
 ```json
-{  
-  "operations": [  
-    {  
-      "action": "delete",  
-      "resource": "record",  
-      "query": "select \_record_id as id from \"{{formId}}\" where \_status = 'Approved'",  
-    },  
-    {  
-      "action": "delete",  
-      "resource": "record",  
-      "ids": [ "{{recordId0}}", "{{recordId1}}" ],  
-    }  
-  ]  
+{
+  "operations": [
+    {
+      "action": "delete",
+      "resource": "record",
+      "query": "select \_record_id as id from \"{{formId}}\" where \_status = 'Approved'",
+    },
+    {
+      "action": "delete",
+      "resource": "record",
+      "ids": [ "{{recordId0}}", "{{recordId1}}" ],
+    }
+  ]
 }
 ```

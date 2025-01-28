@@ -3,7 +3,7 @@ title: Get All Audio
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-audio-json
+  operationId: audio-get-all
 deprecated: false
 hidden: false
 metadata:

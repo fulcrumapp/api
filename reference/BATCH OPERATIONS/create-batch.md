@@ -3,7 +3,7 @@ title: Create Batch to Bulk Delete Records
 excerpt: Using the batch operations API, you can bulk delete records from a form.
 api:
   file: rest-api.json
-  operationId: post_v-version-batch-json
+  operationId: create-batch
 deprecated: false
 hidden: false
 metadata:

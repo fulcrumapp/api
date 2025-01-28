@@ -3,7 +3,7 @@ title: Get All Audit Logs
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-audit-logs-json
+  operationId: audit-logs-get-all
 deprecated: false
 hidden: false
 metadata:

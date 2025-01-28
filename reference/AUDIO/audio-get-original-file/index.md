@@ -3,7 +3,7 @@ title: Get Original Audio File
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-audio-audio-id-mp4
+  operationId: audio-get-original-file
 deprecated: false
 hidden: false
 metadata:

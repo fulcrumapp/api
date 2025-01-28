@@ -3,7 +3,7 @@ title: Get JSON Tracks for All Audio
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-audio-tracks-json
+  operationId: audio-get-all-tracks-json
 deprecated: false
 hidden: false
 metadata:

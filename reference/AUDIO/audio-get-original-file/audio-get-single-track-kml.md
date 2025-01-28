@@ -3,7 +3,7 @@ title: Get KML Audio Track
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-audio-audio-id-track-kml
+  operationId: audio-get-single-track-kml
 deprecated: false
 hidden: false
 metadata:

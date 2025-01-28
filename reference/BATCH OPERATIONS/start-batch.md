@@ -3,7 +3,7 @@ title: Start Batch
 excerpt: Start your pending batch
 api:
   file: rest-api.json
-  operationId: post_v-version-batch-batch-id-start-json
+  operationId: start-batch
 deprecated: false
 hidden: false
 metadata:

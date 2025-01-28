@@ -3,7 +3,7 @@ title: Get JSON Audio Track
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-audio-audio-id-track-json
+  operationId: audio-get-single-track-json
 deprecated: false
 hidden: false
 metadata:

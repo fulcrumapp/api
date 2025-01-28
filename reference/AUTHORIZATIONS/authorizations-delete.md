@@ -3,7 +3,7 @@ title: Delete Authorization
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: delete_v-version-authorizations-authorization-id-json
+  operationId: authorizations-delete
 deprecated: false
 hidden: false
 metadata:
@@ -25,7 +25,7 @@ print('{id}' + ' has been deleted!')
 ```javascript JavaScript
 const { Client } = require('fulcrum-app');
 const client = new Client('{token}');
-  
+
 client.authorizations.delete('{id}')
   .then((authorization) => {
     console.log('{id} has been deleted!');

@@ -3,7 +3,7 @@ title: Close Changeset
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: put_v-version-changesets-changeset-id-close-json
+  operationId: changesets-close
 deprecated: false
 hidden: false
 metadata:
@@ -25,7 +25,7 @@ print('{id} has been closed!')
 ```javascript JavaScript
 const { Client } = require('fulcrum-app');
 const client = new Client('{token}');
-  
+
 client.changesets.close('{id}')
   .then((changeset) => {
     console.log('{id} has been closed!');

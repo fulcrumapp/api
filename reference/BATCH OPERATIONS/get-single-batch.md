@@ -3,7 +3,7 @@ title: Get Single Batch
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-batch-batch-id-json
+  operationId: get-single-batch
 deprecated: false
 hidden: false
 metadata:

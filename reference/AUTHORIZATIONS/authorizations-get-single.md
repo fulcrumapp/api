@@ -3,7 +3,7 @@ title: Get Single Authorization
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-authorizations-authorization-id-json
+  operationId: authorizations-get-single
 deprecated: false
 hidden: false
 metadata:

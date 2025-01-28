@@ -3,7 +3,7 @@ title: Get All Authorizations
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-authorizations-json
+  operationId: authorizations-get-all
 deprecated: false
 hidden: false
 metadata:

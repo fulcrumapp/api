@@ -3,7 +3,7 @@ title: Get Single Audit Log
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-audit-logs-audit-log-id-json
+  operationId: audit-logs-get-single
 deprecated: false
 hidden: false
 metadata:

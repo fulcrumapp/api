@@ -3,7 +3,7 @@ title: Get Audio Metadata
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-audio-audio-id-json
+  operationId: audio-get-single-metadata
 deprecated: false
 hidden: false
 metadata:

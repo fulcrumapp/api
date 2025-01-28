@@ -3,7 +3,7 @@ title: Update Authorization
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: put_v-version-authorizations-authorization-id-json
+  operationId: authorizations-update
 deprecated: false
 hidden: false
 metadata:

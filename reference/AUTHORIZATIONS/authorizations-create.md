@@ -3,7 +3,7 @@ title: Create Authorization
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: post_v-version-authorizations-json
+  operationId: authorizations-create
 deprecated: false
 hidden: false
 metadata:

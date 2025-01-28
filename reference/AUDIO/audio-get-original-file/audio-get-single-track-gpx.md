@@ -3,7 +3,7 @@ title: Get GPX Audio Track
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-audio-audio-id-track-gpx
+  operationId: audio-get-single-track-gpx
 deprecated: false
 hidden: false
 metadata:

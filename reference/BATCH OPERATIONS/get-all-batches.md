@@ -3,7 +3,7 @@ title: Get All Batches
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v-version-batch-json
+  operationId: get-all-batches
 deprecated: false
 hidden: false
 metadata:
