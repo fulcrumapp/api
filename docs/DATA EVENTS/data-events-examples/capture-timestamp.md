@@ -12,24 +12,9 @@ metadata:
 next:
   description: Set the time field's default value to 00:00:00
 ---
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/d457ca9edfeb0f969e3f598f082fda34b1866907665c7a459b418b1639a306d7-Zight_Recording_2024-10-17_at_10.28.27_AM.gif",
-        null,
-        "Example of the data event results"
-      ],
-      "align": "center",
-      "sizing": "500px",
-      "border": true,
-      "caption": "Example of the data event results"
-    }
-  ]
-}
-[/block]
-
+<Image alt="Example of the data event results" align="center" width="500px" border={true} src="https://files.readme.io/d457ca9edfeb0f969e3f598f082fda34b1866907665c7a459b418b1639a306d7-Zight_Recording_2024-10-17_at_10.28.27_AM.gif">
+  Example of the data event results
+</Image>
 
 ```javascript JavaScript
 ON('change', 'capture_time', function(event) { // The name of the Yes/No field
