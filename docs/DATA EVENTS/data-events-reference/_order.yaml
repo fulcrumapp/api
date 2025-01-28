@@ -39,3 +39,4 @@
 - data-events-setreadonly
 - data-events-setrequired
 - data-events-setstatus
+- data-events-setstatusfilter
