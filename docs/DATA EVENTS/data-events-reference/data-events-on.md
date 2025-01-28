@@ -18,9 +18,9 @@ The `ON` function is the starting point for most data event scripts. It wires up
 
 # Parameters
 
-`event` string (__required__) - The event name
+`event` string (**required**) - The event name
 
-`callback` function (__required__) - The function to call when the specified event is triggered
+`callback` function (**required**) - The function to call when the specified event is triggered
 
 # Examples
 
