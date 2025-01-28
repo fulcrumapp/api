@@ -14,7 +14,7 @@ Calculates the square root of a given number.
 
 # Parameters
 
-`value` Number (__required__) - The number for which to calculate the square root.
+`value` Number (**required**) - The number for which to calculate the square root.
 
 # Returns
 
