@@ -14,13 +14,13 @@ Replaces existing text with new text in a string.
 
 # Parameters
 
-`text` String (__required__) - A text value to look in
+`text` String (**required**) - A text value to look in
 
-`search_for` String (__required__) - A text value to replace
+`search_for` String (**required**) - A text value to replace
 
-`replace_with` String (__required__) - A text value to replace it with
+`replace_with` String (**required**) - A text value to replace it with
 
-`occurrence` String (__required__) - The instance of the search text to replace (e.g. 4 will only replace the 4th instance)
+`occurrence` String (**required**) - The instance of the search text to replace (e.g. 4 will only replace the 4th instance)
 
 # Returns
 
