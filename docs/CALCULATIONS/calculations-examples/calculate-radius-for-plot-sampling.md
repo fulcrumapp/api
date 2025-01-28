@@ -13,39 +13,16 @@ metadata:
 next:
   description: ''
 ---
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/4f9ea9d-41fef04-plot-center.png",
-        "41fef04-plot-center.png",
-        544,
-        414,
-        "#000000"
-      ],
-      "caption": "plot center"
-    }
-  ]
-}
-[/block]
+<Image title="41fef04-plot-center.png" alt={544} src="https://files.readme.io/4f9ea9d-41fef04-plot-center.png">
+  plot center
+</Image>
+
 This calculation field reveals the radius that you should be working with. It pulls in the acre size you would like to survey and the slope value at the site to calculate the length of the radius.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/e1ebea1-3b65d01-radius.png",
-        "3b65d01-radius.png",
-        668,
-        432,
-        "#000000"
-      ],
-      "caption": "radius"
-    }
-  ]
-}
-[/block]
+
+<Image title="3b65d01-radius.png" alt={668} src="https://files.readme.io/e1ebea1-3b65d01-radius.png">
+  radius
+</Image>
+
 You can read more about the methods on the [US Forest Service](http://www.fs.fed.us/nrm/fsveg/) site.
 
 ```js
