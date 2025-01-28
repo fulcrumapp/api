@@ -50,3 +50,4 @@
 - require-field-based-on-date-comparison
 - require-project
 - send-a-text-message
+- send-push-notifications-with-pushbullet
