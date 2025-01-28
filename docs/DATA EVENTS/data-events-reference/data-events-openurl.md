@@ -18,7 +18,7 @@ Open a URL for a website or mobile app.
 
 # Parameters
 
-`url` String (__required__) - The URL to open
+`url` String (**required**) - The URL to open
 
 # Examples
 
