@@ -15,27 +15,16 @@ Display a message box with configurable title, message, buttons and optional tex
 # Description
 
 MESSAGEBOX displays a message to the user. You can provide both the title and message of the alert box. Using the `buttons` parameter you can specify the button titles that are displayed in the message box.
-[block:image]
-{
-  "images": [
-    {
-      "image": [
-        "https://files.readme.io/47f6317-messagebox.gif",
-        "messagebox.gif",
-        304,
-        540,
-        "#e8e7e8"
-      ],
-      "caption": "MESSAGEBOX"
-    }
-  ]
-}
-[/block]
+
+<Image title="messagebox.gif" alt={304} src="https://files.readme.io/47f6317-messagebox.gif">
+  MESSAGEBOX
+</Image>
+
 # Parameters
 
-`options` Object (__required__) - The options for the message box
+`options` Object (**required**) - The options for the message box
 
-`callback` function (__required__) - invoked when the message box is dismissed
+`callback` function (**required**) - invoked when the message box is dismissed
 
 # Examples
 
