@@ -3,3 +3,4 @@
 - get-single-attachment
 - create-attachment
 - finalize-attachment
+- delete-attachment
