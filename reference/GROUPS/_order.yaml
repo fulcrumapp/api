@@ -3,3 +3,4 @@
 - get-single-group
 - get-group-resource
 - create-group
+- update-group-permissions
