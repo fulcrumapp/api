@@ -14,9 +14,9 @@ Returns the last N items from an array or string
 
 # Parameters
 
-`array` Array (__required__) - an array object
+`array` Array (**required**) - an array object
 
-`count` Number (optional)  [default = 1] - The number of items to return
+`count` Number (optional)  \[default = 1] - The number of items to return
 
 # Returns
 
