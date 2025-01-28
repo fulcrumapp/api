@@ -14,7 +14,7 @@ Returns number rounded up to the nearest even integer.
 
 # Parameters
 
-`value` Number (__required__) - Number to round.
+`value` Number (**required**) - Number to round.
 
 # Returns
 
@@ -27,7 +27,6 @@ EVEN(5.2)
 
 // returns 6
 ```
-
 
 ```js
 EVEN(528.2172814)
