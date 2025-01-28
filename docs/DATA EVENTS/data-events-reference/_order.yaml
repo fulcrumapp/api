@@ -35,3 +35,4 @@
 - data-events-setminlength
 - data-events-setproject
 - data-events-setprojecthidden
+- data-events-setprojectreadonly
