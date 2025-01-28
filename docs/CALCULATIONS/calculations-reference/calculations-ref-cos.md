@@ -14,7 +14,7 @@ Returns the cosine of a value, in radians.
 
 # Parameters
 
-`value` Number (__required__) - The value for which to calculate the cosine.
+`value` Number (**required**) - The value for which to calculate the cosine.
 
 # Returns
 
