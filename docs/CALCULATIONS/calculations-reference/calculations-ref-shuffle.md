@@ -14,7 +14,7 @@ Randomizes an array of items
 
 # Parameters
 
-`value` Array (__required__) - an array of items to randomize
+`value` Array (**required**) - an array of items to randomize
 
 # Returns
 
