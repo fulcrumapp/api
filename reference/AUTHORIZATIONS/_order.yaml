@@ -2,3 +2,4 @@
 - authorizations-get-all
 - authorizations-get-single
 - authorizations-create
+- authorizations-update
