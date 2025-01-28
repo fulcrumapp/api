@@ -14,7 +14,7 @@ Set the status of a record.
 
 # Parameters
 
-`status` String (__required__) - The status value for the record. Must be a valid status option!
+`status` String (**required**) - The status value for the record. Must be a valid status option!
 
 # Examples
 
