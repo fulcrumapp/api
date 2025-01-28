@@ -12,7 +12,7 @@ next:
 ---
 In addition to the standard PostgreSQL & PostGIS functions, there are several Fulcrum-specific helper functions for formatting data and handling media attachments.
 
-# FCM_ConvertToFloat
+# FCM\_ConvertToFloat
 
 `FCM_ConvertToFloat(input_value text)` RETURNS double precision
 
@@ -24,7 +24,7 @@ FCM_ConvertToFloat('a')     -- NULL
 
 Convert a textual value to a floating point value. This function is similar to a cast, except it gracefully fails to `NULL` when the input cannot be converted to a number. This is useful for text data that's mostly numbers but might have some invalid values in it.
 
-# FCM_FormatTimestamp
+# FCM\_FormatTimestamp
 
 `FCM_FormatTimestamp(ts timestamp without time zone, tz text DEFAULT 'UTC')` RETURNS text
 
@@ -40,9 +40,9 @@ SELECT FCM_FormatTimestamp(current_timestamp, 'America/New_York');  -- New York 
 
 The above examples show some of the ways the function can be used. The last form using `America/New_York` is the most useful because it takes into account the changes in the timezones given the exact timestamp. For example, New York is sometimes on EST and sometimes on EDT.
 
-# FCM_Photo (single)
+# FCM\_Photo (single)
 
-`FCM_Photo(id text, version text DEFAULT NULL)` RETURNS fcm_file
+`FCM_Photo(id text, version text DEFAULT NULL)` RETURNS fcm\_file
 
 * `id` The photo ID
 * `version` (optional, default `NULL`) The photo version. One of:
@@ -70,9 +70,9 @@ The following will return secure URLs directly to the raw files for the first ph
 SELECT FCM_Photo(photo_field[1], 'thumb') AS photo_urls FROM "Building Inspections";
 ```
 
-# FCM_Photo (multiple)
+# FCM\_Photo (multiple)
 
-`FCM_Photo(ids text[], version text DEFAULT NULL)` RETURNS fcm_file[]
+`FCM_Photo(ids text[], version text DEFAULT NULL)` RETURNS fcm\_file\[]
 
 * `ids` An array of photo IDs, this works naturally with the way photo fields are stored.
 * `version` (optional, default `NULL`) The photo version. One of:
@@ -88,11 +88,11 @@ The following will return secure URLs directly to the raw files. The consumer of
 SELECT FCM_Photo(unnest(photo_field), 'thumb') AS photo_urls FROM "Building Inspections";
 ```
 
-*Here we use `unnest` to expand an array to a set of rows.*
+*Here we use`unnest` to expand an array to a set of rows.*
 
-# FCM_Video (single)
+# FCM\_Video (single)
 
-`FCM_Video(id text, version text DEFAULT NULL)` RETURNS fcm_file
+`FCM_Video(id text, version text DEFAULT NULL)` RETURNS fcm\_file
 
 * `id` The video ID
 * `version` (optional, default `NULL`) The video version. One of:
@@ -118,9 +118,9 @@ The following will return a secure URL directly to the raw file.
 SELECT FCM_Video(video_field[1]) AS video_url FROM "Building Inspections";
 ```
 
-# FCM_Video (multiple)
+# FCM\_Video (multiple)
 
-`FCM_Video(ids text[], version text DEFAULT NULL)` RETURNS fcm_file[]
+`FCM_Video(ids text[], version text DEFAULT NULL)` RETURNS fcm\_file\[]
 
 * `ids` The video IDs
 * `version` (optional, default `NULL`) The video version. One of:
@@ -146,9 +146,9 @@ The following will return secure URLs directly to the raw video files.
 SELECT FCM_Video(video_field) AS video_urls FROM "Building Inspections";
 ```
 
-# FCM_Audio (single)
+# FCM\_Audio (single)
 
-`FCM_Audio(id text, version text DEFAULT NULL)` RETURNS fcm_file
+`FCM_Audio(id text, version text DEFAULT NULL)` RETURNS fcm\_file
 
 * `id` The audio ID
 * `version` (optional, default `NULL`) The audio version. One of:
@@ -164,9 +164,9 @@ The following will return a secure URL directly to the raw audio file.
 SELECT FCM_Audio(audio_field[1]) AS audio_url FROM "Building Inspections";
 ```
 
-# FCM_Audio (multiple)
+# FCM\_Audio (multiple)
 
-`FCM_Audio(ids text[], version text DEFAULT NULL)` RETURNS fcm_file[]
+`FCM_Audio(ids text[], version text DEFAULT NULL)` RETURNS fcm\_file\[]
 
 * `ids` The audio IDs
 * `version` (optional, default `NULL`) The audio version. One of:
@@ -182,9 +182,9 @@ The following will return secure URLs directly to the raw audio files.
 SELECT FCM_Audio(audio_field) AS audio_urls FROM "Building Inspections";
 ```
 
-# FCM_Signature
+# FCM\_Signature
 
-`FCM_Signature(id text, version text DEFAULT NULL)` RETURNS fcm_file
+`FCM_Signature(id text, version text DEFAULT NULL)` RETURNS fcm\_file
 
 * `id` The signature ID
 * `version` (optional, default `NULL`) The signature version. One of:
