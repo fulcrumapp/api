@@ -28,3 +28,4 @@
 - data-events-setformattributes
 - setgeometry
 - data-events-sethidden
+- data-events-setinterval
