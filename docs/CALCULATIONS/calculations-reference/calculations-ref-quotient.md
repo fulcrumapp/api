@@ -14,9 +14,9 @@ Returns the result of dividing one number by another.
 
 # Parameters
 
-`dividend` Number (__required__) - The number to divide.
+`dividend` Number (**required**) - The number to divide.
 
-`divisor` Number (__required__) - The number to be divided by.
+`divisor` Number (**required**) - The number to be divided by.
 
 # Returns
 
