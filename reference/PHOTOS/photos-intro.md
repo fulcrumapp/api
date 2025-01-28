@@ -14,29 +14,29 @@ The Photos API gives you access to a record's photos, including thumbnails. In o
 
 # Properties
 
-| Property | Type | Required | Readonly | Description |
-|----------|------|----------|----------|-------------|
-| access_key | string | yes | no | The ID of the photo. |
-| created_at | string | no | yes | Timestamp when the photo was created. |
-| updated_at | string | no | yes | Timestamp when the photo was last updated. |
-| created_by | string | no | yes | The name of user who created the photo. |
-| created_by_id | string | no | yes | The id of user who created the photo. |
-| updated_by | string | no | yes | The name of user who last updated the photo. |
-| updated_by_id | string | no | yes | The id of user who last updated the photo. |
-| uploaded | boolean | no | yes | The file has been uploaded, but might not be fully stored on the backend yet. This is the least useful indicator unless you're writing a synchronizer |
-| stored | boolean | no | yes | The `original` attribute is available for download. |
-| processed | boolean | no | yes | The additional versions of the media are available for download. (thumbnails or small versions). |
-| record_id | string | no | yes | The id of the record the photo is associated with. |
-| form_id | string | no | yes | The id of the form the photo is associated with. |
-| file_size | number | no | yes | The size of the photo file in bytes. |
-| content_type | string | no | yes | The content type of the photo file. |
-| latitude | number | no | yes | The photo latitude in WGS 84 decimal degrees. |
-| longitude | number | no | yes | The photo longitude in WGS 84 decimal degrees. |
-| url | string | no | yes | The URL to access the photo. |
-| thumbnail | string | no | yes | The URL to access the thumbnail version of the photo. |
-| large | string | no | yes | The URL to access the large version of the photo. |
-| original | string | no | yes | The URL to access the original version of the photo. |
-| exif | exif object | no | yes | The photo's EXIF metadata (varies by device). |
+| Property        | Type        | Required | Readonly | Description                                                                                                                                           |
+| --------------- | ----------- | -------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| access\_key     | string      | yes      | no       | The ID of the photo.                                                                                                                                  |
+| created\_at     | string      | no       | yes      | Timestamp when the photo was created.                                                                                                                 |
+| updated\_at     | string      | no       | yes      | Timestamp when the photo was last updated.                                                                                                            |
+| created\_by     | string      | no       | yes      | The name of user who created the photo.                                                                                                               |
+| created\_by\_id | string      | no       | yes      | The id of user who created the photo.                                                                                                                 |
+| updated\_by     | string      | no       | yes      | The name of user who last updated the photo.                                                                                                          |
+| updated\_by\_id | string      | no       | yes      | The id of user who last updated the photo.                                                                                                            |
+| uploaded        | boolean     | no       | yes      | The file has been uploaded, but might not be fully stored on the backend yet. This is the least useful indicator unless you're writing a synchronizer |
+| stored          | boolean     | no       | yes      | The `original` attribute is available for download.                                                                                                   |
+| processed       | boolean     | no       | yes      | The additional versions of the media are available for download. (thumbnails or small versions).                                                      |
+| record\_id      | string      | no       | yes      | The id of the record the photo is associated with.                                                                                                    |
+| form\_id        | string      | no       | yes      | The id of the form the photo is associated with.                                                                                                      |
+| file\_size      | number      | no       | yes      | The size of the photo file in bytes.                                                                                                                  |
+| content\_type   | string      | no       | yes      | The content type of the photo file.                                                                                                                   |
+| latitude        | number      | no       | yes      | The photo latitude in WGS 84 decimal degrees.                                                                                                         |
+| longitude       | number      | no       | yes      | The photo longitude in WGS 84 decimal degrees.                                                                                                        |
+| url             | string      | no       | yes      | The URL to access the photo.                                                                                                                          |
+| thumbnail       | string      | no       | yes      | The URL to access the thumbnail version of the photo.                                                                                                 |
+| large           | string      | no       | yes      | The URL to access the large version of the photo.                                                                                                     |
+| original        | string      | no       | yes      | The URL to access the original version of the photo.                                                                                                  |
+| exif            | exif object | no       | yes      | The photo's EXIF metadata (varies by device).                                                                                                         |
 
 # Validations
 
@@ -44,10 +44,10 @@ The following properties must be included in order to create/update a photo obje
 
 ## Required Properties
 
-| Property | Type | Description | Example |
-|----------|------|-------------|---------|
-| photo[access_key] | string | The id of the photo. | `"7A8ABC73-A41B-4F1E-BA16-F7C03DAE1E22"` |
-| photo[file] | multipart/form-data | The photo file. | See [example](#upload-a-new-photo) below. |
+| Property            | Type                | Description          | Example                                   |
+| ------------------- | ------------------- | -------------------- | ----------------------------------------- |
+| photo\[access\_key] | string              | The id of the photo. | `"7A8ABC73-A41B-4F1E-BA16-F7C03DAE1E22"`  |
+| photo\[file]        | multipart/form-data | The photo file.      | See [example](#upload-a-new-photo) below. |
 
 Example validation response if `access_key` is not included:
 
@@ -63,7 +63,7 @@ Example validation response if `access_key` is not included:
 
 # Notes
 
-- There is no `DELETE` method for photos. Photos can be effectively deleted by unlinking them from their associated record.
+* There is no `DELETE` method for photos. Photos can be effectively deleted by unlinking them from their associated record.
 
 # Sample Response
 
