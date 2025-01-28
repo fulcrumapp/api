@@ -3,3 +3,4 @@
 - rest-api-timestamps
 - rest-api-unique-ids
 - rest-api-pagination
+- rest-api-rate-limits
