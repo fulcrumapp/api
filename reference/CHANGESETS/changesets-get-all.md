@@ -14,24 +14,41 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nchangesets = fulcrum.changesets.search(url_params={'per_page':5,'page':1})\n\nfor changeset in changesets['changesets']:\n  # print(changeset) # entire changeset\n  print(changeset['id']) # just the changeset ID",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.changesets.all({'per_page':5,'page':1})\n  .then((page) => {\n    page.objects.forEach(changeset => {\n      // console.log(changeset);  // entire changeset\n      console.log(changeset.id); //  just the changesets ID\n    });\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\nchangesets = client.changesets.all({'per_page':5,'page':1})\n\nfor changeset in changesets.objects do\n  # puts changeset # entire changeset\n  puts changeset['id'] # just the changeset ID\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+changesets = fulcrum.changesets.search(url_params={'per_page':5,'page':1})
+
+for changeset in changesets['changesets']:
+  # print(changeset) # entire changeset
+  print(changeset['id']) # just the changeset ID
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.changesets.all({'per_page':5,'page':1})
+  .then((page) => {
+    page.objects.forEach(changeset => {
+      // console.log(changeset);  // entire changeset
+      console.log(changeset.id); //  just the changesets ID
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+
+changesets = client.changesets.all({'per_page':5,'page':1})
+
+for changeset in changesets.objects do
+  # puts changeset # entire changeset
+  puts changeset['id'] # just the changeset ID
+end
+```
