@@ -51,3 +51,4 @@
 - require-project
 - send-a-text-message
 - send-push-notifications-with-pushbullet
+- set-the-status-field-options-based-on-role
