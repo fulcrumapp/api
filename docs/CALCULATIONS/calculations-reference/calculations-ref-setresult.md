@@ -14,7 +14,7 @@ Sets the current result value for the current expression. This is useful in mult
 
 # Parameters
 
-`value` or `field` * (__required__) - the value or the value of the field to set as the result of the expression
+`value` or `field` \* (**required**) - the value or the value of the field to set as the result of the expression
 
 # Returns
 
@@ -32,4 +32,4 @@ SETRESULT(1)
 SETRESULT($site_id)
 
 // returns the value of site_id field
-````
+```
