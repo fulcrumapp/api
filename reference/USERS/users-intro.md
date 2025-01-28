@@ -14,9 +14,9 @@ The Users API provides access to user metadata, including organizations the user
 
 # Notes
 
-- The Users API supports HTTP Basic authentication while most other endpoints require the API token as either an HTTP request header or query string parameter.
+* The Users API supports HTTP Basic authentication while most other endpoints require the API token as either an HTTP request header or query string parameter.
 
-- The Users API only allows GET requests. You must create new users or modify existing users via the web admin console.
+* The Users API only allows GET requests. You must create new users or modify existing users via the web admin console.
 
 # Sample Response
 
