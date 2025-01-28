@@ -14,7 +14,7 @@ Returns the precision of a number
 
 # Parameters
 
-`value` Number (__required__) - a number
+`value` Number (**required**) - a number
 
 # Returns
 
