@@ -14,13 +14,13 @@ next:
 
 You can directly launch Fulcrum, create new records and update existing records via URL parameters on both the web and mobile apps. This allows you to easily integrate Fulcrum with other applications and services to build custom workflows, such as:
 
-- Scheduling work outside of Fulcrum and sending daily worksheets to your field crews.
+* Scheduling work outside of Fulcrum and sending daily worksheets to your field crews.
 
-- Adding record links to calendar events for scheduling and notification.
+* Adding record links to calendar events for scheduling and notification.
 
-- Sending a text message with a record link for immediate inspection.
+* Sending a text message with a record link for immediate inspection.
 
-- Passing coordinates from another application or web map to create a new Fulcrum record.
+* Passing coordinates from another application or web map to create a new Fulcrum record.
 
 # Web Actions
 
@@ -73,44 +73,41 @@ Both the Android and iOS apps support opening the app using the `fulcrumapp://` 
 
 # Supported Field Types
 
-| Field                                   | Description                                                            |
-| --------------------------------------- | ---------------------------------------------------------------------- |
-| Text                                    | _Uri encoded text value_                                               |
-| Yes/No                                  | _Uri encoded text value_                                               |
-| Barcode                                 | _Uri encoded text value_                                               |
-| Hyperlink                               | _Uri encoded text value_                                               |
-| SingleChoice ('Other' is not supported) | _Uri encoded text value_                                               |
-| Classification                          | _Uri encoded, comma delimited list of values. ex: `1%2C2%2Chello%2C4`_ |
-| Date                                    | _YYYY-MM-DD_                                                           |
-| Time                                    | _HH:MM_                                                                |
+| Field                                   | Description                                                           |
+| --------------------------------------- | --------------------------------------------------------------------- |
+| Text                                    | *Uri encoded text value*                                              |
+| Yes/No                                  | *Uri encoded text value*                                              |
+| Barcode                                 | *Uri encoded text value*                                              |
+| Hyperlink                               | *Uri encoded text value*                                              |
+| SingleChoice ('Other' is not supported) | *Uri encoded text value*                                              |
+| Classification                          | *Uri encoded, comma delimited list of values. ex:`1%2C2%2Chello%2C4`* |
+| Date                                    | *YYYY-MM-DD*                                                          |
+| Time                                    | *HH:MM*                                                               |
 
 # Validation
 
-- `form_id` must exist for `new-record` action
-- `record_id` must exist for `edit-record` action
-- If `project_id` is passed
-  - the project must exist
-  - the active account's role must have permission to change projects
-- If `status` is passed, the active account's role must have permission to change the status
-- `latitude` must be a number and must be: -90 \<= latitude \<= 90
-- `longitude` must be a number and must be: -180 \<= longitude \<= 180
+* `form_id` must exist for `new-record` action
+* `record_id` must exist for `edit-record` action
+* If `project_id` is passed
+  * the project must exist
+  * the active account's role must have permission to change projects
+* If `status` is passed, the active account's role must have permission to change the status
+* `latitude` must be a number and must be: -90 \<= latitude \<= 90
+* `longitude` must be a number and must be: -180 \<= longitude \<= 180
 
 # Examples
 
-- `fulcrumapp://new-record?form_id=c55adab9-916d-46e9-98aa-7a2388a77b24&number_of_floors=3&sq_footage=2300`
+* `fulcrumapp://new-record?form_id=c55adab9-916d-46e9-98aa-7a2388a77b24&number_of_floors=3&sq_footage=2300`
 
-- `fulcrumapp://new-record?form_id=c55adab9-916d-46e9-98aa-7a2388a77b24&status=incomplete&sq_footage=2300&name=My%20Awesome%20Building&number_of_floors=3&latitude=28.038046&longitude=-81.952514`
+* `fulcrumapp://new-record?form_id=c55adab9-916d-46e9-98aa-7a2388a77b24&status=incomplete&sq_footage=2300&name=My%20Awesome%20Building&number_of_floors=3&latitude=28.038046&longitude=-81.952514`
 
-- `fulcrumapp://edit-record?record_id=11fb2a54-5158-4848-8695-c405c54525e4&status=incomplete&sq_footage=2300&name=SNI&number_of_floors=3&latitude=28.038046&longitude=-81.952514`
+* `fulcrumapp://edit-record?record_id=11fb2a54-5158-4848-8695-c405c54525e4&status=incomplete&sq_footage=2300&name=SNI&number_of_floors=3&latitude=28.038046&longitude=-81.952514`
 
 # Notes
 
-- **Compatibility with Core Android Apps:** Several core Android apps, including Gmail and Messenger do not support custom schemes and will not correctly link to Fulcrum if you try to use the following `<a href="fulcrumapp://new-record?form_id=123-xyz">Create new record</a>`. We have set up a dedicated HTTP page to help overcome this issue by providing a web link, which opens the browser and redirects to open the Fulcrum app. If you are dealing with this issue, try the following:  
-  <br />
-  - `<a href="https://web.fulcrumapp.com/action/#new-record?form_id=123-xyz">Create new record</a>` for new records
-  - `<a href="https://web.fulcrumapp.com/action/#edit-record?record_id=xyz-123">Edit record</a>` for existing edits  
-    <br />  
-    This solution should work for both Android and iOS.  
-    <br />
-- **URL Actions and Record Updates**: When using URL actions to fetch data from external systems and update Fulcrum records via return URLs and URL actions, the record remains in edit mode which blocks updates. This blocking is intentional to prevent data loss and overwrites during URL action operations.  
+* **Compatibility with Core Android Apps:** Several core Android apps, including Gmail and Messenger do not support custom schemes and will not correctly link to Fulcrum if you try to use the following `<a href="fulcrumapp://new-record?form_id=123-xyz">Create new record</a>`. We have set up a dedicated HTTP page to help overcome this issue by providing a web link, which opens the browser and redirects to open the Fulcrum app. If you are dealing with this issue, try the following:\ <br />
+  * `<a href="https://web.fulcrumapp.com/action/#new-record?form_id=123-xyz">Create new record</a>` for new records
+  * `<a href="https://web.fulcrumapp.com/action/#edit-record?record_id=xyz-123">Edit record</a>` for existing edits\ <br />\
+    This solution should work for both Android and iOS.\ <br />
+* **URL Actions and Record Updates**: When using URL actions to fetch data from external systems and update Fulcrum records via return URLs and URL actions, the record remains in edit mode which blocks updates. This blocking is intentional to prevent data loss and overwrites during URL action operations.\
   To properly handle this, call SAVE() after OPENURL(). This ensures that when you return to the record via URL actions, it opens fresh and ready for updates.
