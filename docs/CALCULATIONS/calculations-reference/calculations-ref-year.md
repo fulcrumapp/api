@@ -14,7 +14,7 @@ Returns the year of a given date.
 
 # Parameters
 
-`date` Date (__required__) - a date
+`date` Date (**required**) - a date
 
 # Returns
 
