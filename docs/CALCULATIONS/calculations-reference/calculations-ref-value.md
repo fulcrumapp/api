@@ -14,7 +14,7 @@ Returns the current value of a field given the field's data name
 
 # Parameters
 
-`field` String (__required__) - the Data Name of the field
+`field` String (**required**) - the Data Name of the field
 
 # Returns
 
