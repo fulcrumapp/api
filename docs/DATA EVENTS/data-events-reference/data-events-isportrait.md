@@ -18,7 +18,7 @@ Returns true if the photo or video is in portrait mode. This is intended to be u
 
 # Parameters
 
-`value` Object (__required__) - The value of the photo or video
+`value` Object (**required**) - The value of the photo or video
 
 # Examples
 
