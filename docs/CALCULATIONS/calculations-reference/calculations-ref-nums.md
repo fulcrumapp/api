@@ -14,7 +14,7 @@ Converts multiple parameters to an array of numbers
 
 # Parameters
 
-`var_args_values` * (__required__) - the values to convert to numbers
+`var_args_values` \* (**required**) - the values to convert to numbers
 
 # Returns
 
