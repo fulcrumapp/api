@@ -14,7 +14,7 @@ Returns the median value in a set of numeric values.
 
 # Parameters
 
-`var_args_values` Number (__required__) - Values in which to find the median value.
+`var_args_values` Number (**required**) - Values in which to find the median value.
 
 # Returns
 
