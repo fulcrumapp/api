@@ -14,24 +14,42 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nrecords = fulcrum.records.search(url_params={'form_id': '{id}'})\n\nfor record in records['records']:\n  # print(record) # entire record\n  print(record['id']) # just the record id",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.records.all({\n    form_id: '{id}'\n  })\n  .then((page) => {\n    page.objects.forEach(record => {\n      // console.log(record); // entire record\n      console.log(record.id); // just the record id\n    });\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\nrecords = client.records.all({'form_id':'{id}'})\n\nfor record in records.objects do\n  # puts record # entire record definition\n  puts record['id'] # just the record id\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+records = fulcrum.records.search(url_params={'form_id': '{id}'})
+
+for record in records['records']:
+  # print(record) # entire record
+  print(record['id']) # just the record id
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.records.all({
+    form_id: '{id}'
+  })
+  .then((page) => {
+    page.objects.forEach(record => {
+      // console.log(record); // entire record
+      console.log(record.id); // just the record id
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+records = client.records.all({'form_id':'{id}'})
+
+for record in records.objects do
+  # puts record # entire record definition
+  puts record['id'] # just the record id
+end
+```
