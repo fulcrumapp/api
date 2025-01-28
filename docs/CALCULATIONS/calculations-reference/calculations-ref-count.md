@@ -14,7 +14,7 @@ Returns a count of the number of numeric values in a dataset.
 
 # Parameters
 
-`values` Array (__required__) - an array of numbers
+`values` Array (**required**) - an array of numbers
 
 # Returns
 
@@ -27,7 +27,6 @@ COUNT([11, 22, 33, 44, 55])
 
 // returns 5
 ```
-
 
 ```js
 // since it only counts numeric arguments
