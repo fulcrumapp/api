@@ -43,3 +43,4 @@
 - data-events-setstatushidden
 - data-events-setstatusreadonly
 - data-events-settimeout
+- data-events-setvalue
