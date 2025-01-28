@@ -14,7 +14,7 @@ Removes empty items from an array
 
 # Parameters
 
-`value` Array (__required__) - an array of items
+`value` Array (**required**) - an array of items
 
 # Returns
 
