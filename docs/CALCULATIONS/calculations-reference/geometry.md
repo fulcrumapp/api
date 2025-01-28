@@ -20,12 +20,12 @@ No parameters
 
 Object with the following attributes.  
 
-- type: any of the following strings, indicating the type of geometry:  `'Point', 'LineString', and 'Polygon'`
-- coordinates: list of points represented as a list of `long, lat` coordinates
-  - for points, the list of points only has a single list of coordinates
-  - for line strings, the list always has at least two points
-  - for polygons, the last pair of coordinates is always the same as the first pair
-- If the record has no location, GEOMETRY returns `null`.
+* type: any of the following strings, indicating the type of geometry:  `'Point', 'LineString', and 'Polygon'`
+* coordinates: list of points represented as a list of `long, lat` coordinates
+  * for points, the list of points only has a single list of coordinates
+  * for line strings, the list always has at least two points
+  * for polygons, the last pair of coordinates is always the same as the first pair
+* If the record has no location, GEOMETRY returns `null`.
 
 # Examples
 
