@@ -18,67 +18,67 @@ You can find which reports are associated with which forms by using the forms en
 
 # Properties
 
-| Property         | Type   | Required | Readonly | Description                                                |
-| ---------------- | ------ | -------- | -------- | ---------------------------------------------------------- |
-| name             | string | yes      | no       | The name of the report template.                           |
-| description      | string | no       | no       | A brief description of the report template.                |
-| body             | string | yes      | no       | The body content of the report template.                   |
-| header           | string | yes      | no       | The header content of the report template.                 |
-| filename_pattern | string | no       | no       | The pattern for the report's filename.                     |
-| footer           | string | yes      | no       | The footer content of the report template.                 |
-| styles           | string | yes      | no       | The styles applied to the report template.                 |
-| script           | string | yes      | no       | The script used in the report template.                    |
-| status           | string | yes      | no       | The status of the report template (e.g., active).          |
-| type             | string | yes      | no       | The type of the report template (e.g., advanced).          |
-| id               | string | no       | yes      | The unique identifier for the report template.             |
-| created_at       | string | no       | yes      | Timestamp when the report template was created.            |
-| updated_at       | string | no       | yes      | Timestamp when the report template was last updated.       |
-| created_by       | string | no       | yes      | The name of the user who created the report template.      |
-| created_by_id    | string | no       | yes      | The ID of the user who created the report template.        |
-| updated_by       | string | no       | yes      | The name of the user who last updated the report template. |
-| updated_by_id    | string | no       | yes      | The ID of the user who last updated the report template.   |
+| Property          | Type   | Required | Readonly | Description                                                |
+| ----------------- | ------ | -------- | -------- | ---------------------------------------------------------- |
+| name              | string | yes      | no       | The name of the report template.                           |
+| description       | string | no       | no       | A brief description of the report template.                |
+| body              | string | yes      | no       | The body content of the report template.                   |
+| header            | string | yes      | no       | The header content of the report template.                 |
+| filename\_pattern | string | no       | no       | The pattern for the report's filename.                     |
+| footer            | string | yes      | no       | The footer content of the report template.                 |
+| styles            | string | yes      | no       | The styles applied to the report template.                 |
+| script            | string | yes      | no       | The script used in the report template.                    |
+| status            | string | yes      | no       | The status of the report template (e.g., active).          |
+| type              | string | yes      | no       | The type of the report template (e.g., advanced).          |
+| id                | string | no       | yes      | The unique identifier for the report template.             |
+| created\_at       | string | no       | yes      | Timestamp when the report template was created.            |
+| updated\_at       | string | no       | yes      | Timestamp when the report template was last updated.       |
+| created\_by       | string | no       | yes      | The name of the user who created the report template.      |
+| created\_by\_id   | string | no       | yes      | The ID of the user who created the report template.        |
+| updated\_by       | string | no       | yes      | The name of the user who last updated the report template. |
+| updated\_by\_id   | string | no       | yes      | The ID of the user who last updated the report template.   |
 
 ## Config Properties
 
-| Property                     | Type    | Required | Readonly | Description                                                  |
-| ---------------------------- | ------- | -------- | -------- | ------------------------------------------------------------ |
-| size                         | string  | yes      | no       | The size of the report (e.g., Letter).                       |
-| landscape                    | boolean | yes      | no       | Whether the report is in landscape orientation.              |
-| margin_top                   | number  | yes      | no       | The top margin of the report.                                |
-| margin_right                 | number  | yes      | no       | The right margin of the report.                              |
-| margin_bottom                | number  | yes      | no       | The bottom margin of the report.                             |
-| margin_left                  | number  | yes      | no       | The left margin of the report.                               |
-| output                       | string  | yes      | no       | The output format of the report (e.g., pdf).                 |
-| hidden_fields                | array   | no       | no       | The list of fields to be hidden in the report.               |
-| field.empty_value            | string  | no       | no       | The value to display for empty fields.                       |
-| header.enabled               | boolean | yes      | no       | Whether the header is enabled.                               |
-| header.form.name             | boolean | yes      | no       | Whether the form name is included in the header.             |
-| header.record.id             | boolean | yes      | no       | Whether the record ID is included in the header.             |
-| footer.enabled               | boolean | yes      | no       | Whether the footer is enabled.                               |
-| footer.timestamp             | boolean | yes      | no       | Whether the timestamp is included in the footer.             |
-| footer.organization_image    | boolean | yes      | no       | Whether the organization image is included in the footer.    |
-| footer.organization_info     | boolean | yes      | no       | Whether the organization info is included in the footer.     |
-| footer.page_number           | boolean | yes      | no       | Whether the page number is included in the footer.           |
-| cover_page.enabled           | boolean | yes      | no       | Whether the cover page is enabled.                           |
-| cover_page.form.name         | boolean | yes      | no       | Whether the form name is included on the cover page.         |
-| cover_page.form.description  | boolean | yes      | no       | Whether the form description is included on the cover page.  |
-| cover_page.form.image        | boolean | yes      | no       | Whether the form image is included on the cover page.        |
-| cover_page.title             | boolean | yes      | no       | Whether the cover page title is included.                    |
-| cover_page.timestamp         | boolean | yes      | no       | Whether the timestamp is included on the cover page.         |
-| cover_page.image.enabled     | boolean | yes      | no       | Whether images are enabled on the cover page.                |
-| cover_page.image.caption     | boolean | yes      | no       | Whether captions are included for images on the cover page.  |
-| cover_page.map.enabled       | boolean | yes      | no       | Whether maps are enabled on the cover page.                  |
-| cover_page.map.repeatables   | boolean | yes      | no       | Whether repeatable items are included on the cover page map. |
-| cover_page.map.type          | string  | yes      | no       | The type of map to use on the cover page (e.g., roadmap).    |
-| cover_page.map.size          | string  | yes      | no       | The size of the map on the cover page.                       |
-| cover_page.metadata.enabled  | boolean | yes      | no       | Whether metadata is enabled on the cover page.               |
-| cover_page.metadata.created  | boolean | yes      | no       | Whether the creation metadata is included on the cover page. |
-| cover_page.metadata.updated  | boolean | yes      | no       | Whether the update metadata is included on the cover page.   |
-| cover_page.metadata.status   | boolean | yes      | no       | Whether the status metadata is included on the cover page.   |
-| cover_page.metadata.location | boolean | yes      | no       | Whether the location metadata is included on the cover page. |
-| cover_page.metadata.project  | boolean | yes      | no       | Whether the project metadata is included on the cover page.  |
-| cover_page.metadata.assigned | boolean | yes      | no       | Whether the assigned metadata is included on the cover page. |
-| parameters                   | array   | yes      | no       | The list of parameters for the report.                       |
+| Property                      | Type    | Required | Readonly | Description                                                  |
+| ----------------------------- | ------- | -------- | -------- | ------------------------------------------------------------ |
+| size                          | string  | yes      | no       | The size of the report (e.g., Letter).                       |
+| landscape                     | boolean | yes      | no       | Whether the report is in landscape orientation.              |
+| margin\_top                   | number  | yes      | no       | The top margin of the report.                                |
+| margin\_right                 | number  | yes      | no       | The right margin of the report.                              |
+| margin\_bottom                | number  | yes      | no       | The bottom margin of the report.                             |
+| margin\_left                  | number  | yes      | no       | The left margin of the report.                               |
+| output                        | string  | yes      | no       | The output format of the report (e.g., pdf).                 |
+| hidden\_fields                | array   | no       | no       | The list of fields to be hidden in the report.               |
+| field.empty\_value            | string  | no       | no       | The value to display for empty fields.                       |
+| header.enabled                | boolean | yes      | no       | Whether the header is enabled.                               |
+| header.form.name              | boolean | yes      | no       | Whether the form name is included in the header.             |
+| header.record.id              | boolean | yes      | no       | Whether the record ID is included in the header.             |
+| footer.enabled                | boolean | yes      | no       | Whether the footer is enabled.                               |
+| footer.timestamp              | boolean | yes      | no       | Whether the timestamp is included in the footer.             |
+| footer.organization\_image    | boolean | yes      | no       | Whether the organization image is included in the footer.    |
+| footer.organization\_info     | boolean | yes      | no       | Whether the organization info is included in the footer.     |
+| footer.page\_number           | boolean | yes      | no       | Whether the page number is included in the footer.           |
+| cover\_page.enabled           | boolean | yes      | no       | Whether the cover page is enabled.                           |
+| cover\_page.form.name         | boolean | yes      | no       | Whether the form name is included on the cover page.         |
+| cover\_page.form.description  | boolean | yes      | no       | Whether the form description is included on the cover page.  |
+| cover\_page.form.image        | boolean | yes      | no       | Whether the form image is included on the cover page.        |
+| cover\_page.title             | boolean | yes      | no       | Whether the cover page title is included.                    |
+| cover\_page.timestamp         | boolean | yes      | no       | Whether the timestamp is included on the cover page.         |
+| cover\_page.image.enabled     | boolean | yes      | no       | Whether images are enabled on the cover page.                |
+| cover\_page.image.caption     | boolean | yes      | no       | Whether captions are included for images on the cover page.  |
+| cover\_page.map.enabled       | boolean | yes      | no       | Whether maps are enabled on the cover page.                  |
+| cover\_page.map.repeatables   | boolean | yes      | no       | Whether repeatable items are included on the cover page map. |
+| cover\_page.map.type          | string  | yes      | no       | The type of map to use on the cover page (e.g., roadmap).    |
+| cover\_page.map.size          | string  | yes      | no       | The size of the map on the cover page.                       |
+| cover\_page.metadata.enabled  | boolean | yes      | no       | Whether metadata is enabled on the cover page.               |
+| cover\_page.metadata.created  | boolean | yes      | no       | Whether the creation metadata is included on the cover page. |
+| cover\_page.metadata.updated  | boolean | yes      | no       | Whether the update metadata is included on the cover page.   |
+| cover\_page.metadata.status   | boolean | yes      | no       | Whether the status metadata is included on the cover page.   |
+| cover\_page.metadata.location | boolean | yes      | no       | Whether the location metadata is included on the cover page. |
+| cover\_page.metadata.project  | boolean | yes      | no       | Whether the project metadata is included on the cover page.  |
+| cover\_page.metadata.assigned | boolean | yes      | no       | Whether the assigned metadata is included on the cover page. |
+| parameters                    | array   | yes      | no       | The list of parameters for the report.                       |
 
 # Validations
 
