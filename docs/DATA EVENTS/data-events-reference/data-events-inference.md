@@ -12,25 +12,25 @@ next:
 ---
 ***
 
-**Description**  
+**Description**\
 The `INFERENCE` function performs inference on a given input, typically an image, using a specified machine learning model. It processes the input data and returns the results in a format suitable for further analysis or display within your application. This is useful for integrating AI-driven features, such as object detection, classification, or image recognition, into your application components.
 
 **THIS FUNCTION WORKS ON MOBILE DEVICES, BUT NOT IN THE WEB RECORD EDITOR**
 
 **Parameters**
 
-- `options` object (required) - An object containing the parameters for the function.
-  - `photo_id` string (required) - The identifier of the photo to be processed.
-  - `model` object (required) - The machine learning model to be used for inference.
-  - `size` number (optional) - The size to which the input should be resized before inference. Default is 640.
-  - `format` string (optional) - The format of the input data. Can be either 'chw' (channels, height, width) or 'hwc' (height, width, channels). Choose the format based on how the model was exported. Default is 'chw'.
-  - `type` string (optional) - The data type of the input. Default is 'float'.
-  - `mean` array (optional) - The mean values for normalizing the input data. Default is `[0.485, 0.456, 0.406]`.
-  - `std` array (optional) - The standard deviation values for normalizing the input data. Default is `[0.229, 0.224, 0.225]`.
+* `options` object (required) - An object containing the parameters for the function.
+  * `photo_id` string (required) - The identifier of the photo to be processed.
+  * `model` object (required) - The machine learning model to be used for inference.
+  * `size` number (optional) - The size to which the input should be resized before inference. Default is 640.
+  * `format` string (optional) - The format of the input data. Can be either 'chw' (channels, height, width) or 'hwc' (height, width, channels). Choose the format based on how the model was exported. Default is 'chw'.
+  * `type` string (optional) - The data type of the input. Default is 'float'.
+  * `mean` array (optional) - The mean values for normalizing the input data. Default is `[0.485, 0.456, 0.406]`.
+  * `std` array (optional) - The standard deviation values for normalizing the input data. Default is `[0.229, 0.224, 0.225]`.
 
-- `callback` function (required) - A function to be executed after the inference is completed. It receives two parameters:
-  - `error` object - Contains information if an error occurs during inference.
-  - `result` object - Contains the outputs of the inference.
+* `callback` function (required) - A function to be executed after the inference is completed. It receives two parameters:
+  * `error` object - Contains information if an error occurs during inference.
+  * `result` object - Contains the outputs of the inference.
 
 **Examples**
 
