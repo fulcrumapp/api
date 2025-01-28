@@ -14,24 +14,26 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nfulcrum.layers.delete('{id}')\nprint('{id} has been deleted!')",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n  \nclient.layers.delete('{id}')\n  .then((layer) => {\n    console.log('{id} has been deleted!');\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "# Not currently supported",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+fulcrum.layers.delete('{id}')
+print('{id} has been deleted!')
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+  
+client.layers.delete('{id}')
+  .then((layer) => {
+    console.log('{id} has been deleted!');
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+# Not currently supported
+```
