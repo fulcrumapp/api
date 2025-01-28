@@ -14,7 +14,7 @@ Returns the current 'Other' value for a choice field or classification field
 
 # Parameters
 
-`field` Object (__required__) - The choice field or classification field variable
+`field` Object (**required**) - The choice field or classification field variable
 
 # Returns
 
