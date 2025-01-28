@@ -18,7 +18,7 @@ The INVALID function is designed for the sole purpose of doing custom validation
 
 # Parameters
 
-`message` String (__required__) - The validation error message content for the alert
+`message` String (**required**) - The validation error message content for the alert
 
 # Examples
 
