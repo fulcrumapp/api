@@ -14,7 +14,7 @@ Converts an angle value in radians to degrees.
 
 # Parameters
 
-`value` Number (__required__) - Number in radians.
+`value` Number (**required**) - Number in radians.
 
 # Returns
 
