@@ -18,9 +18,9 @@ The `SETHIDDEN` function hides a form field. It can be used to add custom condit
 
 # Parameters
 
-`field` String (__required__) - The data name for the field
+`field` String (**required**) - The data name for the field
 
-`hidden` boolean,null (__required__) - Boolean value representing whether the field should be hidden, or `null` to restore the original value
+`hidden` boolean,null (**required**) - Boolean value representing whether the field should be hidden, or `null` to restore the original value
 
 # Examples
 
