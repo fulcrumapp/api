@@ -3,3 +3,4 @@
 - projects-get-single
 - projects-create
 - projects-update
+- projects-delete
