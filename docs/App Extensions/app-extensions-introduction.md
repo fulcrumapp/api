@@ -14,12 +14,12 @@ App Extensions provide a mechanism to extend and integrate Fulcrum with custom U
 
 ## Use Cases
 
-- Open an application that provides custom UI for complex business logic and processing
-- Add a custom picker that provides logic or features not built in Fulcrum (image selection, custom search)
-- Custom field types (SVG area selection, custom range pickers, color ramps)
-- Summary report interface for inspections with verifications and warning confirmations
-- Embedding mini charts and graphs to visualize inspection results
-- Custom "sub-forms"
+* Open an application that provides custom UI for complex business logic and processing
+* Add a custom picker that provides logic or features not built in Fulcrum (image selection, custom search)
+* Custom field types (SVG area selection, custom range pickers, color ramps)
+* Summary report interface for inspections with verifications and warning confirmations
+* Embedding mini charts and graphs to visualize inspection results
+* Custom "sub-forms"
 
 ## App Extensions consist of 3 basic parts
 
@@ -33,8 +33,8 @@ Below is a complete example of a simple app extension to display a web page with
 
 Assumptions:
 
-- A hyperlink field on your form named `open_extension`
-- Access to Data Events and Reference Files
+* A hyperlink field on your form named `open_extension`
+* Access to Data Events and Reference Files
 
 Here is an example of a Data Event script to open the extension. This consists of mainly of the `url` parameter, which is used to specify the app extension location. You can use any online web address, or use the `attachments://` scheme to use a Reference File attached to the form. Using Reference Files for extensions allows them to work offline. In this case, we've uploaded our HTML file and named it `simple.html`. We also pass in a `data` parameter to pass data into the extension. In this example, we are passing a parameter named `test_value`. You can pass any data into your extension. The last parameter is an `onMessage` handler. This function will called when the extension closes to process the result. In the example, the extension is passing back a value named `simple_result`.
 
@@ -95,12 +95,12 @@ Including the App Extension snippet provides the basic API to interact with App 
 
 **`Fulcrum.load(callback: (data: any) => void)`**
 
-- `callback`: `function` called when the page loads, use this to initialize the state in extension. It's passed a `data` argument that equals the `data` parameter passed from `OPENEXTERNAL({ data })` from Data Events.
+* `callback`: `function` called when the page loads, use this to initialize the state in extension. It's passed a `data` argument that equals the `data` parameter passed from `OPENEXTERNAL({ data })` from Data Events.
 
 Use this function to initialize the extension and perform any assignming of existing UI from the data passed in from `OPENEXTERNAL()`. Example: setting the current value of a custom field when editing existing data.
 
 **`Fulcrum.finish(data: any)`**
 
-- `data`: `any` the data to be sent back to the Data Events `onMessage` handler.
+* `data`: `any` the data to be sent back to the Data Events `onMessage` handler.
 
 Use this function to end the extension session and pass data back to the Data Events `onMessage` handler.
