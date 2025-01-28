@@ -18,7 +18,7 @@ The `SETSTATUSFILTER` function allows for dynamic filtering of the available sta
 
 # Parameters
 
-`statuses` Array,null (__required__) - The allowable status values for the record, or `null` to restore the original options
+`statuses` Array,null (**required**) - The allowable status values for the record, or `null` to restore the original options
 
 # Examples
 
