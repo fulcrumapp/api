@@ -14,21 +14,21 @@ The Projects API gives you access to the [projects](http://help.fulcrumapp.com/w
 
 # Properties
 
-| Property           | Type    | Required | Readonly | Description                                           |
-| ------------------ | ------- | -------- | -------- | ----------------------------------------------------- |
-| name               | string  | yes      | no       | The name of the project.                              |
-| description        | string  | no       | no       | Optional project description.                         |
-| record_count       | numeric | no       | yes      | # of records using the project.                       |
-| form_count         | numeric | no       | yes      | # of forms using the project.                         |
-| status             | string  | no       | no       | Status of the project.                                |
-| customer           | string  | no       | no       | Optional name of customer.                            |
-| external_job_id    | string  | no       | no       | Optional job ID.                                      |
-| start_date         | string  | no       | no       | Optional start date of the project.                   |
-| end_date           | string  | no       | no       | Optional end date of the project.                     |
-| project_manager_id | string  | no       | no       | Optional user who is assigned as the project manager. |
-| id                 | string  | no       | yes      | The id of the project.                                |
-| created_at         | string  | no       | yes      | Timestamp when the project was created.               |
-| updated_at         | string  | no       | yes      | Timestamp when the project was last updated.          |
+| Property             | Type    | Required | Readonly | Description                                           |
+| -------------------- | ------- | -------- | -------- | ----------------------------------------------------- |
+| name                 | string  | yes      | no       | The name of the project.                              |
+| description          | string  | no       | no       | Optional project description.                         |
+| record\_count        | numeric | no       | yes      | # of records using the project.                       |
+| form\_count          | numeric | no       | yes      | # of forms using the project.                         |
+| status               | string  | no       | no       | Status of the project.                                |
+| customer             | string  | no       | no       | Optional name of customer.                            |
+| external\_job\_id    | string  | no       | no       | Optional job ID.                                      |
+| start\_date          | string  | no       | no       | Optional start date of the project.                   |
+| end\_date            | string  | no       | no       | Optional end date of the project.                     |
+| project\_manager\_id | string  | no       | no       | Optional user who is assigned as the project manager. |
+| id                   | string  | no       | yes      | The id of the project.                                |
+| created\_at          | string  | no       | yes      | Timestamp when the project was created.               |
+| updated\_at          | string  | no       | yes      | Timestamp when the project was last updated.          |
 
 # Validations
 
@@ -54,7 +54,7 @@ Example validation response if `name` is not included:
 
 # Notes
 
-- The entire project object is required when making an update. Omitting fields with existing data will result in data loss! The typical workflow for updating an existing project is to fetch the project object, modify it, and then submit the PUT request.
+* The entire project object is required when making an update. Omitting fields with existing data will result in data loss! The typical workflow for updating an existing project is to fetch the project object, modify it, and then submit the PUT request.
 
 # Sample Response
 
