@@ -14,24 +14,32 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nchoice_list = fulcrum.choice_lists.find('{id}')\n\nprint(choice_list['choice_list'])",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.choiceLists.find('{id}')\n  .then((choiceList) => {\n    console.log(choiceList);\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\nlist = client.choice_lists.find('{id}')\n\nputs list",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+choice_list = fulcrum.choice_lists.find('{id}')
+
+print(choice_list['choice_list'])
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.choiceLists.find('{id}')
+  .then((choiceList) => {
+    console.log(choiceList);
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+list = client.choice_lists.find('{id}')
+
+puts list
+```
