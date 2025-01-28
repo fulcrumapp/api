@@ -14,9 +14,9 @@ Return a specific field from multiple repeatable items
 
 # Parameters
 
-`repeatableVariable` Object (__required__) - The repeatable field variable
+`repeatableVariable` Object (**required**) - The repeatable field variable
 
-`dataName` String (__required__) - The data name of the field to extract from each repeatable item
+`dataName` String (**required**) - The data name of the field to extract from each repeatable item
 
 # Returns
 
