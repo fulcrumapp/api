@@ -13,6 +13,7 @@ next:
 The roles API provides access to a list of which roles are available to a given organization. It does not support any other action.
 
 # Sample Response
+
 ```json
 {
   "roles": [{
