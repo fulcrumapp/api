@@ -59,3 +59,4 @@
 - validate-if-point-is-in-polygon
 - validate-record-is-within-geographic-area
 - validate-yesno-in-repeatable-and-set-status
+- verify-special-choice-option
