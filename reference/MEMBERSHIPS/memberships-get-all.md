@@ -14,51 +14,84 @@ next:
   description: ''
 ---
 # API Library Examples
-[block:code]
-{
-  "codes": [
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nmemberships = fulcrum.memberships.search()\n\nfor membership in memberships['memberships']:\n  # print(membership) # entire membership\n  print(membership['user']) # just the user name",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.memberships.all()\n  .then((page) => {\n    page.objects.forEach(membership => {\n      // console.log(membership); // entire membership\n      console.log(membership.user); // just the user name\n    });\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\nmemberships = client.memberships.all()\n\nfor membership in memberships.objects do\n  # puts membership # entire membership\n  puts membership['user'] # just the user name\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+memberships = fulcrum.memberships.search()
+
+for membership in memberships['memberships']:
+  # print(membership) # entire membership
+  print(membership['user']) # just the user name
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.memberships.all()
+  .then((page) => {
+    page.objects.forEach(membership => {
+      // console.log(membership); // entire membership
+      console.log(membership.user); // just the user name
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+memberships = client.memberships.all()
+
+for membership in memberships.objects do
+  # puts membership # entire membership
+  puts membership['user'] # just the user name
+end
+```
+
 ## Get All Memberships for a specific Form
-[block:code]
-{
-  "codes": [
-    {
-      "code": "curl --request GET 'https://api.fulcrumapp.com/api/v2/memberships.json?form_id=:id' \\\n--header 'Accept: application/json' \\\n--header 'X-ApiToken: {token}'",
-      "language": "curl",
-      "name": "cURL"
-    },
-    {
-      "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nmemberships = fulcrum.memberships.search(url_params={'form_id':'{id}'})\n\nfor membership in memberships['memberships']:\n  # print(membership) # entire membership\n  print(membership['user']) # just the user name",
-      "language": "python",
-      "name": "Python"
-    },
-    {
-      "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nclient.memberships.all({'form_id':'{id}'})\n  .then((page) => {\n    page.objects.forEach(membership => {\n      // console.log(membership); // entire membership\n      console.log(membership.user); // just the user name\n    });\n  })\n  .catch((error) => {\n    console.log(error.message);\n  });",
-      "language": "javascript",
-      "name": "JavaScript"
-    },
-    {
-      "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\nmemberships = client.memberships.all({'form_id':'{id}'})\n\nfor membership in memberships.objects do\n  # puts membership # entire membership\n  puts membership['user'] # just the user name\nend",
-      "language": "ruby",
-      "name": "Ruby"
-    }
-  ]
-}
-[/block]
+
+```curl cURL
+curl --request GET 'https://api.fulcrumapp.com/api/v2/memberships.json?form_id=:id' \
+--header 'Accept: application/json' \
+--header 'X-ApiToken: {token}'
+```
+```python Python
+from fulcrum import Fulcrum
+fulcrum = Fulcrum('{token}')
+
+memberships = fulcrum.memberships.search(url_params={'form_id':'{id}'})
+
+for membership in memberships['memberships']:
+  # print(membership) # entire membership
+  print(membership['user']) # just the user name
+```
+```javascript JavaScript
+const { Client } = require('fulcrum-app');
+const client = new Client('{token}');
+
+client.memberships.all({'form_id':'{id}'})
+  .then((page) => {
+    page.objects.forEach(membership => {
+      // console.log(membership); // entire membership
+      console.log(membership.user); // just the user name
+    });
+  })
+  .catch((error) => {
+    console.log(error.message);
+  });
+```
+```ruby Ruby
+require 'fulcrum'
+
+client = Fulcrum::Client.new('{token}')
+memberships = client.memberships.all({'form_id':'{id}'})
+
+for membership in memberships.objects do
+  # puts membership # entire membership
+  puts membership['user'] # just the user name
+end
+```
