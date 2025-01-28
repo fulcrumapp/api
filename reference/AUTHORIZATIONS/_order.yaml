@@ -3,3 +3,4 @@
 - authorizations-get-single
 - authorizations-create
 - authorizations-update
+- authorizations-delete
