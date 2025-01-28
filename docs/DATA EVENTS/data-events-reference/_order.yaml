@@ -38,3 +38,4 @@
 - data-events-setprojectreadonly
 - data-events-setreadonly
 - data-events-setrequired
+- data-events-setstatus
