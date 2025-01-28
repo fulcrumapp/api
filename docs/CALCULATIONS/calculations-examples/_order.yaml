@@ -33,3 +33,4 @@
 - sum-nullable-fields
 - sum-of-numbers-in-a-repeatable
 - track-who-has-updated-a-record
+- transfer-photos-through-payloads
