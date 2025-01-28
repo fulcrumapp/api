@@ -16,11 +16,11 @@ Takes a reference point and a FeatureCollection of Features with Point geometrie
 
 `targetPoint` Coord (**required**) - the reference point
 
-`points` FeatureCollection <Point> - input points
+`points` FeatureCollection `<Point>` - input points
 
 # Returns
 
-Feature <Point> - the closest point in the set to the reference point
+Feature `<Point>` - the closest point in the set to the reference point
 
 # Examples
 
