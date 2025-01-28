@@ -2,3 +2,4 @@
 - get-all-workflows
 - get-single-workflow
 - create-workflow
+- update-workflow
