@@ -12,9 +12,9 @@ next:
 ---
 This example demonstrates how to update the location of a record when it meets the following criteria:
 
-- It is saved on mobile
-- It was not originally captured by GPS
-- Your current location is less than 100 meters from record location
+* It is saved on mobile
+* It was not originally captured by GPS
+* Your current location is less than 100 meters from record location
 
 This is useful for automatically updating the location of records which may have been imported with inaccurate coordinates. This can add value to your datasets without any additional effort in the field.
 
