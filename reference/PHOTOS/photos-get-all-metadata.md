@@ -3,7 +3,7 @@ title: Get All Photos
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: photos-get-all
+  operationId: photos-get-all-metadata
 deprecated: false
 hidden: false
 metadata:

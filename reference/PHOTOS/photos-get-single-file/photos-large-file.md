@@ -3,7 +3,7 @@ title: Photo Large File
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: photos-get-large-file
+  operationId: photos-large-file
 deprecated: false
 hidden: false
 metadata:
