@@ -3,7 +3,7 @@ title: Create Workflow
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: workflows-create
+  operationId: create-workflow
 deprecated: false
 hidden: false
 metadata:

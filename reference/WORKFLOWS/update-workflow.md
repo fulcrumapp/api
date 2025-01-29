@@ -3,7 +3,7 @@ title: Update Workflow
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: workflows-update
+  operationId: update-workflow
 deprecated: false
 hidden: false
 metadata:

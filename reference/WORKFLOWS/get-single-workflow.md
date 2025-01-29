@@ -3,7 +3,7 @@ title: Get Single Workflow
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: workflows-get-single
+  operationId: get-single-workflow
 deprecated: false
 hidden: false
 metadata:

@@ -3,7 +3,7 @@ title: Delete Workflow
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: workflows-delete
+  operationId: delete-workflow
 deprecated: false
 hidden: false
 metadata:

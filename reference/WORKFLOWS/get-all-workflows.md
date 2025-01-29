@@ -3,7 +3,7 @@ title: Get All Workflows
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: workflows-get-all
+  operationId: get-all-workflows
 deprecated: false
 hidden: false
 metadata:
