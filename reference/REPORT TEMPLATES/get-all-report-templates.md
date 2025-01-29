@@ -3,7 +3,7 @@ title: Get All Report Templates
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: report-templates-get-all
+  operationId: get-all-report-templates
 deprecated: false
 hidden: false
 metadata:

@@ -3,7 +3,7 @@ title: Delete Report Template
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: report-templates-delete
+  operationId: delete-report-template
 deprecated: false
 hidden: false
 metadata:
