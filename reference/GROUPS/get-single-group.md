@@ -3,7 +3,7 @@ title: Get Single Group
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: groups-get-single
+  operationId: get-single-group
 deprecated: false
 hidden: false
 metadata:

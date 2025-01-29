@@ -3,7 +3,7 @@ title: Update Group Name / Description
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: groups-update
+  operationId: update-group-name-description
 hidden: false
 metadata:
   title: ''
