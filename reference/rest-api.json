@@ -2553,7 +2553,99 @@
                 },
                 "schema": {
                   "type": "object",
-                  "properties": {}
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{24}$"
+                    },
+                    "created_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "updated_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "client_created_at": {
+                      "type": ["string", "null"],
+                      "format": "date-time"
+                    },
+                    "client_updated_at": {
+                      "type": ["string", "null"],
+                      "format": "date-time"
+                    },
+                    "created_by": {
+                      "type": "string"
+                    },
+                    "created_by_id": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{24}$"
+                    },
+                    "updated_by": {
+                      "type": "string"
+                    },
+                    "updated_by_id": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{24}$"
+                    },
+                    "created_location": {
+                      "type": ["object", "null"]
+                    },
+                    "updated_location": {
+                      "type": ["object", "null"]
+                    },
+                    "created_duration": {
+                      "type": ["number", "null"]
+                    },
+                    "updated_duration": {
+                      "type": ["number", "null"]
+                    },
+                    "edited_duration": {
+                      "type": ["number", "null"]
+                    },
+                    "form_id": {
+                      "type": "string",
+                      "pattern": "^[0-9a-f]{24}$"
+                    },
+                    "project_id": {
+                      "type": ["string", "null"],
+                      "pattern": "^[0-9a-f]{24}$"
+                    },
+                    "record_series_id": {
+                      "type": ["string", "null"],
+                      "pattern": "^[0-9a-f]{24}$"
+                    },
+                    "assigned_to": {
+                      "type": ["string", "null"]
+                    },
+                    "assigned_to_id": {
+                      "type": ["string", "null"],
+                      "pattern": "^[0-9a-f]{24}$"
+                    },
+                    "form_values": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "oneOf": [
+                          { "type": "string" },
+                          { "type": "number" },
+                          { "type": "boolean" },
+                          { "type": "array" },
+                          { "type": "object" }
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "created_at",
+                    "updated_at",
+                    "created_by",
+                    "created_by_id",
+                    "updated_by",
+                    "updated_by_id",
+                    "form_id",
+                    "form_values"
+                  ]
                 }
               }
             }
