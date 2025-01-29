@@ -29,7 +29,7 @@
   },
   "security": [
     {
-      "sec0": []
+      "AccessKey": []
     }
   ],
   "paths": {
