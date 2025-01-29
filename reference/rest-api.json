@@ -2551,10 +2551,7 @@
                     "value": "{}"
                   }
                 },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
+                "schema": { "$ref": "components/schemas/records_schema.json" },
               }
             }
           },
