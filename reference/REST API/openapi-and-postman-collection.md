@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-The Fulcrum REST API's OpenAPI JSON can be found at this link: [https://docs.fulcrumapp.com/openapi/5f29a2f7dbacf8001851acc1](https://docs.fulcrumapp.com/openapi/5f29a2f7dbacf8001851acc1)
+The Fulcrum REST API's OpenAPI JSON can be found at this link: [https://docs.fulcrumapp.com/openapi/rest-api.json](https://docs.fulcrumapphttps://docs.fulcrumapp.com/openapi/rest-api.json)
 
 You can use this URL to import all REST API endpoints into HTTP request apps like [Postman](https://www.postman.com/). First open Postman and click the Import button
 
