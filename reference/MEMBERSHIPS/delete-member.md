@@ -3,7 +3,7 @@ title: Delete Member
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: memberships-delete
+  operationId: delete-member
 deprecated: false
 hidden: false
 metadata:
