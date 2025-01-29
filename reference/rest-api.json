@@ -20,7 +20,7 @@
   ],
   "components": {
     "securitySchemes": {
-      "sec0": {
+      "AccessKey": {
         "type": "apiKey",
         "in": "header",
         "name": "X-ApiToken"
