@@ -20,7 +20,7 @@
   ],
   "components": {
     "securitySchemes": {
-      "AccessKey": {
+      "ApiToken": {
         "type": "apiKey",
         "in": "header",
         "name": "X-ApiToken"
@@ -29,7 +29,7 @@
   },
   "security": [
     {
-      "AccessKey": []
+      "ApiToken": []
     }
   ],
   "paths": {
