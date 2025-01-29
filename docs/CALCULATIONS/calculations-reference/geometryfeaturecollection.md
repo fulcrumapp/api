@@ -14,7 +14,7 @@ Wraps a GeoJSON Geometry in a GeoJSON Feature.
 
 # Parameters
 
-`features` Array<Feature> (**required**) - input features
+`features` Array<feature/> (**required**) - input features
 
 `options` object - options
 

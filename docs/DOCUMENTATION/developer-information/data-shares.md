@@ -12,12 +12,12 @@ metadata:
 next:
   description: ''
 ---
-# Shared Views
+# Shared Views 
 
 A Shared View is a publicly available URL that provides read-only access to any filtered subset of data within an app in many formats. [More about Shared Views](https://help.fulcrumapp.com/en/articles/4227703-what-are-shared-views) 
 
 <br />
-
+ 
 # Data Shares
 
 Data shares are publicly available URLs that provide read-only access to the records in your Fulcrum app. Enabling data shares allows you to easily publish a live data feed, which can be shared with clients, stakeholders, or the public.
@@ -54,7 +54,7 @@ We also provide a "KML Feed" endpoint, which utilizes [NetworkLinks](https://dev
 
 ### JSON
 
-The JSON option returns Fulcrum's standard record format, which is used by the [Records API] \(<https://fulcrum.readme.io/reference#records-intro>). This is the format used for creating and updating records via the API.
+The JSON option returns Fulcrum's standard record format, which is used by the [Records API](<https://fulcrum.readme.io/reference#records-intro>). This is the format used for creating and updating records via the API.
 
 ### Map Embed
 
