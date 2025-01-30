@@ -2553,99 +2553,247 @@
                 },
                 "schema": {
                   "type": "object",
+                  "required": [
+                    "current_page",
+                    "total_pages",
+                    "total_count",
+                    "per_page",
+                    "records"
+                  ],
                   "properties": {
-                    "id": {
-                      "type": "string",
-                      "pattern": "^[0-9a-f]{24}$"
+                    "current_page": {
+                      "type": "integer",
+                      "minimum": 1
                     },
-                    "created_at": {
-                      "type": "string",
-                      "format": "date-time"
+                    "total_pages": {
+                      "type": "integer",
+                      "minimum": 0
                     },
-                    "updated_at": {
-                      "type": "string",
-                      "format": "date-time"
+                    "total_count": {
+                      "type": "integer",
+                      "minimum": 0
                     },
-                    "client_created_at": {
-                      "type": ["string", "null"],
-                      "format": "date-time"
+                    "per_page": {
+                      "type": "integer",
+                      "minimum": 1
                     },
-                    "client_updated_at": {
-                      "type": ["string", "null"],
-                      "format": "date-time"
-                    },
-                    "created_by": {
-                      "type": "string"
-                    },
-                    "created_by_id": {
-                      "type": "string",
-                      "pattern": "^[0-9a-f]{24}$"
-                    },
-                    "updated_by": {
-                      "type": "string"
-                    },
-                    "updated_by_id": {
-                      "type": "string",
-                      "pattern": "^[0-9a-f]{24}$"
-                    },
-                    "created_location": {
-                      "type": ["object", "null"]
-                    },
-                    "updated_location": {
-                      "type": ["object", "null"]
-                    },
-                    "created_duration": {
-                      "type": ["number", "null"]
-                    },
-                    "updated_duration": {
-                      "type": ["number", "null"]
-                    },
-                    "edited_duration": {
-                      "type": ["number", "null"]
-                    },
-                    "form_id": {
-                      "type": "string",
-                      "pattern": "^[0-9a-f]{24}$"
-                    },
-                    "project_id": {
-                      "type": ["string", "null"],
-                      "pattern": "^[0-9a-f]{24}$"
-                    },
-                    "record_series_id": {
-                      "type": ["string", "null"],
-                      "pattern": "^[0-9a-f]{24}$"
-                    },
-                    "assigned_to": {
-                      "type": ["string", "null"]
-                    },
-                    "assigned_to_id": {
-                      "type": ["string", "null"],
-                      "pattern": "^[0-9a-f]{24}$"
-                    },
-                    "form_values": {
-                      "type": "object",
-                      "additionalProperties": {
-                        "oneOf": [
-                          { "type": "string" },
-                          { "type": "number" },
-                          { "type": "boolean" },
-                          { "type": "array" },
-                          { "type": "object" }
-                        ]
+                    "records": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "status": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "version": {
+                            "type": "integer"
+                          },
+                          "id": {
+                            "type": "string",
+                            "pattern": "^[0-9a-f]{24}$"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "client_created_at": {
+                            "type": [
+                              "null",
+                              "string"
+                            ],
+                            "format": "date-time"
+                          },
+                          "client_updated_at": {
+                            "type": [
+                              "null",
+                              "string"
+                            ],
+                            "format": "date-time"
+                          },
+                          "created_by": {
+                            "type": "string"
+                          },
+                          "created_by_id": {
+                            "type": "string",
+                            "pattern": "^[0-9a-f]{24}$"
+                          },
+                          "updated_by": {
+                            "type": "string"
+                          },
+                          "updated_by_id": {
+                            "type": "string",
+                            "pattern": "^[0-9a-f]{24}$"
+                          },
+                          "created_location": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "updated_location": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "created_duration": {
+                            "type": [
+                              "null",
+                              "number"
+                            ]
+                          },
+                          "updated_duration": {
+                            "type": [
+                              "null",
+                              "number"
+                            ]
+                          },
+                          "edited_duration": {
+                            "type": [
+                              "null",
+                              "number"
+                            ]
+                          },
+                          "form_id": {
+                            "type": "string",
+                            "pattern": "^[0-9a-f]{24}$"
+                          },
+                          "project_id": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "record_series_id": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "assigned_to": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "assigned_to_id": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "form_values": {
+                            "type": "object",
+                            "additionalProperties": {
+                              "oneOf": [
+                                {
+                                  "type": "object",
+                                  "properties": {
+                                    "choice_values": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "choice_ids": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "other_values": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "photo_id": {
+                                        "type": "string",
+                                        "pattern": "^[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}$"
+                                      },
+                                      "caption": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "photo_id"
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          },
+                          "latitude": {
+                            "type": "number"
+                          },
+                          "longitude": {
+                            "type": "number"
+                          },
+                          "altitude": {
+                            "type": "number"
+                          },
+                          "geometry": {
+                            "type": "object",
+                            "required": [
+                              "type",
+                              "coordinates"
+                            ],
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "enum": [
+                                  "Point"
+                                ]
+                              },
+                              "coordinates": {
+                                "type": "array",
+                                "minItems": 2,
+                                "maxItems": 2,
+                                "items": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          },
+                          "speed": {
+                            "type": "number"
+                          },
+                          "course": {
+                            "type": "number"
+                          },
+                          "horizontal_accuracy": {
+                            "type": "number"
+                          },
+                          "vertical_accuracy": {
+                            "type": "number"
+                          },
+                          "system_status": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          }
+                        }
                       }
                     }
-                  },
-                  "required": [
-                    "id",
-                    "created_at",
-                    "updated_at",
-                    "created_by",
-                    "created_by_id",
-                    "updated_by",
-                    "updated_by_id",
-                    "form_id",
-                    "form_values"
-                  ]
+                  }
                 }
               }
             }
