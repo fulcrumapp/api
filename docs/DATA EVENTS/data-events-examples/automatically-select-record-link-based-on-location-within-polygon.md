@@ -3,9 +3,9 @@ title: Automatically Select Record Link Based on Location within Polygon
 excerpt: >-
   This example demonstrates how to import records from another app and
   automatically assign a linked record by determining which polygon the record's
-  location falls within. This process ensures that each imported record is
-  correctly associated with its corresponding reference data, streamlining the
-  data management workflow.
+  location falls within. This process allows for better data accuracy by
+  automatically selecting records based on location instead of having users
+  manually select it.
 deprecated: false
 hidden: false
 metadata:
