@@ -6,6 +6,7 @@
 - auto-populate-last-value
 - auto-populate-repeatables-via-record-links
 - auto-increment-values
+- automatically-select-record-link-based-on-location-within-polygon
 - boilerplate-options-to-text-field
 - capture-timestamp
 - capturing-vector-coordinates
@@ -22,7 +23,6 @@
 - disable-auto-sync
 - disable-requirements-by-user-or-role
 - display-the-current-gps-info-on-the-form
-- automatically-select-record-link-based-on-location-within-polygon
 - dynamically-translate-form-elements
 - enforce-regex-pattern-validation-by-role
 - fetch-data-from-a-socrata-service
