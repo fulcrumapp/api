@@ -17,13 +17,13 @@ The `LOADRECORDS` function fetches records from a specified form, returning an a
 
 **Parameters**
 
-* `options` object (required) - An object containing the parameters for the function.
-  * `ids` array (required) - An array of record IDs to fetch from the specified form.
+* `options` object (required) - An object containing the parameters for the function. One of the below options is required.
+  * `ids` array (optional) - An array of record IDs to fetch from the specified form.
   * `form_id` string (optional) - The ID of the form from which to load the records.
   * `form_name` string (optional) - The name of the form from which to load the records. If both `form_id` and `form_name` are provided, `form_id` takes precedence.
 * `callback` function (required) - A function that gets called once the records are loaded.
   * `error` object (optional) - An error object if the loading fails.
-  * `result` object (required) - An object containing the loaded records.  
+  * `result` object (required) - An object containing the loaded records.
     * `records` array - An array of the fetched records.
 
 ## Examples
