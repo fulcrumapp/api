@@ -22,7 +22,7 @@
 - disable-auto-sync
 - disable-requirements-by-user-or-role
 - display-the-current-gps-info-on-the-form
-- display-the-current-gps-info-on-the-form-copy
+- automatically-select-record-link-based-on-location-within-polygon
 - dynamically-translate-form-elements
 - enforce-regex-pattern-validation-by-role
 - fetch-data-from-a-socrata-service
