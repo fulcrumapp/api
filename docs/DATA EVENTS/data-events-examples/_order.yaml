@@ -22,6 +22,7 @@
 - disable-auto-sync
 - disable-requirements-by-user-or-role
 - display-the-current-gps-info-on-the-form
+- display-the-current-gps-info-on-the-form-copy
 - dynamically-translate-form-elements
 - enforce-regex-pattern-validation-by-role
 - fetch-data-from-a-socrata-service
@@ -62,4 +63,3 @@
 - verify-special-choice-option
 - working-with-inline-geojson
 - set-fields-to-hidden-based-on-user-role
-- display-the-current-gps-info-on-the-form-copy
