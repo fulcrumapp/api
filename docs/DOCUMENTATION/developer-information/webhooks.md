@@ -57,6 +57,8 @@ The details you’ll need for implementing your own endpoint are discussed below
 * You may register multiple webhooks for the same organization. This allows for multiple points of integration with your Fulcrum data.
 * Each webhook event will initiate a separate HTTP POST request to each webhook URL registered within the organization.
 * Your webhook endpoint is free to do anything with the response, as long as it complies with the Responsibilities section below. Update a database record, send an email, kick off some custom analysis, or anything else you can imagine.
+* When you deactivate a webhook it will stop new requests from coming to your endpoint. However, requests that were already in the queue will still be processed.
+* When you delete a webhook from Fulcrum it will clear the queue of all pending requests to your endpoint.
 
 # Events
 
