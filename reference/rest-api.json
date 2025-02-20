@@ -2593,7 +2593,7 @@
                           },
                           "id": {
                             "type": "string",
-                            "pattern": "^[0-9a-f]{24}$"
+                            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
                           },
                           "created_at": {
                             "type": "string",
@@ -2622,14 +2622,14 @@
                           },
                           "created_by_id": {
                             "type": "string",
-                            "pattern": "^[0-9a-f]{24}$"
+                            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
                           },
                           "updated_by": {
                             "type": "string"
                           },
                           "updated_by_id": {
                             "type": "string",
-                            "pattern": "^[0-9a-f]{24}$"
+                            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
                           },
                           "created_location": {
                             "type": [
@@ -2663,7 +2663,7 @@
                           },
                           "form_id": {
                             "type": "string",
-                            "pattern": "^[0-9a-f]{24}$"
+                            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
                           },
                           "project_id": {
                             "type": [
@@ -2741,13 +2741,22 @@
                             }
                           },
                           "latitude": {
-                            "type": "number"
+                            "type": [
+                              "null",
+                              "number"
+                            ]
                           },
                           "longitude": {
-                            "type": "number"
+                            "type": [
+                              "null",
+                              "number"
+                            ]
                           },
                           "altitude": {
-                            "type": "number"
+                            "type": [
+                              "null",
+                              "number"
+                            ]
                           },
                           "geometry": {
                             "type": "object",
@@ -2773,16 +2782,28 @@
                             }
                           },
                           "speed": {
-                            "type": "number"
+                            "type": [
+                              "null",
+                              "number"
+                            ]
                           },
                           "course": {
-                            "type": "number"
+                            "type": [
+                              "null",
+                              "number"
+                            ]
                           },
                           "horizontal_accuracy": {
-                            "type": "number"
+                            "type": [
+                              "null",
+                              "number"
+                            ]
                           },
                           "vertical_accuracy": {
-                            "type": "number"
+                            "type": [
+                              "null",
+                              "number"
+                            ]
                           },
                           "system_status": {
                             "type": [
@@ -8784,23 +8805,82 @@
               "default": "application/json"
             }
           }
-        ],
-        "responses": {
-          "200": {
-            "description": "200",
-            "content": {
-              "application/json": {
-                "examples": {
-                  "Result": {
-                    "value": "{}"
+          ],
+          "responses": {
+            "200": {
+              "description": "200",
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "Result": {
+                      "value": "{}"
+                    }
+                  },
+                  "schema": {
+                    "type": "object",
+                    "required": [
+                      "current_page",
+                      "total_pages",
+                      "total_count",
+                      "per_page",
+                      "webhooks"
+                    ],
+                    "properties": {
+                      "current_page": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "per_page": {
+                        "type": "integer",
+                        "minimum": 1
+                      },
+                      "total_count": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "total_pages": {
+                        "type": "integer",
+                        "minimum": 0
+                      },
+                      "webhooks": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "active": {
+                              "type": "boolean"
+                            },
+                            "created_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "id": {
+                              "type": "string",
+                              "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+                            },
+                            "name": {
+                              "type": [
+                                "null",
+                                "string"
+                              ]
+                            },
+                            "run_for_bulk_actions": {
+                              "type": "boolean"
+                            },
+                            "updated_at": {
+                              "type": "string",
+                              "format": "date-time"
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
                   }
-                },
-                "schema": {
-                  "type": "object",
-                  "properties": {}
                 }
               }
-            }
           },
           "400": {
             "description": "400",
@@ -8860,8 +8940,8 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "200",
+          "201": {
+            "description": "201",
             "content": {
               "application/json": {
                 "examples": {
@@ -8871,7 +8951,40 @@
                 },
                 "schema": {
                   "type": "object",
-                  "properties": {}
+                  "properties": {
+                    "webhook": {
+                      "type": "object",
+                      "properties": {
+                        "active": {
+                          "type": "boolean"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "id": {
+                          "type": "string",
+                          "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+                        },
+                        "name": {
+                          "type": [
+                            "null",
+                            "string"
+                          ]
+                        },
+                        "run_for_bulk_actions": {
+                          "type": "boolean"
+                        },
+                        "updated_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        },
+                        "url": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -9063,8 +9176,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "200",
+          "204": {
+            "description": "204",
             "content": {
               "application/json": {
                 "examples": {
