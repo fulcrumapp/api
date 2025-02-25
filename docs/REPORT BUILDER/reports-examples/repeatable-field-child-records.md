@@ -14,9 +14,7 @@ next:
 
 In BODY section, you can scroll down to line 246 or search (ctrl+f or command+f) for `repeatable_break`.  Two lines below `repeatable_break`, you will find `<div class='field-repeatable-item'>`.  Since you want to add a page break before every repeatable record, you will add `page-break-before` to the same class.
 
-<Image title="5671cb7-repeat_page_break.png" alt={1944} align="center" src="https://files.readme.io/0ac90f9-5671cb7-repeat_page_break.png">
-  page break before screenshot
-</Image>
+<Image align="center" alt={1944} border={false} caption="page break before screenshot" title="5671cb7-repeat_page_break.png" src="https://files.readme.io/0ac90f9-5671cb7-repeat_page_break.png" />
 
 # Add additional info for all repeatable record
 
@@ -63,5 +61,23 @@ const REPORT_CONFIG = {
       'fields': ['my_repeatable_calc', 'my_repeatable_text']
     }
   }
+};
+```
+
+<br />
+
+# Make all repeatables display as a table
+
+To display all repeatable sections as tables, add the following code to the reports script page.
+
+```
+let tables = DATANAMES('Repeatable').reduce((acc, rep) => {
+  acc[rep] = { 'fields': FIELDNAMES(rep) };
+  return acc;
+}, {});
+
+const REPORT_CONFIG = {
+  //other fields above,
+  'tables': tables
 };
 ```
