@@ -2824,13 +2824,45 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "Result": {
+                  "Invalid Parameter": {
+                    "value": {
+                      "error": "Bad Request",
+                      "status": 400
+                    }
+                  },
+                  "Invalid Payload": {
+                    "value": {
+                      "error": "Bad Request",
+                      "status": 400
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Not Found": {
                     "value": "{}"
                   }
                 },
                 "schema": {
                   "type": "object",
-                  "properties": {}
+                  "description": "Empty response"
                 }
               }
             }
@@ -8994,13 +9026,95 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "Result": {
+                  "Bad Payload": {
+                    "value": {
+                      "error": "Bad Request",
+                      "status": 400
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "406": {
+            "description": "406",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid Content Type": {
                     "value": "{}"
                   }
                 },
                 "schema": {
                   "type": "object",
-                  "properties": {}
+                  "description": "Empty response"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "422",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Invalid URL": {
+                    "value": {
+                      "webhook": {
+                        "errors": {
+                          "url": [
+                            "can't be blank",
+                            "is too short (minimum is 5 characters)"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "Bad Payload": {
+                    "value": {
+                      "webhook": {
+                        "errors": "Invalid JSON structure. Did you remember to add the \"Content-Type: application/json\" header?"
+                      }
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "webhook": {
+                      "type": "object",
+                      "properties": {
+                        "errors": {
+                          "anyOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "url": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            },
+                            {
+                              "type": "string"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -9197,13 +9311,39 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "Result": {
+                  "Bad Request": {
+                    "value": {
+                      "error": "Bad Request",
+                      "status": 400
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Wrong Webhook Id": {
                     "value": "{}"
                   }
                 },
                 "schema": {
                   "type": "object",
-                  "properties": {}
+                  "description": "Empty response"
                 }
               }
             }
