@@ -2547,8 +2547,207 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "Result": {
-                    "value": "{}"
+                  "Success": {
+                    "value": {
+                      "current_page": 1,
+                      "per_page": 20000,
+                      "records": [
+                        {
+                          "altitude": null,
+                          "assigned_to": null,
+                          "assigned_to_id": null,
+                          "client_created_at": "2020-02-16T21:26:57Z",
+                          "client_updated_at": "2020-02-16T21:30:36Z",
+                          "course": null,
+                          "created_at": "2020-02-16T21:26:51Z",
+                          "created_by": "John Williams",
+                          "created_by_id": "3bd2efaa-b66c-4b70-9d45-1ff81cbvc353",
+                          "created_duration": 116,
+                          "created_location": null,
+                          "edited_duration": 119,
+                          "form_id": "aa9816b6-ebec-4f14-88df-7v5844c2237d",
+                          "form_values": {
+                            "31e8": {
+                              "admin_area": "Illinois",
+                              "country": "United States",
+                              "locality": "Chicago",
+                              "postal_code": null,
+                              "sub_admin_area": null,
+                              "sub_thoroughfare": "1234",
+                              "suite": null,
+                              "thoroughfare": "W Jackson Blvd"
+                            },
+                            "58b2": "no",
+                            "7aec": "no",
+                            "dd8d": "12323"
+                          },
+                          "geometry": {
+                            "coordinates": [
+                              0,
+                              0
+                            ],
+                            "type": "Point"
+                          },
+                          "horizontal_accuracy": null,
+                          "id": "da5fafc4-2e69-4c8c-a6bb-831d9e124a30",
+                          "latitude": 0,
+                          "longitude": 0,
+                          "project_id": null,
+                          "record_series_id": null,
+                          "speed": null,
+                          "status": null,
+                          "system_status": null,
+                          "updated_at": "2020-02-16T21:30:30Z",
+                          "updated_by": "John Williams",
+                          "updated_by_id": "3bd3eeaa-b66c-4b70-9d45-1ff81cbfc353",
+                          "updated_duration": 3,
+                          "updated_location": null,
+                          "version": 2,
+                          "vertical_accuracy": null
+                        },
+                        {
+                          "altitude": null,
+                          "assigned_to": null,
+                          "assigned_to_id": null,
+                          "client_created_at": "2020-02-14T04:16:18Z",
+                          "client_updated_at": "2020-02-17T15:44:03Z",
+                          "course": null,
+                          "created_at": "2020-02-14T04:16:18Z",
+                          "created_by": "John Williams",
+                          "created_by_id": "3bd3efaa-b66c-4b70-9d45-1ff81cbfc353",
+                          "created_duration": 157,
+                          "created_location": null,
+                          "edited_duration": 200,
+                          "form_id": "aa9896b6-ebec-4f14-88df-7d5844c2237d",
+                          "form_values": {
+                            "9333": "yes",
+                            "2b27": "1",
+                            "31e8": {
+                              "admin_area": "California",
+                              "country": "United States",
+                              "locality": "Santa Clara",
+                              "postal_code": null,
+                              "sub_admin_area": null,
+                              "sub_thoroughfare": "123457817",
+                              "suite": null,
+                              "thoroughfare": "Road"
+                            },
+                            "36be": "yes",
+                            "3a45": "no",
+                            "3f3e": "no",
+                            "547e": "yes",
+                            "58b2": "yes",
+                            "601f": "no",
+                            "66a5": "3432432432434",
+                            "76ea": "Not compliant",
+                            "7aec": "yes",
+                            "7cf0": "Builders",
+                            "7fb3": "yes",
+                            "856d": "yes",
+                            "b063": "yes",
+                            "c59a": "yes",
+                            "d39c": "23",
+                            "d3e7": "12",
+                            "d3f7": {
+                              "choice_values": [
+                                "1 Year Test"
+                              ],
+                              "other_values": []
+                            },
+                            "d460": {
+                              "choice_values": [
+                                "Hoist Jump Up"
+                              ],
+                              "other_values": []
+                            },
+                            "dd8d": "12345",
+                            "e4c1": "Bob",
+                            "e570": "4",
+                            "e66f": "yes",
+                            "ebf5": "2025-02-13",
+                            "f223": "yes",
+                            "f485": "Clarkson",
+                            "fb4f": "yes"
+                          },
+                          "geometry": null,
+                          "horizontal_accuracy": null,
+                          "id": "02b7c5d7-97aa-4a6f-be6c-723cd3e5e64a",
+                          "latitude": null,
+                          "longitude": null,
+                          "project_id": null,
+                          "record_series_id": null,
+                          "speed": null,
+                          "status": null,
+                          "system_status": null,
+                          "updated_at": "2020-02-17T15:44:00Z",
+                          "updated_by": "John Williams",
+                          "updated_by_id": "3bd3efaa-b66c-4b70-9d45-1ff81cbfc353",
+                          "updated_duration": 10,
+                          "updated_location": null,
+                          "version": 11,
+                          "vertical_accuracy": null
+                        },
+                        {
+                          "altitude": null,
+                          "assigned_to": null,
+                          "assigned_to_id": null,
+                          "client_created_at": "2020-02-17T15:46:12Z",
+                          "client_updated_at": "2020-02-17T15:51:29Z",
+                          "course": null,
+                          "created_at": "2020-02-17T15:46:08Z",
+                          "created_by": "John Williams",
+                          "created_by_id": "3bd3efaa-b66c-4b70-9d45-1ff81cbfc353",
+                          "created_duration": 63,
+                          "created_location": null,
+                          "edited_duration": 76,
+                          "form_id": "aa9896b6-ebec-4f14-88df-7d5844c2237d",
+                          "form_values": {
+                            "9333": "yes",
+                            "31e8": {
+                              "admin_area": null,
+                              "country": "United States",
+                              "locality": "New York",
+                              "postal_code": null,
+                              "sub_admin_area": null,
+                              "sub_thoroughfare": "Maple Rd",
+                              "suite": null,
+                              "thoroughfare": null
+                            },
+                            "41d9": "New York",
+                            "58b2": "yes",
+                            "856d": "no",
+                            "d3f7": {
+                              "choice_values": [
+                                "3 Year Test"
+                              ],
+                              "other_values": []
+                            },
+                            "e4c1": "Michael",
+                            "f223": "yes",
+                            "f485": "Test"
+                          },
+                          "geometry": null,
+                          "horizontal_accuracy": null,
+                          "id": "6d9a5c45-dc79-483f-89bd-19313e40dbd2",
+                          "latitude": null,
+                          "longitude": null,
+                          "project_id": null,
+                          "record_series_id": null,
+                          "speed": null,
+                          "status": null,
+                          "system_status": null,
+                          "updated_at": "2020-02-17T15:51:25Z",
+                          "updated_by": "John Williams",
+                          "updated_by_id": "3bd3efaa-b66c-4b70-9d45-1ff81cbfc353",
+                          "updated_duration": 13,
+                          "updated_location": null,
+                          "version": 2,
+                          "vertical_accuracy": null
+                        }
+                      ],
+                      "total_count": 3,
+                      "total_pages": 1
+                    }
                   }
                 },
                 "schema": {
@@ -2862,7 +3061,8 @@
                 },
                 "schema": {
                   "type": "object",
-                  "description": "Empty response"
+                  "description": "Empty response",
+                  "properties": {}
                 }
               }
             }
@@ -8844,8 +9044,33 @@
               "content": {
                 "application/json": {
                   "examples": {
-                    "Result": {
-                      "value": "{}"
+                    "Success": {
+                      "value": {
+                        "current_page": 1,
+                        "per_page": 20000,
+                        "total_count": 2,
+                        "total_pages": 1,
+                        "webhooks": [
+                          {
+                            "active": true,
+                            "created_at": "2020-02-17T15:41:08Z",
+                            "id": "4e64e945-b10f-4568-ba9a-b178c9197fca",
+                            "name": "Fire Hydrant Inventory Emails",
+                            "run_for_bulk_actions": true,
+                            "updated_at": "2020-02-17T15:51:26Z",
+                            "url": "https://my-webhook-processing-script.php"
+                          },
+                          {
+                            "active": true,
+                            "created_at": "2020-02-17T15:50:30Z",
+                            "id": "39db4cbd-792b-4655-bc09-2b51556f3141",
+                            "name": null,
+                            "run_for_bulk_actions": true,
+                            "updated_at": "2020-02-17T15:51:26Z",
+                            "url": "https://my-webhook-processing-script-2.php"
+                          }
+                        ]
+                      }
                     }
                   },
                   "schema": {
@@ -8919,12 +9144,13 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "Result": {
+                  "Bad Request": {
                     "value": "{}"
                   }
                 },
                 "schema": {
                   "type": "object",
+                  "description": "Empty response",
                   "properties": {}
                 }
               }
@@ -8977,8 +9203,18 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "Result": {
-                    "value": "{}"
+                  "Success": {
+                    "value": {
+                      "webhook": {
+                        "active": true,
+                        "created_at": "2020-02-19T13:33:47Z",
+                        "id": "0dd9v5bd-c2db-4e41-aaee-82ec54755b41",
+                        "name": "Fire Hydrant Inventory Emails",
+                        "run_for_bulk_actions": true,
+                        "updated_at": "2020-02-19T13:33:47Z",
+                        "url": "https://my-webhook-processing-script.php"
+                      }
+                    }
                   }
                 },
                 "schema": {
@@ -9058,7 +9294,8 @@
                 },
                 "schema": {
                   "type": "object",
-                  "description": "Empty response"
+                  "description": "Empty response",
+                  "properties": {}
                 }
               }
             }
@@ -9295,7 +9532,7 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "Result": {
+                  "Success": {
                     "value": "{}"
                   }
                 },
@@ -9343,7 +9580,8 @@
                 },
                 "schema": {
                   "type": "object",
-                  "description": "Empty response"
+                  "description": "Empty response",
+                  "properties": {}
                 }
               }
             }
