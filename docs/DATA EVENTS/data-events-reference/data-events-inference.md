@@ -74,4 +74,4 @@ The `INFERENCE` function is typically used when you need to perform AI-driven ta
 
 This function is particularly useful in applications that require dynamic analysis or AI-based decision-making, enabling seamless integration of advanced machine learning models into your workflows.
 
-**Note**: This feature is available only for enterprise subscriptions.
+**Note:** This feature is only available with Elite and Enterprise plans. Check out [our plans page](https://www.fulcrumapp.com/pricing/) for more information.
