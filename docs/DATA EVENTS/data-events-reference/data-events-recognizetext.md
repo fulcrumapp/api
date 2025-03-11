@@ -20,7 +20,7 @@ The `RECOGNIZETEXT` function is used to retrieve text recognized from a photo. T
 * `callback` function (required) - A function that gets called once the text recognition is complete.
   * `error` object (optional) - An error object if the recognition fails.
   * `result` object (required) - An object containing the recognized text.\
-        \- `text` string - The recognized text from the photo.
+    \- `text` string - The recognized text from the photo.
 
 ## Examples
 
@@ -44,13 +44,13 @@ ON('add-photo', 'photos', callback);
 
 ## **Usage**
 
-This function is typically used in scenarios where text needs to be extracted from images and used in subsequent processing steps or stored in the database. The combination of the `ON` and `RECOGNIZETEXT` functions allows for automated handling of photos added to records. 
+This function is typically used in scenarios where text needs to be extracted from images and used in subsequent processing steps or stored in the database. The combination of the `ON` and `RECOGNIZETEXT` functions allows for automated handling of photos added to records.
 
 To use the example above you will need to change the following fields:
 
 * Line 10 - Change the field name `image_text` to the field name you want the text to extract into.
-* Line 15 - Change the field name `photos` to the name of the photo field from which you are extracting text. 
+* Line 15 - Change the field name `photos` to the name of the photo field from which you are extracting text.
 
 For example, you might use this functionality to automatically recognize and store text from photos of receipts, documents, or labels added to a record in your application.
 
-Note: This feature is available only for enterprise subscriptions.
+Note: Audio FastFill is only available with Elite and Enterprise plans. Check out [our plans page](https://www.fulcrumapp.com/pricing/) for more information.
