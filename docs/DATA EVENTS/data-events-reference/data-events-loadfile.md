@@ -79,4 +79,4 @@ This ensures that when you load the file using `LOADFILE`, the contents are corr
 
 <br />
 
-**Note:** This feature is available only for enterprise subscriptions.
+**Note:** This feature is only available with Elite and Enterprise plans. Check out [our plans page](https://www.fulcrumapp.com/pricing/) for more information.
