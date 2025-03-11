@@ -53,4 +53,4 @@ To use the example above you will need to change the following fields:
 
 For example, you might use this functionality to automatically recognize and store text from photos of receipts, documents, or labels added to a record in your application.
 
-Note: Audio FastFill is only available with Elite and Enterprise plans. Check out [our plans page](https://www.fulcrumapp.com/pricing/) for more information.
+**Note:** This feature is only available with Elite and Enterprise plans. Check out [our plans page](https://www.fulcrumapp.com/pricing/) for more information.
