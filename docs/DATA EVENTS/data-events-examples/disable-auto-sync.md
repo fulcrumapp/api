@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-You can use data events to turn off [auto-sync (non-blocking sync)](https://help.fulcrumapp.com/en/articles/8104466-how-does-syncing-on-the-mobile-app-work#h_a6c9d09e88) on a per-app basis. You can do this by adding the following code to your app:
+You can use data events to turn off [auto-sync](https://help.fulcrumapp.com/en/articles/8104466-how-does-syncing-on-the-mobile-app-work#h_a6c9d09e88) on a per-app basis. You can do this by adding the following code to your app:
 
 ```javascript
 ON('load-record', function() {
