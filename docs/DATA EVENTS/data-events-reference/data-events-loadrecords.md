@@ -50,7 +50,7 @@ The `LOADRECORDS` function fetches records from a specified form, returning an a
 
 <br />
 
-\*\* *`limit`,`order`, `where` options are only available in Fulcrum mobile app versions 2502.2.0+*\*
+\*\* *`limit`,`offset`, `order`, `where` options are only available in Fulcrum mobile app versions 2502.2.0+*\*
 
 <br />
 
