@@ -21,10 +21,37 @@ The `LOADRECORDS` function fetches records from a specified form, returning an a
   * `ids` array (optional) - An array of record IDs to fetch from the specified form.
   * `form_id` string (optional) - The ID of the form from which to load the records.
   * `form_name` string (optional) - The name of the form from which to load the records. If both `form_id` and `form_name` are provided, `form_id` takes precedence.
+  * \*`limit` number (optional) - The maximum number of records to retrieve
+  * \*`order` array (optional) - Sort order of records
+  * \*`where` object (optional) - Search clause to filter records
+    * `operator` string (optional) - Can be `and` or `or`; defaults to `and`
+    * `predicates` object (required)
+      * `field` string (required) - can be either the data\_name or the field\_key
+      * `operator` string (required) -
+        * Must be one of the following:
+          ```
+          equal_to,
+          not_equal_to,
+          contains,
+          starts_with,
+          greater_than,
+          less_than,
+          is_empty,
+          is_not_empty
+          ```
+        * `starts_with` and `contains` will not work with number fields.
+        * If using `is_empty` or `is_not_empty`, `value` is ignored.
+      * `value` string (required, when not using `is_empty` or `is_not_empty`)
 * `callback` function (required) - A function that gets called once the records are loaded.
   * `error` object (optional) - An error object if the loading fails.
   * `result` object (required) - An object containing the loaded records.
     * `records` array - An array of the fetched records.
+
+<br />
+
+\*\* *`limit`,`order`, `where` options are only available in Fulcrum mobile app versions 2502.2.0+*\*
+
+<br />
 
 ## Examples
 
@@ -44,6 +71,28 @@ LOADRECORDS({
     ALERT(`Loaded ${records.length} records`);
   }
 });
+
+
+ON('click', 'hyperlink_field', function(event){
+  const options = {
+    form_id: FORM().id,
+    where: {
+      operator: 'and',
+      predicates: [
+        { field: 'number', operator: 'equal_to', value: 123 },
+        { field: 'text', operator: 'equal_to', value: 'hello' }
+      ]
+    },
+    order: [['number', 'asc']],
+    limit: 10,
+    offset: 2
+  };
+
+  
+  LOADRECORDS(options, function(error, result){
+    console.log(result);
+  })
+})
 ```
 
 ## Usage
