@@ -22,7 +22,7 @@ The `LOADRECORDS` function fetches records from a specified form, returning an a
   * `form_id` string (optional) - The ID of the form from which to load the records.
   * `form_name` string (optional) - The name of the form from which to load the records. If both `form_id` and `form_name` are provided, `form_id` takes precedence.
   * \*`limit` number (optional) - The maximum number of records to retrieve
-  * \*`order` array (optional) - Sort order of records
+  * \*`order` array (optional) - Array of fields to sort records. Each Array contains a field name and sort direction (`asc` or `desc`)
   * \*`where` object (optional) - Search clause to filter records
     * `operator` string (optional) - Can be `and` or `or`; defaults to `and`
     * `predicates` object (required)
