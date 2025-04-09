@@ -25,6 +25,285 @@
         "in": "header",
         "name": "X-ApiToken"
       }
+    },
+    "schemas": {
+      "RecordsResponse": {
+        "type": "object",
+        "required": [
+          "current_page",
+          "total_pages",
+          "total_count",
+          "per_page",
+          "records"
+        ],
+        "properties": {
+          "current_page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "total_pages": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "total_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "per_page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "records": {
+            "type": "array",
+            "items": {
+                "$ref": "#/components/schemas/Record"
+            }
+          }
+        }
+      },
+      "Record": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "version": {
+            "type": "integer"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "client_created_at": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "client_updated_at": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "created_by": {
+            "type": "string"
+          },
+          "created_by_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+          },
+          "updated_by": {
+            "type": "string"
+          },
+          "updated_by_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+          },
+          "created_location": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "updated_location": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "created_duration": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "updated_duration": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "edited_duration": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "form_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+          },
+          "project_id": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "record_series_id": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "assigned_to": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "assigned_to_id": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "form_values": {
+            "type": "object",
+            "additionalProperties": {
+              "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ChoiceValues"
+                  },
+                  {
+                    "$ref": "#/components/schemas/PhotoArray"
+                  },
+                  {
+                    "type": "string"
+                  }
+              ]
+            }
+          },
+          "latitude": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "longitude": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "altitude": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "geometry": {
+              "$ref": "#/components/schemas/Geometry"
+          },
+          "speed": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "course": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "horizontal_accuracy": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "vertical_accuracy": {
+            "type": [
+              "null",
+              "number"
+            ]
+          },
+          "system_status": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "ChoiceValues": {
+        "type": "object",
+        "properties": {
+          "choice_values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "choice_ids": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "other_values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "PhotoArray": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "photo_id": {
+              "type": "string",
+              "pattern": "^[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}$"
+            },
+            "caption": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "photo_id"
+          ]
+        }
+      },
+      "Geometry": {
+        "type": "object",
+        "required": [
+          "type",
+          "coordinates"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Point"
+            ]
+          },
+          "coordinates": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 2,
+            "items": {
+              "type": "number"
+            }
+          }
+        }
+      }
     }
   },
   "security": [
@@ -2751,269 +3030,7 @@
                   }
                 },
                 "schema": {
-                  "type": "object",
-                  "required": [
-                    "current_page",
-                    "total_pages",
-                    "total_count",
-                    "per_page",
-                    "records"
-                  ],
-                  "properties": {
-                    "current_page": {
-                      "type": "integer",
-                      "minimum": 1
-                    },
-                    "total_pages": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "total_count": {
-                      "type": "integer",
-                      "minimum": 0
-                    },
-                    "per_page": {
-                      "type": "integer",
-                      "minimum": 1
-                    },
-                    "records": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "status": {
-                            "type": [
-                              "null",
-                              "string"
-                            ]
-                          },
-                          "version": {
-                            "type": "integer"
-                          },
-                          "id": {
-                            "type": "string",
-                            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
-                          },
-                          "created_at": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "updated_at": {
-                            "type": "string",
-                            "format": "date-time"
-                          },
-                          "client_created_at": {
-                            "type": [
-                              "null",
-                              "string"
-                            ],
-                            "format": "date-time"
-                          },
-                          "client_updated_at": {
-                            "type": [
-                              "null",
-                              "string"
-                            ],
-                            "format": "date-time"
-                          },
-                          "created_by": {
-                            "type": "string"
-                          },
-                          "created_by_id": {
-                            "type": "string",
-                            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
-                          },
-                          "updated_by": {
-                            "type": "string"
-                          },
-                          "updated_by_id": {
-                            "type": "string",
-                            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
-                          },
-                          "created_location": {
-                            "type": [
-                              "null",
-                              "string"
-                            ]
-                          },
-                          "updated_location": {
-                            "type": [
-                              "null",
-                              "string"
-                            ]
-                          },
-                          "created_duration": {
-                            "type": [
-                              "null",
-                              "number"
-                            ]
-                          },
-                          "updated_duration": {
-                            "type": [
-                              "null",
-                              "number"
-                            ]
-                          },
-                          "edited_duration": {
-                            "type": [
-                              "null",
-                              "number"
-                            ]
-                          },
-                          "form_id": {
-                            "type": "string",
-                            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
-                          },
-                          "project_id": {
-                            "type": [
-                              "null",
-                              "string"
-                            ]
-                          },
-                          "record_series_id": {
-                            "type": [
-                              "null",
-                              "string"
-                            ]
-                          },
-                          "assigned_to": {
-                            "type": [
-                              "null",
-                              "string"
-                            ]
-                          },
-                          "assigned_to_id": {
-                            "type": [
-                              "null",
-                              "string"
-                            ]
-                          },
-                          "form_values": {
-                            "type": "object",
-                            "additionalProperties": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "choice_values": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "choice_ids": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "other_values": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "string"
-                                      }
-                                    }
-                                  }
-                                },
-                                {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "photo_id": {
-                                        "type": "string",
-                                        "pattern": "^[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}$"
-                                      },
-                                      "caption": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "photo_id"
-                                    ]
-                                  }
-                                },
-                                {
-                                  "type": "string"
-                                }
-                              ]
-                            }
-                          },
-                          "latitude": {
-                            "type": [
-                              "null",
-                              "number"
-                            ]
-                          },
-                          "longitude": {
-                            "type": [
-                              "null",
-                              "number"
-                            ]
-                          },
-                          "altitude": {
-                            "type": [
-                              "null",
-                              "number"
-                            ]
-                          },
-                          "geometry": {
-                            "type": "object",
-                            "required": [
-                              "type",
-                              "coordinates"
-                            ],
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "enum": [
-                                  "Point"
-                                ]
-                              },
-                              "coordinates": {
-                                "type": "array",
-                                "minItems": 2,
-                                "maxItems": 2,
-                                "items": {
-                                  "type": "number"
-                                }
-                              }
-                            }
-                          },
-                          "speed": {
-                            "type": [
-                              "null",
-                              "number"
-                            ]
-                          },
-                          "course": {
-                            "type": [
-                              "null",
-                              "number"
-                            ]
-                          },
-                          "horizontal_accuracy": {
-                            "type": [
-                              "null",
-                              "number"
-                            ]
-                          },
-                          "vertical_accuracy": {
-                            "type": [
-                              "null",
-                              "number"
-                            ]
-                          },
-                          "system_status": {
-                            "type": [
-                              "null",
-                              "string"
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  }
+                  "$ref": "#/components/schemas/RecordsResponse"
                 }
               }
             }
@@ -3193,13 +3210,65 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "Result": {
-                    "value": "{}"
+                  "Success": {
+                    "value": {
+                      "altitude": null,
+                      "assigned_to": null,
+                      "assigned_to_id": null,
+                      "changeset_id": "b882774c-29c8-4506-8dc6-46e686e1b4fa",
+                      "client_created_at": "2020-02-16T21:26:57Z",
+                      "client_updated_at": "2020-02-16T21:30:36Z",
+                      "course": null,
+                      "created_at": "2020-02-16T21:26:51Z",
+                      "created_by": "John Williams",
+                      "created_by_id": "3bd2efaa-b66c-4b70-9d45-1ff81cbvc353",
+                      "created_duration": 116,
+                      "created_location": null,
+                      "edited_duration": 119,
+                      "form_id": "aa9816b6-ebec-4f14-88df-7v5844c2237d",
+                      "form_values": {
+                        "31e8": {
+                          "admin_area": "Illinois",
+                          "country": "United States",
+                          "locality": "Chicago",
+                          "postal_code": null,
+                          "sub_admin_area": null,
+                          "sub_thoroughfare": "1234",
+                          "suite": null,
+                          "thoroughfare": "W Jackson Blvd"
+                        },
+                        "58b2": "no",
+                        "7aec": "no",
+                        "dd8d": "12323"
+                      },
+                      "geometry": {
+                        "coordinates": [
+                          0,
+                          0
+                        ],
+                        "type": "Point"
+                      },
+                      "horizontal_accuracy": null,
+                      "id": "da5fafc4-2e69-4c8c-a6bb-831d9e194a30",
+                      "latitude": 0,
+                      "longitude": 0,
+                      "project_id": null,
+                      "record_series_id": null,
+                      "speed": null,
+                      "status": null,
+                      "system_status": null,
+                      "updated_at": "2020-02-16T21:30:30Z",
+                      "updated_by": "James Miller",
+                      "updated_by_id": "3bd3eeaa-b66c-4b70-9d45-1ff81cbfc353",
+                      "updated_duration": 3,
+                      "updated_location": null,
+                      "version": 2,
+                      "vertical_accuracy": null
+                    }
                   }
                 },
                 "schema": {
-                  "type": "object",
-                  "properties": {}
+                  "$ref": "#/components/schemas/Record"
                 }
               }
             }
@@ -3209,12 +3278,39 @@
             "content": {
               "application/json": {
                 "examples": {
-                  "Result": {
+                  "Bad Request": {
+                    "value": {
+                      "error": "Bad Request",
+                      "status": 400
+                    }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "404",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Not Found": {
                     "value": "{}"
                   }
                 },
                 "schema": {
                   "type": "object",
+                  "description": "Empty response",
                   "properties": {}
                 }
               }
