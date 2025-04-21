@@ -13,3 +13,12 @@ metadata:
 next:
   description: ''
 ---
+Must include the following body
+
+```json
+{
+    "membership": {
+        "reassign_to_membership_id": {{membership_id}} || null
+    }
+}
+```
