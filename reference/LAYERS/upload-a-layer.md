@@ -3,6 +3,9 @@ title: Upload a Layer
 excerpt: >-
   This endpoint allows for you to upload a layer file. This step is completed
   prior to using the Create Layer endpoint to create the layer.
+api:
+  file: rest-api.json
+  operationId: get_v2fileupload_url.json
 deprecated: false
 hidden: false
 metadata:
