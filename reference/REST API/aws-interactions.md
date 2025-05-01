@@ -39,12 +39,12 @@ The GET request to the files endpoint will return a similar object within the te
 }
 ```
 
-Once you have these JSONs parsed, you need to make a PUT request to the `url` returned in your previous request. This request should contain the file you are looking to upload. 
+Once you have these JSONs parsed, you need to make a PUT request to the `url` returned in your previous request. This request should contain the file you are looking to upload as binary data. 
 
 In the example of uploading attachments over Postman, here is what the PUT request would look like:
 
-<Image title="Screen Shot 2022-11-10 at 7.19.07 PM.png" alt={792} align="center" src="https://files.readme.io/6cdbd0b-Screen_Shot_2022-11-10_at_7.19.07_PM.png">
-  The same `form-data` body selection would be used for MBTiles as well
+<Image title="Binary upload" alt={792} align="center" src="https://files.readme.io/d5684820bfc5d152ad526400bca0aed1bdbb3811bf40aa526fc2ff5676df47a6-image.png">
+  The same `binary` body selection would be used for MBTiles as well
 </Image>
 
 The final step in this process is finalizing the file you are looking to upload. 
