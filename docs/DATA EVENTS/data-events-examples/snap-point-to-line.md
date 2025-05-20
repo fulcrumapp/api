@@ -10,10 +10,9 @@ metadata:
 next:
   description: ''
 ---
-The below example uses the turf.js library to snap a point collected in a repeatable to a line created at the parent level. **NOTE:** You will need to [enable Lines and Polygons](https://help.fulcrumapp.com/en/articles/8404186-how-to-enable-lines-and-polygons-on-an-app) for an app in order for this data event to work.
+The example below snaps a point collected in a repeatable form to a line created at the parent level. **NOTE:** You will need to [enable Lines and Polygons](https://help.fulcrumapp.com/en/articles/8404186-how-to-enable-lines-and-polygons-on-an-app) for an app in order for this data event to work.
 
 ```js
-
 let line;
 
 ON('change-geometry', () => {
@@ -22,10 +21,10 @@ ON('change-geometry', () => {
   }
 })
 
-ON('change-geometry', 'repeatable', () => {
+ON('change-geometry', 'my_repeatable', () => {
   if (GEOMETRY() && GEOMETRY().type == "Point") {
     let point = GEOMETRY();
-    let nearestPointOnLine = turf.nearestPointOnLine(line, point, {units: 'feet'});
+    let nearestPointOnLine = GEOMETRYNEARESTPOINTONLINE(line, point, {units: 'feet'});
     ALERT(`Selected Point was ${ROUND(nearestPointOnLine.properties.dist, 2)} feet from the line. Moving point to line.`)
     SETGEOMETRY(nearestPointOnLine.geometry)
   }
