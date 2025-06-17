@@ -14,6 +14,10 @@
       "description": "Australia"
     },
     {
+      "url": "https://api.fulcrumapp-ca.com/api",
+      "description": "Canada"
+    },
+    {
       "url": "https://api.fulcrumapp-eu.com/api",
       "description": "European Union"
     }
