@@ -12,7 +12,7 @@ next:
 ---
 # Add a page break for all sections
 
-Scroll down in the BODY section to locate `element.isSectionElement` block of code.  In the first `<div class='field-section'>`, add `page-break-before` to the class. 
+Scroll down in the BODY section to locate `element.isSectionElement` block of code.  In the first `<div class='field-section'>`, add `page-break-before` to the class.
 
 ![1912](https://files.readme.io/793472f-70e289e-section_page_break.png "70e289e-section_page_break.png")
 
@@ -45,11 +45,9 @@ Scroll down in the BODY section to locate the `if (element.isSectionElement)` bl
 
 > 🚧 MAKE SURE YOU USE THE SECTION LABEL NAME INSTEAD OF Section Label!
 
-<Image title="89091d8-remove_section.png" alt={1938} src="https://files.readme.io/530c2a9-89091d8-remove_section.png">
-  section label screenshot
-</Image>
+<Image alt={1938} border={false} caption="section label screenshot" title="89091d8-remove_section.png" src="https://files.readme.io/530c2a9-89091d8-remove_section.png" />
 
-# Remove a section field when its all nested fields values are null
+# Remove a section field when all of its nested fields' values are null
 
 Under `if (element.isSectionElement)` in the BODY section, you are going to replace the entire block of code with the following:
 
@@ -70,6 +68,4 @@ Under `if (element.isSectionElement)` in the BODY section, you are going to repl
 <% } %>
 ```
 
-<Image title="301868f-remove_section_null_2.jpeg" alt={1941} src="https://files.readme.io/8a35454-301868f-remove_section_null_2.jpeg">
-  remove section
-</Image>
+<Image alt={1941} border={false} caption="remove section" title="301868f-remove_section_null_2.jpeg" src="https://files.readme.io/8a35454-301868f-remove_section_null_2.jpeg" />
