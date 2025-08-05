@@ -10,10 +10,10 @@ next:
   description: ''
 ---
 Takes a LineString and returns a Point at a specified distance along the line.
- 
+
 # Parameters
 
-`line` Feature<lineString/> (**required**) - input line
+`line` Feature<lineString /> (**required**) - input line
 
 `distance` number (**required**) - distance along a line (in kilometers)
 
@@ -21,7 +21,9 @@ Takes a LineString and returns a Point at a specified distance along the line.
 
 # Returns
 
-Feature<point/> - Point distance units along the line 
+Feature<point /> - Point distance units along the line
+
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations, which may differ from other libraries.
 
 # Examples
 
