@@ -23,6 +23,8 @@ Wraps a GeoJSON Geometry in a GeoJSON Feature.
 
 Feature - the GeoJSON Feature object
 
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations
+
 # Examples
 
 ```js javascript
