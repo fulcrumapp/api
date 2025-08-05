@@ -21,6 +21,8 @@ Takes a Feature or a FeatureCollection and returns a convex hull Polygon.
 
 Feature `<Polygon>` - the convex hull
 
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations
+
 # Examples
 
 ```js javascript
