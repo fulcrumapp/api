@@ -23,6 +23,8 @@ Calculates a buffer for input features for a given radius. Units supported are m
 
 FeatureCollection | Geometry | Feature - buffered features
 
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations
+
 # Examples
 
 ```js javascript
