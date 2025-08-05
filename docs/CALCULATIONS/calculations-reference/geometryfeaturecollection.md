@@ -14,13 +14,15 @@ Wraps a GeoJSON Geometry in a GeoJSON Feature.
 
 # Parameters
 
-`features` Array<feature/> (**required**) - input features
+`features` Array<feature /> (**required**) - input features
 
 `options` object - options
 
 # Returns
 
 FeatureCollection - the GeoJSON Feature Collection object
+
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations
 
 # Examples
 
