@@ -22,7 +22,9 @@ Takes a Point and a LineString and calculates the closest Point on the (Multi)Li
 
 # Returns
 
-Feature &lt;Point&gt; - closest point on the line to point. The properties object will contain three values: index : closest point was found on nth line part, dist : distance between pt and the closest point, location : distance along the line between start and the closest point.
+Feature \<Point> - closest point on the line to point. The properties object will contain three values: index : closest point was found on nth line part, dist : distance between pt and the closest point, location : distance along the line between start and the closest point.
+
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations, which may differ from other libraries.
 
 # Examples
 
