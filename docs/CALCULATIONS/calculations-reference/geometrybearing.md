@@ -23,6 +23,8 @@ Takes two points and finds the geographic bearing between them, i.e. the angle m
 
 number - bearing in decimal degrees, between -180 and 180 degrees (positive clockwise)
 
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations, which may differ from other libraries.
+
 # Examples
 
 ```js javascript
