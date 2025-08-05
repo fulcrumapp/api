@@ -18,7 +18,9 @@ Takes one or more features and returns their area in square meters.
 
 # Returns
 
-number - Point distance units along the line 
+number - Point distance units along the line
+
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations, which may differ from other libraries.
 
 # Examples
 
