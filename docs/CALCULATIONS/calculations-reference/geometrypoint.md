@@ -24,6 +24,8 @@ Creates a Point Feature from an Array of Positions.
 
 Feature `<Point>` - Point Feature
 
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations
+
 # Examples
 
 ```js javascript
