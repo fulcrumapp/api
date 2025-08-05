@@ -22,6 +22,8 @@ Returns true if the first geometry is completely within the second geometry.
 
 boolean - returns true if the first geometry is completely within the second geometry.
 
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations
+
 # Examples
 
 ```js javascript
