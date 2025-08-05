@@ -22,7 +22,9 @@ Creates a Polygon Feature from an Array of Positions.
 
 # Returns
 
-Feature &lt;Polygon&gt; - Polygon Feature
+Feature \<Polygon> - Polygon Feature
+
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations
 
 # Examples
 
