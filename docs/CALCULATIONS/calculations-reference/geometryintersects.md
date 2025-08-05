@@ -22,6 +22,8 @@ Returns true when two geometries intersect.
 
 boolean - returns true if the features intersect
 
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations, which may differ from other libraries.
+
 # Examples
 
 ```js javascript
