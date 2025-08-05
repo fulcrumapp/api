@@ -22,6 +22,8 @@ Takes a reference point and a FeatureCollection of Features with Point geometrie
 
 Feature `<Point>` - the closest point in the set to the reference point
 
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations, which may differ from other libraries.
+
 # Examples
 
 ```js javascript
