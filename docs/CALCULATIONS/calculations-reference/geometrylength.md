@@ -22,6 +22,8 @@ Takes a GeoJSON and measures its length in the specified units.
 
 number - returns the length of the feature
 
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations, which may differ from other libraries.
+
 # Examples
 
 ## Basic usage
