@@ -21,6 +21,8 @@ Takes one or more features and calculates the centroid using the mean of all ver
 
 Feature `<Point>` - the centroid of the input features
 
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations
+
 # Examples
 
 ```js javascript
