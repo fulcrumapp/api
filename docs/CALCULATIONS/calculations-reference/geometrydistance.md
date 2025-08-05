@@ -23,6 +23,8 @@ Calculates the distance between two points in degrees, radians, miles, or kilome
 
 number - distance between the two points
 
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations, which may differ from other libraries.
+
 # Examples
 
 ```js javascript
