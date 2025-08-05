@@ -14,9 +14,9 @@ Takes a set of points and a set of polygons and/or multipolygons and performs a 
 
 # Parameters
 
-`points` FeatureCollection &lt;Point&gt; (**required**) - input points
+`points` FeatureCollection \<Point> (**required**) - input points
 
-`polygons` FeatureCollection &lt;Polygon&gt; (**required**) - input polygons
+`polygons` FeatureCollection \<Polygon> (**required**) - input polygons
 
 `field` string - property in polygons to add to joined features
 
@@ -24,7 +24,9 @@ Takes a set of points and a set of polygons and/or multipolygons and performs a 
 
 # Returns
 
-FeatureCollection &lt;Point&gt; - points with containingPolyId property containing values from polyId
+FeatureCollection \<Point> - points with containingPolyId property containing values from polyId
+
+* **Note:** Leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations
 
 # Examples
 
