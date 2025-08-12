@@ -2,10 +2,10 @@
 title: Repeatable record sorting
 excerpt: >-
   This example will force the sorting of child records in a repeatable section
-  based on the field with the data name field_data_name. To make this work in
+  based on the field with the data name `field_data_name`. To make this work in
   your app you will need to update the word repeatable with the data name of
-  your repeatable section and update the work field_data_name with the data name
-  of the field you want to sort by.
+  your repeatable section and update the word `field_data_name` with the data
+  name of the field you want to sort by.
 deprecated: false
 hidden: false
 metadata:
