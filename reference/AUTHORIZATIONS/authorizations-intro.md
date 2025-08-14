@@ -18,20 +18,298 @@ The Authorizations API can be used to create client-side applications that do no
 
 # Properties
 
-| Property          | Type      | Required | Readonly | Description                                                                                                                                               |
-| ----------------- | --------- | -------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| organization\_id  | string    | yes      | no       | The organization ID.                                                                                                                                      |
-| note              | string    | yes      | no       | Token use description.                                                                                                                                    |
-| user\_id          | string    | no       | no       | The user to authorize. If blank, the user associated with the authentication email will be used. Only owners may specify a user\_id other than their own. |
-| expires\_at       | timestamp | no       | no       | Token expiration timestamp.                                                                                                                               |
-| timeout           | number    | no       | no       | The number of seconds before the token expires. The timeout is limited to 86400 seconds (24 hours).                                                       |
-| token\_last\_8    | string    | no       | no       | The last 8 characters of the token.                                                                                                                       |
-| last\_ip\_address | string    | no       | no       | The IP Address of the last token user.                                                                                                                    |
-| last\_user\_agent | string    | no       | no       | The User Agent of the last token user.                                                                                                                    |
-| last\_used\_at    | timestamp | no       | no       | Timestamp when the token was last used.                                                                                                                   |
-| created\_at       | timestamp | no       | no       | Timestamp when the token was created.                                                                                                                     |
-| updated\_at       | timestamp | no       | no       | Timestamp when the token was updated.                                                                                                                     |
-| id                | timestamp | no       | no       | Authorization ID.                                                                                                                                         |
+<Table>
+  <thead>
+    <tr>
+      <th>
+        Property
+      </th>
+
+      <th>
+        Type
+      </th>
+
+      <th>
+        Required
+      </th>
+
+      <th>
+        Readonly
+      </th>
+
+      <th>
+        Description
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td>
+        organization\_id
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        yes
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        The organization ID.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        note
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        yes
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        Token use description.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        user\_id
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        The user to authorize. If blank, the user associated with the authentication email will be used. Only owners may specify a user\_id other than their own.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        expires\_at
+      </td>
+
+      <td>
+        timestamp
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        Token expiration timestamp.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        *timeout*
+      </td>
+
+      <td>
+        *number*
+      </td>
+
+      <td>
+        *no*
+      </td>
+
+      <td>
+        *no*
+      </td>
+
+      <td>
+        **Deprecated**
+        *The number of seconds before the token expires. The timeout is limited to 86400 seconds (24 hours).*
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        token\_last\_8
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        The last 8 characters of the token.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        last\_ip\_address
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        The IP Address of the last token user.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        last\_user\_agent
+      </td>
+
+      <td>
+        string
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        The User Agent of the last token user.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        last\_used\_at
+      </td>
+
+      <td>
+        timestamp
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        Timestamp when the token was last used.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        created\_at
+      </td>
+
+      <td>
+        timestamp
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        Timestamp when the token was created.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        updated\_at
+      </td>
+
+      <td>
+        timestamp
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        Timestamp when the token was updated.
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        id
+      </td>
+
+      <td>
+        timestamp
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        no
+      </td>
+
+      <td>
+        Authorization ID.
+      </td>
+    </tr>
+  </tbody>
+</Table>
 
 # Validations
 
