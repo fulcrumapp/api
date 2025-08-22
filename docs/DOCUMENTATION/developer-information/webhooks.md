@@ -59,6 +59,7 @@ The details you’ll need for implementing your own endpoint are discussed below
 * Your webhook endpoint is free to do anything with the response, as long as it complies with the Responsibilities section below. Update a database record, send an email, kick off some custom analysis, or anything else you can imagine.
 * When you deactivate a webhook it will stop new requests from coming to your endpoint. However, requests that were already in the queue will still be processed.
 * When you delete a webhook from Fulcrum it will clear the queue of all pending requests to your endpoint.
+* [Restoring a record](https://help.fulcrumapp.com/en/articles/76663-record-history#h_532b1b1d17) to a previous version does not trigger webhooks.
 
 # Events
 
