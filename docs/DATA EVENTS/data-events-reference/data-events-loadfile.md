@@ -10,7 +10,7 @@ metadata:
 next:
   description: ''
 ---
-**Description**\
+**Description**
 The `LOADFILE` function loads a specific file from reference files and initializes a variable with its content, making it suitable for further processing. This is useful for reusing scripts, configurations, or other resources across different forms or components within your application.
 
 **Parameters**
@@ -79,4 +79,4 @@ This ensures that when you load the file using `LOADFILE`, the contents are corr
 
 <br />
 
-**Note:** This feature is only available with Elite and Enterprise plans. Check out [our plans page](https://www.fulcrumapp.com/pricing/) for more information.
+**Note:** This feature is only supported on certain Fulcrum plans. Please see our [pricing page](https://www.fulcrumapp.com/pricing/) for details.
