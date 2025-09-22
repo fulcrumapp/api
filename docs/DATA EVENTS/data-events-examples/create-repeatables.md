@@ -10,6 +10,8 @@ This example has a hyperlink field `create_a_repeatable` and a repeatable field 
 
 Clicking the hyperlink field will add a repeatable to the existing ones.
 
+This functionality is slightly limited in that the **record must be saved after repeatables are added** before they're edited.
+
 <br />
 
 ```javascript
