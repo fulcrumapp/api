@@ -11,13 +11,27 @@
 
 ### Validation Steps
 
+**CRITICAL**: You MUST validate after EVERY change. No exceptions.
+
 #### 1. Validate OpenAPI Document
 
-After editing `reference/rest-api.json`, ALWAYS run:
+After editing `reference/rest-api.json`, run ALL of these validations:
 
 ```bash
-# Check for errors using VS Code's built-in validation
+# 1. VS Code built-in validation (catches OpenAPI spec errors)
 get_errors(filePaths=["/Users/trey/code/api/reference/rest-api.json"])
+
+# 2. OpenAPI specification validation (rdme - REQUIRED)
+cd reference && npx --yes rdme openapi validate rest-api.json
+
+# 3. JSON syntax validation (Node.js parser)
+node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid JSON:', e.message); }"
+
+# 4. Check for RAW_BODY anti-patterns
+grep -c "RAW_BODY" reference/rest-api.json || echo "0 (None - Good!)"
+
+# 5. Verify file size reduction (if applicable)
+wc -l reference/rest-api.json
 ```
 
 #### 2. Validate JSON Schema Files
@@ -25,8 +39,9 @@ get_errors(filePaths=["/Users/trey/code/api/reference/rest-api.json"])
 After editing any schema file in `reference/components/schemas/`, ALWAYS:
 
 - Use `get_errors` to check for JSON syntax errors
-- Verify the schema is valid JSON
+- Verify the schema is valid JSON with Node.js parser
 - Ensure all `$ref` references point to existing files
+- Confirm schema follows OpenAPI 3.1.0 specification
 
 ### Common Issues to Avoid
 
@@ -46,15 +61,33 @@ After editing any schema file in `reference/components/schemas/`, ALWAYS:
 
 1. **Before editing**: Read the current file content
 2. **Make changes**: Use `replace_string_in_file` or `multi_replace_string_in_file`
-3. **Validate immediately**: Run `get_errors` on the modified file
-4. **Fix any errors**: If validation fails, fix issues before proceeding
-5. **Document changes**: Note what was changed and why
+3. **Validate IMMEDIATELY**: Run ALL validation commands (see Validation Steps above)
+4. **Fix any errors**: If validation fails, fix issues before proceeding - DO NOT continue with other changes
+5. **Run comprehensive validation**: Use the validation prompt (see below) before considering work complete
+6. **Document changes**: Note what was changed and why
+
+### Comprehensive Validation Command
+
+Use this multi-tool validation approach after completing any changes:
+
+```bash
+# Combined validation report
+printf "=== VALIDATION REPORT ===\n\n" && \
+printf "1. File Size:\n" && wc -l reference/rest-api.json && \
+printf "\n2. JSON Syntax:\n" && node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid:', e.message); }" && \
+printf "\n3. External References:\n" && grep -c "\$ref.*components/schemas" reference/rest-api.json && \
+printf "\n4. RAW_BODY Check:\n" && (grep -c "RAW_BODY" reference/rest-api.json 2>/dev/null || echo "0 - None found ✅") && \
+printf "\n5. Schema Files:\n" && ls reference/components/schemas/*.json | wc -l && \
+printf "\n6. VS Code Errors:\n" && echo "Run get_errors() to check"
+```
 
 ### Schema Organization
 
-- **External schemas**: Keep reusable schemas in `reference/components/schemas/`
+- **Prefer external schemas**: Always externalize schemas to `reference/components/schemas/` to reduce file size
+- **External schemas**: Keep ALL reusable schemas in `reference/components/schemas/`
 - **Schema naming**: Use PascalCase for schema file names (e.g., `ReportTemplateRequest.json`)
 - **Schema references**: Use relative paths in `$ref` (e.g., `./components/schemas/SchemaName.json`)
+- **Inline schemas**: Avoid inline schemas in rest-api.json - externalize them to keep the main file manageable
 
 ### Testing Changes
 
@@ -126,3 +159,29 @@ Before considering work complete:
 - **Include sufficient context**: When using replace_string_in_file, include 3-5 lines before/after
 - **Fix errors immediately**: Don't proceed with other work if validation fails
 - **Read before writing**: Always read file content before making changes to understand structure
+
+---
+
+## Copilot Prompt File
+
+### Comprehensive Validation: `/validate-openapi`
+
+**File:** `.github/validate-openapi.prompt.md`
+
+Run comprehensive validation on reference/rest-api.json using multiple validation tools:
+
+- VS Code error detection
+- OpenAPI specification validation (rdme)
+- JSON syntax validation
+- RAW_BODY anti-pattern search
+- External schema reference count
+- Schema file verification
+- File size metrics and reduction tracking
+
+**Usage in Copilot Chat:**
+
+```text
+@workspace /validate-openapi
+```
+
+This will run all validation checks and provide a detailed ✅/❌ report.

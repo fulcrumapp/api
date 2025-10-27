@@ -1,0 +1,5 @@
+{
+  "type": "object",
+  "description": "Validation error response (422 Unprocessable Entity)",
+  "additionalProperties": true
+}
