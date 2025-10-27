@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "required": [
+    "type",
+    "coordinates"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "enum": [
+        "Point",
+        "LineString",
+        "Polygon",
+        "MultiPoint",
+        "MultiLineString",
+        "MultiPolygon"
+      ],
+      "description": "GeoJSON geometry type"
+    },
+    "coordinates": {
+      "description": "Coordinates for the geometry. Format varies by type: Point uses [longitude, latitude], LineString uses array of positions, Polygon uses array of linear rings (first is exterior, rest are holes), Multi* types use arrays of their respective coordinate structures."
+    }
+  }
+}

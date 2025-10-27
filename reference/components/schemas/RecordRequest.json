@@ -16,6 +16,10 @@
           "type": "number",
           "description": "Longitude coordinate"
         },
+        "geometry": {
+          "$ref": "./Geometry.json",
+          "description": "Optional GeoJSON geometry (Point, LineString, Polygon, MultiLineString, or MultiPolygon). If provided, latitude/longitude will be updated to reflect this geometry."
+        },
         "form_values": {
           "type": "object",
           "description": "Field values keyed by field key",
