@@ -177,19 +177,8 @@
           },
           "form_values": {
             "type": "object",
-            "additionalProperties": {
-              "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/ChoiceValues"
-                  },
-                  {
-                    "$ref": "#/components/schemas/PhotoArray"
-                  },
-                  {
-                    "type": "string"
-                  }
-              ]
-            }
+            "additionalProperties": true,
+            "description": "Field values keyed by field key - values can be strings, objects, or arrays depending on field type"
           },
           "latitude": {
             "type": [
