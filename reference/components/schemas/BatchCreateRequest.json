@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "required": ["batch"],
+  "additionalProperties": false,
+  "properties": {
+    "batch": {
+      "type": "object",
+      "required": ["operations"],
+      "properties": {
+        "start": {
+          "type": "boolean",
+          "description": "Whether the batch should begin processing immediately"
+        },
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "description": "Operations that will be executed as part of the batch",
+          "items": {
+            "type": "object",
+            "required": ["action", "resource"],
+            "properties": {
+              "action": {
+                "type": "string",
+                "description": "Action to perform for the operation",
+                "enum": ["delete"]
+              },
+              "resource": {
+                "type": "string",
+                "description": "Resource type the operation targets",
+                "enum": ["record"]
+              },
+              "form_id": {
+                "type": "string",
+                "description": "Identifier of the form containing the records"
+              },
+              "record_id": {
+                "type": "string",
+                "description": "Identifier of the record to delete"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

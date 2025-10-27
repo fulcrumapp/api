@@ -1,0 +1,10 @@
+{
+  "type": "object",
+  "description": "Unauthorized error response",
+  "properties": {
+    "error": {
+      "type": "string",
+      "example": "Unauthorized"
+    }
+  }
+}

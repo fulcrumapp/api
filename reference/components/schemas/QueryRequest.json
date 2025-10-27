@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {
+    "q": {
+      "type": "string",
+      "description": "SQL query to execute"
+    },
+    "format": {
+      "type": "string",
+      "description": "Response format",
+      "enum": ["json", "csv", "geojson"]
+    },
+    "table_name": {
+      "type": "string",
+      "description": "Name of the table to query"
+    }
+  },
+  "required": ["q"]
+}

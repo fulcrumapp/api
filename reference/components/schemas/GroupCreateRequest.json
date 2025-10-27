@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "required": ["group"],
+  "additionalProperties": false,
+  "properties": {
+    "group": {
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the group"
+        },
+        "description": {
+          "type": "string",
+          "description": "Optional description of the group"
+        }
+      }
+    }
+  }
+}

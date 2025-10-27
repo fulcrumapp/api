@@ -1,0 +1,26 @@
+{
+  "type": "object",
+  "properties": {
+    "form": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Name of the form"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the form"
+        },
+        "elements": {
+          "type": "array",
+          "description": "Form elements/fields",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  },
+  "required": ["form"]
+}

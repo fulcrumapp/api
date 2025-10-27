@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "required": ["attachment"],
+  "additionalProperties": false,
+  "properties": {
+    "attachment": {
+      "type": "object",
+      "required": ["id"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Identifier of the attachment"
+        },
+        "owners": {
+          "type": "array",
+          "description": "Array of owner objects for the attachment",
+          "items": {
+            "type": "object",
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Type of the owner (e.g., 'record', 'form')"
+              },
+              "id": {
+                "type": "string",
+                "description": "Identifier of the owner"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

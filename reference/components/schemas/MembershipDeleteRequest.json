@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "properties": {
+    "membership": {
+      "type": "object",
+      "properties": {
+        "reassign_to_membership_id": {
+          "type": "string",
+          "nullable": true,
+          "description": "ID of the membership to reassign ownership to, or null"
+        }
+      }
+    }
+  }
+}

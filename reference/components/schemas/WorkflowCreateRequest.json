@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "required": ["workflow"],
+  "additionalProperties": false,
+  "properties": {
+    "workflow": {
+      "type": "object",
+      "required": ["name", "object_type", "object_resource_id", "steps", "event_type"],
+      "properties": {
+        "name": {
+          "type": ["string", "null"],
+          "description": "Display name of the workflow"
+        },
+        "description": {
+          "type": ["string", "null"],
+          "description": "Optional description of the workflow"
+        },
+        "object_type": {
+          "type": "string",
+          "description": "Type of object the workflow targets (for example, form)"
+        },
+        "object_resource_id": {
+          "type": "string",
+          "description": "Identifier of the object resource associated with the workflow"
+        },
+        "event_type": {
+          "type": "string",
+          "description": "Type of event that triggers the workflow"
+        },
+        "steps": {
+          "type": "array",
+          "description": "Steps that define the workflow logic",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

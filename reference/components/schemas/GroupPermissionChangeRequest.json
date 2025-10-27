@@ -1,0 +1,36 @@
+{
+  "type": "object",
+  "required": ["permission_change"],
+  "additionalProperties": false,
+  "properties": {
+    "permission_change": {
+      "type": "object",
+      "required": ["type", "group_id"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of permission to change",
+          "enum": ["group_members", "group_projects", "group_layers", "group_forms"]
+        },
+        "group_id": {
+          "type": "string",
+          "description": "Identifier of the group"
+        },
+        "add": {
+          "type": "array",
+          "description": "IDs to add to the permission",
+          "items": {
+            "type": "string"
+          }
+        },
+        "remove": {
+          "type": "array",
+          "description": "IDs to remove from the permission",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

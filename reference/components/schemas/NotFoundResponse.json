@@ -1,0 +1,5 @@
+{
+  "type": "object",
+  "description": "Resource not found error response",
+  "properties": {}
+}
