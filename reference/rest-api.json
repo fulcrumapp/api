@@ -60,7 +60,7 @@
           "records": {
             "type": "array",
             "items": {
-                "$ref": "#/components/schemas/Record"
+              "$ref": "#/components/schemas/Record"
             }
           }
         }
@@ -199,7 +199,28 @@
             ]
           },
           "geometry": {
-              "$ref": "./components/schemas/Geometry.json"
+            "type": "object",
+            "required": [
+              "type",
+              "coordinates"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "Point",
+                  "LineString",
+                  "Polygon",
+                  "MultiPoint",
+                  "MultiLineString",
+                  "MultiPolygon"
+                ],
+                "description": "GeoJSON geometry type"
+              },
+              "coordinates": {
+                "description": "Coordinates for the geometry. Format varies by type: Point uses [longitude, latitude], LineString uses array of positions, Polygon uses array of linear rings (first is exterior, rest are holes), Multi* types use arrays of their respective coordinate structures."
+              }
+            }
           },
           "speed": {
             "type": [
@@ -359,7 +380,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "type": "object",
+                  "description": "Empty success response",
+                  "properties": {}
                 }
               }
             }
@@ -369,7 +392,18 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "type": "object",
+                  "description": "Bad request error response",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    },
+                    "status": {
+                      "type": "integer",
+                      "example": 400
+                    }
+                  }
                 }
               }
             }
@@ -415,7 +449,29 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/QueryRequest.json"
+                "type": "object",
+                "properties": {
+                  "q": {
+                    "type": "string",
+                    "description": "SQL query to execute"
+                  },
+                  "format": {
+                    "type": "string",
+                    "description": "Response format",
+                    "enum": [
+                      "json",
+                      "csv",
+                      "geojson"
+                    ]
+                  },
+                  "table_name": {
+                    "type": "string",
+                    "description": "Name of the table to query"
+                  }
+                },
+                "required": [
+                  "q"
+                ]
               }
             }
           }
@@ -426,7 +482,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -436,7 +492,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -486,7 +542,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -496,7 +552,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -546,7 +602,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -556,7 +612,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -590,7 +646,32 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/AuthorizationRequest.json"
+                "type": "object",
+                "properties": {
+                  "authorization": {
+                    "type": "object",
+                    "properties": {
+                      "organization_id": {
+                        "type": "string",
+                        "description": "ID of the organization"
+                      },
+                      "note": {
+                        "type": "string",
+                        "description": "Note about this authorization"
+                      },
+                      "timeout": {
+                        "type": "integer",
+                        "description": "Timeout in milliseconds"
+                      }
+                    },
+                    "required": [
+                      "organization_id"
+                    ]
+                  }
+                },
+                "required": [
+                  "authorization"
+                ]
               }
             }
           }
@@ -601,7 +682,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -611,7 +692,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -650,7 +731,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -660,7 +741,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -703,7 +784,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/AuthorizationRequest.json"
+                "$ref": "#/paths/~1v2~1authorizations.json/post/requestBody/content/application~1json/schema"
               }
             }
           }
@@ -714,7 +795,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -724,7 +805,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -761,7 +842,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -771,7 +852,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -838,7 +919,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -848,7 +929,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -922,7 +1003,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -932,7 +1013,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -966,7 +1047,37 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/MembershipCreateRequest.json"
+                "type": "object",
+                "properties": {
+                  "membership": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "Email address of the member"
+                      },
+                      "first_name": {
+                        "type": "string",
+                        "description": "First name"
+                      },
+                      "last_name": {
+                        "type": "string",
+                        "description": "Last name"
+                      },
+                      "role_id": {
+                        "type": "string",
+                        "description": "ID of the role to assign"
+                      }
+                    },
+                    "required": [
+                      "email"
+                    ]
+                  }
+                },
+                "required": [
+                  "membership"
+                ]
               }
             }
           }
@@ -977,7 +1088,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -987,7 +1098,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -1026,7 +1137,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -1036,7 +1147,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -1063,7 +1174,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/MembershipUpdateRequest.json"
+                "type": "object",
+                "properties": {
+                  "membership": {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "Email address of the member"
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -1074,7 +1197,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -1084,7 +1207,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -1111,7 +1234,19 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/MembershipDeleteRequest.json"
+                "type": "object",
+                "properties": {
+                  "membership": {
+                    "type": "object",
+                    "properties": {
+                      "reassign_to_membership_id": {
+                        "type": "string",
+                        "nullable": true,
+                        "description": "ID of the membership to reassign ownership to, or null"
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -1122,7 +1257,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -1132,7 +1267,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -1201,7 +1336,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -1211,7 +1346,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -1247,7 +1382,56 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/PermissionChangeRequest.json"
+                "type": "object",
+                "properties": {
+                  "change": {
+                    "type": "object",
+                    "description": "Permission change configuration",
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "Type of permission change",
+                        "enum": [
+                          "form_members",
+                          "project_members",
+                          "layer_members"
+                        ]
+                      },
+                      "form_id": {
+                        "type": "string",
+                        "description": "Form ID (when type is form_members)"
+                      },
+                      "project_id": {
+                        "type": "string",
+                        "description": "Project ID (when type is project_members)"
+                      },
+                      "layer_id": {
+                        "type": "string",
+                        "description": "Layer ID (when type is layer_members)"
+                      },
+                      "add": {
+                        "type": "array",
+                        "description": "Array of member IDs to add",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "remove": {
+                        "type": "array",
+                        "description": "Array of member IDs to remove",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "required": [
+                      "type"
+                    ]
+                  }
+                },
+                "required": [
+                  "change"
+                ]
               }
             }
           }
@@ -1258,7 +1442,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -1268,7 +1452,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -1315,7 +1499,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -1325,7 +1509,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -1359,7 +1543,29 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/GroupCreateRequest.json"
+                "type": "object",
+                "required": [
+                  "group"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "group": {
+                    "type": "object",
+                    "required": [
+                      "name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the group"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Optional description of the group"
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -1454,7 +1660,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -1464,7 +1670,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -1507,7 +1713,28 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/GroupUpdateRequest.json"
+                "type": "object",
+                "required": [
+                  "group"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "group": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "additionalProperties": false,
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Updated name of the group"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Updated description of the group"
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -1591,7 +1818,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -1601,7 +1828,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -1669,7 +1896,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -1679,7 +1906,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -1715,7 +1942,50 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/GroupPermissionChangeRequest.json"
+                "type": "object",
+                "required": [
+                  "permission_change"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "permission_change": {
+                    "type": "object",
+                    "required": [
+                      "type",
+                      "group_id"
+                    ],
+                    "properties": {
+                      "type": {
+                        "type": "string",
+                        "description": "Type of permission to change",
+                        "enum": [
+                          "group_members",
+                          "group_projects",
+                          "group_layers",
+                          "group_forms"
+                        ]
+                      },
+                      "group_id": {
+                        "type": "string",
+                        "description": "Identifier of the group"
+                      },
+                      "add": {
+                        "type": "array",
+                        "description": "IDs to add to the permission",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "remove": {
+                        "type": "array",
+                        "description": "IDs to remove from the permission",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
               },
               "examples": {
                 "Change Group Members": {
@@ -1885,7 +2155,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -1895,7 +2165,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -1929,7 +2199,32 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/FormRequest.json"
+                "type": "object",
+                "properties": {
+                  "form": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the form"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Description of the form"
+                      },
+                      "elements": {
+                        "type": "array",
+                        "description": "Form elements/fields",
+                        "items": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "form"
+                ]
               }
             }
           }
@@ -1940,7 +2235,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -1950,7 +2245,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -1998,7 +2293,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -2008,7 +2303,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -2051,7 +2346,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/FormRequest.json"
+                "$ref": "#/paths/~1v2~1forms.json/post/requestBody/content/application~1json/schema"
               }
             }
           }
@@ -2062,7 +2357,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -2072,7 +2367,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -2109,7 +2404,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -2119,7 +2414,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -2187,7 +2482,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -2197,7 +2492,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -2605,7 +2900,9 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/NotFoundResponse.json"
+                  "type": "object",
+                  "description": "Resource not found error response",
+                  "properties": {}
                 }
               }
             }
@@ -2657,7 +2954,53 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/RecordRequest.json"
+                "type": "object",
+                "properties": {
+                  "record": {
+                    "type": "object",
+                    "properties": {
+                      "form_id": {
+                        "type": "string",
+                        "description": "ID of the form this record belongs to"
+                      },
+                      "latitude": {
+                        "type": "number",
+                        "description": "Latitude coordinate"
+                      },
+                      "longitude": {
+                        "type": "number",
+                        "description": "Longitude coordinate"
+                      },
+                      "geometry": {
+                        "$ref": "#/components/schemas/Record/properties/geometry",
+                        "description": "Optional GeoJSON geometry (Point, LineString, Polygon, MultiLineString, or MultiPolygon). If provided, latitude/longitude will be updated to reflect this geometry."
+                      },
+                      "form_values": {
+                        "type": "object",
+                        "description": "Field values keyed by field key",
+                        "additionalProperties": true
+                      },
+                      "status": {
+                        "type": "string",
+                        "description": "Status of the record"
+                      },
+                      "project_id": {
+                        "type": "string",
+                        "description": "ID of the project"
+                      },
+                      "assigned_to_id": {
+                        "type": "string",
+                        "description": "ID of user assigned to this record"
+                      }
+                    },
+                    "required": [
+                      "form_id"
+                    ]
+                  }
+                },
+                "required": [
+                  "record"
+                ]
               }
             }
           }
@@ -2668,7 +3011,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -2678,7 +3021,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -2811,7 +3154,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/NotFoundResponse.json"
+                  "$ref": "#/paths/~1v2~1records.json/get/responses/404/content/application~1json/schema"
                 }
               }
             }
@@ -2872,7 +3215,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/RecordRequest.json"
+                "$ref": "#/paths/~1v2~1records.json/post/requestBody/content/application~1json/schema"
               }
             }
           }
@@ -2883,7 +3226,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -2893,7 +3236,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -2948,7 +3291,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -2958,7 +3301,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -2997,7 +3340,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3007,7 +3350,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3051,7 +3394,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3061,7 +3404,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3111,7 +3454,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3121,7 +3464,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3155,7 +3498,50 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/ChoiceListRequest.json"
+                "type": "object",
+                "properties": {
+                  "choice_list": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the choice list"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Description of the choice list"
+                      },
+                      "choices": {
+                        "type": "array",
+                        "description": "Array of choices",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "label": {
+                              "type": "string",
+                              "description": "Display label"
+                            },
+                            "value": {
+                              "type": "string",
+                              "description": "Value stored"
+                            }
+                          },
+                          "required": [
+                            "label",
+                            "value"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "choices"
+                    ]
+                  }
+                },
+                "required": [
+                  "choice_list"
+                ]
               }
             }
           }
@@ -3166,7 +3552,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3176,7 +3562,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3215,7 +3601,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3225,7 +3611,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3268,7 +3654,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/ChoiceListRequest.json"
+                "$ref": "#/paths/~1v2~1choice_lists.json/post/requestBody/content/application~1json/schema"
               }
             }
           }
@@ -3279,7 +3665,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3289,7 +3675,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3326,7 +3712,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3336,7 +3722,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3400,7 +3786,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3410,7 +3796,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3444,7 +3830,57 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/ClassificationSetRequest.json"
+                "type": "object",
+                "properties": {
+                  "classification_set": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the classification set"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Description of the classification set"
+                      },
+                      "items": {
+                        "type": "array",
+                        "description": "Classification items with hierarchical structure",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "label": {
+                              "type": "string",
+                              "description": "Display label"
+                            },
+                            "value": {
+                              "type": "string",
+                              "description": "Value stored"
+                            },
+                            "child_classifications": {
+                              "type": "array",
+                              "description": "Child classification items",
+                              "items": {
+                                "type": "object"
+                              }
+                            }
+                          },
+                          "required": [
+                            "label",
+                            "value"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "items"
+                    ]
+                  }
+                },
+                "required": [
+                  "classification_set"
+                ]
               }
             }
           }
@@ -3455,7 +3891,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3465,7 +3901,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3504,7 +3940,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3514,7 +3950,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3557,7 +3993,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/ClassificationSetRequest.json"
+                "$ref": "#/paths/~1v2~1classification_sets.json/post/requestBody/content/application~1json/schema"
               }
             }
           }
@@ -3568,7 +4004,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3578,7 +4014,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3615,7 +4051,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3625,7 +4061,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3675,7 +4111,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3685,7 +4121,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3719,7 +4155,28 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/ProjectRequest.json"
+                "type": "object",
+                "properties": {
+                  "project": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the project"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Description of the project"
+                      }
+                    },
+                    "required": [
+                      "name"
+                    ]
+                  }
+                },
+                "required": [
+                  "project"
+                ]
               }
             }
           }
@@ -3730,7 +4187,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3740,7 +4197,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3779,7 +4236,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3789,7 +4246,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3832,7 +4289,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/ProjectRequest.json"
+                "$ref": "#/paths/~1v2~1projects.json/post/requestBody/content/application~1json/schema"
               }
             }
           }
@@ -3843,7 +4300,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3853,7 +4310,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3890,7 +4347,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3900,7 +4357,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3950,7 +4407,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -3960,7 +4417,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -3994,7 +4451,37 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/LayerRequest.json"
+                "type": "object",
+                "properties": {
+                  "layer": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the layer"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Description of the layer"
+                      },
+                      "type": {
+                        "type": "string",
+                        "description": "Layer type (e.g., xyz, wms, geojson)"
+                      },
+                      "source": {
+                        "type": "string",
+                        "description": "Source URL or data for the layer"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "type"
+                    ]
+                  }
+                },
+                "required": [
+                  "layer"
+                ]
               }
             }
           }
@@ -4005,7 +4492,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4015,7 +4502,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4054,7 +4541,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4064,7 +4551,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4107,7 +4594,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/LayerRequest.json"
+                "$ref": "#/paths/~1v2~1layers.json/post/requestBody/content/application~1json/schema"
               }
             }
           }
@@ -4118,7 +4605,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4128,7 +4615,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4165,7 +4652,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4175,7 +4662,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4273,7 +4760,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4283,7 +4770,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4319,7 +4806,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4329,7 +4816,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4398,7 +4885,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4408,7 +4895,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4447,7 +4934,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4457,7 +4944,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4496,7 +4983,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4506,7 +4993,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4545,7 +5032,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4555,7 +5042,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4594,7 +5081,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4604,7 +5091,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4643,7 +5130,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4653,7 +5140,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4751,7 +5238,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4761,7 +5248,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4797,7 +5284,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4807,7 +5294,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4876,7 +5363,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4886,7 +5373,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4925,7 +5412,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4935,7 +5422,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -4974,7 +5461,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -4984,7 +5471,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5023,7 +5510,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5033,7 +5520,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5131,7 +5618,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5141,7 +5628,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5179,7 +5666,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5189,7 +5676,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5219,7 +5706,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5229,7 +5716,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5259,7 +5746,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5269,7 +5756,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5308,7 +5795,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5318,7 +5805,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5357,7 +5844,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5367,7 +5854,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5414,7 +5901,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5424,7 +5911,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5463,7 +5950,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5473,7 +5960,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5512,7 +5999,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5522,7 +6009,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5561,7 +6048,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5571,7 +6058,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5610,7 +6097,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5620,7 +6107,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5659,7 +6146,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5669,7 +6156,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5708,7 +6195,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5718,7 +6205,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5757,7 +6244,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5767,7 +6254,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5806,7 +6293,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5816,7 +6303,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5855,7 +6342,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5865,7 +6352,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5904,7 +6391,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5914,7 +6401,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -5953,7 +6440,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -5963,7 +6450,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6002,7 +6489,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6012,7 +6499,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6051,7 +6538,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6061,7 +6548,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6099,7 +6586,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6109,7 +6596,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6237,7 +6724,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6247,7 +6734,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6285,7 +6772,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6295,7 +6782,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6325,7 +6812,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6335,7 +6822,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6365,7 +6852,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6375,7 +6862,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6405,7 +6892,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6415,7 +6902,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6454,7 +6941,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6464,7 +6951,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6503,7 +6990,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6513,7 +7000,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6560,7 +7047,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6570,7 +7057,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6609,7 +7096,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6619,7 +7106,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6658,7 +7145,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6668,7 +7155,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6707,7 +7194,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6717,7 +7204,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6755,7 +7242,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -6765,7 +7252,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -6976,7 +7463,55 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/AttachmentCreateRequest.json"
+                "type": "object",
+                "required": [
+                  "attachment"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "attachment": {
+                    "type": "object",
+                    "required": [
+                      "owners"
+                    ],
+                    "properties": {
+                      "owners": {
+                        "type": "array",
+                        "description": "Array of owner objects for the attachment",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "type",
+                            "id"
+                          ],
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "Type of the owner (e.g., 'record', 'form')"
+                            },
+                            "id": {
+                              "type": "string",
+                              "description": "Identifier of the owner"
+                            }
+                          }
+                        }
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "Name of the attachment"
+                      },
+                      "file_size": {
+                        "type": "integer",
+                        "description": "Size of the file in bytes"
+                      },
+                      "metadata": {
+                        "type": "object",
+                        "description": "Optional metadata for the attachment",
+                        "additionalProperties": true
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -7191,7 +7726,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -7240,7 +7775,47 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/AttachmentTrackRequest.json"
+                "type": "object",
+                "required": [
+                  "attachment"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "attachment": {
+                    "type": "object",
+                    "required": [
+                      "id"
+                    ],
+                    "additionalProperties": false,
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Identifier of the attachment"
+                      },
+                      "owners": {
+                        "type": "array",
+                        "description": "Array of owner objects for the attachment",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "type",
+                            "id"
+                          ],
+                          "properties": {
+                            "type": {
+                              "type": "string",
+                              "description": "Type of the owner (e.g., 'record', 'form')"
+                            },
+                            "id": {
+                              "type": "string",
+                              "description": "Identifier of the owner"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -7251,7 +7826,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -7322,7 +7897,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -7332,7 +7907,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -7366,7 +7941,42 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/ChangesetCreateRequest.json"
+                "type": "object",
+                "required": [
+                  "changeset"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "changeset": {
+                    "type": "object",
+                    "properties": {
+                      "form_id": {
+                        "type": "string",
+                        "description": "Identifier of the form the changeset applies to"
+                      },
+                      "metadata": {
+                        "type": "object",
+                        "description": "Optional metadata describing the changeset",
+                        "additionalProperties": true,
+                        "properties": {
+                          "comment": {
+                            "type": "string"
+                          },
+                          "app_created_by": {
+                            "type": "string"
+                          },
+                          "app_name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "required": [
+                      "form_id"
+                    ],
+                    "additionalProperties": true
+                  }
+                }
               }
             }
           }
@@ -7377,7 +7987,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -7387,7 +7997,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -7426,7 +8036,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -7436,7 +8046,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -7479,7 +8089,42 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/ChangesetRequest.json"
+                "type": "object",
+                "required": [
+                  "changeset"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "changeset": {
+                    "type": "object",
+                    "properties": {
+                      "form_id": {
+                        "type": "string",
+                        "description": "Identifier of the form the changeset applies to"
+                      },
+                      "metadata": {
+                        "type": "object",
+                        "description": "Optional metadata describing the changeset",
+                        "additionalProperties": true,
+                        "properties": {
+                          "comment": {
+                            "type": "string"
+                          },
+                          "app_created_by": {
+                            "type": "string"
+                          },
+                          "app_name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "required": [
+                      "form_id"
+                    ],
+                    "additionalProperties": true
+                  }
+                }
               }
             }
           }
@@ -7490,7 +8135,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -7500,7 +8145,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -7547,7 +8192,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -7557,7 +8202,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -7600,100 +8245,99 @@
               "default": "application/json"
             }
           }
-          ],
-          "responses": {
-            "200": {
-              "description": "200",
-              "content": {
-                "application/json": {
-                  "examples": {
-                    "Success": {
-                      "value": {
-                        "current_page": 1,
-                        "per_page": 20000,
-                        "total_count": 2,
-                        "total_pages": 1,
-                        "webhooks": [
-                          {
-                            "active": true,
-                            "created_at": "2020-02-17T15:41:08Z",
-                            "id": "4e64e945-b10f-4568-ba9a-b178c9197fca",
-                            "name": "Fire Hydrant Inventory Emails",
-                            "run_for_bulk_actions": true,
-                            "updated_at": "2020-02-17T15:51:26Z",
-                            "url": "https://my-webhook-processing-script.php"
-                          },
-                          {
-                            "active": true,
-                            "created_at": "2020-02-17T15:50:30Z",
-                            "id": "39db4cbd-792b-4655-bc09-2b51556f3141",
-                            "name": null,
-                            "run_for_bulk_actions": true,
-                            "updated_at": "2020-02-17T15:51:26Z",
-                            "url": "https://my-webhook-processing-script-2.php"
-                          }
-                        ]
-                      }
+        ],
+        "responses": {
+          "200": {
+            "description": "200",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Success": {
+                    "value": {
+                      "current_page": 1,
+                      "per_page": 20000,
+                      "total_count": 2,
+                      "total_pages": 1,
+                      "webhooks": [
+                        {
+                          "active": true,
+                          "created_at": "2020-02-17T15:41:08Z",
+                          "id": "4e64e945-b10f-4568-ba9a-b178c9197fca",
+                          "name": "Fire Hydrant Inventory Emails",
+                          "run_for_bulk_actions": true,
+                          "updated_at": "2020-02-17T15:51:26Z",
+                          "url": "https://my-webhook-processing-script.php"
+                        },
+                        {
+                          "active": true,
+                          "created_at": "2020-02-17T15:50:30Z",
+                          "id": "39db4cbd-792b-4655-bc09-2b51556f3141",
+                          "name": null,
+                          "run_for_bulk_actions": true,
+                          "updated_at": "2020-02-17T15:51:26Z",
+                          "url": "https://my-webhook-processing-script-2.php"
+                        }
+                      ]
                     }
-                  },
-                  "schema": {
-                    "type": "object",
-                    "required": [
-                      "current_page",
-                      "total_pages",
-                      "total_count",
-                      "per_page",
-                      "webhooks"
-                    ],
-                    "properties": {
-                      "current_page": {
-                        "type": "integer",
-                        "minimum": 1
-                      },
-                      "per_page": {
-                        "type": "integer",
-                        "minimum": 1
-                      },
-                      "total_count": {
-                        "type": "integer",
-                        "minimum": 0
-                      },
-                      "total_pages": {
-                        "type": "integer",
-                        "minimum": 0
-                      },
-                      "webhooks": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "active": {
-                              "type": "boolean"
-                            },
-                            "created_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "id": {
-                              "type": "string",
-                              "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
-                            },
-                            "name": {
-                              "type": [
-                                "null",
-                                "string"
-                              ]
-                            },
-                            "run_for_bulk_actions": {
-                              "type": "boolean"
-                            },
-                            "updated_at": {
-                              "type": "string",
-                              "format": "date-time"
-                            },
-                            "url": {
-                              "type": "string"
-                            }
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "current_page",
+                    "total_pages",
+                    "total_count",
+                    "per_page",
+                    "webhooks"
+                  ],
+                  "properties": {
+                    "current_page": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "per_page": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "total_count": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "total_pages": {
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "webhooks": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "active": {
+                            "type": "boolean"
+                          },
+                          "created_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "id": {
+                            "type": "string",
+                            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+                          },
+                          "name": {
+                            "type": [
+                              "null",
+                              "string"
+                            ]
+                          },
+                          "run_for_bulk_actions": {
+                            "type": "boolean"
+                          },
+                          "updated_at": {
+                            "type": "string",
+                            "format": "date-time"
+                          },
+                          "url": {
+                            "type": "string"
                           }
                         }
                       }
@@ -7701,13 +8345,14 @@
                   }
                 }
               }
+            }
           },
           "400": {
             "description": "Bad Request",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -7741,7 +8386,44 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/WebhookRequest.json"
+                "type": "object",
+                "required": [
+                  "webhook"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "webhook": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "minProperties": 1,
+                    "required": [
+                      "name",
+                      "url"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Display name for the webhook"
+                      },
+                      "url": {
+                        "type": "string",
+                        "description": "Destination URL that will receive webhook payloads",
+                        "format": "uri"
+                      },
+                      "active": {
+                        "type": "boolean",
+                        "description": "Whether the webhook is enabled"
+                      },
+                      "run_for_bulk_actions": {
+                        "type": "boolean",
+                        "description": "Whether the webhook runs for bulk record actions"
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -7837,7 +8519,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -7932,7 +8614,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -7942,7 +8624,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -7985,7 +8667,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/WebhookRequest.json"
+                "$ref": "#/paths/~1v2~1webhooks.json/post/requestBody/content/application~1json/schema"
               }
             }
           }
@@ -7996,7 +8678,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8006,7 +8688,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8043,7 +8725,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8079,7 +8761,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/NotFoundResponse.json"
+                  "$ref": "#/paths/~1v2~1records.json/get/responses/404/content/application~1json/schema"
                 }
               }
             }
@@ -8179,7 +8861,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8189,7 +8871,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8228,7 +8910,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8238,7 +8920,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8288,7 +8970,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8298,7 +8980,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8332,7 +9014,58 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/WorkflowCreateRequest.json"
+                "type": "object",
+                "required": [
+                  "workflow"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "workflow": {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "object_type",
+                      "object_resource_id",
+                      "steps",
+                      "event_type"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Display name of the workflow"
+                      },
+                      "description": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Optional description of the workflow"
+                      },
+                      "object_type": {
+                        "type": "string",
+                        "description": "Type of object the workflow targets (for example, form)"
+                      },
+                      "object_resource_id": {
+                        "type": "string",
+                        "description": "Identifier of the object resource associated with the workflow"
+                      },
+                      "event_type": {
+                        "type": "string",
+                        "description": "Type of event that triggers the workflow"
+                      },
+                      "steps": {
+                        "type": "array",
+                        "description": "Steps that define the workflow logic",
+                        "items": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -8343,7 +9076,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8353,7 +9086,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8392,7 +9125,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8402,7 +9135,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8445,7 +9178,56 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/WorkflowUpdateRequest.json"
+                "type": "object",
+                "required": [
+                  "workflow"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "workflow": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "properties": {
+                      "name": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Updated display name of the workflow"
+                      },
+                      "description": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Updated description of the workflow"
+                      },
+                      "object_type": {
+                        "type": "string",
+                        "description": "Updated object type targeted by the workflow"
+                      },
+                      "object_resource_id": {
+                        "type": "string",
+                        "description": "Updated identifier of the object resource associated with the workflow"
+                      },
+                      "active": {
+                        "type": "boolean",
+                        "description": "Whether the workflow is active"
+                      },
+                      "event_type": {
+                        "type": "string",
+                        "description": "Updated event type that triggers the workflow"
+                      },
+                      "steps": {
+                        "type": "array",
+                        "description": "Updated workflow steps",
+                        "items": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -8456,7 +9238,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8466,7 +9248,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8503,7 +9285,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8513,7 +9295,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8568,7 +9350,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8578,7 +9360,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8594,7 +9376,61 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/BatchCreateRequest.json"
+                "type": "object",
+                "required": [
+                  "batch"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "batch": {
+                    "type": "object",
+                    "required": [
+                      "operations"
+                    ],
+                    "properties": {
+                      "start": {
+                        "type": "boolean",
+                        "description": "Whether the batch should begin processing immediately"
+                      },
+                      "operations": {
+                        "type": "array",
+                        "minItems": 1,
+                        "description": "Operations that will be executed as part of the batch",
+                        "items": {
+                          "type": "object",
+                          "required": [
+                            "action",
+                            "resource"
+                          ],
+                          "properties": {
+                            "action": {
+                              "type": "string",
+                              "description": "Action to perform for the operation",
+                              "enum": [
+                                "delete"
+                              ]
+                            },
+                            "resource": {
+                              "type": "string",
+                              "description": "Resource type the operation targets",
+                              "enum": [
+                                "record"
+                              ]
+                            },
+                            "form_id": {
+                              "type": "string",
+                              "description": "Identifier of the form containing the records"
+                            },
+                            "record_id": {
+                              "type": "string",
+                              "description": "Identifier of the record to delete"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -8605,7 +9441,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8615,7 +9451,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8673,7 +9509,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8683,7 +9519,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8712,7 +9548,49 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/BatchAddOperationsRequest.json"
+                "type": "object",
+                "required": [
+                  "operations"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "operations": {
+                    "type": "array",
+                    "minItems": 1,
+                    "description": "Operations to append to the batch",
+                    "items": {
+                      "type": "object",
+                      "required": [
+                        "action",
+                        "resource"
+                      ],
+                      "properties": {
+                        "action": {
+                          "type": "string",
+                          "description": "Action to perform for the operation",
+                          "enum": [
+                            "delete"
+                          ]
+                        },
+                        "resource": {
+                          "type": "string",
+                          "description": "Resource type the operation targets",
+                          "enum": [
+                            "record"
+                          ]
+                        },
+                        "form_id": {
+                          "type": "string",
+                          "description": "Identifier of the form containing the records"
+                        },
+                        "record_id": {
+                          "type": "string",
+                          "description": "Identifier of the record to delete"
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -8723,7 +9601,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8733,7 +9611,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8775,7 +9653,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8785,7 +9663,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8846,7 +9724,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8856,7 +9734,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8872,7 +9750,309 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/ReportTemplateRequest.json"
+                "type": "object",
+                "required": [
+                  "report_template"
+                ],
+                "properties": {
+                  "report_template": {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "body",
+                      "header",
+                      "footer",
+                      "styles",
+                      "script",
+                      "status",
+                      "type",
+                      "config"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "The name of the report template"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "A description of the report template"
+                      },
+                      "body": {
+                        "type": "string",
+                        "description": "The HTML/EJS template for the report body"
+                      },
+                      "header": {
+                        "type": "string",
+                        "description": "The HTML/EJS template for the report header"
+                      },
+                      "footer": {
+                        "type": "string",
+                        "description": "The HTML/EJS template for the report footer"
+                      },
+                      "styles": {
+                        "type": "string",
+                        "description": "CSS styles for the report"
+                      },
+                      "script": {
+                        "type": "string",
+                        "description": "JavaScript code for the report"
+                      },
+                      "status": {
+                        "type": "string",
+                        "enum": [
+                          "active",
+                          "inactive"
+                        ],
+                        "description": "The status of the report template"
+                      },
+                      "type": {
+                        "type": "string",
+                        "enum": [
+                          "advanced",
+                          "simple"
+                        ],
+                        "description": "The type of the report template"
+                      },
+                      "form_id": {
+                        "type": "string",
+                        "description": "The ID of the form this report template is associated with"
+                      },
+                      "filename_pattern": {
+                        "type": "string",
+                        "description": "Pattern for generating report filenames"
+                      },
+                      "config": {
+                        "type": "object",
+                        "required": [
+                          "size",
+                          "landscape",
+                          "margin_top",
+                          "margin_right",
+                          "margin_bottom",
+                          "margin_left",
+                          "output",
+                          "parameters"
+                        ],
+                        "description": "Configuration settings for the report",
+                        "properties": {
+                          "size": {
+                            "type": "string",
+                            "enum": [
+                              "Letter",
+                              "Legal",
+                              "Tabloid",
+                              "Ledger",
+                              "A3",
+                              "A4"
+                            ],
+                            "description": "Page size for the report"
+                          },
+                          "landscape": {
+                            "type": "boolean",
+                            "description": "Whether to use landscape orientation"
+                          },
+                          "margin_top": {
+                            "type": "number",
+                            "description": "Top margin in inches"
+                          },
+                          "margin_right": {
+                            "type": "number",
+                            "description": "Right margin in inches"
+                          },
+                          "margin_bottom": {
+                            "type": "number",
+                            "description": "Bottom margin in inches"
+                          },
+                          "margin_left": {
+                            "type": "number",
+                            "description": "Left margin in inches"
+                          },
+                          "output": {
+                            "type": "string",
+                            "enum": [
+                              "pdf",
+                              "docx"
+                            ],
+                            "description": "Output format"
+                          },
+                          "hidden_fields": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            },
+                            "description": "The list of fields to be hidden in the report"
+                          },
+                          "field.empty_value": {
+                            "type": "string",
+                            "description": "The value to display for empty fields"
+                          },
+                          "header.enabled": {
+                            "type": "boolean",
+                            "description": "Whether the header is enabled"
+                          },
+                          "header.form.name": {
+                            "type": "boolean",
+                            "description": "Whether the form name is included in the header"
+                          },
+                          "header.record.id": {
+                            "type": "boolean",
+                            "description": "Whether the record ID is included in the header"
+                          },
+                          "footer.enabled": {
+                            "type": "boolean",
+                            "description": "Whether the footer is enabled"
+                          },
+                          "footer.timestamp": {
+                            "type": "boolean",
+                            "description": "Whether the timestamp is included in the footer"
+                          },
+                          "footer.organization_image": {
+                            "type": "boolean",
+                            "description": "Whether the organization image is included in the footer"
+                          },
+                          "footer.organization_info": {
+                            "type": "boolean",
+                            "description": "Whether the organization info is included in the footer"
+                          },
+                          "footer.page_number": {
+                            "type": "boolean",
+                            "description": "Whether the page number is included in the footer"
+                          },
+                          "cover_page.enabled": {
+                            "type": "boolean",
+                            "description": "Whether the cover page is enabled"
+                          },
+                          "cover_page.form.name": {
+                            "type": "boolean",
+                            "description": "Whether the form name is included on the cover page"
+                          },
+                          "cover_page.form.description": {
+                            "type": "boolean",
+                            "description": "Whether the form description is included on the cover page"
+                          },
+                          "cover_page.form.image": {
+                            "type": "boolean",
+                            "description": "Whether the form image is included on the cover page"
+                          },
+                          "cover_page.title": {
+                            "type": "boolean",
+                            "description": "Whether the cover page title is included"
+                          },
+                          "cover_page.timestamp": {
+                            "type": "boolean",
+                            "description": "Whether the timestamp is included on the cover page"
+                          },
+                          "cover_page.image.enabled": {
+                            "type": "boolean",
+                            "description": "Whether images are enabled on the cover page"
+                          },
+                          "cover_page.image.caption": {
+                            "type": "boolean",
+                            "description": "Whether captions are included for images on the cover page"
+                          },
+                          "cover_page.map.enabled": {
+                            "type": "boolean",
+                            "description": "Whether maps are enabled on the cover page"
+                          },
+                          "cover_page.map.repeatables": {
+                            "type": "boolean",
+                            "description": "Whether repeatable items are included on the cover page map"
+                          },
+                          "cover_page.map.type": {
+                            "type": "string",
+                            "description": "The type of map to use on the cover page (e.g., roadmap)"
+                          },
+                          "cover_page.map.size": {
+                            "type": "string",
+                            "description": "The size of the map on the cover page"
+                          },
+                          "cover_page.metadata.enabled": {
+                            "type": "boolean",
+                            "description": "Whether metadata is enabled on the cover page"
+                          },
+                          "cover_page.metadata.created": {
+                            "type": "boolean",
+                            "description": "Whether the creation metadata is included on the cover page"
+                          },
+                          "cover_page.metadata.updated": {
+                            "type": "boolean",
+                            "description": "Whether the update metadata is included on the cover page"
+                          },
+                          "cover_page.metadata.status": {
+                            "type": "boolean",
+                            "description": "Whether the status metadata is included on the cover page"
+                          },
+                          "cover_page.metadata.location": {
+                            "type": "boolean",
+                            "description": "Whether the location metadata is included on the cover page"
+                          },
+                          "cover_page.metadata.project": {
+                            "type": "boolean",
+                            "description": "Whether the project metadata is included on the cover page"
+                          },
+                          "cover_page.metadata.assigned": {
+                            "type": "boolean",
+                            "description": "Whether the assigned metadata is included on the cover page"
+                          },
+                          "parameters": {
+                            "type": "array",
+                            "description": "Array of parameter definitions",
+                            "items": {
+                              "type": "object",
+                              "required": [
+                                "name",
+                                "label",
+                                "type",
+                                "required",
+                                "multiple"
+                              ],
+                              "properties": {
+                                "name": {
+                                  "type": "string",
+                                  "description": "Parameter name"
+                                },
+                                "label": {
+                                  "type": "string",
+                                  "description": "Display label for the parameter"
+                                },
+                                "type": {
+                                  "type": "string",
+                                  "enum": [
+                                    "record_id",
+                                    "choice_list",
+                                    "classification_set",
+                                    "project",
+                                    "text",
+                                    "number",
+                                    "date"
+                                  ],
+                                  "description": "Parameter type"
+                                },
+                                "required": {
+                                  "type": "boolean",
+                                  "description": "Whether the parameter is required"
+                                },
+                                "multiple": {
+                                  "type": "boolean",
+                                  "description": "Whether multiple values are allowed"
+                                },
+                                "options": {
+                                  "description": "Available options for the parameter - can be array, object, or null"
+                                },
+                                "query": {
+                                  "description": "Query to filter available options - can be string, object, or null"
+                                },
+                                "default": {
+                                  "description": "Default value(s) for the parameter - can be any type"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -8883,7 +10063,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8893,7 +10073,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8924,7 +10104,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8934,7 +10114,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -8961,7 +10141,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "./components/schemas/ReportTemplateRequest.json"
+                "$ref": "#/paths/~1v2~1report_templates.json/post/requestBody/content/application~1json/schema"
               }
             }
           }
@@ -8972,7 +10152,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -8982,7 +10162,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
@@ -9011,7 +10191,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/EmptySuccessResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/200/content/application~1json/schema"
                 }
               }
             }
@@ -9021,7 +10201,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "./components/schemas/BadRequestResponse.json"
+                  "$ref": "#/paths/~1v2~1query/get/responses/400/content/application~1json/schema"
                 }
               }
             }
