@@ -3,7 +3,7 @@ title: Get All Signatures
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: signatures-get-all
+  operationId:  signatures-get-all
 deprecated: false
 hidden: false
 metadata:
