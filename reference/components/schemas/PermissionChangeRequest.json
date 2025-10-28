@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "change": {
+      "type": "object",
+      "description": "Permission change configuration",
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "Type of permission change",
+          "enum": ["form_members", "project_members", "layer_members"]
+        },
+        "form_id": {
+          "type": "string",
+          "description": "Form ID (when type is form_members)"
+        },
+        "project_id": {
+          "type": "string",
+          "description": "Project ID (when type is project_members)"
+        },
+        "layer_id": {
+          "type": "string",
+          "description": "Layer ID (when type is layer_members)"
+        },
+        "add": {
+          "type": "array",
+          "description": "Array of member IDs to add",
+          "items": {
+            "type": "string"
+          }
+        },
+        "remove": {
+          "type": "array",
+          "description": "Array of member IDs to remove",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["type"]
+    }
+  },
+  "required": ["change"]
+}

@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "required": ["attachment"],
+  "additionalProperties": false,
+  "properties": {
+    "attachment": {
+      "type": "object",
+      "required": ["owners"],
+      "properties": {
+        "owners": {
+          "type": "array",
+          "description": "Array of owner objects for the attachment",
+          "items": {
+            "type": "object",
+            "required": ["type", "id"],
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Type of the owner (e.g., 'record', 'form')"
+              },
+              "id": {
+                "type": "string",
+                "description": "Identifier of the owner"
+              }
+            }
+          }
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the attachment"
+        },
+        "file_size": {
+          "type": "integer",
+          "description": "Size of the file in bytes"
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Optional metadata for the attachment",
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}

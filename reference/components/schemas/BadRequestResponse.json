@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "description": "Bad request error response",
+  "properties": {
+    "error": {
+      "type": "string",
+      "example": "Bad Request"
+    },
+    "status": {
+      "type": "integer",
+      "example": 400
+    }
+  }
+}

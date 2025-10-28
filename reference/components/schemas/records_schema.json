@@ -72,15 +72,8 @@
     },
     "form_values": {
       "type": "object",
-      "additionalProperties": {
-        "oneOf": [
-          { "type": "string" },
-          { "type": "number" },
-          { "type": "boolean" },
-          { "type": "array" },
-          { "type": "object" }
-        ]
-      }
+      "additionalProperties": true,
+      "description": "Field values keyed by field key - values can be strings, numbers, booleans, objects, or arrays depending on field type"
     }
   },
   "required": [
