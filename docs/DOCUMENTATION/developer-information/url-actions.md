@@ -43,6 +43,8 @@ Both the Android and iOS apps support opening the app using the `fulcrumapp://` 
 | `fulcrumapp://new-record`  | Create a new record     |
 | `fulcrumapp://edit-record` | Edit an existing record |
 
+*Note use `fulcrumapp-intune` for the intune application
+
 # Open Parameters
 
 | Parameter | Required | Description                               |
