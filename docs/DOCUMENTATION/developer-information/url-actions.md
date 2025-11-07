@@ -35,13 +35,16 @@ Records can be viewed, created, and edited directly on the web using the followi
 
 # Mobile Actions
 
-Both the Android and iOS apps support opening the app using the `fulcrumapp://` URL scheme.
+Both the Android and iOS apps support opening the app using the `fulcrumapp://` and `fulcrumapp-intune://` URL schemes.
 
-| Action                     | Description             |
-| -------------------------- | ----------------------- |
-| `fulcrumapp://open`        | Launch the Fulcrum app  |
-| `fulcrumapp://new-record`  | Create a new record     |
-| `fulcrumapp://edit-record` | Edit an existing record |
+| Action                            | Description             |
+| --------------------------------- | ----------------------- |
+| `fulcrumapp://open`               | Launch the Fulcrum app  |
+| `fulcrumapp://new-record`         | Create a new record     |
+| `fulcrumapp://edit-record`        | Edit an existing record |
+| `fulcrumapp-intune://open`        | Launch the Fulcrum app  |
+| `fulcrumapp-intune://new-record`  | Create a new record     |
+| `fulcrumapp-intune://edit-record` | Edit an existing record |
 
 # Open Parameters
 
@@ -97,11 +100,21 @@ Both the Android and iOS apps support opening the app using the `fulcrumapp://` 
 
 # Examples
 
+## fulcrumapp:// scheme
+
 * `fulcrumapp://new-record?form_id=c55adab9-916d-46e9-98aa-7a2388a77b24&number_of_floors=3&sq_footage=2300`
 
 * `fulcrumapp://new-record?form_id=c55adab9-916d-46e9-98aa-7a2388a77b24&status=incomplete&sq_footage=2300&name=My%20Awesome%20Building&number_of_floors=3&latitude=28.038046&longitude=-81.952514`
 
 * `fulcrumapp://edit-record?record_id=11fb2a54-5158-4848-8695-c405c54525e4&status=incomplete&sq_footage=2300&name=SNI&number_of_floors=3&latitude=28.038046&longitude=-81.952514`
+
+## fulcrumapp-intune:// scheme
+
+* `fulcrumapp-intune://new-record?form_id=c55adab9-916d-46e9-98aa-7a2388a77b24&number_of_floors=3&sq_footage=2300`
+
+* `fulcrumapp-intune://new-record?form_id=c55adab9-916d-46e9-98aa-7a2388a77b24&status=incomplete&sq_footage=2300&name=My%20Awesome%20Building&number_of_floors=3&latitude=28.038046&longitude=-81.952514`
+
+* `fulcrumapp-intune://edit-record?record_id=11fb2a54-5158-4848-8695-c405c54525e4&status=incomplete&sq_footage=2300&name=SNI&number_of_floors=3&latitude=28.038046&longitude=-81.952514`
 
 # Notes
 
