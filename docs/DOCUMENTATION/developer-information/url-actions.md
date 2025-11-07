@@ -35,13 +35,27 @@ Records can be viewed, created, and edited directly on the web using the followi
 
 # Mobile Actions
 
-Both the Android and iOS apps support opening the app using the `fulcrumapp://` URL scheme.
+Mobile apps support opening the app using custom URL schemes. The specific scheme depends on which app you are using.
+
+## Fulcrum App (Android & iOS)
+
+The standard Fulcrum app uses the `fulcrumapp://` URL scheme.
 
 | Action                     | Description             |
 | -------------------------- | ----------------------- |
 | `fulcrumapp://open`        | Launch the Fulcrum app  |
 | `fulcrumapp://new-record`  | Create a new record     |
 | `fulcrumapp://edit-record` | Edit an existing record |
+
+## Fulcrum Intune App
+
+The Intune application uses the `fulcrumapp-intune://` URL scheme.
+
+| Action                            | Description                      |
+| --------------------------------- | -------------------------------- |
+| `fulcrumapp-intune://open`        | Launch the Fulcrum Intune app    |
+| `fulcrumapp-intune://new-record`  | Create a new record              |
+| `fulcrumapp-intune://edit-record` | Edit an existing record          |
 
 # Open Parameters
 
