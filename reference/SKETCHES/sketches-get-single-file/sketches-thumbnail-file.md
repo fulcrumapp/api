@@ -21,7 +21,7 @@ fulcrum = Fulcrum('{token}')
 
 sketch = fulcrum.sketches.media('{id}', 'thumbnail')
 
-with open('{id}.png', 'wb') as f:
+with open('{id}.jpeg', 'wb') as f:
   f.write(sketch)
 ```
 
@@ -30,7 +30,7 @@ const { Client } = require('fulcrum-app');
 const client = new Client('{token}');
 
 const fs = require('fs');
-const writeStream = fs.createWriteStream('{id}.png');
+const writeStream = fs.createWriteStream('{id}.jpeg');
 
 client.sketches.media('{id}', 'thumbnail')
   .then(sketch => sketch.pipe(writeStream))
@@ -43,7 +43,7 @@ require 'fulcrum'
 client = Fulcrum::Client.new('{token}')
 
 client.sketches.thumbnail('{id}') do |input|
-  File.open('{id}.png', 'wb') do |output|
+  File.open('{id}.jpeg', 'wb') do |output|
     output.write(input.read)
   end
 end

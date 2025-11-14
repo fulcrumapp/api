@@ -82,9 +82,9 @@ Example validation response if `access_key` is not included:
     "created_by_id": "50633f84a934480d260001db",
     "updated_by": "Bryan McBride",
     "updated_by_id": "50633f84a934480d260001db",
-    "thumbnail": "https://fulcrumapp.s3.amazonaws.com/sketches/thumb_514f7b5b-c5e8-44d6-a0dc-f48d409a1f9e-6c9e27d8-5304-498f-973e-ce465f4a9c2e.png",
-    "large": "https://fulcrumapp.s3.amazonaws.com/sketches/large_514f7b5b-c5e8-44d6-a0dc-f48d409a1f9e-6c9e27d8-5304-498f-973e-ce465f4a9c2e.png",
-    "original": "https://fulcrumapp.s3.amazonaws.com/sketches/514f7b5b-c5e8-44d6-a0dc-f48d409a1f9e-6c9e27d8-5304-498f-973e-ce465f4a9c2e.png"
+    "thumbnail": "https://fulcrumapp.s3.amazonaws.com/sketches/thumb_514f7b5b-c5e8-44d6-a0dc-f48d409a1f9e-6c9e27d8-5304-498f-973e-ce465f4a9c2e.jpeg",
+    "large": "https://fulcrumapp.s3.amazonaws.com/sketches/large_514f7b5b-c5e8-44d6-a0dc-f48d409a1f9e-6c9e27d8-5304-498f-973e-ce465f4a9c2e.jpeg",
+    "original": "https://fulcrumapp.s3.amazonaws.com/sketches/514f7b5b-c5e8-44d6-a0dc-f48d409a1f9e-6c9e27d8-5304-498f-973e-ce465f4a9c2e.jpeg"
   }
 }
 ```
