@@ -6067,6 +6067,484 @@
         "deprecated": false
       }
     },
+    "/v2/sketches.json": {
+      "get": {
+        "summary": "Get All Sketches",
+        "description": "",
+        "operationId": "sketches-get-all-metadata",
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "query",
+            "description": "The ID of the record with which the sketch is associated.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "form_id",
+            "in": "query",
+            "description": "The ID of the form with which the sketch is associated. Leaving this blank will query against all of your sketches.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "newest_first",
+            "in": "query",
+            "description": "If present, sketches will be sorted by updated_at date.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "processed",
+            "in": "query",
+            "description": "Sketch has been completely processed.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "stored",
+            "in": "query",
+            "description": "Sketch has been completely stored.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "uploaded",
+            "in": "query",
+            "description": "Sketch has been completely uploaded.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number requested",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of items per page",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20000
+            }
+          },
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "summary": "Upload Sketch",
+        "description": "",
+        "operationId": "sketches-upload",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false,
+        "x-readme": {
+          "code-samples": [
+            {
+              "language": "curl",
+              "code": "curl --request POST 'https://api.fulcrumapp.com/api/v2/sketches' \\\n--header 'Accept: application/json' \\\n--header 'X-ApiToken: {token}' \\\n--form 'sketch[access_key]='$(uuidgen) \\\n--form 'sketch[file]=@/Users/bryan/Desktop/sketch.jpg'",
+              "name": "cURL"
+            },
+            {
+              "language": "python",
+              "code": "from fulcrum import Fulcrum\nfulcrum = Fulcrum('{token}')\n\nsketch = fulcrum.sketches.create('/Users/bryan/Desktop/sketch.jpg')\nprint(sketch['sketch'])",
+              "name": "Python"
+            },
+            {
+              "language": "javascript",
+              "code": "const { Client } = require('fulcrum-app');\nconst client = new Client('{token}');\n\nconst fs = require('fs');\nconst sketch = fs.createReadStream('/Users/bryan/Desktop/sketch.jpg');\n\nclient.sketches.create(sketch)\n  .then(created => console.log(created))\n  .catch(error => console.log(error));",
+              "name": "JavaScript"
+            },
+            {
+              "language": "ruby",
+              "code": "require 'fulcrum'\n\nclient = Fulcrum::Client.new('{token}')\n\nsketch = client.sketches.create('/Users/bryan/Desktop/sketch.jpg')\n\nputs sketch",
+              "name": "Ruby"
+            }
+          ],
+          "samples-languages": [
+            "curl",
+            "python",
+            "javascript",
+            "ruby"
+          ]
+        }
+      }
+    },
+    "/v2/sketches/{sketch_id}.json": {
+      "get": {
+        "summary": "Get Single Sketch Metadata",
+        "description": "",
+        "operationId": "sketches-get-single-metadata",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "sketch_id",
+            "in": "path",
+            "description": "Sketch ID",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2/sketches/{sketch_id}/thumbnail.json": {
+      "get": {
+        "summary": "Sketch Thumbnail Metadata",
+        "description": "",
+        "operationId": "sketches-thumbnail-metadata",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "sketch_id",
+            "in": "path",
+            "description": "Sketch ID",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2/sketches/{sketch_id}/large.json": {
+      "get": {
+        "summary": "Sketch Large Metadata",
+        "description": "",
+        "operationId": "sketches-large-metadata",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "sketch_id",
+            "in": "path",
+            "description": "Sketch ID",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2/sketches/{sketch_id}.jpg": {
+      "get": {
+        "summary": "Get Single Sketch File",
+        "description": "",
+        "operationId": "sketches-get-single-file",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "sketch_id",
+            "in": "path",
+            "description": "Sketch ID",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2/sketches/{sketch_id}/thumbnail.jpg": {
+      "get": {
+        "summary": "Sketch Thumbnail File",
+        "description": "",
+        "operationId": "sketches-thumbnail-file",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "sketch_id",
+            "in": "path",
+            "description": "Sketch ID",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2/sketches/{sketch_id}/large.jpg": {
+      "get": {
+        "summary": "Sketch Large File",
+        "description": "",
+        "operationId": "sketches-large-file",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "sketch_id",
+            "in": "path",
+            "description": "Sketch ID",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/v2/signatures.json": {
       "get": {
         "summary": "Get All Signatures",
