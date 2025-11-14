@@ -9,7 +9,7 @@ hidden: false
 metadata:
   title: ''
   description: ''
-  robots: noindex
+  robots: index
 next:
   description: ''
 ---
