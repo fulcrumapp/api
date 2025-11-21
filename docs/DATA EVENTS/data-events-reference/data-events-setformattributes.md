@@ -32,7 +32,7 @@ The following table contains the available properties that be set:
 | `auto_location_minimum_accuracy` | integer | minimum accuracy in meters for the auto-populated location                     | 1500            |
 | `manual_location_enabled`        | boolean | allow manually changing the record location                                    | true            |
 | `media_gallery_enabled`          | boolean | allow media from the gallery or camera roll                                    | true            |
-| `media_capture_enabled`          | boolean | allow media from the camera                                                    | true            |
+| `media_capture_enabled`          | boolean | allow media from the camera; allow sketches to be added                        | true            |
 | `photo_quality`                  | integer | maximum dimension of photos in pixels, or 'native'                             | user-preference |
 | `video_quality`                  | string  | video resolution, one of: 480p, 720p, 1080p, 2160p (device/platform dependent) | user-preference |
 | `drafts_enabled`                 | boolean | allow saving record as a draft                                                 | true            |
