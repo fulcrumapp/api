@@ -36,4 +36,4 @@ SETRESULT(parseFloat(INSPECT(GEOMETRYAREA(GEOMETRY()) / 4046.86)).toFixed(3))
 
 # Note:
 
-GEOMETRYAREA leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations, which may differ from other libraries. Like Fulcrum data, Turf uses standard WGS84 coordinates. WGS84 uses geodesic calculations and assumes the Earth is a perfect sphere (has a constant radius). Different coordinate systems try to adjust for correct regional measurements in every part of the world, and it's never going to be exact.
+GEOMETRYAREA leverages Turf.js ([https://turfjs.org](https://turfjs.org)) for calculations, which may differ from other libraries. Like Fulcrum data, Turf uses standard WGS84 coordinates. WGS84 models the Earth as an ellipsoid. This means area calculations may have small inaccuracies compared to more precise geodesic methods, especially over large regions or near the poles. Different coordinate systems and calculation methods try to adjust for correct regional measurements, but it's never going to be exact. 
