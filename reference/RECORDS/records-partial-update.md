@@ -90,7 +90,7 @@ If a property is not sent in the request then its current value will be preserve
     }
 }
 ```
-This speciifc example will respond with a type error.
+This specific example will respond with a type error.
 
 ```
 {
