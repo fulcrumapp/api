@@ -13,7 +13,7 @@ metadata:
 next:
   description: ''
 ---
-Use this endpoint to partially update a record. Any top-level property (e.g. latitude) may be updated. In addtion, this any top-level field of `form_values` may also be updated. However, nested fields are not taken into account.
+Use this endpoint to partially update a record. Any top-level property (e.g. latitude) may be updated. In addition, this any top-level field of `form_values` may also be updated. However, nested fields are not taken into account.
 
 If a property is set to a value then it will be set to that value.
 If a property is set to null then it will be erased.
