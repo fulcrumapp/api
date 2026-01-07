@@ -5,4 +5,5 @@
 - records-get-all-history
 - records-create
 - records-update
+- records-partial-update
 - records-delete
