@@ -4306,6 +4306,88 @@
         },
         "deprecated": false
       },
+      "patch": {
+        "summary": "Partially Update Record",
+        "description": "",
+        "operationId": "records-partial-update",
+        "parameters": [
+          {
+            "name": "Accept",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "default": "application/json"
+            }
+          },
+          {
+            "name": "record_id",
+            "in": "path",
+            "description": "Record ID",
+            "schema": {
+              "type": "string"
+            },
+            "required": true
+          },
+          {
+            "name": "X-SkipWorkflows",
+            "in": "header",
+            "description": "Skips all app workflows",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "X-SkipWebhooks",
+            "in": "header",
+            "description": "Skips all app webhooks",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
       "delete": {
         "summary": "Delete Record",
         "description": "",
