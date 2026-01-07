@@ -1368,10 +1368,12 @@
             "properties": {
               "record_id": {
                 "type": "string",
+                "format": "uuid",
                 "description": "The ID of the record to generate a report for"
               },
               "template_id": {
                 "type": "string",
+                "format": "uuid",
                 "description": "The ID of the report template to use (optional)"
               }
             }
@@ -1396,6 +1398,12 @@
             "properties": {
               "state": {
                 "type": "string",
+                "enum": [
+                  "pending",
+                  "running",
+                  "completed",
+                  "failed"
+                ],
                 "description": "The state of the report",
                 "example": "completed"
               },
@@ -11026,7 +11034,7 @@
       "post": {
         "summary": "Create Report",
         "description": "Generate a new report for a specific record, optionally using a report template",
-        "operationId": "create-report",
+        "operationId": "reports-create",
         "requestBody": {
           "required": true,
           "content": {

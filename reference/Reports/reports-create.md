@@ -3,7 +3,7 @@ title: Create PDF Report
 excerpt: ''
 api:
   file: rest-api.json
-  operationId: create-report
+  operationId: reports-create
 deprecated: false
 hidden: false
 metadata:
