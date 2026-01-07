@@ -1,15 +1,17 @@
 ---
-title: Get PDF Report
-excerpt: This endpoint will return a URL to your report.
+title: Create PDF Report
+excerpt: ''
 api:
   file: rest-api.json
-  operationId: get_v2reports.json
+  operationId: create-report
 deprecated: false
 hidden: false
-link:
-  new_tab: false
 metadata:
+  title: ''
+  description: ''
   robots: index
+next:
+  description: ''
 ---
 You must send a request to this endpoint with the body below. If you leave out the template\_id attribute, the endpoint will use the most recently saved template or the generic template if no custom templates exist.
 

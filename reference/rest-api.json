@@ -1354,6 +1354,115 @@
           }
         }
       },
+      "ReportRequest": {
+        "type": "object",
+        "required": [
+          "report"
+        ],
+        "properties": {
+          "report": {
+            "type": "object",
+            "required": [
+              "record_id"
+            ],
+            "properties": {
+              "record_id": {
+                "type": "string",
+                "description": "The ID of the record to generate a report for"
+              },
+              "template_id": {
+                "type": "string",
+                "description": "The ID of the report template to use (optional)"
+              }
+            }
+          }
+        }
+      },
+      "ReportResponse": {
+        "type": "object",
+        "required": [
+          "report"
+        ],
+        "properties": {
+          "report": {
+            "type": "object",
+            "required": [
+              "state",
+              "id",
+              "created_at",
+              "updated_at",
+              "record_id"
+            ],
+            "properties": {
+              "state": {
+                "type": "string",
+                "description": "The state of the report",
+                "example": "completed"
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "The unique identifier for the report"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The timestamp when the report was created"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "The timestamp when the report was last updated"
+              },
+              "record_id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "The ID of the record the report was generated for"
+              },
+              "template_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uuid",
+                "description": "The ID of the template used to generate the report"
+              },
+              "started_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time",
+                "description": "The timestamp when report generation started"
+              },
+              "completed_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time",
+                "description": "The timestamp when report generation completed"
+              },
+              "failed_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time",
+                "description": "The timestamp when report generation failed (null if successful)"
+              },
+              "url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri",
+                "description": "The URL to download the generated report"
+              }
+            }
+          }
+        }
+      },
       "UnauthorizedResponse": {
         "type": "object",
         "description": "Unauthorized error response",
@@ -10905,6 +11014,94 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2/reports.json": {
+      "post": {
+        "summary": "Create Report",
+        "description": "Generate a new report for a specific record, optionally using a report template",
+        "operationId": "create-report",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReportRequest"
+              },
+              "examples": {
+                "with_template": {
+                  "summary": "Report with template",
+                  "value": {
+                    "report": {
+                      "record_id": "279fcd70-2e9c-4903-8c49-4597e74577b2",
+                      "template_id": "608cd9a4-3615-4062-aeee-5c609497571f"
+                    }
+                  }
+                },
+                "without_template": {
+                  "summary": "Report without template",
+                  "value": {
+                    "report": {
+                      "record_id": "279fcd70-2e9c-4903-8c49-4597e74577b2"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Report created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReportResponse"
+                },
+                "examples": {
+                  "success": {
+                    "summary": "Successful report generation",
+                    "value": {
+                      "report": {
+                        "state": "completed",
+                        "id": "22edfef1-9966-45c7-bc74-756d06db1c12",
+                        "created_at": "2026-01-07T15:48:42Z",
+                        "updated_at": "2026-01-07T15:48:46Z",
+                        "record_id": "279fcd70-2e9c-4903-8c49-4597e74577b2",
+                        "template_id": "608cd9a4-3615-4062-aeee-5c609497571f",
+                        "started_at": "2026-01-07T15:48:42Z",
+                        "completed_at": "2026-01-07T15:48:46Z",
+                        "failed_at": null,
+                        "url": "https://api.fulcrumapp.com/api/v2/reports/22edfef1-9966-45c7-bc74-756d06db1c12.pdf"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
                 }
               }
             }
