@@ -36,7 +36,7 @@ If a property is not sent in the request then its current value will be preserve
                     "form_values": {
                         "afb0": "some nested text",
                         "75f0": "some more nested text"
-                    },
+                    }
                 }
             ],
             "efc0": "some text",
@@ -60,7 +60,7 @@ If a property is not sent in the request then its current value will be preserve
 {
     "record": {
         "status": "used",
-        "project_id": null,
+        "project_id": null
     }
 }
 ```
@@ -101,10 +101,10 @@ This specific example will respond with a type error.
                     "form_values": {
                         "afb0": "some different nested text",
                         "75f0": null
-                    },
+                    }
                 }
             ]
-        },
+        }
     }
 }
 ```
