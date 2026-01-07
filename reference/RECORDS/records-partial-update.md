@@ -13,13 +13,13 @@ metadata:
 next:
   description: ''
 ---
-Use this endpoint to partially update a record. Any top-level property (e.g. latitude) may be updated. In addition, any top-level field of `form_values` may also be updated. However, nested fields are not taken into account.
+Use this endpoint to partially update a record. Any top-level property (e.g. latitude) may be updated. In addition, any top-level field of `form_values` may also be updated. However, if nested fields are provided in the request, they are not merged with existing data. Instead, the entire parent field is replaced.
 
 If a property is set to a value then it will be set to that value.
 If a property is set to null then it will be erased.
 If a property is not sent in the request then its current value will be preserved.
 
-**Note:** Partial updates do not hold a lock and are not transactional. So if two different requests update different fields on the same record at the same time the final result will be unpredictable.
+**Warning:** Partial updates do not acquire locks and do not provide transactional guarantees. Concurrent updates to the same record (even on different fields) can result in race conditions and an unpredictable final state.
 
 # Examples
 
