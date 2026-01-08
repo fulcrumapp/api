@@ -24,7 +24,8 @@ If a property is not sent in the request then its current value will be preserve
 # Examples
 
 ## Full Record Update
-```
+
+```json
 {
     "record": {
         "status": "new",
@@ -56,7 +57,8 @@ If a property is not sent in the request then its current value will be preserve
 ```
 
 ## Partial Updates
-```
+
+```json
 {
     "record": {
         "status": "used",
@@ -65,7 +67,7 @@ If a property is not sent in the request then its current value will be preserve
 }
 ```
 
-```
+```json
 {
     "record": {
         "assigned_to_id": "77e38827-0df7-492a-8239-a2749ab33afe",
@@ -78,7 +80,8 @@ If a property is not sent in the request then its current value will be preserve
 ```
 
 ## Invalid Examples
-```
+
+```json
 {
     "record": {
         "geometry": {
@@ -90,9 +93,10 @@ If a property is not sent in the request then its current value will be preserve
     }
 }
 ```
+
 This specific example will respond with a type error.
 
-```
+```json
 {
     "record": {
         "form_values": {
@@ -108,4 +112,5 @@ This specific example will respond with a type error.
     }
 }
 ```
+
 This specific example will overwrite the entire `62c0` field.
