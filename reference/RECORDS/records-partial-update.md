@@ -13,7 +13,7 @@ metadata:
 next:
   description: ''
 ---
-Use this endpoint to partially update a record. Any top-level property (e.g. latitude) may be updated. In addition, any top-level field of `form_values` may also be updated. Only top-level properties and top-level fields of `form_values` may be partially updated. Propertues for fields in `form_values` that are objects must be updated in their entirety.
+Use this endpoint to partially update a record. Any top-level property (e.g. latitude) may be updated. In addition, any top-level field of `form_values` may also be updated. Only top-level properties and top-level fields of `form_values` may be partially updated. Properties for fields in `form_values` that are objects must be updated in their entirety.
 
 **Warning: Do not use this endpoint to update repeatable child records.** If nested fields are provided in the request, they are not merged with existing data. Instead, the entire parent field is replaced. This includes trying to update individual child records of a repeatable field. If you update an individual child record, other child records associated with that repeatable will be deleted.
 
@@ -40,13 +40,13 @@ See the examples below for valid and invalid usages of this endpoint.
                 {
                     "form_values": {
                         "afb0": "some nested text for first repeatable",
-                        "75f0": "some more nested for first repeatable"
+                        "75f0": "some more nested text for first repeatable"
                     }
                 },
                 {
                     "form_values": {
                         "afb0": "some nested text for second repeatable",
-                        "75f0": "some more nested for second repeatable"
+                        "75f0": "some more nested text for second repeatable"
                     }
                 },
             ],
