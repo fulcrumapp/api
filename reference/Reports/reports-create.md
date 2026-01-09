@@ -1,6 +1,8 @@
 ---
 title: Create PDF Report
-excerpt: ''
+excerpt: >-
+  Generate a new report for a specific record, optionally using a report
+  template
 api:
   file: rest-api.json
   operationId: reports-create
