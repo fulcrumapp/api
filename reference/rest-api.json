@@ -89,6 +89,17 @@
           }
         }
       },
+      "SingleRecordResponse": {
+        "type": "object",
+        "required": [
+          "record"
+        ],
+        "properties": {
+          "record": {
+            "$ref": "#/components/schemas/Record"
+          }
+        }
+      },
       "Record": {
         "type": "object",
         "properties": {
@@ -4241,63 +4252,65 @@
                 "examples": {
                   "Success": {
                     "value": {
-                      "altitude": null,
-                      "assigned_to": null,
-                      "assigned_to_id": null,
-                      "changeset_id": "b882774c-29c8-4506-8dc6-46e686e1b4fa",
-                      "client_created_at": "2020-02-16T21:26:57Z",
-                      "client_updated_at": "2020-02-16T21:30:36Z",
-                      "course": null,
-                      "created_at": "2020-02-16T21:26:51Z",
-                      "created_by": "John Williams",
-                      "created_by_id": "3bd2efaa-b66c-4b70-9d45-1ff81cbvc353",
-                      "created_duration": 116,
-                      "created_location": null,
-                      "edited_duration": 119,
-                      "form_id": "aa9816b6-ebec-4f14-88df-7v5844c2237d",
-                      "form_values": {
-                        "31e8": {
-                          "admin_area": "Illinois",
-                          "country": "United States",
-                          "locality": "Chicago",
-                          "postal_code": null,
-                          "sub_admin_area": null,
-                          "sub_thoroughfare": "1234",
-                          "suite": null,
-                          "thoroughfare": "W Jackson Blvd"
+                      "record": {
+                        "altitude": null,
+                        "assigned_to": null,
+                        "assigned_to_id": null,
+                        "changeset_id": "b882774c-29c8-4506-8dc6-46e686e1b4fa",
+                        "client_created_at": "2020-02-16T21:26:57Z",
+                        "client_updated_at": "2020-02-16T21:30:36Z",
+                        "course": null,
+                        "created_at": "2020-02-16T21:26:51Z",
+                        "created_by": "John Williams",
+                        "created_by_id": "3bd2efaa-b66c-4b70-9d45-1ff81cbvc353",
+                        "created_duration": 116,
+                        "created_location": null,
+                        "edited_duration": 119,
+                        "form_id": "aa9816b6-ebec-4f14-88df-7v5844c2237d",
+                        "form_values": {
+                          "31e8": {
+                            "admin_area": "Illinois",
+                            "country": "United States",
+                            "locality": "Chicago",
+                            "postal_code": null,
+                            "sub_admin_area": null,
+                            "sub_thoroughfare": "1234",
+                            "suite": null,
+                            "thoroughfare": "W Jackson Blvd"
+                          },
+                          "58b2": "no",
+                          "7aec": "no",
+                          "dd8d": "12323"
                         },
-                        "58b2": "no",
-                        "7aec": "no",
-                        "dd8d": "12323"
-                      },
-                      "geometry": {
-                        "coordinates": [
-                          0,
-                          0
-                        ],
-                        "type": "Point"
-                      },
-                      "horizontal_accuracy": null,
-                      "id": "da5fafc4-2e69-4c8c-a6bb-831d9e194a30",
-                      "latitude": 0,
-                      "longitude": 0,
-                      "project_id": null,
-                      "record_series_id": null,
-                      "speed": null,
-                      "status": null,
-                      "system_status": null,
-                      "updated_at": "2020-02-16T21:30:30Z",
-                      "updated_by": "James Miller",
-                      "updated_by_id": "3bd3eeaa-b66c-4b70-9d45-1ff81cbfc353",
-                      "updated_duration": 3,
-                      "updated_location": null,
-                      "version": 2,
-                      "vertical_accuracy": null
+                        "geometry": {
+                          "coordinates": [
+                            0,
+                            0
+                          ],
+                          "type": "Point"
+                        },
+                        "horizontal_accuracy": null,
+                        "id": "da5fafc4-2e69-4c8c-a6bb-831d9e194a30",
+                        "latitude": 0,
+                        "longitude": 0,
+                        "project_id": null,
+                        "record_series_id": null,
+                        "speed": null,
+                        "status": null,
+                        "system_status": null,
+                        "updated_at": "2020-02-16T21:30:30Z",
+                        "updated_by": "James Miller",
+                        "updated_by_id": "3bd3eeaa-b66c-4b70-9d45-1ff81cbfc353",
+                        "updated_duration": 3,
+                        "updated_location": null,
+                        "version": 2,
+                        "vertical_accuracy": null
+                      }
                     }
                   }
                 },
                 "schema": {
-                  "$ref": "#/components/schemas/Record"
+                  "$ref": "#/components/schemas/SingleRecordResponse"
                 }
               }
             }
