@@ -116,10 +116,8 @@
             "description": "Number of records per page (when using pagination)"
           },
           "next_sequence": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "description": "Next sequence number (when using sequence-based pagination)"
           },
           "records": {
@@ -152,45 +150,33 @@
             "description": "Record version number"
           },
           "status": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Record status (null for masked records)"
           },
           "record_key": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Optional record key (null for masked records)"
           },
           "record_sequence": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "description": "Optional record sequence number (null for masked records)"
           },
           "form_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Form resource ID"
           },
           "form_version": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "description": "Form version at time of record creation/update"
           },
           "project_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Project resource ID"
           },
           "created_at": {
@@ -204,100 +190,74 @@
             "description": "Record last update timestamp"
           },
           "client_created_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "format": "date-time",
             "description": "Client-side creation timestamp"
           },
           "client_updated_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "format": "date-time",
             "description": "Client-side update timestamp"
           },
           "created_by": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Display name of user who created the record"
           },
           "created_by_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Resource ID of user who created the record"
           },
           "updated_by": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Display name of user who last updated the record"
           },
           "updated_by_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Resource ID of user who last updated the record"
           },
           "assigned_to": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Display name of assigned user (null for masked records)"
           },
           "assigned_to_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Resource ID of assigned user (null for masked records)"
           },
           "form_values": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
+            "nullable": true,
             "description": "Form field values (processed, null for masked records)",
             "additionalProperties": true
           },
           "latitude": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "format": "double",
             "description": "Record location latitude (null for masked records)"
           },
           "longitude": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "format": "double",
             "description": "Record location longitude (null for masked records)"
           },
           "altitude": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "format": "double",
             "description": "Record location altitude in meters (null for masked records)"
           },
           "geometry": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
+            "nullable": true,
             "description": "GeoJSON geometry object (null for masked records)",
             "properties": {
               "type": {
@@ -312,49 +272,37 @@
             }
           },
           "speed": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "format": "double",
             "description": "Speed at time of record creation in m/s (null for masked records)"
           },
           "course": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "format": "double",
             "description": "Course/heading in degrees (null for masked records)"
           },
           "horizontal_accuracy": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "format": "double",
             "description": "Horizontal accuracy in meters (null for masked records)"
           },
           "vertical_accuracy": {
-            "type": [
-              "number",
-              "null"
-            ],
+            "type": "number",
+            "nullable": true,
             "format": "double",
             "description": "Vertical accuracy in meters (null for masked records)"
           },
           "changeset_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Changeset resource ID (null for masked records)"
           },
           "created_location": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
+            "nullable": true,
             "description": "Location where record was created (null for masked records)",
             "properties": {
               "latitude": {
@@ -366,26 +314,20 @@
                 "format": "double"
               },
               "altitude": {
-                "type": [
-                  "number",
-                  "null"
-                ],
+                "type": "number",
+                "nullable": true,
                 "format": "double"
               },
               "horizontal_accuracy": {
-                "type": [
-                  "number",
-                  "null"
-                ],
+                "type": "number",
+                "nullable": true,
                 "format": "double"
               }
             }
           },
           "updated_location": {
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
+            "nullable": true,
             "description": "Location where record was last updated (null for masked records)",
             "properties": {
               "latitude": {
@@ -397,47 +339,35 @@
                 "format": "double"
               },
               "altitude": {
-                "type": [
-                  "number",
-                  "null"
-                ],
+                "type": "number",
+                "nullable": true,
                 "format": "double"
               },
               "horizontal_accuracy": {
-                "type": [
-                  "number",
-                  "null"
-                ],
+                "type": "number",
+                "nullable": true,
                 "format": "double"
               }
             }
           },
           "created_duration": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "description": "Duration of record creation in seconds (null for masked records)"
           },
           "updated_duration": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "description": "Duration of record update in seconds (null for masked records)"
           },
           "edited_duration": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "description": "Total editing duration in seconds (null for masked records)"
           },
           "sequence": {
-            "type": [
-              "integer",
-              "null"
-            ],
+            "type": "integer",
+            "nullable": true,
             "description": "Sequence number (when using sequence-based pagination)"
           },
           "history_change_type": {
@@ -454,17 +384,13 @@
             "description": "History entry resource ID"
           },
           "history_changed_by_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Resource ID of user who made this change"
           },
           "history_changed_by": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "description": "Display name of user who made this change"
           },
           "history_created_at": {
@@ -478,10 +404,8 @@
         "type": "object",
         "properties": {
           "status": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string",
+            "nullable": true
           },
           "version": {
             "type": "integer"
@@ -499,17 +423,13 @@
             "format": "date-time"
           },
           "client_created_at": {
-            "type": [
-              "null",
-              "string"
-            ],
+            "type": "string",
+            "nullable": true,
             "format": "date-time"
           },
           "client_updated_at": {
-            "type": [
-              "null",
-              "string"
-            ],
+            "type": "string",
+            "nullable": true,
             "format": "date-time"
           },
           "created_by": {
@@ -527,62 +447,44 @@
             "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
           },
           "created_location": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string",
+            "nullable": true
           },
           "updated_location": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string",
+            "nullable": true
           },
           "created_duration": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "updated_duration": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "edited_duration": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "form_id": {
             "type": "string",
             "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
           },
           "project_id": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string",
+            "nullable": true
           },
           "record_series_id": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string",
+            "nullable": true
           },
           "assigned_to": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string",
+            "nullable": true
           },
           "assigned_to_id": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string",
+            "nullable": true
           },
           "form_values": {
             "type": "object",
@@ -590,55 +492,39 @@
             "description": "Field values keyed by field key - values can be strings, objects, or arrays depending on field type"
           },
           "latitude": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "longitude": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "altitude": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "geometry": {
             "$ref": "#/components/schemas/Geometry"
           },
           "speed": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "course": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "horizontal_accuracy": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "vertical_accuracy": {
-            "type": [
-              "null",
-              "number"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "system_status": {
-            "type": [
-              "null",
-              "string"
-            ]
+            "type": "string",
+            "nullable": true
           }
         }
       },
@@ -2571,42 +2457,32 @@
                 "description": "The ID of the record the report was generated for"
               },
               "template_id": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "format": "uuid",
                 "description": "The ID of the template used to generate the report"
               },
               "started_at": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "format": "date-time",
                 "description": "The timestamp when report generation started"
               },
               "completed_at": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "format": "date-time",
                 "description": "The timestamp when report generation completed"
               },
               "failed_at": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "format": "date-time",
                 "description": "The timestamp when report generation failed (null if successful)"
               },
               "url": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "format": "uri",
                 "description": "The URL to download the generated report"
               }
@@ -2646,10 +2522,8 @@
             ],
             "properties": {
               "name": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "description": "Display name for the webhook"
               },
               "url": {
@@ -2687,17 +2561,13 @@
             ],
             "properties": {
               "name": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "description": "Display name of the workflow"
               },
               "description": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "description": "Optional description of the workflow"
               },
               "object_type": {
@@ -2735,17 +2605,13 @@
             "minProperties": 1,
             "properties": {
               "name": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "description": "Updated display name of the workflow"
               },
               "description": {
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
+                "nullable": true,
                 "description": "Updated description of the workflow"
               },
               "object_type": {
@@ -2792,17 +2658,13 @@
             "format": "date-time"
           },
           "client_created_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "format": "date-time"
           },
           "client_updated_at": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "format": "date-time"
           },
           "created_by": {
@@ -2820,64 +2682,46 @@
             "pattern": "^[0-9a-f]{24}$"
           },
           "created_location": {
-            "type": [
-              "object",
-              "null"
-            ]
+            "type": "object",
+            "nullable": true
           },
           "updated_location": {
-            "type": [
-              "object",
-              "null"
-            ]
+            "type": "object",
+            "nullable": true
           },
           "created_duration": {
-            "type": [
-              "number",
-              "null"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "updated_duration": {
-            "type": [
-              "number",
-              "null"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "edited_duration": {
-            "type": [
-              "number",
-              "null"
-            ]
+            "type": "number",
+            "nullable": true
           },
           "form_id": {
             "type": "string",
             "pattern": "^[0-9a-f]{24}$"
           },
           "project_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "pattern": "^[0-9a-f]{24}$"
           },
           "record_series_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "pattern": "^[0-9a-f]{24}$"
           },
           "assigned_to": {
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string",
+            "nullable": true
           },
           "assigned_to_id": {
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "nullable": true,
             "pattern": "^[0-9a-f]{24}$"
           },
           "form_values": {
@@ -10836,10 +10680,8 @@
                             "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
                           },
                           "name": {
-                            "type": [
-                              "null",
-                              "string"
-                            ]
+                            "type": "string",
+                            "nullable": true
                           },
                           "run_for_bulk_actions": {
                             "type": "boolean"
@@ -10941,10 +10783,8 @@
                           "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
                         },
                         "name": {
-                          "type": [
-                            "null",
-                            "string"
-                          ]
+                          "type": "string",
+                          "nullable": true
                         },
                         "run_for_bulk_actions": {
                           "type": "boolean"
