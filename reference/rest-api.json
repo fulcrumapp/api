@@ -12147,7 +12147,8 @@
             "in": "path",
             "description": "Report ID",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "format": "uuid"
             },
             "required": true
           },
