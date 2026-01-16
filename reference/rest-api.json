@@ -808,44 +808,6 @@
             "type": "string",
             "nullable": true,
             "description": "Resource ID of user who last updated the photo"
-          },
-          "labels": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            },
-            "nullable": true,
-            "description": "Image recognition labels"
-          },
-          "labels_content": {
-            "type": "string",
-            "nullable": true,
-            "description": "Searchable content from labels"
-          },
-          "labels_processed_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true,
-            "description": "When labels were processed"
-          },
-          "text": {
-            "type": "array",
-            "items": {
-              "type": "object"
-            },
-            "nullable": true,
-            "description": "Text detected in image (OCR)"
-          },
-          "text_content": {
-            "type": "string",
-            "nullable": true,
-            "description": "Searchable content from detected text"
-          },
-          "text_processed_at": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true,
-            "description": "When text detection was processed"
           }
         }
       },
