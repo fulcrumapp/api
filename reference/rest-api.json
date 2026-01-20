@@ -3743,7 +3743,7 @@
     "/v2/memberships/change_permissions.json": {
       "post": {
         "summary": "Change Permissions",
-        "description": "Add or remove membership permissions from layers, forms, or projects",
+        "description": "Add or remove membership permissions from layers, forms, or projects.",
         "operationId": "memberships-change-permissions",
         "parameters": [
           {
@@ -4729,7 +4729,7 @@
     "/v2/records.json": {
       "get": {
         "summary": "Get All Records",
-        "description": "",
+        "description": "Get a list of records.",
         "operationId": "records-get-all",
         "parameters": [
           {
@@ -5135,7 +5135,7 @@
       },
       "post": {
         "summary": "Create Record",
-        "description": "",
+        "description": "Create a record.",
         "operationId": "records-create",
         "parameters": [
           {
@@ -5270,7 +5270,7 @@
     "/v2/records/{record_id}.json": {
       "get": {
         "summary": "Get Single Record",
-        "description": "",
+        "description": "Get a record.",
         "operationId": "records-get-single",
         "parameters": [
           {
@@ -5403,7 +5403,7 @@
       },
       "put": {
         "summary": "Update Record",
-        "description": "",
+        "description": "Update a record.",
         "operationId": "records-update",
         "parameters": [
           {
@@ -5485,7 +5485,7 @@
       },
       "patch": {
         "summary": "Partially Update Record",
-        "description": "",
+        "description": "Partially update a record.",
         "operationId": "records-partial-update",
         "parameters": [
           {
@@ -5567,7 +5567,7 @@
       },
       "delete": {
         "summary": "Delete Record",
-        "description": "",
+        "description": "Delete a record.",
         "operationId": "records-delete",
         "parameters": [
           {
@@ -5634,7 +5634,7 @@
     "/v2/records/{record_id}/history.json": {
       "get": {
         "summary": "Get Record History",
-        "description": "",
+        "description": "Get a record's history.",
         "operationId": "records-get-history",
         "parameters": [
           {
@@ -6851,7 +6851,7 @@
     "/v2/photos.json": {
       "get": {
         "summary": "Get All Photos",
-        "description": "",
+        "description": "Get metadata for a list of photos.",
         "operationId": "photos-get-all-metadata",
         "parameters": [
           {
@@ -6957,7 +6957,7 @@
       },
       "post": {
         "summary": "Upload Photo",
-        "description": "",
+        "description": "Upload a photo file to associate with a record.",
         "operationId": "photos-upload",
         "parameters": [
           {
@@ -7035,7 +7035,7 @@
     "/v2/photos/{photo_id}.json": {
       "get": {
         "summary": "Get Single Photo Metadata",
-        "description": "",
+        "description": "Get metadata for a photo.",
         "operationId": "photos-get-single-metadata",
         "parameters": [
           {
@@ -7084,7 +7084,7 @@
     "/v2/photos/{photo_id}/thumbnail.json": {
       "get": {
         "summary": "Photo Thumbnail Metadata",
-        "description": "",
+        "description": "Get metadata for a photo's thumbnail variant.",
         "operationId": "photos-thumbnail-metadata",
         "parameters": [
           {
@@ -7133,7 +7133,7 @@
     "/v2/photos/{photo_id}/large.json": {
       "get": {
         "summary": "Photo Large Metadata",
-        "description": "",
+        "description": "Get metadata for a photo's large variant.",
         "operationId": "photos-large-metadata",
         "parameters": [
           {
@@ -7182,7 +7182,7 @@
     "/v2/photos/{photo_id}.jpg": {
       "get": {
         "summary": "Get Single Photo File",
-        "description": "",
+        "description": "Download the original photo file.",
         "operationId": "photos-get-single-file",
         "parameters": [
           {
@@ -7231,7 +7231,7 @@
     "/v2/photos/{photo_id}/thumbnail.jpg": {
       "get": {
         "summary": "Photo Thumbnail File",
-        "description": "",
+        "description": "Download the thumbnail variant of a photo.",
         "operationId": "photos-thumbnail-file",
         "parameters": [
           {
@@ -7280,7 +7280,7 @@
     "/v2/photos/{photo_id}/large.jpg": {
       "get": {
         "summary": "Photo Large File",
-        "description": "",
+        "description": "Download the large variant of a photo.",
         "operationId": "photos-large-file",
         "parameters": [
           {
@@ -7807,7 +7807,7 @@
     "/v2/signatures.json": {
       "get": {
         "summary": "Get All Signatures",
-        "description": "",
+        "description": "Get a list of signatures.",
         "operationId": "signatures-get-all",
         "parameters": [
           {
@@ -7913,7 +7913,7 @@
       },
       "post": {
         "summary": "Upload Signature",
-        "description": "",
+        "description": "Upload a signature file to associate with a record.",
         "operationId": "signatures-upload",
         "parameters": [
           {
@@ -7991,7 +7991,7 @@
     "/v2/signatures/{signature_id}.json": {
       "get": {
         "summary": "Get Single Signature Metadata",
-        "description": "",
+        "description": "Get metadata for a signature.",
         "operationId": "signatures-get-single-metadata",
         "parameters": [
           {
@@ -8040,7 +8040,7 @@
     "/v2/signatures/{signature_id}/thumbnail.json": {
       "get": {
         "summary": "Signature Thumbnail Metadata",
-        "description": "",
+        "description": "Get metadata for a signature's thumbnail variant.",
         "operationId": "signatures-get-thumbnail-metadata",
         "parameters": [
           {
@@ -8089,7 +8089,7 @@
     "/v2/signatures/{signature_id}.png": {
       "get": {
         "summary": "Get Single Signature File",
-        "description": "",
+        "description": "Download the original signature file.",
         "operationId": "signatures-get-single-file",
         "parameters": [
           {
@@ -8138,7 +8138,7 @@
     "/v2/signatures/{signature_id}/thumbnail.png": {
       "get": {
         "summary": "Signature Thumbnail File",
-        "description": "",
+        "description": "Download the thumbnail variant of a signature.",
         "operationId": "signatures-get-thumbnail-file",
         "parameters": [
           {
@@ -8187,7 +8187,7 @@
     "/v2/videos.json": {
       "get": {
         "summary": "Get All Videos",
-        "description": "",
+        "description": "Get metadata for a list of videos.",
         "operationId": "videos-get-all",
         "parameters": [
           {
@@ -8295,7 +8295,7 @@
     "/v2/videos/tracks.geojson": {
       "get": {
         "summary": "Get GeoJSON Tracks for All Videos",
-        "description": "",
+        "description": "Get GPS tracks for videos in GeoJSON format.",
         "operationId": "videos-get-all-tracks-geojson",
         "parameters": [
           {
@@ -8343,7 +8343,7 @@
     "/v2/videos/tracks.kml": {
       "get": {
         "summary": "Get KML Tracks for All Videos",
-        "description": "",
+        "description": "Get GPS tracks for videos in KML format.",
         "operationId": "videos-get-all-tracks-kml",
         "parameters": [
           {
@@ -8383,7 +8383,7 @@
     "/v2/videos/tracks.gpx": {
       "get": {
         "summary": "Get GPX Tracks for All Videos",
-        "description": "",
+        "description": "Get GPS tracks for videos in GPX format.",
         "operationId": "videos-get-all-tracks-gpx",
         "parameters": [
           {
@@ -8423,7 +8423,7 @@
     "/v2/videos/{video_id}.mp4": {
       "get": {
         "summary": "Get Original Video File",
-        "description": "",
+        "description": "Download the original video file.",
         "operationId": "videos-get-original-file",
         "parameters": [
           {
@@ -8472,7 +8472,7 @@
     "/v2/videos/{video_id}.json": {
       "get": {
         "summary": "Get Video Metadata",
-        "description": "",
+        "description": "Get metadata for a specific video.",
         "operationId": "videos-get-single-metadata",
         "parameters": [
           {
@@ -8521,7 +8521,7 @@
     "/v2/videos/{video_id}/track.geojson": {
       "get": {
         "summary": "Get GeoJSON Video Track",
-        "description": "",
+        "description": "Get the GPS track for a video in GeoJSON format.",
         "operationId": "videos-get-single-track-geojson",
         "parameters": [
           {
@@ -8578,7 +8578,7 @@
     "/v2/videos/{video_id}/track.kml": {
       "get": {
         "summary": "Get KML Video Track",
-        "description": "",
+        "description": "Get the GPS track for a video in KML format.",
         "operationId": "videos-get-single-track-kml",
         "parameters": [
           {
@@ -8627,7 +8627,7 @@
     "/v2/videos/{video_id}/track.gpx": {
       "get": {
         "summary": "Get GPX Video Track",
-        "description": "",
+        "description": "Get the GPS track for a video in GPX format.",
         "operationId": "videos-get-single-track-gpx",
         "parameters": [
           {
@@ -8676,7 +8676,7 @@
     "/v2/videos/{video_id}/track.json": {
       "get": {
         "summary": "Get JSON Video Track",
-        "description": "",
+        "description": "Get the GPS track for a video in JSON format.",
         "operationId": "videos-get-single-track-json",
         "parameters": [
           {
@@ -8725,7 +8725,7 @@
     "/v2/videos/{video_id}/small.mp4": {
       "get": {
         "summary": "Get Small Video File",
-        "description": "",
+        "description": "Download the small variant of the video.",
         "operationId": "videos-get-small-file",
         "parameters": [
           {
@@ -8774,7 +8774,7 @@
     "/v2/videos/{video_id}/medium.mp4": {
       "get": {
         "summary": "Get Medium Video File",
-        "description": "",
+        "description": "Download a medium variant of the video.",
         "operationId": "videos-get-medium-file",
         "parameters": [
           {
@@ -8823,7 +8823,7 @@
     "/v2/videos/{video_id}/thumbnail_small.jpg": {
       "get": {
         "summary": "Get Small Video Thumbnail",
-        "description": "",
+        "description": "Download the small thumbnail variant for a video.",
         "operationId": "videos-get-thumbnail-small",
         "parameters": [
           {
@@ -8872,7 +8872,7 @@
     "/v2/videos/{video_id}/thumbnail_small_square.jpg": {
       "get": {
         "summary": "Get Small Square Video Thumbnail",
-        "description": "",
+        "description": "Download a small square thumbnail variant for a video.",
         "operationId": "videos-get-thumbnail-small-square",
         "parameters": [
           {
@@ -8921,7 +8921,7 @@
     "/v2/videos/{video_id}/thumbnail_medium.jpg": {
       "get": {
         "summary": "Get Medium Video Thumbnail",
-        "description": "",
+        "description": "Download a medium thumbnail variant for a video.",
         "operationId": "videos-get-thumbnail-medium",
         "parameters": [
           {
@@ -8970,7 +8970,7 @@
     "/v2/videos/{video_id}/thumbnail_medium_square.jpg": {
       "get": {
         "summary": "Get Medium Square Video Thumbnail",
-        "description": "",
+        "description": "Download a medium square thumbnail variant for a video.",
         "operationId": "videos-get-thumbnail-medium-square",
         "parameters": [
           {
@@ -9019,7 +9019,7 @@
     "/v2/videos/{video_id}/thumbnail_large.jpg": {
       "get": {
         "summary": "Get Large Video Thumbnail",
-        "description": "",
+        "description": "Download a large thumbnail variant for a video.",
         "operationId": "videos-get-thumbnail-large",
         "parameters": [
           {
@@ -9068,7 +9068,7 @@
     "/v2/videos/{video_id}/thumbnail_large_square.jpg": {
       "get": {
         "summary": "Get Large Square Video Thumbnail",
-        "description": "",
+        "description": "Download a large square thumbnail variant for a video.",
         "operationId": "videos-get-thumbnail-large-square",
         "parameters": [
           {
@@ -9117,7 +9117,7 @@
     "/v2/videos/{video_id}/thumbnail_huge.jpg": {
       "get": {
         "summary": "Get Huge Video Thumbnail",
-        "description": "",
+        "description": "Download a huge thumbnail variant for a video.",
         "operationId": "videos-get-thumbnail-huge",
         "parameters": [
           {
@@ -9166,7 +9166,7 @@
     "/v2/videos/{video_id}/thumbnail_huge_square.jpg": {
       "get": {
         "summary": "Get Huge Square Video Thumbnail",
-        "description": "",
+        "description": "Download a huge square thumbnail variant for a video.",
         "operationId": "videos-get-thumbnail-huge-square",
         "parameters": [
           {
@@ -9215,7 +9215,7 @@
     "/v2/videos/upload.json": {
       "post": {
         "summary": "Upload Video",
-        "description": "Upload video with optional track file",
+        "description": "Upload video to be associated with a record.",
         "operationId": "videos-upload",
         "parameters": [
           {
@@ -9293,7 +9293,7 @@
     "/v2/audio.json": {
       "get": {
         "summary": "Get All Audio",
-        "description": "",
+        "description": "Get metadata for a list of audio files.",
         "operationId": "audio-get-all",
         "parameters": [
           {
@@ -9401,7 +9401,7 @@
     "/v2/audio/tracks.geojson": {
       "get": {
         "summary": "Get GeoJSON Tracks for All Audio",
-        "description": "",
+        "description": "Get GPS tracks for audio files in GeoJSON format.",
         "operationId": "audio-get-all-tracks-geojson",
         "parameters": [
           {
@@ -9449,7 +9449,7 @@
     "/v2/audio/tracks.kml": {
       "get": {
         "summary": "Get KML Tracks for All Audio",
-        "description": "",
+        "description": "Get GPS tracks for audio files in KML format.",
         "operationId": "audio-get-all-tracks-kml",
         "parameters": [
           {
@@ -9489,7 +9489,7 @@
     "/v2/audio/tracks.gpx": {
       "get": {
         "summary": "Get GPX Tracks for All Audio",
-        "description": "",
+        "description": "Get GPS tracks for audio files in GPX format.",
         "operationId": "audio-get-all-tracks-gpx",
         "parameters": [
           {
@@ -9529,7 +9529,7 @@
     "/v2/audio/tracks.json": {
       "get": {
         "summary": "Get JSON Tracks for All Audio",
-        "description": "",
+        "description": "Get GPS tracks for audio files in JSON format.",
         "operationId": "audio-get-all-tracks-json",
         "parameters": [
           {
@@ -9569,7 +9569,7 @@
     "/v2/audio/{audio_id}.mp4": {
       "get": {
         "summary": "Get Original Audio File",
-        "description": "",
+        "description": "Download the original audio file.",
         "operationId": "audio-get-original-file",
         "parameters": [
           {
@@ -9618,7 +9618,7 @@
     "/v2/audio/{audio_id}.json": {
       "get": {
         "summary": "Get Audio Metadata",
-        "description": "",
+        "description": "Get metadata for a audio file.",
         "operationId": "audio-get-single-metadata",
         "parameters": [
           {
@@ -9667,7 +9667,7 @@
     "/v2/audio/{audio_id}/track.geojson": {
       "get": {
         "summary": "Get GeoJSON Audio Track",
-        "description": "",
+        "description": "Get the GPS track for an audio file in GeoJSON format.",
         "operationId": "audio-get-single-track-geojson",
         "parameters": [
           {
@@ -9724,7 +9724,7 @@
     "/v2/audio/{audio_id}/track.kml": {
       "get": {
         "summary": "Get KML Audio Track",
-        "description": "",
+        "description": "Get the GPS track for an audio file in KML format.",
         "operationId": "audio-get-single-track-kml",
         "parameters": [
           {
@@ -9773,7 +9773,7 @@
     "/v2/audio/{audio_id}/track.gpx": {
       "get": {
         "summary": "Get GPX Audio Track",
-        "description": "",
+        "description": "Get the GPS track for an audio file in GPX format.",
         "operationId": "audio-get-single-track-gpx",
         "parameters": [
           {
@@ -9822,7 +9822,7 @@
     "/v2/audio/{audio_id}/track.json": {
       "get": {
         "summary": "Get JSON Audio Track",
-        "description": "",
+        "description": "Get the GPS track for an audio file in JSON format.",
         "operationId": "audio-get-single-track-json",
         "parameters": [
           {
@@ -9871,7 +9871,7 @@
     "/v2/audio/upload.json": {
       "post": {
         "summary": "Upload Audio",
-        "description": "Upload audio with optional track file",
+        "description": "Upload audio with optional track file.",
         "operationId": "audio-upload",
         "parameters": [
           {
@@ -9949,7 +9949,7 @@
     "/v2/attachments": {
       "get": {
         "summary": "Get All Attachments",
-        "description": "",
+        "description": "Get a list of attachments.",
         "operationId": "get-all-attachments",
         "parameters": [
           {
@@ -10112,7 +10112,7 @@
     "/v2/attachments/{attachment_id}": {
       "get": {
         "summary": "Get Single Attachment",
-        "description": "",
+        "description": "Get metadata for an attachment.",
         "operationId": "get-single-attachment",
         "parameters": [
           {
@@ -11764,7 +11764,7 @@
     "/v2/batch/{batch_id}/start.json": {
       "post": {
         "summary": "Start Batch",
-        "description": "Start your pending batch",
+        "description": "Start your pending batch.",
         "operationId": "start-batch",
         "parameters": [
           {
@@ -12041,7 +12041,7 @@
     "/v2/reports.json": {
       "post": {
         "summary": "Create Report",
-        "description": "Generate a new report for a specific record, optionally using a report template",
+        "description": "Generate a new report for a specific record, optionally using a report template.",
         "operationId": "reports-create",
         "requestBody": {
           "required": true,
@@ -12129,7 +12129,7 @@
     "/v2/reports/{report_id}.pdf": {
       "get": {
         "summary": "Get Report File",
-        "description": "Download the generated PDF report file",
+        "description": "Download the generated PDF report file.",
         "operationId": "reports-file",
         "parameters": [
           {
