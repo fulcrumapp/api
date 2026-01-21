@@ -2764,7 +2764,7 @@
     "/v2/query": {
       "get": {
         "summary": "GET Query",
-        "description": "Make a Query service request using HTTP GET.",
+        "description": "Make a Query API request using HTTP GET.",
         "operationId": "query-get",
         "parameters": [
           {
@@ -2899,7 +2899,7 @@
       },
       "post": {
         "summary": "POST Query",
-        "description": "Make a Query service request using HTTP POST.",
+        "description": "Make a Query API request using HTTP POST.",
         "operationId": "query-post",
         "parameters": [
           {
