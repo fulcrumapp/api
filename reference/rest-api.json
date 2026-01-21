@@ -2764,7 +2764,7 @@
     "/v2/query": {
       "get": {
         "summary": "GET Query",
-        "description": "",
+        "description": "Make a Query service request using HTTP GET.",
         "operationId": "query-get",
         "parameters": [
           {
@@ -2899,7 +2899,7 @@
       },
       "post": {
         "summary": "POST Query",
-        "description": "",
+        "description": "Make a Query service request using HTTP POST.",
         "operationId": "query-post",
         "parameters": [
           {
@@ -9618,7 +9618,7 @@
     "/v2/audio/{audio_id}.json": {
       "get": {
         "summary": "Get Audio Metadata",
-        "description": "Get metadata for a audio file.",
+        "description": "Get metadata for an audio file.",
         "operationId": "audio-get-single-metadata",
         "parameters": [
           {
@@ -10581,7 +10581,7 @@
     "/v2/webhooks.json": {
       "get": {
         "summary": "Get All Webhooks",
-        "description": "",
+        "description": "Get a list of webhooks.",
         "operationId": "webhooks-get-all",
         "parameters": [
           {
@@ -10727,7 +10727,7 @@
       },
       "post": {
         "summary": "Create Webhook",
-        "description": "",
+        "description": "Create a webhook.",
         "operationId": "webhooks-create",
         "parameters": [
           {
@@ -10913,7 +10913,7 @@
     "/v2/webhooks/{webhook_id}.json": {
       "get": {
         "summary": "Get Single Webhook",
-        "description": "",
+        "description": "Get a webhook.",
         "operationId": "webhooks-get-single",
         "parameters": [
           {
@@ -10960,7 +10960,7 @@
       },
       "put": {
         "summary": "Update Webhook",
-        "description": "",
+        "description": "Update a webhook.",
         "operationId": "webhooks-update",
         "parameters": [
           {
@@ -11024,7 +11024,7 @@
       },
       "delete": {
         "summary": "Delete Webhook",
-        "description": "",
+        "description": "Delete a webhook.",
         "operationId": "webhooks-delete",
         "parameters": [
           {
