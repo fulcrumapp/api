@@ -2806,13 +2806,13 @@
     "/v2/query": {
       "get": {
         "summary": "GET Query",
-        "description": "Make a Query API request using HTTP GET.",
+        "description": "Execute a Query API request using HTTP GET.",
         "operationId": "query-get",
         "parameters": [
           {
             "name": "q",
             "in": "query",
-            "description": "The SQL query",
+            "description": "The SQL query to execute.",
             "required": true,
             "schema": {
               "type": "string"
@@ -2881,7 +2881,7 @@
           {
             "name": "page",
             "in": "query",
-            "description": "The page number requested",
+            "description": "The page number requested.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -2891,7 +2891,7 @@
           {
             "name": "per_page",
             "in": "query",
-            "description": "Number of items per page",
+            "description": "The number of items to return per page.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -2941,13 +2941,13 @@
       },
       "post": {
         "summary": "POST Query",
-        "description": "Make a Query API request using HTTP POST.",
+        "description": "Execute a Query API request using HTTP POST.",
         "operationId": "query-post",
         "parameters": [
           {
             "name": "page",
             "in": "query",
-            "description": "The page number requested",
+            "description": "The page number requested.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -2957,7 +2957,7 @@
           {
             "name": "per_page",
             "in": "query",
-            "description": "Number of items per page",
+            "description": "The number of items to return per page.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -4770,8 +4770,8 @@
     },
     "/v2/records.json": {
       "get": {
-        "summary": "Get All Records",
-        "description": "Get a list of records.",
+        "summary": "Get a list of records",
+        "description": "Gets a list of records from your organization.",
         "operationId": "records-get-all",
         "parameters": [
           {
@@ -5176,8 +5176,8 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Record",
-        "description": "Create a record.",
+        "summary": "Create a new record",
+        "description": "Creates a new record in the specified form. You must provide the record data including form values, location information, and any associated metadata.",
         "operationId": "records-create",
         "parameters": [
           {
@@ -5311,14 +5311,14 @@
     },
     "/v2/records/{record_id}.json": {
       "get": {
-        "summary": "Get Single Record",
-        "description": "Get a record.",
+        "summary": "Retrieve a specific record",
+        "description": "Retrieves detailed information about a specific record by its ID. This includes all form field values, location data, timestamps, and associated metadata.",
         "operationId": "records-get-single",
         "parameters": [
           {
             "name": "record_id",
             "in": "path",
-            "description": "Record ID",
+            "description": "The unique identifier of the record to retrieve.",
             "schema": {
               "type": "string"
             },
@@ -5444,7 +5444,7 @@
         "deprecated": false
       },
       "put": {
-        "summary": "Update Record",
+        "summary": "Update an existing record",
         "description": "Update a record.",
         "operationId": "records-update",
         "parameters": [
@@ -5526,8 +5526,8 @@
         "deprecated": false
       },
       "patch": {
-        "summary": "Partially Update Record",
-        "description": "Partially update a record.",
+        "summary": "Partially update a record",
+        "description": "Updates specific fields of an existing record without requiring the complete record object. Only the fields included in the request body will be modified, while all other fields remain unchanged. This is useful for updating individual field values or metadata.",
         "operationId": "records-partial-update",
         "parameters": [
           {
@@ -5608,14 +5608,14 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Record",
-        "description": "Delete a record.",
+        "summary": "Delete a record",
+        "description": "Deletes a record from a form in your organization.",
         "operationId": "records-delete",
         "parameters": [
           {
             "name": "record_id",
             "in": "path",
-            "description": "Record ID",
+            "description": "The unique identifier of the record to delete.",
             "schema": {
               "type": "string"
             },
@@ -5675,14 +5675,14 @@
     },
     "/v2/records/{record_id}/history.json": {
       "get": {
-        "summary": "Get Record History",
-        "description": "Get a record's history.",
+        "summary": "Retrieve a specific record's history",
+        "description": "Retrieves the complete version history of a specific record.",
         "operationId": "records-get-history",
         "parameters": [
           {
             "name": "record_id",
             "in": "path",
-            "description": "Record ID",
+            "description": "The unique identifier of the record whose history you want to retrieve.",
             "schema": {
               "type": "string"
             },
@@ -5724,8 +5724,8 @@
     },
     "/v2/records/history.json": {
       "get": {
-        "summary": "Get All Records History",
-        "description": "This endpoint can help you get records from a specific changeset, or retrieve records for a deleted form.",
+        "summary": "List all record history",
+        "description": "Retrieves historical record data from your organization. This endpoint is useful for accessing records from a specific changeset or retrieving records that belonged to a deleted form.",
         "operationId": "records-get-all-history",
         "parameters": [
           {
@@ -5739,6 +5739,7 @@
           {
             "name": "changeset_id",
             "in": "query",
+            "description": "Filters records to only those associated with the specified changeset ID.",
             "schema": {
               "type": "string"
             }
@@ -5746,6 +5747,7 @@
           {
             "name": "deleted_form_id",
             "in": "query",
+            "description": "Filters records to only those that belonged to a form that has been deleted. Use this to retrieve data from removed forms.",
             "schema": {
               "type": "string"
             }
@@ -6893,7 +6895,7 @@
     "/v2/photos.json": {
       "get": {
         "summary": "Get All Photos",
-        "description": "Get metadata for a list of photos.",
+        "description": "Retrieve metadata for a list of photos.",
         "operationId": "photos-get-all-metadata",
         "parameters": [
           {
@@ -6923,7 +6925,7 @@
           {
             "name": "processed",
             "in": "query",
-            "description": "Photo has been completely processed.",
+            "description": "Filter for photos that have been completely processed.",
             "schema": {
               "type": "boolean"
             }
@@ -6931,7 +6933,7 @@
           {
             "name": "stored",
             "in": "query",
-            "description": "Photo has been completely stored.",
+            "description": "Filter for photos that have been completely stored.",
             "schema": {
               "type": "boolean"
             }
@@ -6939,7 +6941,7 @@
           {
             "name": "uploaded",
             "in": "query",
-            "description": "Photo has been completely uploaded.",
+            "description": "Filter for photos that have been completely uploaded.",
             "schema": {
               "type": "boolean"
             }
@@ -6947,7 +6949,7 @@
           {
             "name": "page",
             "in": "query",
-            "description": "The page number requested",
+            "description": "The page number requested.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -6957,7 +6959,7 @@
           {
             "name": "per_page",
             "in": "query",
-            "description": "Number of items per page",
+            "description": "The number of items to return per page.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -7077,7 +7079,7 @@
     "/v2/photos/{photo_id}.json": {
       "get": {
         "summary": "Get Single Photo Metadata",
-        "description": "Get metadata for a photo.",
+        "description": "Retrieve metadata for a single photo.",
         "operationId": "photos-get-single-metadata",
         "parameters": [
           {
@@ -7091,7 +7093,7 @@
           {
             "name": "photo_id",
             "in": "path",
-            "description": "Photo ID",
+            "description": "The unique identifier of the photo.",
             "schema": {
               "type": "string"
             },
@@ -7126,7 +7128,7 @@
     "/v2/photos/{photo_id}/thumbnail.json": {
       "get": {
         "summary": "Photo Thumbnail Metadata",
-        "description": "Get metadata for a photo's thumbnail variant.",
+        "description": "Retrieve metadata for a photo's thumbnail variant.",
         "operationId": "photos-thumbnail-metadata",
         "parameters": [
           {
@@ -7140,7 +7142,7 @@
           {
             "name": "photo_id",
             "in": "path",
-            "description": "Photo ID",
+            "description": "The unique identifier of the photo.",
             "schema": {
               "type": "string"
             },
@@ -7175,7 +7177,7 @@
     "/v2/photos/{photo_id}/large.json": {
       "get": {
         "summary": "Photo Large Metadata",
-        "description": "Get metadata for a photo's large variant.",
+        "description": "Retrieve metadata for a photo's large variant.",
         "operationId": "photos-large-metadata",
         "parameters": [
           {
@@ -7189,7 +7191,7 @@
           {
             "name": "photo_id",
             "in": "path",
-            "description": "Photo ID",
+            "description": "The unique identifier of the photo.",
             "schema": {
               "type": "string"
             },
@@ -7238,7 +7240,7 @@
           {
             "name": "photo_id",
             "in": "path",
-            "description": "Photo ID",
+            "description": "The unique identifier of the photo.",
             "schema": {
               "type": "string"
             },
@@ -7287,7 +7289,7 @@
           {
             "name": "photo_id",
             "in": "path",
-            "description": "Photo ID",
+            "description": "The unique identifier of the photo.",
             "schema": {
               "type": "string"
             },
@@ -7336,7 +7338,7 @@
           {
             "name": "photo_id",
             "in": "path",
-            "description": "Photo ID",
+            "description": "The unique identifier of the photo.",
             "schema": {
               "type": "string"
             },
@@ -7849,7 +7851,7 @@
     "/v2/signatures.json": {
       "get": {
         "summary": "Get All Signatures",
-        "description": "Get a list of signatures.",
+        "description": "Retrieve metadata for a list of signatures.",
         "operationId": "signatures-get-all",
         "parameters": [
           {
@@ -7879,7 +7881,7 @@
           {
             "name": "processed",
             "in": "query",
-            "description": "Signature has been completely processed.",
+            "description": "Filter for signatures that have been completely processed.",
             "schema": {
               "type": "boolean"
             }
@@ -7887,7 +7889,7 @@
           {
             "name": "stored",
             "in": "query",
-            "description": "Signature has been completely stored.",
+            "description": "Filter for signatures that have been completely stored.",
             "schema": {
               "type": "boolean"
             }
@@ -7895,7 +7897,7 @@
           {
             "name": "uploaded",
             "in": "query",
-            "description": "Signature has been completely uploaded.",
+            "description": "Filter for signatures that have been completely uploaded.",
             "schema": {
               "type": "boolean"
             }
@@ -7903,7 +7905,7 @@
           {
             "name": "page",
             "in": "query",
-            "description": "The page number requested",
+            "description": "The page number requested.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -7913,7 +7915,7 @@
           {
             "name": "per_page",
             "in": "query",
-            "description": "Number of items per page",
+            "description": "The number of items to return per page.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -8033,7 +8035,7 @@
     "/v2/signatures/{signature_id}.json": {
       "get": {
         "summary": "Get Single Signature Metadata",
-        "description": "Get metadata for a signature.",
+        "description": "Retrieve metadata for a single signature.",
         "operationId": "signatures-get-single-metadata",
         "parameters": [
           {
@@ -8047,7 +8049,7 @@
           {
             "name": "signature_id",
             "in": "path",
-            "description": "Signature ID",
+            "description": "The unique identifier of the signature.",
             "schema": {
               "type": "string"
             },
@@ -8082,7 +8084,7 @@
     "/v2/signatures/{signature_id}/thumbnail.json": {
       "get": {
         "summary": "Signature Thumbnail Metadata",
-        "description": "Get metadata for a signature's thumbnail variant.",
+        "description": "Retrieve metadata for a signature's thumbnail variant.",
         "operationId": "signatures-get-thumbnail-metadata",
         "parameters": [
           {
@@ -8096,7 +8098,7 @@
           {
             "name": "signature_id",
             "in": "path",
-            "description": "Signature ID",
+            "description": "The unique identifier of the signature.",
             "schema": {
               "type": "string"
             },
@@ -8145,7 +8147,7 @@
           {
             "name": "signature_id",
             "in": "path",
-            "description": "Signature ID",
+            "description": "The unique identifier of the signature.",
             "schema": {
               "type": "string"
             },
@@ -8194,7 +8196,7 @@
           {
             "name": "signature_id",
             "in": "path",
-            "description": "Signature ID",
+            "description": "The unique identifier of the signature.",
             "schema": {
               "type": "string"
             },
@@ -8229,7 +8231,7 @@
     "/v2/videos.json": {
       "get": {
         "summary": "Get All Videos",
-        "description": "Get metadata for a list of videos.",
+        "description": "Retrieve metadata for a list of videos.",
         "operationId": "videos-get-all",
         "parameters": [
           {
@@ -8259,7 +8261,7 @@
           {
             "name": "processed",
             "in": "query",
-            "description": "Video has been completely processed.",
+            "description": "Filter for videos that have been completely processed.",
             "schema": {
               "type": "boolean"
             }
@@ -8267,7 +8269,7 @@
           {
             "name": "stored",
             "in": "query",
-            "description": "Video has been completely stored.",
+            "description": "Filter for videos that have been completely stored.",
             "schema": {
               "type": "boolean"
             }
@@ -8275,7 +8277,7 @@
           {
             "name": "uploaded",
             "in": "query",
-            "description": "Video has been completely uploaded.",
+            "description": "Filter for videos that have been completely uploaded.",
             "schema": {
               "type": "boolean"
             }
@@ -8283,7 +8285,7 @@
           {
             "name": "page",
             "in": "query",
-            "description": "The page number requested",
+            "description": "The page number requested.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -8293,7 +8295,7 @@
           {
             "name": "per_page",
             "in": "query",
-            "description": "Number of items per page",
+            "description": "The number of items to return per page.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -8479,7 +8481,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -8514,7 +8516,7 @@
     "/v2/videos/{video_id}.json": {
       "get": {
         "summary": "Get Video Metadata",
-        "description": "Get metadata for a specific video.",
+        "description": "Retrieve metadata for a specific video.",
         "operationId": "videos-get-single-metadata",
         "parameters": [
           {
@@ -8528,7 +8530,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -8577,7 +8579,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -8634,7 +8636,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -8683,7 +8685,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -8732,7 +8734,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -8781,7 +8783,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -8830,7 +8832,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -8879,7 +8881,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -8928,7 +8930,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -8977,7 +8979,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -9026,7 +9028,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -9075,7 +9077,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -9124,7 +9126,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -9173,7 +9175,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -9222,7 +9224,7 @@
           {
             "name": "video_id",
             "in": "path",
-            "description": "Video ID",
+            "description": "The unique identifier of the video.",
             "schema": {
               "type": "string"
             },
@@ -9335,13 +9337,13 @@
     "/v2/audio.json": {
       "get": {
         "summary": "Get All Audio",
-        "description": "Get metadata for a list of audio files.",
+        "description": "Retrieve metadata for a list of audio files.",
         "operationId": "audio-get-all",
         "parameters": [
           {
             "name": "record_id",
             "in": "query",
-            "description": "The ID of the record with which the video is associated.",
+            "description": "The ID of the record with which the audio file is associated.",
             "schema": {
               "type": "string"
             }
@@ -9349,7 +9351,7 @@
           {
             "name": "form_id",
             "in": "query",
-            "description": "The ID of the form with which the video is associated. Leaving this blank will query against all of your videos.",
+            "description": "The ID of the form with which the audio file is associated. Leaving this blank will query against all of your audio files.",
             "schema": {
               "type": "string"
             }
@@ -9357,7 +9359,7 @@
           {
             "name": "newest_first",
             "in": "query",
-            "description": "If present, videos will be sorted by updated_at date.",
+            "description": "If present, audio files will be sorted by updated_at date.",
             "schema": {
               "type": "boolean"
             }
@@ -9365,7 +9367,7 @@
           {
             "name": "processed",
             "in": "query",
-            "description": "Video has been completely processed.",
+            "description": "Filter for audio files that have been completely processed.",
             "schema": {
               "type": "boolean"
             }
@@ -9373,7 +9375,7 @@
           {
             "name": "stored",
             "in": "query",
-            "description": "Video has been completely stored.",
+            "description": "Filter for audio files that have been completely stored.",
             "schema": {
               "type": "boolean"
             }
@@ -9381,7 +9383,7 @@
           {
             "name": "uploaded",
             "in": "query",
-            "description": "Video has been completely uploaded.",
+            "description": "Filter for audio files that have been completely uploaded.",
             "schema": {
               "type": "boolean"
             }
@@ -9389,7 +9391,7 @@
           {
             "name": "page",
             "in": "query",
-            "description": "The page number requested",
+            "description": "The page number requested.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -9399,7 +9401,7 @@
           {
             "name": "per_page",
             "in": "query",
-            "description": "Number of items per page",
+            "description": "The number of items to return per page.",
             "schema": {
               "type": "integer",
               "format": "int32",
@@ -9625,7 +9627,7 @@
           {
             "name": "audio_id",
             "in": "path",
-            "description": "Audio ID",
+            "description": "The unique identifier of the audio file.",
             "schema": {
               "type": "string"
             },
@@ -9660,7 +9662,7 @@
     "/v2/audio/{audio_id}.json": {
       "get": {
         "summary": "Get Audio Metadata",
-        "description": "Get metadata for an audio file.",
+        "description": "Retrieve metadata for a single audio file.",
         "operationId": "audio-get-single-metadata",
         "parameters": [
           {
@@ -9674,7 +9676,7 @@
           {
             "name": "audio_id",
             "in": "path",
-            "description": "Audio ID",
+            "description": "The unique identifier of the audio file.",
             "schema": {
               "type": "string"
             },
@@ -9723,7 +9725,7 @@
           {
             "name": "audio_id",
             "in": "path",
-            "description": "Audio ID",
+            "description": "The unique identifier of the audio file.",
             "schema": {
               "type": "string"
             },
@@ -9780,7 +9782,7 @@
           {
             "name": "audio_id",
             "in": "path",
-            "description": "Audio ID",
+            "description": "The unique identifier of the audio file.",
             "schema": {
               "type": "string"
             },
@@ -9829,7 +9831,7 @@
           {
             "name": "audio_id",
             "in": "path",
-            "description": "Audio ID",
+            "description": "The unique identifier of the audio file.",
             "schema": {
               "type": "string"
             },
@@ -9878,7 +9880,7 @@
           {
             "name": "audio_id",
             "in": "path",
-            "description": "Audio ID",
+            "description": "The unique identifier of the audio file.",
             "schema": {
               "type": "string"
             },
@@ -9991,7 +9993,7 @@
     "/v2/attachments": {
       "get": {
         "summary": "Get All Attachments",
-        "description": "Get a list of attachments.",
+        "description": "Retrieve a list of attachments.",
         "operationId": "get-all-attachments",
         "parameters": [
           {
@@ -10154,13 +10156,13 @@
     "/v2/attachments/{attachment_id}": {
       "get": {
         "summary": "Get Single Attachment",
-        "description": "Get metadata for an attachment.",
+        "description": "Retrieve metadata for a single attachment.",
         "operationId": "get-single-attachment",
         "parameters": [
           {
             "name": "attachment_id",
             "in": "path",
-            "description": "The attachment id.",
+            "description": "The unique identifier of the attachment.",
             "schema": {
               "type": "string"
             },
@@ -12177,7 +12179,7 @@
           {
             "name": "report_id",
             "in": "path",
-            "description": "Report ID",
+            "description": "The unique identifier of the report.",
             "schema": {
               "type": "string",
               "format": "uuid"
