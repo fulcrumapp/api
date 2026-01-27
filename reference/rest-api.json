@@ -10027,13 +10027,13 @@
             "description": "The field to sort results by.",
             "schema": {
               "type": "string",
-              "enum": ["filename", "file_size", "uploaded_at"]
+              "enum": ["name", "file_size", "uploaded_at"]
             }
           },
           {
-            "name": "order",
+            "name": "sort_direction",
             "in": "query",
-            "description": "The sort order for results.",
+            "description": "The sort direction(asc, desc). Default is asc.",
             "schema": {
               "type": "string",
               "enum": ["asc", "desc"],
