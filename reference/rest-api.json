@@ -299,54 +299,10 @@
             "description": "Changeset ID"
           },
           "created_location": {
-            "type": "object",
-            "nullable": true,
-            "description": "Location where record was created",
-            "properties": {
-              "latitude": {
-                "type": "number",
-                "format": "double"
-              },
-              "longitude": {
-                "type": "number",
-                "format": "double"
-              },
-              "altitude": {
-                "type": "number",
-                "nullable": true,
-                "format": "double"
-              },
-              "horizontal_accuracy": {
-                "type": "number",
-                "nullable": true,
-                "format": "double"
-              }
-            }
+            "$ref": "#/components/schemas/AuditLocation"
           },
           "updated_location": {
-            "type": "object",
-            "nullable": true,
-            "description": "Location where record was last updated",
-            "properties": {
-              "latitude": {
-                "type": "number",
-                "format": "double"
-              },
-              "longitude": {
-                "type": "number",
-                "format": "double"
-              },
-              "altitude": {
-                "type": "number",
-                "nullable": true,
-                "format": "double"
-              },
-              "horizontal_accuracy": {
-                "type": "number",
-                "nullable": true,
-                "format": "double"
-              }
-            }
+            "$ref": "#/components/schemas/AuditLocation"
           },
           "created_duration": {
             "type": "integer",
@@ -2722,107 +2678,6 @@
             }
           }
         }
-      },
-      "records_schema": {
-        "$schema": "http://json-schema.org/draft-07/schema#",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "pattern": "^[0-9a-f]{24}$"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "client_created_at": {
-            "type": "string",
-            "nullable": true,
-            "format": "date-time"
-          },
-          "client_updated_at": {
-            "type": "string",
-            "nullable": true,
-            "format": "date-time"
-          },
-          "created_by": {
-            "type": "string"
-          },
-          "created_by_id": {
-            "type": "string",
-            "pattern": "^[0-9a-f]{24}$"
-          },
-          "updated_by": {
-            "type": "string"
-          },
-          "updated_by_id": {
-            "type": "string",
-            "pattern": "^[0-9a-f]{24}$"
-          },
-          "created_location": {
-            "type": "object",
-            "nullable": true
-          },
-          "updated_location": {
-            "type": "object",
-            "nullable": true
-          },
-          "created_duration": {
-            "type": "number",
-            "nullable": true
-          },
-          "updated_duration": {
-            "type": "number",
-            "nullable": true
-          },
-          "edited_duration": {
-            "type": "number",
-            "nullable": true
-          },
-          "form_id": {
-            "type": "string",
-            "pattern": "^[0-9a-f]{24}$"
-          },
-          "project_id": {
-            "type": "string",
-            "nullable": true,
-            "pattern": "^[0-9a-f]{24}$"
-          },
-          "record_series_id": {
-            "type": "string",
-            "nullable": true,
-            "pattern": "^[0-9a-f]{24}$"
-          },
-          "assigned_to": {
-            "type": "string",
-            "nullable": true
-          },
-          "assigned_to_id": {
-            "type": "string",
-            "nullable": true,
-            "pattern": "^[0-9a-f]{24}$"
-          },
-          "form_values": {
-            "type": "object",
-            "additionalProperties": true,
-            "description": "Field values keyed by field key - values can be strings, numbers, booleans, objects, or arrays depending on field type"
-          }
-        },
-        "required": [
-          "id",
-          "created_at",
-          "updated_at",
-          "created_by",
-          "created_by_id",
-          "updated_by",
-          "updated_by_id",
-          "form_id",
-          "form_values"
-        ]
       }
     }
   },
