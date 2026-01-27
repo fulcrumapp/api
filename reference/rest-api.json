@@ -445,12 +445,10 @@
             "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
           },
           "created_location": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/AuditLocation"
           },
           "updated_location": {
-            "type": "string",
-            "nullable": true
+            "$ref": "#/components/schemas/AuditLocation"
           },
           "created_duration": {
             "type": "number",
@@ -525,6 +523,37 @@
             "nullable": true
           }
         }
+      },
+      "AuditLocation": {
+        "type": "object",
+        "nullable": true,
+        "properties": {
+          "latitude": {
+            "type": "number",
+            "format": "double",
+            "nullable": true,
+            "description": "The latitude coordinate."
+          },
+          "longitude": {
+            "type": "number",
+            "format": "double",
+            "nullable": true,
+            "description": "The longitude coordinate."
+          },
+          "altitude": {
+            "type": "number",
+            "format": "double",
+            "nullable": true,
+            "description": "The altitude in meters."
+          },
+          "horizontal_accuracy": {
+            "type": "number",
+            "format": "double",
+            "nullable": true,
+            "description": "The horizontal accuracy in meters."
+          }
+        },
+        "description": "Location metadata captured at creation or update time."
       },
       "AttachmentCreateRequest": {
         "type": "object",
