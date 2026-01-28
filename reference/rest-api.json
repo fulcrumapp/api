@@ -9926,6 +9926,25 @@
             }
           },
           {
+            "name": "sort",
+            "in": "query",
+            "description": "The field to sort results by.",
+            "schema": {
+              "type": "string",
+              "enum": ["name", "file_size", "uploaded_at"]
+            }
+          },
+          {
+            "name": "sort_direction",
+            "in": "query",
+            "description": "The sort direction(asc, desc). Default is asc.",
+            "schema": {
+              "type": "string",
+              "enum": ["asc", "desc"],
+              "default": "asc"
+            }
+          },
+          {
             "name": "x-apitoken",
             "in": "header",
             "description": "API Token. Required to authenticate the request.",
