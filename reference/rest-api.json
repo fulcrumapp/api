@@ -2824,7 +2824,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "POST Query",
+        "summary": "Make a Query POST request",
         "description": "Execute a Query API request using HTTP POST.",
         "operationId": "query-post",
         "parameters": [
@@ -2953,7 +2953,7 @@
     },
     "/v2/authorizations.json": {
       "get": {
-        "summary": "Get All Authorizations",
+        "summary": "Get a list of authorizations",
         "description": "",
         "operationId": "authorizations-get-all",
         "parameters": [
@@ -3011,7 +3011,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Authorization",
+        "summary": "Create an authorization",
         "description": "",
         "operationId": "authorizations-create",
         "parameters": [
@@ -3068,7 +3068,7 @@
     },
     "/v2/authorizations/{authorization_id}.json": {
       "get": {
-        "summary": "Get Single Authorization",
+        "summary": "Get an authorization",
         "description": "",
         "operationId": "authorizations-get-single",
         "parameters": [
@@ -3179,7 +3179,7 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Authorization",
+        "summary": "Delete an authorization",
         "description": "",
         "operationId": "authorizations-delete",
         "parameters": [
@@ -3228,7 +3228,7 @@
     },
     "/v2/roles.json": {
       "get": {
-        "summary": "Get All Roles",
+        "summary": "Get a list of roles",
         "description": "",
         "operationId": "roles-get-all",
         "parameters": [
@@ -3305,7 +3305,7 @@
     },
     "/v2/memberships.json": {
       "get": {
-        "summary": "Get All Memberships",
+        "summary": "Get a list of memberships",
         "description": "",
         "operationId": "memberships-get-all",
         "parameters": [
@@ -3387,9 +3387,9 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Member",
+        "summary": "Create a membership",
         "description": "",
-        "operationId": "create-member",
+        "operationId": "create-membership",
         "parameters": [
           {
             "name": "Accept",
@@ -3444,7 +3444,7 @@
     },
     "/v2/memberships/{membership_id}.json": {
       "get": {
-        "summary": "Get Single Membership",
+        "summary": "Get a membership",
         "description": "",
         "operationId": "memberships-get-single",
         "parameters": [
@@ -3491,9 +3491,9 @@
         "deprecated": false
       },
       "put": {
-        "summary": "Update Member",
+        "summary": "Update a membership",
         "description": "You can use this to update parameters of a member, but this will not work if the member is apart of multiple organizations.",
-        "operationId": "update-member",
+        "operationId": "update-membership",
         "parameters": [
           {
             "name": "membership_id",
@@ -3539,9 +3539,9 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Member",
+        "summary": "Delete a membership",
         "description": "",
-        "operationId": "delete-member",
+        "operationId": "delete-membership",
         "parameters": [
           {
             "name": "membership_id",
@@ -3725,7 +3725,7 @@
     },
     "/v2/groups.json": {
       "get": {
-        "summary": "Get All Groups",
+        "summary": "Get a list of groups",
         "description": "",
         "operationId": "get-all-groups",
         "parameters": [
@@ -3780,7 +3780,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Group",
+        "summary": "Create a group",
         "description": "",
         "operationId": "create-group",
         "parameters": [
@@ -3863,7 +3863,7 @@
     },
     "/v2/groups/{group_id}.json": {
       "get": {
-        "summary": "Get Single Group",
+        "summary": "Get a group",
         "description": "",
         "operationId": "get-single-group",
         "parameters": [
@@ -4009,7 +4009,7 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Group",
+        "summary": "Delete a group",
         "description": "",
         "operationId": "delete-group",
         "parameters": [
@@ -4269,7 +4269,7 @@
     },
     "/v2/forms.json": {
       "get": {
-        "summary": "Get All Forms",
+        "summary": "Get a list of forms",
         "description": "",
         "operationId": "forms-get-all",
         "parameters": [
@@ -4350,7 +4350,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Form",
+        "summary": "Create a form",
         "description": "",
         "operationId": "forms-create",
         "parameters": [
@@ -4407,7 +4407,7 @@
     },
     "/v2/forms/{form_id}.json": {
       "get": {
-        "summary": "Get Single Form",
+        "summary": "Get a form",
         "description": "",
         "operationId": "forms-get-single",
         "parameters": [
@@ -4527,7 +4527,7 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Form",
+        "summary": "Delete a form",
         "description": "",
         "operationId": "forms-delete",
         "parameters": [
@@ -5060,7 +5060,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create a new record",
+        "summary": "Create a record",
         "description": "Creates a new record in the specified form. You must provide the record data including form values, location information, and any associated metadata.",
         "operationId": "records-create",
         "parameters": [
@@ -5195,7 +5195,7 @@
     },
     "/v2/records/{record_id}.json": {
       "get": {
-        "summary": "Retrieve a specific record",
+        "summary": "Get a record",
         "description": "Retrieves detailed information about a specific record by its ID. This includes all form field values, location data, timestamps, and associated metadata.",
         "operationId": "records-get-single",
         "parameters": [
@@ -5559,7 +5559,7 @@
     },
     "/v2/records/{record_id}/history.json": {
       "get": {
-        "summary": "Retrieve a specific record's history",
+        "summary": "Get a list of a record's history",
         "description": "Retrieves the complete version history of a specific record.",
         "operationId": "records-get-history",
         "parameters": [
@@ -5608,7 +5608,7 @@
     },
     "/v2/records/history.json": {
       "get": {
-        "summary": "List all record history",
+        "summary": "Get a list of record history",
         "description": "Retrieves historical record data from your organization. This endpoint is useful for accessing records from a specific changeset or retrieving records that belonged to a deleted form.",
         "operationId": "records-get-all-history",
         "parameters": [
@@ -5664,7 +5664,7 @@
     },
     "/v2/choice_lists.json": {
       "get": {
-        "summary": "Get All Choice Lists",
+        "summary": "Get a list of choice lists",
         "description": "",
         "operationId": "choice-lists-get-all",
         "parameters": [
@@ -5722,7 +5722,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Choice List",
+        "summary": "Create a choice list",
         "description": "",
         "operationId": "choice-lists-create",
         "parameters": [
@@ -5779,7 +5779,7 @@
     },
     "/v2/choice_lists/{choice_list_id}.json": {
       "get": {
-        "summary": "Get Single Choice List",
+        "summary": "Get a choice list",
         "description": "",
         "operationId": "choice-lists-get-single",
         "parameters": [
@@ -5890,7 +5890,7 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Choice List",
+        "summary": "Delete a choice list",
         "description": "",
         "operationId": "choice-lists-delete",
         "parameters": [
@@ -5939,7 +5939,7 @@
     },
     "/v2/classification_sets.json": {
       "get": {
-        "summary": "Get All Classification Sets",
+        "summary": "Get a list of classification sets",
         "description": "",
         "operationId": "classification-sets-get-all",
         "parameters": [
@@ -6011,7 +6011,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Classification Set",
+        "summary": "Create a classification set",
         "description": "",
         "operationId": "classification-sets-create",
         "parameters": [
@@ -6068,7 +6068,7 @@
     },
     "/v2/classification_sets/{classification_set_id}.json": {
       "get": {
-        "summary": "Get Single Classification Set",
+        "summary": "Get a classification set",
         "description": "",
         "operationId": "classification-sets-get-single",
         "parameters": [
@@ -6179,7 +6179,7 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Classification Set",
+        "summary": "Delete a classification set",
         "description": "",
         "operationId": "classification-sets-delete",
         "parameters": [
@@ -6228,7 +6228,7 @@
     },
     "/v2/projects.json": {
       "get": {
-        "summary": "Get All Projects",
+        "summary": "Get a list of projects",
         "description": "",
         "operationId": "projects-get-all",
         "parameters": [
@@ -6286,7 +6286,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Project",
+        "summary": "Create a project",
         "description": "",
         "operationId": "projects-create",
         "parameters": [
@@ -6343,7 +6343,7 @@
     },
     "/v2/projects/{project_id}.json": {
       "get": {
-        "summary": "Get Single Project",
+        "summary": "Get a project",
         "description": "",
         "operationId": "projects-get-single",
         "parameters": [
@@ -6454,7 +6454,7 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Project",
+        "summary": "Delete a project",
         "description": "",
         "operationId": "projects-delete",
         "parameters": [
@@ -6503,7 +6503,7 @@
     },
     "/v2/layers.json": {
       "get": {
-        "summary": "Get All Layers",
+        "summary": "Get a list of layers",
         "description": "",
         "operationId": "layers-get-all",
         "parameters": [
@@ -6561,7 +6561,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Layer",
+        "summary": "Create a layer",
         "description": "",
         "operationId": "layers-create",
         "parameters": [
@@ -6618,7 +6618,7 @@
     },
     "/v2/layers/{layer_id}.json": {
       "get": {
-        "summary": "Get Single Layer",
+        "summary": "Get a layer",
         "description": "",
         "operationId": "layers-get-single",
         "parameters": [
@@ -6729,7 +6729,7 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Layer",
+        "summary": "Delete a layer",
         "description": "",
         "operationId": "layers-delete",
         "parameters": [
@@ -6778,7 +6778,7 @@
     },
     "/v2/photos.json": {
       "get": {
-        "summary": "Get All Photos",
+        "summary": "Get a list of photo metadata",
         "description": "Retrieve metadata for a list of photos.",
         "operationId": "photos-get-all-metadata",
         "parameters": [
@@ -6884,7 +6884,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Upload Photo",
+        "summary": "Upload a photo",
         "description": "Upload a photo file to associate with a record.",
         "operationId": "photos-upload",
         "parameters": [
@@ -6962,7 +6962,7 @@
     },
     "/v2/photos/{photo_id}.json": {
       "get": {
-        "summary": "Get Single Photo Metadata",
+        "summary": "Get photo metadata",
         "description": "Retrieve metadata for a single photo.",
         "operationId": "photos-get-single-metadata",
         "parameters": [
@@ -7109,7 +7109,7 @@
     },
     "/v2/photos/{photo_id}.jpg": {
       "get": {
-        "summary": "Get Single Photo File",
+        "summary": "Get a photo file",
         "description": "Download the original photo file.",
         "operationId": "photos-get-single-file",
         "parameters": [
@@ -7135,9 +7135,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -7184,9 +7185,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -7233,9 +7235,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -7256,7 +7259,7 @@
     },
     "/v2/sketches.json": {
       "get": {
-        "summary": "Get All Sketches",
+        "summary": "Get a list of sketch metadata",
         "description": "",
         "operationId": "sketches-get-all-metadata",
         "parameters": [
@@ -7362,7 +7365,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Upload Sketch",
+        "summary": "Upload a sketch",
         "description": "",
         "operationId": "sketches-upload",
         "parameters": [
@@ -7440,7 +7443,7 @@
     },
     "/v2/sketches/{sketch_id}.json": {
       "get": {
-        "summary": "Get Single Sketch Metadata",
+        "summary": "Get sketch metadata",
         "description": "",
         "operationId": "sketches-get-single-metadata",
         "parameters": [
@@ -7587,7 +7590,7 @@
     },
     "/v2/sketches/{sketch_id}.jpg": {
       "get": {
-        "summary": "Get Single Sketch File",
+        "summary": "Get a sketch file",
         "description": "",
         "operationId": "sketches-get-single-file",
         "parameters": [
@@ -7613,9 +7616,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -7662,9 +7666,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -7711,9 +7716,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -7734,7 +7740,7 @@
     },
     "/v2/signatures.json": {
       "get": {
-        "summary": "Get All Signatures",
+        "summary": "Get a list of signature metadata",
         "description": "Retrieve metadata for a list of signatures.",
         "operationId": "signatures-get-all",
         "parameters": [
@@ -7840,7 +7846,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Upload Signature",
+        "summary": "Upload a signature",
         "description": "Upload a signature file to associate with a record.",
         "operationId": "signatures-upload",
         "parameters": [
@@ -7918,7 +7924,7 @@
     },
     "/v2/signatures/{signature_id}.json": {
       "get": {
-        "summary": "Get Single Signature Metadata",
+        "summary": "Get signature metadata",
         "description": "Retrieve metadata for a single signature.",
         "operationId": "signatures-get-single-metadata",
         "parameters": [
@@ -8016,7 +8022,7 @@
     },
     "/v2/signatures/{signature_id}.png": {
       "get": {
-        "summary": "Get Single Signature File",
+        "summary": "Get a signature file",
         "description": "Download the original signature file.",
         "operationId": "signatures-get-single-file",
         "parameters": [
@@ -8042,9 +8048,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/png": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -8091,9 +8098,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/png": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -8114,7 +8122,7 @@
     },
     "/v2/videos.json": {
       "get": {
-        "summary": "Get All Videos",
+        "summary": "Get a list of video metadata",
         "description": "Retrieve metadata for a list of videos.",
         "operationId": "videos-get-all",
         "parameters": [
@@ -8376,9 +8384,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "video/mp4": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -8399,7 +8408,7 @@
     },
     "/v2/videos/{video_id}.json": {
       "get": {
-        "summary": "Get Video Metadata",
+        "summary": "Get video metadata",
         "description": "Retrieve metadata for a specific video.",
         "operationId": "videos-get-single-metadata",
         "parameters": [
@@ -8678,9 +8687,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "video/mp4": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -8727,9 +8737,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "video/mp4": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -8776,9 +8787,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -8825,9 +8837,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -8874,9 +8887,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -8923,9 +8937,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -8972,9 +8987,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -9021,9 +9037,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -9070,9 +9087,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -9119,9 +9137,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "image/jpeg": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -9142,7 +9161,7 @@
     },
     "/v2/videos/upload.json": {
       "post": {
-        "summary": "Upload Video",
+        "summary": "Upload a video",
         "description": "Upload video to be associated with a record.",
         "operationId": "videos-upload",
         "parameters": [
@@ -9220,7 +9239,7 @@
     },
     "/v2/audio.json": {
       "get": {
-        "summary": "Get All Audio",
+        "summary": "Get a list of audio metadata",
         "description": "Retrieve metadata for a list of audio files.",
         "operationId": "audio-get-all",
         "parameters": [
@@ -9522,9 +9541,10 @@
           "200": {
             "description": "Success",
             "content": {
-              "application/json": {
+              "audio/mp4": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "string",
+                  "format": "binary"
                 }
               }
             }
@@ -9545,7 +9565,7 @@
     },
     "/v2/audio/{audio_id}.json": {
       "get": {
-        "summary": "Get Audio Metadata",
+        "summary": "Get audio metadata",
         "description": "Retrieve metadata for a single audio file.",
         "operationId": "audio-get-single-metadata",
         "parameters": [
@@ -9798,7 +9818,7 @@
     },
     "/v2/audio/upload.json": {
       "post": {
-        "summary": "Upload Audio",
+        "summary": "Upload an audio",
         "description": "Upload audio with optional track file.",
         "operationId": "audio-upload",
         "parameters": [
@@ -9876,7 +9896,7 @@
     },
     "/v2/attachments": {
       "get": {
-        "summary": "Get All Attachments",
+        "summary": "Get a list of attachment metadata",
         "description": "Retrieve a list of attachments.",
         "operationId": "get-all-attachments",
         "parameters": [
@@ -9955,7 +9975,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Attachment",
+        "summary": "Create an attachment",
         "description": "There is only one parameter that is required for creating an attachment: `owners`. You must specify at least one owner of type `record` or `form`. If you create a `record` attachment you can optionally include a `name` and `file_size`. The name will be the name of the file shown in the record information. The file_size is only used for verifying that uploading this attachment will not exceed your current storage limit. If no file_size is provided the attachment may be rejected once it has been uploaded. The response will provide the `url` to upload (PUT) the file to.",
         "operationId": "create-attachment",
         "parameters": [
@@ -10039,7 +10059,7 @@
     },
     "/v2/attachments/{attachment_id}": {
       "get": {
-        "summary": "Get Single Attachment",
+        "summary": "Get an attachment",
         "description": "Retrieve metadata for a single attachment.",
         "operationId": "get-single-attachment",
         "parameters": [
@@ -10102,7 +10122,7 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Attachment",
+        "summary": "Delete an attachment",
         "description": "The delete endpoint only applies to Form attachments. Use this endpoint to delete an attachment. For record attachments, simply remove the association of an attachment from the record and the attachment will be deleted.",
         "operationId": "delete-attachment",
         "parameters": [
@@ -10223,7 +10243,7 @@
     },
     "/v2/changesets.json": {
       "get": {
-        "summary": "Get All Changesets",
+        "summary": "Get a list of changesets",
         "description": "",
         "operationId": "changesets-get-all",
         "parameters": [
@@ -10281,7 +10301,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Changeset",
+        "summary": "Create a changeset",
         "description": "",
         "operationId": "changesets-create",
         "parameters": [
@@ -10338,7 +10358,7 @@
     },
     "/v2/changesets/{changeset_id}.json": {
       "get": {
-        "summary": "Get Single Changeset",
+        "summary": "Get a changeset",
         "description": "",
         "operationId": "changesets-get-single",
         "parameters": [
@@ -10508,7 +10528,7 @@
     },
     "/v2/webhooks.json": {
       "get": {
-        "summary": "Get All Webhooks",
+        "summary": "Get a list of webhooks",
         "description": "Get a list of webhooks.",
         "operationId": "webhooks-get-all",
         "parameters": [
@@ -10654,7 +10674,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Webhook",
+        "summary": "Create a webhook",
         "description": "Create a webhook.",
         "operationId": "webhooks-create",
         "parameters": [
@@ -10840,7 +10860,7 @@
     },
     "/v2/webhooks/{webhook_id}.json": {
       "get": {
-        "summary": "Get Single Webhook",
+        "summary": "Get a webhook",
         "description": "Get a webhook.",
         "operationId": "webhooks-get-single",
         "parameters": [
@@ -10951,7 +10971,7 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Webhook",
+        "summary": "Delete a webhook",
         "description": "Delete a webhook.",
         "operationId": "webhooks-delete",
         "parameters": [
@@ -11026,7 +11046,7 @@
     },
     "/v2/audit_logs.json": {
       "get": {
-        "summary": "Get All Audit Logs",
+        "summary": "Get a list of audit logs",
         "description": "",
         "operationId": "audit-logs-get-all",
         "parameters": [
@@ -11136,7 +11156,7 @@
     },
     "/v2/audit_logs/{audit_log_id}.json": {
       "get": {
-        "summary": "Get Single Audit Log",
+        "summary": "Get an audit log",
         "description": "",
         "operationId": "audit-logs-get-single",
         "parameters": [
@@ -11185,7 +11205,7 @@
     },
     "/v2/workflows.json": {
       "get": {
-        "summary": "Get All Workflows",
+        "summary": "Get a list of workflows",
         "description": "",
         "operationId": "get-all-workflows",
         "parameters": [
@@ -11243,7 +11263,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Workflow",
+        "summary": "Create a workflow",
         "description": "",
         "operationId": "create-workflow",
         "parameters": [
@@ -11300,7 +11320,7 @@
     },
     "/v2/workflows/{workflow_id}.json": {
       "get": {
-        "summary": "Get Single Workflow",
+        "summary": "Get a workflow",
         "description": "",
         "operationId": "get-single-workflow",
         "parameters": [
@@ -11411,7 +11431,7 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Workflow",
+        "summary": "Delete a workflow",
         "description": "",
         "operationId": "delete-workflow",
         "parameters": [
@@ -11460,7 +11480,7 @@
     },
     "/v2/batch.json": {
       "get": {
-        "summary": "Get All Batches",
+        "summary": "Get a list of batches",
         "description": "",
         "operationId": "get-all-batches",
         "parameters": [
@@ -11523,7 +11543,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Batch to Bulk Delete Records",
+        "summary": "Create a batch",
         "description": "Using the batch operations API, you can bulk delete records from a form.",
         "operationId": "create-batch",
         "requestBody": {
@@ -11573,7 +11593,7 @@
     },
     "/v2/batch/{batch_id}.json": {
       "get": {
-        "summary": "Get Single Batch",
+        "summary": "Get a batch",
         "description": "",
         "operationId": "get-single-batch",
         "parameters": [
@@ -11743,7 +11763,7 @@
     },
     "/v2/report_templates.json": {
       "get": {
-        "summary": "Get All Report Templates",
+        "summary": "Get a list of report templates",
         "description": "",
         "operationId": "get-all-report-templates",
         "parameters": [
@@ -11801,7 +11821,7 @@
         "deprecated": false
       },
       "post": {
-        "summary": "Create Report Template",
+        "summary": "Create a report template",
         "description": "",
         "operationId": "create-report-template",
         "requestBody": {
@@ -11840,7 +11860,7 @@
     },
     "/v2/report_templates/{id}.json": {
       "get": {
-        "summary": "Get Single Report Template",
+        "summary": "Get a report template",
         "description": "",
         "operationId": "get-single-report-template",
         "parameters": [
@@ -11927,7 +11947,7 @@
         "deprecated": false
       },
       "delete": {
-        "summary": "Delete Report Template",
+        "summary": "Delete a report template",
         "description": "",
         "operationId": "delete-report-template",
         "parameters": [
@@ -11968,7 +11988,7 @@
     },
     "/v2/reports.json": {
       "post": {
-        "summary": "Create Report",
+        "summary": "Create a report",
         "description": "Generate a new report for a specific record, optionally using a report template.",
         "operationId": "reports-create",
         "requestBody": {

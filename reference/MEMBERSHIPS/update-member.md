@@ -5,7 +5,7 @@ excerpt: >-
   the member is apart of multiple organizations.
 api:
   file: rest-api.json
-  operationId: update-member
+  operationId: update-membership
 deprecated: false
 hidden: false
 metadata:
