@@ -9368,14 +9368,6 @@
         "operationId": "audio-get-original-file",
         "parameters": [
           {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
-          {
             "name": "audio_id",
             "in": "path",
             "description": "The unique identifier of the audio file.",
