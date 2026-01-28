@@ -9666,7 +9666,7 @@
     },
     "/v2/audio/upload.json": {
       "post": {
-        "summary": "Upload an audio",
+        "summary": "Upload audio",
         "description": "Upload audio with optional track file.",
         "operationId": "audio-upload",
         "parameters": [
