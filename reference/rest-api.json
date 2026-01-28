@@ -2689,7 +2689,7 @@
   "paths": {
     "/v2/query": {
       "get": {
-        "summary": "GET Query",
+        "summary": "Make a Query GET request",
         "description": "Execute a Query API request using HTTP GET.",
         "operationId": "query-get",
         "parameters": [
@@ -7114,14 +7114,6 @@
         "operationId": "photos-get-single-file",
         "parameters": [
           {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
-          {
             "name": "photo_id",
             "in": "path",
             "description": "The unique identifier of the photo.",
@@ -7164,14 +7156,6 @@
         "operationId": "photos-thumbnail-file",
         "parameters": [
           {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
-          {
             "name": "photo_id",
             "in": "path",
             "description": "The unique identifier of the photo.",
@@ -7213,14 +7197,6 @@
         "description": "Download the large variant of a photo.",
         "operationId": "photos-large-file",
         "parameters": [
-          {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
           {
             "name": "photo_id",
             "in": "path",
@@ -7595,14 +7571,6 @@
         "operationId": "sketches-get-single-file",
         "parameters": [
           {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
-          {
             "name": "sketch_id",
             "in": "path",
             "description": "Sketch ID",
@@ -7645,14 +7613,6 @@
         "operationId": "sketches-thumbnail-file",
         "parameters": [
           {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
-          {
             "name": "sketch_id",
             "in": "path",
             "description": "Sketch ID",
@@ -7694,14 +7654,6 @@
         "description": "",
         "operationId": "sketches-large-file",
         "parameters": [
-          {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
           {
             "name": "sketch_id",
             "in": "path",
@@ -8027,14 +7979,6 @@
         "operationId": "signatures-get-single-file",
         "parameters": [
           {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
-          {
             "name": "signature_id",
             "in": "path",
             "description": "The unique identifier of the signature.",
@@ -8076,14 +8020,6 @@
         "description": "Download the thumbnail variant of a signature.",
         "operationId": "signatures-get-thumbnail-file",
         "parameters": [
-          {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
           {
             "name": "signature_id",
             "in": "path",
@@ -8362,14 +8298,6 @@
         "description": "Download the original video file.",
         "operationId": "videos-get-original-file",
         "parameters": [
-          {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
           {
             "name": "video_id",
             "in": "path",
@@ -8666,14 +8594,6 @@
         "operationId": "videos-get-small-file",
         "parameters": [
           {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
-          {
             "name": "video_id",
             "in": "path",
             "description": "The unique identifier of the video.",
@@ -8715,14 +8635,6 @@
         "description": "Download a medium variant of the video.",
         "operationId": "videos-get-medium-file",
         "parameters": [
-          {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
           {
             "name": "video_id",
             "in": "path",
@@ -8766,14 +8678,6 @@
         "operationId": "videos-get-thumbnail-small",
         "parameters": [
           {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
-          {
             "name": "video_id",
             "in": "path",
             "description": "The unique identifier of the video.",
@@ -8815,14 +8719,6 @@
         "description": "Download a small square thumbnail variant for a video.",
         "operationId": "videos-get-thumbnail-small-square",
         "parameters": [
-          {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
           {
             "name": "video_id",
             "in": "path",
@@ -8866,14 +8762,6 @@
         "operationId": "videos-get-thumbnail-medium",
         "parameters": [
           {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
-          {
             "name": "video_id",
             "in": "path",
             "description": "The unique identifier of the video.",
@@ -8915,14 +8803,6 @@
         "description": "Download a medium square thumbnail variant for a video.",
         "operationId": "videos-get-thumbnail-medium-square",
         "parameters": [
-          {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
           {
             "name": "video_id",
             "in": "path",
@@ -8966,14 +8846,6 @@
         "operationId": "videos-get-thumbnail-large",
         "parameters": [
           {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
-          {
             "name": "video_id",
             "in": "path",
             "description": "The unique identifier of the video.",
@@ -9015,14 +8887,6 @@
         "description": "Download a large square thumbnail variant for a video.",
         "operationId": "videos-get-thumbnail-large-square",
         "parameters": [
-          {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
           {
             "name": "video_id",
             "in": "path",
@@ -9066,14 +8930,6 @@
         "operationId": "videos-get-thumbnail-huge",
         "parameters": [
           {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
-          {
             "name": "video_id",
             "in": "path",
             "description": "The unique identifier of the video.",
@@ -9115,14 +8971,6 @@
         "description": "Download a huge square thumbnail variant for a video.",
         "operationId": "videos-get-thumbnail-huge-square",
         "parameters": [
-          {
-            "name": "Accept",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
-          },
           {
             "name": "video_id",
             "in": "path",
