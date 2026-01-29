@@ -5196,7 +5196,7 @@
       },
       "post": {
         "summary": "Create a record",
-        "description": "Creates a new record in the specified form using the provided form values, location information, and any associated metadata.",
+        "description": "Create a new record in the specified form using the provided form values, location information, and any associated metadata.",
         "operationId": "records-create",
         "parameters": [
           {
@@ -5464,7 +5464,7 @@
       },
       "put": {
         "summary": "Update a record",
-        "description": "Updates a record with a provided record object. The record object is expected to be the complete representation of the record. Any fields not included are assumed null.",
+        "description": "Update a record with a provided record object. The record object is expected to be the complete representation of the record. Any fields not included are assumed null.",
         "operationId": "records-update",
         "parameters": [
           {
@@ -5546,7 +5546,7 @@
       },
       "patch": {
         "summary": "Partially update a record",
-        "description": "Updates specific fields of an existing record without requiring the complete record object. Only the fields included in the request body will be modified, while all other fields remain unchanged. This is useful for updating individual field values or metadata.",
+        "description": "Update specific fields of an existing record without requiring the complete record object. Only the fields included in the request body will be modified, while all other fields remain unchanged. This is useful for updating individual field values or metadata.",
         "operationId": "records-partial-update",
         "parameters": [
           {
