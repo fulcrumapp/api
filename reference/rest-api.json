@@ -4790,7 +4790,7 @@
     "/v2/records.json": {
       "get": {
         "summary": "Get a list of records",
-        "description": "Gets a list of records from your organization and can be filtered by a few dimensions such as form, project, changeset, bounding box, and date ranges.",
+        "description": "Get a list of records from your organization and can be filtered by a few dimensions such as form, project, changeset, bounding box, and date ranges.",
         "operationId": "records-get-all",
         "parameters": [
           {
@@ -5331,7 +5331,7 @@
     "/v2/records/{record_id}.json": {
       "get": {
         "summary": "Get a record",
-        "description": "Retrieves detailed information about a specific record by its ID. This includes all form field values, location data, timestamps, and associated metadata.",
+        "description": "Retrieve detailed information about a specific record by its ID. This includes all form field values, location data, timestamps, and associated metadata.",
         "operationId": "records-get-single",
         "parameters": [
           {
@@ -5628,7 +5628,7 @@
       },
       "delete": {
         "summary": "Delete a record",
-        "description": "Deletes a record from your organization.",
+        "description": "Delete a record from your organization.",
         "operationId": "records-delete",
         "parameters": [
           {
@@ -5695,7 +5695,7 @@
     "/v2/records/{record_id}/history.json": {
       "get": {
         "summary": "Get the history of a record",
-        "description": "Retrieves the complete version history of a record.",
+        "description": "Retrieve the complete version history of a record.",
         "operationId": "records-get-history",
         "parameters": [
           {
@@ -5744,7 +5744,7 @@
     "/v2/records/history.json": {
       "get": {
         "summary": "Get the history of a collection of records",
-        "description": "Retrieves historical record data from your organization. This endpoint is useful for accessing records from a specific changeset or retrieving records that belonged to a deleted form.",
+        "description": "Retrieve historical record data from your organization. This endpoint is useful for accessing records from a specific changeset or retrieving records that belonged to a deleted form.",
         "operationId": "records-get-all-history",
         "parameters": [
           {
@@ -11079,7 +11079,7 @@
           {
             "name": "updated_since",
             "in": "query",
-            "description": "Returns log entries since the given unix timestamp.",
+            "description": "Return log entries since the given unix timestamp.",
             "schema": {
               "type": "string",
               "format": "date-time"
@@ -11088,7 +11088,7 @@
           {
             "name": "updated_before",
             "in": "query",
-            "description": "Returns log entries before the given unix timestamp.",
+            "description": "Return log entries before the given unix timestamp.",
             "schema": {
               "type": "string",
               "format": "date-time"
