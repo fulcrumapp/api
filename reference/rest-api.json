@@ -1607,6 +1607,141 @@
           }
         }
       },
+      "Sketch": {
+        "type": "object",
+        "properties": {
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the sketch was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the sketch was last updated"
+          },
+          "access_key": {
+            "type": "string",
+            "description": "Unique identifier for the sketch"
+          },
+          "uploaded": {
+            "type": "boolean",
+            "description": "Whether the sketch has been uploaded"
+          },
+          "stored": {
+            "type": "boolean",
+            "description": "Whether the sketch has been stored"
+          },
+          "processed": {
+            "type": "boolean",
+            "description": "Whether the sketch has been processed"
+          },
+          "file_size": {
+            "type": "integer",
+            "description": "Size of the sketch file in bytes"
+          },
+          "created_by": {
+            "type": "string",
+            "description": "Display name of the user who created the sketch"
+          },
+          "created_by_id": {
+            "type": "string",
+            "description": "ID of the user who created the sketch"
+          },
+          "updated_by": {
+            "type": "string",
+            "description": "Display name of the user who last updated the sketch"
+          },
+          "updated_by_id": {
+            "type": "string",
+            "description": "ID of the user who last updated the sketch"
+          },
+          "content_type": {
+            "type": "string",
+            "description": "MIME type of the sketch file"
+          },
+          "exif": {
+            "type": "object",
+            "nullable": true,
+            "description": "EXIF metadata from the photo",
+            "additionalProperties": true
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "API URL to access this sketch resource"
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "description": "URL to thumbnail version of the sketch"
+          },
+          "small": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "description": "URL to small version of the sketch"
+          },
+          "medium": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "description": "URL to medium version of the sketch"
+          },
+          "large": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true,
+            "description": "URL to large version of the sketch"
+          }
+        }
+      },
+      "SketchesResponse": {
+        "type": "object",
+        "required": [
+          "sketches",
+          "current_page",
+          "total_pages",
+          "total_count",
+          "per_page"
+        ],
+        "properties": {
+          "sketches": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Sketch"
+            }
+          },
+          "current_page": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "total_pages": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "total_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "per_page": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "SingleSketchResponse": {
+        "type": "object",
+        "required": [
+          "sketch"
+        ],
+        "properties": {
+          "sketch": {
+            "$ref": "#/components/schemas/Sketch"
+          }
+        }
+      },
       "Attachment": {
         "type": "object",
         "properties": {
@@ -2690,7 +2825,7 @@
     "/v2/query": {
       "get": {
         "summary": "Make a Query GET request",
-        "description": "Execute a Query API request using HTTP GET.",
+        "description": "Execute a Query API request using HTTP GET. Provide a SQL like query to query against your organization's data.",
         "operationId": "query-get",
         "parameters": [
           {
@@ -2825,7 +2960,7 @@
       },
       "post": {
         "summary": "Make a Query POST request",
-        "description": "Execute a Query API request using HTTP POST.",
+        "description": "Execute a Query API request using HTTP POST. Provide a SQL like query to query against your organization's data.",
         "operationId": "query-post",
         "parameters": [
           {
@@ -4655,7 +4790,7 @@
     "/v2/records.json": {
       "get": {
         "summary": "Get a list of records",
-        "description": "Gets a list of records from your organization.",
+        "description": "Gets a list of records from your organization and can be filtered by a few dimensions such as form, project, changeset, bounding box, and date ranges.",
         "operationId": "records-get-all",
         "parameters": [
           {
@@ -5061,7 +5196,7 @@
       },
       "post": {
         "summary": "Create a record",
-        "description": "Creates a new record in the specified form. You must provide the record data including form values, location information, and any associated metadata.",
+        "description": "Creates a new record in the specified form using the provided form values, location information, and any associated metadata.",
         "operationId": "records-create",
         "parameters": [
           {
@@ -5328,8 +5463,8 @@
         "deprecated": false
       },
       "put": {
-        "summary": "Update an existing record",
-        "description": "Update a record.",
+        "summary": "Update a record",
+        "description": "Updates a record with a provided record object. The record object is expected to be the complete representation of the record. Any fields not included are assumed null.",
         "operationId": "records-update",
         "parameters": [
           {
@@ -5473,7 +5608,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/SingleRecordResponse"
                 }
               }
             }
@@ -5493,7 +5628,7 @@
       },
       "delete": {
         "summary": "Delete a record",
-        "description": "Deletes a record from a form in your organization.",
+        "description": "Deletes a record from your organization.",
         "operationId": "records-delete",
         "parameters": [
           {
@@ -5538,7 +5673,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/SingleRecordResponse"
                 }
               }
             }
@@ -7109,7 +7244,7 @@
     },
     "/v2/photos/{photo_id}.jpg": {
       "get": {
-        "summary": "Get a photo file",
+        "summary": "Get a photo original file",
         "description": "Download the original photo file.",
         "operationId": "photos-get-single-file",
         "parameters": [
@@ -7151,7 +7286,7 @@
     },
     "/v2/photos/{photo_id}/thumbnail.jpg": {
       "get": {
-        "summary": "Photo Thumbnail File",
+        "summary": "Get a photo thumbnail file",
         "description": "Download the thumbnail variant of a photo.",
         "operationId": "photos-thumbnail-file",
         "parameters": [
@@ -7193,7 +7328,7 @@
     },
     "/v2/photos/{photo_id}/large.jpg": {
       "get": {
-        "summary": "Photo Large File",
+        "summary": "Get a photo large file",
         "description": "Download the large variant of a photo.",
         "operationId": "photos-large-file",
         "parameters": [
@@ -7236,7 +7371,7 @@
     "/v2/sketches.json": {
       "get": {
         "summary": "Get a list of sketch metadata",
-        "description": "",
+        "description": "Retrieve metadata for a list of sketches.",
         "operationId": "sketches-get-all-metadata",
         "parameters": [
           {
@@ -7322,7 +7457,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/SketchesResponse"
                 }
               }
             }
@@ -7342,7 +7477,7 @@
       },
       "post": {
         "summary": "Upload a sketch",
-        "description": "",
+        "description": "Upload a sketch file to associate with a record.",
         "operationId": "sketches-upload",
         "parameters": [
           {
@@ -7420,7 +7555,7 @@
     "/v2/sketches/{sketch_id}.json": {
       "get": {
         "summary": "Get sketch metadata",
-        "description": "",
+        "description": "Retrieve metadata for a single sketch.",
         "operationId": "sketches-get-single-metadata",
         "parameters": [
           {
@@ -7447,7 +7582,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/SingleSketchResponse"
                 }
               }
             }
@@ -7469,7 +7604,7 @@
     "/v2/sketches/{sketch_id}/thumbnail.json": {
       "get": {
         "summary": "Sketch Thumbnail Metadata",
-        "description": "",
+        "description": "Retrieve metadata for a sketch's thumbnail variant.",
         "operationId": "sketches-thumbnail-metadata",
         "parameters": [
           {
@@ -7518,7 +7653,7 @@
     "/v2/sketches/{sketch_id}/large.json": {
       "get": {
         "summary": "Sketch Large Metadata",
-        "description": "",
+        "description": "Retrieve metadata for a sketch's large variant.",
         "operationId": "sketches-large-metadata",
         "parameters": [
           {
@@ -7566,8 +7701,8 @@
     },
     "/v2/sketches/{sketch_id}.jpg": {
       "get": {
-        "summary": "Get a sketch file",
-        "description": "",
+        "summary": "Get a sketch original file",
+        "description": "Download the original sketch file.",
         "operationId": "sketches-get-single-file",
         "parameters": [
           {
@@ -7608,8 +7743,8 @@
     },
     "/v2/sketches/{sketch_id}/thumbnail.jpg": {
       "get": {
-        "summary": "Sketch Thumbnail File",
-        "description": "",
+        "summary": "Get a sketch thumbnail file",
+        "description": "Download the thumbnail variant of a sketch.",
         "operationId": "sketches-thumbnail-file",
         "parameters": [
           {
@@ -7650,8 +7785,8 @@
     },
     "/v2/sketches/{sketch_id}/large.jpg": {
       "get": {
-        "summary": "Sketch Large File",
-        "description": "",
+        "summary": "Get a sketch large file",
+        "description": "Download the large variant of a sketch.",
         "operationId": "sketches-large-file",
         "parameters": [
           {
@@ -7974,7 +8109,7 @@
     },
     "/v2/signatures/{signature_id}.png": {
       "get": {
-        "summary": "Get a signature file",
+        "summary": "Get a signature original file",
         "description": "Download the original signature file.",
         "operationId": "signatures-get-single-file",
         "parameters": [
@@ -8016,7 +8151,7 @@
     },
     "/v2/signatures/{signature_id}/thumbnail.png": {
       "get": {
-        "summary": "Signature Thumbnail File",
+        "summary": "Get a signature thumbnail file",
         "description": "Download the thumbnail variant of a signature.",
         "operationId": "signatures-get-thumbnail-file",
         "parameters": [
@@ -8294,7 +8429,7 @@
     },
     "/v2/videos/{video_id}.mp4": {
       "get": {
-        "summary": "Get Original Video File",
+        "summary": "Get a video original file",
         "description": "Download the original video file.",
         "operationId": "videos-get-original-file",
         "parameters": [
@@ -8589,7 +8724,7 @@
     },
     "/v2/videos/{video_id}/small.mp4": {
       "get": {
-        "summary": "Get Small Video File",
+        "summary": "Get a video small file",
         "description": "Download the small variant of the video.",
         "operationId": "videos-get-small-file",
         "parameters": [
@@ -8631,7 +8766,7 @@
     },
     "/v2/videos/{video_id}/medium.mp4": {
       "get": {
-        "summary": "Get Medium Video File",
+        "summary": "Get a video medium file",
         "description": "Download a medium variant of the video.",
         "operationId": "videos-get-medium-file",
         "parameters": [
@@ -9363,7 +9498,7 @@
     },
     "/v2/audio/{audio_id}.mp4": {
       "get": {
-        "summary": "Get Original Audio File",
+        "summary": "Get an audio original file",
         "description": "Download the original audio file.",
         "operationId": "audio-get-original-file",
         "parameters": [
@@ -11935,7 +12070,7 @@
     },
     "/v2/reports/{report_id}.pdf": {
       "get": {
-        "summary": "Get Report File",
+        "summary": "Get a report file",
         "description": "Download the generated PDF report file.",
         "operationId": "reports-file",
         "parameters": [
