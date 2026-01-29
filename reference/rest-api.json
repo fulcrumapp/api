@@ -5694,8 +5694,8 @@
     },
     "/v2/records/{record_id}/history.json": {
       "get": {
-        "summary": "Get a list of a record's history",
-        "description": "Retrieves the complete version history of a specific record.",
+        "summary": "Get the history of a record",
+        "description": "Retrieves the complete version history of a record.",
         "operationId": "records-get-history",
         "parameters": [
           {
@@ -5743,7 +5743,7 @@
     },
     "/v2/records/history.json": {
       "get": {
-        "summary": "Get a list of record history",
+        "summary": "Get the history of a collection of records",
         "description": "Retrieves historical record data from your organization. This endpoint is useful for accessing records from a specific changeset or retrieving records that belonged to a deleted form.",
         "operationId": "records-get-all-history",
         "parameters": [
