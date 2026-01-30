@@ -1648,26 +1648,32 @@
           },
           "file_size": {
             "type": "integer",
+            "nullable": true,
             "description": "Size of the sketch file in bytes"
           },
           "created_by": {
             "type": "string",
+            "nullable": true,
             "description": "Display name of the user who created the sketch"
           },
           "created_by_id": {
             "type": "string",
+            "nullable": true,
             "description": "ID of the user who created the sketch"
           },
           "updated_by": {
             "type": "string",
+            "nullable": true,
             "description": "Display name of the user who last updated the sketch"
           },
           "updated_by_id": {
             "type": "string",
+            "nullable": true,
             "description": "ID of the user who last updated the sketch"
           },
           "content_type": {
             "type": "string",
+            "nullable": true,
             "description": "MIME type of the sketch file"
           },
           "exif": {
