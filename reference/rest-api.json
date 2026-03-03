@@ -4480,6 +4480,20 @@
               ],
               "default": "organization"
             }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "description": "The status (active/inactive) of the forms to return.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "active",
+                "inactive",
+                "all"
+              ],
+              "default": "active"
+            }
           }
         ],
         "responses": {
