@@ -11,7 +11,7 @@ next:
   description: ""
 ---
 
-# Display Sketches in Reports
+## Display Sketches in Reports
 
 In the BODY section, search for `element.isSketchElement`. If it doesn't exist, you can add it to your `RENDERVALUES` loop.
 
@@ -30,7 +30,7 @@ In the BODY section, search for `element.isSketchElement`. If it doesn't exist, 
 <% } %>
 ```
 
-# Resize Sketches
+## Resize Sketches
 
 You can control the size of sketches in the STYLES section by targeting the `.sketch` class.
 
@@ -41,7 +41,7 @@ You can control the size of sketches in the STYLES section by targeting the `.sk
 }
 ```
 
-# Accessing a specific sketch by its field name
+## Accessing a specific sketch by its field name
 
 If you want to display the first sketch from a specific field:
 
