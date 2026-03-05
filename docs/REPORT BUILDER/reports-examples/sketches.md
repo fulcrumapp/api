@@ -18,7 +18,7 @@ In the BODY section, search for `element.isSketchElement`. If it doesn't exist, 
 ```javascript
 <% } else if (element.isSketchElement) { %>
 <div class="field">
-  <h2 class="field-label><%= element.label %></h2>
+  <h2 class='field-label'><%= element.label %></h2>
   <div class="field-value">
     <% value && value.items.forEach((item, index) => { %>
     <img class="sketch" src="<%= SKETCHURL(item.mediaID) %>" />
