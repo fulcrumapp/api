@@ -10259,7 +10259,6 @@
             "name": "x-apitoken",
             "in": "header",
             "description": "API Token. Required to authenticate the request.",
-            "required": true,
             "schema": {
               "type": "string"
             }
