@@ -48,8 +48,8 @@ If you want to display the first sketch from a specific field:
 ```javascript
 <div>
   <%
-    var sketchField = record.formValues.find('my_sketch_field');
-    var sketchId = sketchField && sketchField.items[0] && sketchField.items[0].mediaID;
+    // Using the data name of your sketch field
+    var sketchId = $my_sketch_field && $my_sketch_field[0] && $my_sketch_field[0].sketch_id;
   %>
   <% if (sketchId) { %>
     <div class='sketch-column'>
