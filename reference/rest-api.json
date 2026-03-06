@@ -10255,7 +10255,7 @@
         "operationId": "copy-all-attachments",
         "parameters": [
           {
-            "name": "X-ApiToken",
+            "name": "x-apitoken",
             "in": "header",
             "description": "API Token. Required to authenticate the request.",
             "required": true,
@@ -10281,6 +10281,22 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/AttachmentCopyAllResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
                 }
               }
             }
