@@ -518,6 +518,7 @@
           "destination_parent_id",
           "parent_type"
         ],
+        "additionalProperties": false,
         "properties": {
           "source_parent_id": {
             "type": "string",
@@ -10301,7 +10302,8 @@
               }
             }
           }
-        }
+        },
+        "deprecated": false
       }
     },
     "/v2/attachments/finalize": {
