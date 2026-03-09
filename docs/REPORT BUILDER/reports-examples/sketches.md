@@ -15,16 +15,14 @@ next:
 
 In the BODY section, search for `element.isSketchElement`. If it doesn't exist, you can add it to your `RENDERVALUES` loop.
 
-```javascript
+```html
 <% } else if (element.isSketchElement) { %>
 <div class="field">
-  <h2 class='field-label'><%= element.label %></h2>
+  <h2 class="field-label"><%= element.label %></h2>
   <div class="field-value">
     <% value && value.items.forEach((item, index) => { %>
     <img class="sketch" src="<%= SKETCHURL(item.mediaID) %>" />
-    <% if (item.caption) { %>
-    <p><%= item.caption %></p>
-    <% } %> <% }); %>
+    <% }); %>
   </div>
 </div>
 <% } %>
@@ -34,13 +32,12 @@ In the BODY section, search for `element.isSketchElement`. If it doesn't exist, 
 
 Sketch fields contain an array of items. Each item has the following properties:
 
-- `mediaID` - The unique identifier for the sketch (also called `sketch_id`)
-- `caption` - Optional text caption for the sketch
+- `mediaID` - The unique identifier for the sketch
 - `isEmpty` - Boolean indicating if the field has any sketches
 
 ### Accessing Sketch Data
 
-```javascript
+```html
 // Check if sketch field has values
 <% if ($my_sketch_field && !$my_sketch_field.isEmpty) { %>
   <% $my_sketch_field.items.forEach((item, index) => { %>
@@ -50,8 +47,7 @@ Sketch fields contain an array of items. Each item has the following properties:
 
 // Access specific sketch properties
 <% var firstSketch = $my_sketch_field && $my_sketch_field[0]; %>
-<% var sketchId = firstSketch && firstSketch.sketch_id; %>
-<% var caption = firstSketch && firstSketch.caption; %>
+<% var sketchId = firstSketch && firstSketch.mediaID; %>
 ```
 
 ## SKETCHURL Function
@@ -62,20 +58,17 @@ The `SKETCHURL()` function generates a public URL for a sketch. It accepts two p
 
 - `id` (String, required) - The sketch ID
 - `options` (Object, optional) - Configuration options
-  - `version` - Image version: `'large'` (default), `'original'`, `'thumbnail'`
+  - `version` - Image version: `'large'` (default), `'original'`
   - `expires` - Expiration timestamp (default: `null`)
 
 ### Examples
 
-```javascript
+```html
 // Default large version
 <img src="<%= SKETCHURL(item.mediaID) %>" />
 
 // Original full resolution
 <img src="<%= SKETCHURL(item.mediaID, { version: 'original' }) %>" />
-
-// Thumbnail version
-<img src="<%= SKETCHURL(item.mediaID, { version: 'thumbnail' }) %>" />
 ```
 
 ## Resize Sketches
@@ -107,17 +100,14 @@ You can control the size of sketches in the STYLES section by targeting the `.sk
 
 If you have multiple sketches attached to a field and want to display only the first one:
 
-```javascript
+```html
 <% } else if (element.isSketchElement) { %>
 <div class="field">
-  <h2 class='field-label'><%= element.label %></h2>
+  <h2 class="field-label"><%= element.label %></h2>
   <div class="field-value">
     <% if (value && value.items.length > 0) { %>
       <% let sketchItem = value.items[0]; %>
       <img class="sketch" src="<%= SKETCHURL(sketchItem.mediaID) %>" />
-      <% if (sketchItem.caption) { %>
-        <p><%= sketchItem.caption %></p>
-      <% } %>
     <% } %>
   </div>
 </div>
@@ -128,16 +118,16 @@ If you have multiple sketches attached to a field and want to display only the f
 
 If you want to display sketches from a specific field outside the `RENDERVALUES` loop:
 
-```javascript
+```html
 <div>
   <%
     // Using the data name of your sketch field
     var sketchField = $my_sketch_field;
-    var sketchId = sketchField && sketchField[0] && sketchField[0].sketch_id;
+    var sketchId = sketchField && sketchField[0] && sketchField[0].mediaID;
   %>
   <% if (sketchId) { %>
-    <div class='sketch-column'>
-        <img class="sketch" src='<%= SKETCHURL(sketchId) %>' />
+    <div class="sketch-column">
+      <img class="sketch" src="<%= SKETCHURL(sketchId) %>" />
     </div>
   <% } %>
 </div>
@@ -148,10 +138,7 @@ If you want to display sketches from a specific field outside the `RENDERVALUES`
   <% if ($site_sketch && $site_sketch.items) { %>
     <% $site_sketch.items.forEach((item, index) => { %>
       <div class="sketch-item">
-        <img src="<%= SKETCHURL(item.sketch_id) %>" alt="Sketch <%= index + 1 %>" />
-        <% if (item.caption) { %>
-          <p class="caption"><%= item.caption %></p>
-        <% } %>
+        <img src="<%= SKETCHURL(item.mediaID) %>" alt="Sketch <%= index + 1 %>" />
       </div>
     <% }); %>
   <% } %>
@@ -162,10 +149,10 @@ If you want to display sketches from a specific field outside the `RENDERVALUES`
 
 You can query the database to add metadata like creation date to each sketch:
 
-```javascript
+```html
 <% } else if (element.isSketchElement) { %>
 <div class="field">
-  <h2 class='field-label'><%= element.label %></h2>
+  <h2 class="field-label"><%= element.label %></h2>
   <div class="field-value">
     <% value && value.items.forEach((item, index) => { %>
       <%
@@ -175,9 +162,6 @@ You can query the database to add metadata like creation date to each sketch:
       %>
       <div class="sketch-container">
         <img class="sketch" src="<%= SKETCHURL(item.mediaID) %>" />
-        <% if (item.caption) { %>
-          <p class="caption"><%= item.caption %></p>
-        <% } %>
         <% if (sketchDate) { %>
           <p class="date">Created: <%= sketchDate %></p>
         <% } %>
@@ -192,17 +176,14 @@ You can query the database to add metadata like creation date to each sketch:
 
 Only display the sketch field label when there are sketches attached:
 
-```javascript
+```html
 <% } else if (element.isSketchElement) { %>
   <% if (value && !value.isEmpty && value.items.length > 0) { %>
   <div class="field">
-    <h2 class='field-label'><%= element.label %></h2>
+    <h2 class="field-label"><%= element.label %></h2>
     <div class="field-value">
       <% value.items.forEach((item, index) => { %>
         <img class="sketch" src="<%= SKETCHURL(item.mediaID) %>" />
-        <% if (item.caption) { %>
-          <p><%= item.caption %></p>
-        <% } %>
       <% }); %>
     </div>
   </div>
@@ -214,16 +195,14 @@ Only display the sketch field label when there are sketches attached:
 
 To prevent sketches from breaking across pages:
 
-```javascript
+```html
 <% } else if (element.isSketchElement) { %>
 <div class="field" style="page-break-inside: avoid;">
-  <h2 class='field-label'><%= element.label %></h2>
+  <h2 class="field-label"><%= element.label %></h2>
   <div class="field-value">
     <% value && value.items.forEach((item, index) => { %>
     <img class="sketch" src="<%= SKETCHURL(item.mediaID) %>" />
-    <% if (item.caption) { %>
-    <p><%= item.caption %></p>
-    <% } %> <% }); %>
+    <% }); %>
   </div>
 </div>
 <% } %>
@@ -233,18 +212,15 @@ To prevent sketches from breaking across pages:
 
 Add numbers to sketches automatically:
 
-```javascript
+```html
 <% } else if (element.isSketchElement) { %>
 <div class="field">
-  <h2 class='field-label'><%= element.label %></h2>
+  <h2 class="field-label"><%= element.label %></h2>
   <div class="field-value">
     <% value && value.items.forEach((item, index) => { %>
       <div class="sketch-item">
         <h3>Sketch <%= index + 1 %></h3>
         <img class="sketch" src="<%= SKETCHURL(item.mediaID) %>" />
-        <% if (item.caption) { %>
-          <p><%= item.caption %></p>
-        <% } %>
       </div>
     <% }); %>
   </div>
@@ -278,18 +254,15 @@ Display sketches in a responsive grid:
 }
 ```
 
-```javascript
+```html
 /* Add to BODY section */
 <% } else if (element.isSketchElement) { %>
 <div class="field">
-  <h2 class='field-label'><%= element.label %></h2>
+  <h2 class="field-label"><%= element.label %></h2>
   <div class="sketch-grid">
     <% value && value.items.forEach((item, index) => { %>
       <div class="sketch-grid-item">
         <img src="<%= SKETCHURL(item.mediaID) %>" />
-        <% if (item.caption) { %>
-          <p><%= item.caption %></p>
-        <% } %>
       </div>
     <% }); %>
   </div>

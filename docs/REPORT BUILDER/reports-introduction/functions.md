@@ -271,7 +271,7 @@ const RENDER = (
   feature,
   options,
   eachFunction,
-  { container, parent, index, allValues } = {},
+  { container, parent, index, allValues } = {}
 ) => {
   if (!container) {
     container = feature.formValues.container;
@@ -373,6 +373,7 @@ JSON - the feature `elements` and `values`
 
 ### Examples
 
+```html
 <% RENDERVALUES(record, null, function(element, value) { %> <% if
 (element.isSectionElement) { %>
 
@@ -400,9 +401,7 @@ JSON - the feature `elements` and `values`
   <div class="field-value">
     <% value && value.items.forEach((item, index) => { %>
     <img class="sketch" src="<%= SKETCHURL(item.mediaID) %>" />
-    <% if (item.caption) { %>
-    <p><%= item.caption %></p>
-    <% } %> <% }); %>
+    <% }); %>
   </div>
 </div>
 <% } else if (element.isSignatureElement) { %>
@@ -480,7 +479,7 @@ String
 ### Examples
 
 ```js
-SKETCHURL($my_sketch_field[0].sketch_id, { version: "large" });
+SKETCHURL($my_sketch_field[0].mediaID, { version: "large" });
 ```
 
 ---
@@ -495,7 +494,7 @@ Generate a Google or Esri Static Map based on the value of the report template�
 
 To change the map engine in the STATICMAP function directly, update the options passed into the parameters of the STATICMAP function:
 
-`<%= STATICMAP({mapEngine: ‘esri’, markers, ...SET_MAP_OPTIONS()}) %>`
+`<%= STATICMAP({mapEngine: 'esri', markers, ...SET_MAP_OPTIONS()}) %>`
 
 ### Returns
 
@@ -504,11 +503,11 @@ String
 ### Examples
 
 ```js Google
-STATICMAP({mapEngine: ‘google’,markers: '34.052230,-118.243680', maptype: 'hybrid', size: '300x300'})
+STATICMAP({mapEngine: 'google',markers: '34.052230,-118.243680', maptype: 'hybrid', size: '300x300'})
 ```
 
 ```js Esri
-<img src="<%= STATICMAP({mapEngine: ‘esri’, ...SET_MAP_OPTIONS()}) %>" />
+<img src="<%= STATICMAP({mapEngine: 'esri', ...SET_MAP_OPTIONS()}) %>" />
 ```
 
 ```html
