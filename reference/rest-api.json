@@ -10307,7 +10307,7 @@
             }
           },
           "401": {
-            "description": "Unauthorized",
+            "description": "401",
             "content": {
               "application/json": {
                 "examples": {
