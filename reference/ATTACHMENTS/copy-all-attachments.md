@@ -8,11 +8,11 @@ api:
 deprecated: false
 hidden: false
 metadata:
-  title: ""
-  description: ""
+  title: ''
+  description: ''
   robots: noindex
 next:
-  description: ""
+  description: ''
 ---
 
 This endpoint allows you to copy all reference files from a source form to a destination form. This is useful when cloning a form or moving reference data between applications.

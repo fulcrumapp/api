@@ -10285,10 +10285,36 @@
               }
             }
           },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n  \"error\": \"Bad Request\"\n}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    }
+                  }
+                }
+              }
+            }
+          },
           "401": {
             "description": "Unauthorized",
             "content": {
               "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n  \"error\": \"Unauthorized\"\n}"
+                  }
+                },
                 "schema": {
                   "type": "object",
                   "properties": {
