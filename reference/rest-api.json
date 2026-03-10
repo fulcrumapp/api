@@ -511,6 +511,44 @@
         },
         "description": "Location metadata captured at creation or update time."
       },
+      "AttachmentCopyAllRequest": {
+        "type": "object",
+        "required": [
+          "source_parent_id",
+          "destination_parent_id",
+          "parent_type"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "source_parent_id": {
+            "type": "string",
+            "description": "The ID of the source parent (e.g. form ID) to copy reference files from"
+          },
+          "destination_parent_id": {
+            "type": "string",
+            "description": "The ID of the destination parent (e.g. form ID) to copy reference files to"
+          },
+          "parent_type": {
+            "type": "string",
+            "description": "The type of the parent resource",
+            "enum": [
+              "form"
+            ]
+          }
+        }
+      },
+      "AttachmentCopyAllResponse": {
+        "type": "object",
+        "properties": {
+          "ref_file_mapping": {
+            "type": "object",
+            "description": "A mapping of original reference file attachment IDs to their new copies",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      },
       "AttachmentCreateRequest": {
         "type": "object",
         "required": [
@@ -10182,6 +10220,88 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/EmptySuccessResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "401",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n  \"error\": \"Unauthorized\"\n}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2/attachments/copy_all": {
+      "post": {
+        "summary": "Copy all reference files",
+        "description": "Copy all reference files from one form to another. Limits: 100 reference files per form, 1GB total per form.",
+        "operationId": "copy-all-attachments",
+        "parameters": [
+          {
+            "name": "x-apitoken",
+            "in": "header",
+            "description": "API Token. Required to authenticate the request.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AttachmentCopyAllRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AttachmentCopyAllResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "400",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "Result": {
+                    "value": "{\n  \"error\": \"Bad Request\"\n}"
+                  }
+                },
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Bad Request"
+                    }
+                  }
                 }
               }
             }
