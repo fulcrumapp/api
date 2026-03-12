@@ -374,64 +374,63 @@ JSON - the feature `elements` and `values`
 ### Examples
 
 ```html
-<% RENDERVALUES(record, null, function(element, value) { %> <% if
-(element.isSectionElement) { %>
-
-<h1 class="field-section"><%= element.label %></h1>
-<% } else if (element.isRepeatableElement) { %> <% if (value.length) { %>
-<h1 class="field-section">
-  <%= element.label %> <%= value && `(${value.displayValue})` %>
-</h1>
-<% } else { %>
-<h1 class="field-section"><%= value && value.displayValue %></h1>
-<% } %> <% } else if (element.isPhotoElement) { %>
-<div class="field">
-  <h2 class="field-label"><%= element.label %></h2>
-  <div class="field-value">
-    <% value && value.items.forEach((item, index) => { %>
-    <img class="photo" src="<%= PHOTOURL(item.mediaID) %>" />
-    <% if (item.caption) { %>
-    <p><%= item.caption %></p>
-    <% } %> <% }); %>
-  </div>
-</div>
-<% } else if (element.isSketchElement) { %>
-<div class="field">
-  <h2 class="field-label"><%= element.label %></h2>
-  <div class="field-value">
-    <% value && value.items.forEach((item, index) => { %>
-    <img class="sketch" src="<%= SKETCHURL(item.mediaID) %>" />
-    <% }); %>
-  </div>
-</div>
-<% } else if (element.isSignatureElement) { %>
-<div class="field">
-  <h2 class="field-label"><%= element.label %></h2>
-  <% if (value && !value.isEmpty) { %>
-  <div class="field-value">
-    <img class="signature" src="<%= SIGNATUREURL(value.id) %>" />
-    <% if (value.timestamp) { %>
-    <p><%= element.agreementText %></p>
-    <p>Signed <%= FORMATDATE(value.timestamp) %></p>
+<% RENDERVALUES(record, null, function(element, value) { %>
+  <% if (element.isSectionElement) { %>
+    <h1 class="field-section"><%= element.label %></h1>
+  <% } else if (element.isRepeatableElement) { %>
+    <% if (value.length) { %>
+      <h1 class="field-section"><%= element.label %> <%= value && `(${value.displayValue})` %></h1>
+    <% } else { %>
+      <h1 class="field-section"><%= value && value.displayValue %></h1>
     <% } %>
-  </div>
+  <% } else if (element.isPhotoElement) { %>
+    <div class="field">
+      <h2 class="field-label"><%= element.label %></h2>
+      <div class="field-value">
+        <% value && value.items.forEach((item, index) => { %>
+          <img class="photo" src="<%= PHOTOURL(item.mediaID) %>" />
+          <% if (item.caption) { %>
+            <p><%= item.caption %></p>
+          <% } %>
+        <% }); %>
+      </div>
+    </div>
+  <% } else if (element.isSketchElement) { %>
+    <div class="field">
+      <h2 class="field-label"><%= element.label %></h2>
+      <div class="field-value">
+        <% value && value.items.forEach((item, index) => { %>
+          <img class="sketch" src="<%= SKETCHURL(item.mediaID) %>" />
+        <% }); %>
+      </div>
+    </div>
+  <% } else if (element.isSignatureElement) { %>
+    <div class="field">
+      <h2 class="field-label"><%= element.label %></h2>
+      <% if (value && !value.isEmpty) { %>
+        <div class="field-value">
+          <img class="signature" src="<%= SIGNATUREURL(value.id) %>" />
+          <% if (value.timestamp) { %>
+            <p><%= element.agreementText %></p>
+            <p>Signed <%= FORMATDATE(value.timestamp) %></p>
+          <% } %>
+        </div>
+      <% } %>
+    </div>
+  <% } else if (element.isRecordLinkElement) { %>
+    <div class="field">
+      <h2 class="field-label"><%= element.label %></h2>
+      <% if (value && !value.isEmpty) { %>
+        <div class="field-value"><%= value.items.map(item => item.displayValue).join(", ") %></div>
+      <% } %>
+    </div>
+  <% } else { %>
+    <div class="field">
+      <h2 class="field-label"><%= element.label %></h2>
+      <div class="field-value pre"><%= value && value.displayValue %></div>
+    </div>
   <% } %>
-</div>
-<% } else if (element.isRecordLinkElement) { %>
-<div class="field">
-  <h2 class="field-label"><%= element.label %></h2>
-  <% if (value && !value.isEmpty) { %>
-  <div class="field-value">
-    <%= value.items.map(item => item.displayValue).join(', ') %>
-  </div>
-  <% } %>
-</div>
-<% } else { %>
-<div class="field">
-  <h2 class="field-label"><%= element.label %></h2>
-  <div class="field-value pre"><%= value && value.displayValue %></div>
-</div>
-<% } %> <% }) %>
+<% }) %>
 ```
 
 ---
