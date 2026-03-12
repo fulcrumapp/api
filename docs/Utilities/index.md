@@ -12,68 +12,39 @@ metadata:
 next:
   description: ''
 ---
-Fulcrum is designed to work seamlessly with a broad ecosystem of tools and utilities. Whether you need to import data, automate workflows, visualize your data in a GIS environment, or interact with the API from the command line, the resources below can help you extend the power of Fulcrum.
 
-# Data Management
+Fulcrum provides a suite of companion utilities that extend the capabilities of the core platform. These tools are designed to streamline common workflows, simplify data management, and help field teams and administrators get more value from their Fulcrum data without requiring custom development.
 
-## [Fulcrum Importer](https://github.com/fulcrumapp/fulcrum-importer)
+> **Support notice:** These utilities are provided as supplementary tools and we are committed to supporting them to the best of our ability. However, they are maintained separately from the core Fulcrum platform and do not carry the same level of support, SLA guarantees, or release cadence as core Fulcrum features. If you encounter issues or have feedback, please reach out to our support team and we will do our best to assist.
 
-A command-line tool for importing CSV data into Fulcrum. Useful for bulk-loading existing datasets from spreadsheets or external systems into your Fulcrum apps.
+## [Fulcrum Instaform](https://fulcrum-instaform.util.fulcrumapp.com/)
 
-## [Fulcrum Desktop](https://github.com/fulcrumapp/fulcrum-desktop)
+Rapidly convert existing paper or digital forms into Fulcrum apps using AI. Upload an image or PDF of your current data collection form — such as an inspection sheet, survey template, or field checklist — and Instaform will automatically extract all the fields and structure them into a Fulcrum app. You can review and fine-tune the extracted fields before publishing the app directly to your Fulcrum organization. This is ideal for organizations migrating from legacy paper-based workflows or spreadsheets to Fulcrum's mobile data collection platform.
 
-Fulcrum Desktop is a local sync client that downloads your Fulcrum data to a local SQLite or PostgreSQL database. It supports offline access and incremental sync, making it ideal for advanced reporting and integration workflows.
+## [Fulcrum Query Utility](https://query.util.fulcrumapp.com/)
 
-# Automation & Integration
+A browser-based interface for Fulcrum's [Query API](https://developer.fulcrumapp.com/reference/query-introduction). Write and execute SQL queries against your Fulcrum data without needing a separate database client or API credentials setup. The Query Utility provides a convenient UI for exploring your records, running ad hoc reports, validating data quality, and prototyping queries that can later be integrated into downstream workflows or custom applications.
 
-## [Zapier Integration](https://zapier.com/apps/fulcrum/integrations)
+## [Fulcrum Explorer](https://explorer.util.fulcrumapp.com/)
 
-Fulcrum's Zapier integration lets you connect Fulcrum to thousands of other apps without writing any code. Automate workflows such as sending notifications, creating rows in Google Sheets, or triggering actions in project management tools whenever new records are created or updated in Fulcrum.
+A photo-first data exploration tool that gives you a visual way to browse and manage your Fulcrum records across multiple records simultaneously. Rather than navigating record by record in the standard editor, Explorer surfaces all your Fulcrum photos in a unified gallery view, making it easy to review field imagery, identify gaps in photo documentation, and quickly locate records by their associated images. Explorer also supports inline data editing and bulk field updates, making it useful for quality assurance and post-collection data cleanup.
 
-## [Fulcrum Webhooks](https://docs.fulcrumapp.com/docs/webhooks)
+## [Fulcrum Dispatcher](https://dispatcher.util.fulcrumapp.com/)
 
-Use webhooks to receive real-time HTTP POST notifications when events occur in Fulcrum (e.g., record created, updated, or deleted). This allows you to build custom integrations with your own infrastructure or third-party services.
+A map-driven bulk assignment and triage tool for Fulcrum records. Use the lasso selection tool to draw a region on the map and select a group of records, then update their status, project, or assignment all at once. Dispatcher is especially valuable for dispatch coordinators and project managers who need to reassign work orders, update job statuses after a site visit, or organize records into projects across a geographic area — all without opening each record individually.
 
-# GIS & Mapping
+## [Fulcrum Photo Grouper](https://photo-grouper.util.fulcrumapp.com/)
 
-## [QGIS Fulcrum Plugin](https://github.com/fulcrumapp/fulcrum-qgis)
+Automates the process of associating bulk photo uploads with the correct Fulcrum records based on GPS metadata. Upload a batch of photos — such as imagery captured by a drone or a field camera — and Photo Grouper reads the latitude and longitude from each photo's EXIF data to automatically attach it to the nearest matching Fulcrum record. This is particularly useful for drone survey workflows, environmental inspections, and any field operation where large volumes of geo-tagged imagery need to be linked to asset or site records in Fulcrum.
 
-An open-source QGIS plugin that lets you connect directly to your Fulcrum account, view your apps on a map, and synchronize data between Fulcrum and QGIS. Ideal for GIS professionals who want to work with Fulcrum data in their existing GIS workflows.
+## [Fulcrum Shares Utility](https://shares.util.fulcrumapp.com/)
 
-## [ArcGIS Integration](https://help.fulcrumapp.com/en/articles/4028782-arcgis-integration)
+A centralized management interface for your Fulcrum shared views and shared reports. View, organize, and control all of your organization's public-facing data shares in one place, without navigating through individual records or apps in the main Fulcrum editor. This utility is useful for administrators who need to audit or revoke active shares, as well as for teams that regularly distribute shareable map views or report links to external stakeholders.
 
-Fulcrum integrates with Esri's ArcGIS platform, allowing you to sync your Fulcrum records with ArcGIS feature services. This enables real-time data sharing between Fulcrum field crews and desktop ArcGIS users.
+## [Classification Set Utility](https://classification-set-utility.util.fulcrumapp.com/)
 
-# API Libraries
+Simplifies the creation and maintenance of Fulcrum classification sets, which are hierarchical choice lists used in Classification fields. Upload new classification sets from structured files or edit existing ones with a more ergonomic interface than what is available in the Fulcrum web platform. This utility is especially helpful when managing large or deeply nested classification trees — such as equipment type taxonomies, land use categories, or regulatory code lists — where bulk editing and visual tree navigation save significant time.
 
-## [Fulcrum JavaScript](https://github.com/fulcrumapp/fulcrum-js)
+## [Fulcrum Data Viewer](https://data-viewer.util.fulcrumapp.com/)
 
-An official JavaScript/Node.js client library for the Fulcrum REST API. Simplifies authentication and common API operations for web and server-side JavaScript applications.
-
-## [Fulcrum Python](https://github.com/fulcrumapp/fulcrum-python)
-
-An official Python client library for the Fulcrum REST API. Useful for data science workflows, scripting, and building Python-based integrations.
-
-## [Fulcrum Ruby](https://github.com/fulcrumapp/fulcrum-ruby)
-
-An official Ruby gem for interacting with the Fulcrum REST API. Ideal for Ruby on Rails applications and Ruby-based automation scripts.
-
-# Reporting
-
-## [Report Builder](https://docs.fulcrumapp.com/docs/reports-introduction)
-
-Fulcrum's built-in Report Builder lets you generate PDF reports from your collected data using customizable templates powered by Mustache and HTML. Reports can be generated on-demand from the mobile app or via the API.
-
-## [Query API](https://docs.fulcrumapp.com/reference#query-intro)
-
-The Fulcrum Query API provides a SQL interface for retrieving and analyzing your data. Use it to power custom dashboards, feed business intelligence tools, or run ad-hoc queries against your entire dataset.
-
-# Developer Tools
-
-## [Fulcrum CLI](https://github.com/fulcrumapp/fulcrum-cli)
-
-A command-line interface for interacting with the Fulcrum platform. Supports common operations such as exporting data, managing apps, and scripting repetitive tasks directly from your terminal.
-
-## [Fulcrum Sync](https://github.com/fulcrumapp/fulcrum-sync)
-
-Fulcrum Sync is a utility for synchronizing Fulcrum data to external databases. It supports PostgreSQL and SQLite backends and can be run on a schedule to keep a local mirror of your Fulcrum data up to date.
+A public-facing split-view data viewer powered by Fulcrum shared filters. Provide a Fulcrum shared filter URL and Data Viewer renders the matching records in a side-by-side map and detail view — no Fulcrum login required. This makes it easy to share live field data snapshots with clients, community stakeholders, or colleagues who don't have a Fulcrum account, without granting them access to your organization.
