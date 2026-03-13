@@ -1,5 +1,5 @@
 ---
-title: Utilities
+title: Introduction
 excerpt: >-
   A collection of tools and utilities that complement the Fulcrum platform and
   help you get more out of your data.
