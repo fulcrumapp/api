@@ -11426,7 +11426,7 @@
             }
           },
           {
-            "name": "Content-Tyoe",
+            "name": "Content-Type",
             "in": "header",
             "schema": {
               "type": "string",
@@ -11530,7 +11530,7 @@
             }
           },
           {
-            "name": "Content-Tyoe",
+            "name": "Content-Type",
             "in": "header",
             "schema": {
               "type": "string",
