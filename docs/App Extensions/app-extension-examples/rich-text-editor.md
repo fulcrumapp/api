@@ -20,7 +20,14 @@ Use this when you want report-ready formatting such as headings, lists, links, e
 ## Demo Clip
 Watch a short clip of the extension workflow:
 
-[rich-text-editor-clip.mp4](https://reportassets.fulcrumapp.com/readme-assets/rich-text-editor-clip.mp4)
+<htmlblock>{`
+<video controls playsinline style="width:100%;max-width:960px;border-radius:8px;">
+  <source src="https://reportassets.fulcrumapp.com/readme-assets/rich-text-editor-clip.mp4" type="video/mp4" />
+  Your browser does not support embedded video. Use the download link below.
+</video>
+`}</htmlblock>
+
+Download clip: [rich-text-editor-clip.mp4](https://reportassets.fulcrumapp.com/readme-assets/rich-text-editor-clip.mp4)
 
 What this clip shows:
 - Tapping the trigger field to launch the extension
