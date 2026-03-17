@@ -20,7 +20,7 @@ Use this when you want report-ready formatting such as headings, lists, links, e
 ## Demo Clip
 Watch a short clip of the extension workflow:
 
-[rich-text-editor-clip.mp4](https://raw.githubusercontent.com/fulcrumapp/api/v2/docs/App%20Extensions/app-extension-examples/rich-text-editor-clip.mp4)
+[rich-text-editor-clip.mp4](https://reportassets.fulcrumapp.com/readme-assets/rich-text-editor-clip.mp4)
 
 What this clip shows:
 - Tapping the trigger field to launch the extension
@@ -29,7 +29,7 @@ What this clip shows:
 - Using that stored HTML in report output with formatting preserved
 
 ## Setup
-1. Download [rich-text-editor.html](https://raw.githubusercontent.com/fulcrumapp/api/v2/docs/App%20Extensions/app-extension-examples/rich-text-editor.html) and upload it as a Reference File in your app.
+1. Download [rich-text-editor.html](https://reportassets.fulcrumapp.com/readme-assets/rich-text-editor.html) and upload it as a Reference File in your app.
 2. Add a trigger field (commonly a Hyperlink field) with a data name such as `open_rich_text_editor`.
 3. Add a target Text field (multi-line) with a data name such as `notes`.
 4. Paste the Data Event below into your app and update the two field data names as needed.
@@ -90,4 +90,4 @@ ON('click', TRIGGER_FIELD, function () {
 ```
 
 ## Extension File
-The full extension file is available here: [rich-text-editor.html](https://raw.githubusercontent.com/fulcrumapp/api/v2/docs/App%20Extensions/app-extension-examples/rich-text-editor.html)
+The full extension file is available here: [rich-text-editor.html](https://reportassets.fulcrumapp.com/readme-assets/rich-text-editor.html)
