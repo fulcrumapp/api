@@ -1,0 +1,1105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Rich Text Editor</title>
+
+  <!--
+  ══════════════════════════════════════════════════════════════════════════════
+  FULCRUM APP EXTENSION — Rich Text Editor
+  Version 1.0.0
+  ══════════════════════════════════════════════════════════════════════════════
+
+  WHAT IT DOES
+  ─────────────
+  Opens a full-featured rich-text editor pre-loaded with the current value of a
+  Fulcrum text field.  When the user taps "Save", the formatted content is
+  serialised to clean HTML and written back to that field.
+
+  SETUP (2 steps)
+  ─────────────────
+  1. Upload this file as a Fulcrum Reference File with the exact name:
+       rich-text-editor.html
+
+  2. Add the Data Event below to your app, replacing the two data-names:
+       • 'open_rich_text'  → data name of the hyperlink/button field that
+                             the user taps to open the editor
+       • 'notes'          → data name of the text field that stores the HTML
+
+  DATA EVENT SCRIPT
+  ─────────────────
+  ON('click', 'open_rich_text', function () {
+    OPENEXTENSION({
+      url:   'attachment://rich-text-editor.html',
+      title: 'Rich Text Editor',
+      data: {
+        field_value: VALUE('notes'),
+        field_name:  'notes',
+        field_label: LABEL('notes')
+      },
+      onMessage: function (result) {
+        var data = result && result.data;
+        if (data && data.action === 'submit') {
+          SETVALUE(data.field_name, data.html_value);
+        }
+      }
+    });
+  });
+
+  KEYBOARD SHORTCUTS (desktop / tablet keyboard)
+  ─────────────────────────────────────────────────
+  Ctrl/⌘ + B  → Bold
+  Ctrl/⌘ + I  → Italic
+  Ctrl/⌘ + U  → Underline
+  Ctrl/⌘ + K  → Insert link
+  Ctrl/⌘ + Z  → Undo
+  Ctrl/⌘ + Y  → Redo
+
+  ══════════════════════════════════════════════════════════════════════════════
+  -->
+
+  <!-- Fulcrum extension runtime — do not modify this script block -->
+  <!-- Fulcrum extension script snippet, do not modify -->
+<script>(()=>{var s=(e,i)=>()=>(i||e((i={exports:{}}).exports,i),i.exports);var o=s((a,r)=>{var l=new URLSearchParams(location.search);function c(e){try{return JSON.parse(e)}catch(i){return null}}r.exports=window.Fulcrum={isExtension:l.get("extension")==="1",initialize:()=>{var i;let{params:e}=Fulcrum;Fulcrum.id=e==null?void 0:e.id,Fulcrum.url=e==null?void 0:e.url,Fulcrum.data=e==null?void 0:e.data,Fulcrum.origin=e==null?void 0:e.origin,(i=Fulcrum.onLoadOnce)==null||i.call(Fulcrum)},load:e=>{Fulcrum.onLoadOnce=()=>{Fulcrum.params&&!Fulcrum.isLoaded&&(Fulcrum.isLoaded=!0,e({data:Fulcrum.data}))},Fulcrum.onLoadOnce()},send:(e,{close:i=!1}={})=>{var u;e=e!=null?e:{};let n={id:Fulcrum.id,url:Fulcrum.url,data:e,close:i};(u=window.webkit)!=null&&u.messageHandlers?window.webkit.messageHandlers.extensionListener.postMessage(JSON.stringify(n)):window.parent&&window.parent.postMessage({extensionMessage:n},Fulcrum.origin)},receive:e=>{let i=c(e.data);i&&i.command==="initialize"&&!Fulcrum.params&&(Fulcrum.params=i.params,Fulcrum.initialize())},finish:e=>{Fulcrum.send(e,{close:!0})}};Fulcrum.isExtension?window.addEventListener("message",Fulcrum.receive,!1):window.addEventListener("DOMContentLoaded",Fulcrum.initialize)});o();})();</script>
+
+  <style>
+    /* ── Reset ──────────────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* ── Design tokens ──────────────────────────────────────────────────────── */
+    :root {
+      --bg:              #ffffff;
+      --bg-chrome:       #f2f2f7;
+      --border:          #c6c6c8;
+      --text:            #1c1c1e;
+      --text-muted:      #6d6d72;
+      --accent:          #007aff;
+      --accent-light:    rgba(0,122,255,0.12);
+      --btn-hover:       rgba(0,0,0,0.06);
+      --btn-active:      rgba(0,0,0,0.12);
+      --danger:          #ff3b30;
+      --success:         #34c759;
+      --radius-sm:       6px;
+      --radius-md:       10px;
+      --shadow-dialog:   0 24px 64px rgba(0,0,0,0.28);
+      --font:            -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --toolbar-height:  44px;
+      --footer-height:   60px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg:          #1c1c1e;
+        --bg-chrome:   #2c2c2e;
+        --border:      #3a3a3c;
+        --text:        #f2f2f7;
+        --text-muted:  #8e8e93;
+        --accent:      #0a84ff;
+        --accent-light: rgba(10,132,255,0.15);
+        --btn-hover:   rgba(255,255,255,0.07);
+        --btn-active:  rgba(255,255,255,0.14);
+        --danger:      #ff453a;
+        --success:     #30d158;
+      }
+    }
+
+    /* ── Base layout ────────────────────────────────────────────────────────── */
+    html, body {
+      height: 100%; width: 100%;
+      overflow: hidden;
+      font-family: var(--font);
+      font-size: 16px;
+      color: var(--text);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+    }
+
+    /* ── Header ─────────────────────────────────────────────────────────────── */
+    #header {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      height: 44px;
+      padding: 0 16px;
+      background: var(--bg-chrome);
+      border-bottom: 1px solid var(--border);
+      gap: 8px;
+    }
+
+    #field-label {
+      flex: 1;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ── Toolbar ────────────────────────────────────────────────────────────── */
+    #toolbar {
+      flex-shrink: 0;
+      background: var(--bg-chrome);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    #toolbar::-webkit-scrollbar { display: none; }
+
+    .toolbar-row {
+      display: flex;
+      align-items: center;
+      padding: 3px 6px;
+      gap: 1px;
+      min-width: max-content;
+    }
+
+    .tb-sep {
+      width: 1px;
+      height: 22px;
+      background: var(--border);
+      margin: 0 4px;
+      flex-shrink: 0;
+    }
+
+    /* ── Toolbar buttons ────────────────────────────────────────────────────── */
+    .tb-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px;
+      height: 38px;
+      border: none;
+      background: transparent;
+      color: var(--text);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      padding: 0 7px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      transition: background 0.12s ease;
+      flex-shrink: 0;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .tb-btn:hover  { background: var(--btn-hover); }
+    .tb-btn:active { background: var(--btn-active); }
+    .tb-btn.active {
+      background: var(--accent-light);
+      color: var(--accent);
+    }
+    .tb-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      pointer-events: none;
+      flex-shrink: 0;
+    }
+    .tb-btn.icon-lg svg { width: 20px; height: 20px; }
+
+    /* Block-format select */
+    .tb-select {
+      height: 34px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--text);
+      border-radius: var(--radius-sm);
+      padding: 0 28px 0 9px;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238e8e93'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 9px center;
+      min-width: 108px;
+      flex-shrink: 0;
+    }
+
+    /* Color-picker button */
+    .tb-color-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 38px;
+      height: 38px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      overflow: hidden;
+      flex-shrink: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .tb-color-wrap:hover { background: var(--btn-hover); }
+
+    .tb-color-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      pointer-events: none;
+    }
+    .tb-color-a {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text);
+    }
+    #color-swatch-bar {
+      width: 16px;
+      height: 3px;
+      border-radius: 2px;
+      background: #000000;
+    }
+    #text-color-input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+      border: none;
+      padding: 0;
+    }
+
+    /* ── Scrollable editor area ─────────────────────────────────────────────── */
+    #editor-wrap {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      background: var(--bg);
+    }
+
+    #editor {
+      min-height: 100%;
+      padding: 16px;
+      outline: none;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--text);
+      word-break: break-word;
+      overflow-wrap: break-word;
+      -webkit-user-select: text;
+      user-select: text;
+      caret-color: var(--accent);
+      white-space: pre-wrap;
+    }
+
+    #editor:empty::before {
+      content: attr(data-placeholder);
+      color: var(--text-muted);
+      pointer-events: none;
+      white-space: pre-wrap;
+    }
+
+    /* Spacing between block elements */
+    #editor > * + * { margin-top: 0.6em; }
+
+    /* Heading styles */
+    #editor h1 { font-size: 1.75em; font-weight: 700; line-height: 1.2; }
+    #editor h2 { font-size: 1.4em;  font-weight: 700; line-height: 1.3; }
+    #editor h3 { font-size: 1.15em; font-weight: 600; line-height: 1.4; }
+
+    /* List styles */
+    #editor ul, #editor ol {
+      padding-left: 1.6em;
+    }
+    #editor li + li { margin-top: 0.25em; }
+
+    /* Links */
+    #editor a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+
+    /* Blockquote */
+    #editor blockquote {
+      border-left: 3px solid var(--border);
+      padding-left: 1em;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Horizontal rule */
+    #editor hr {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0.8em 0;
+    }
+
+    /* ── Footer action bar ──────────────────────────────────────────────────── */
+    #footer {
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: var(--footer-height);
+      padding: 0 16px;
+      background: var(--bg-chrome);
+      border-top: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    #word-count {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      padding: 0 22px;
+      border: none;
+      border-radius: var(--radius-md);
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      transition: opacity 0.1s ease, filter 0.1s ease;
+      white-space: nowrap;
+    }
+    .btn:active { opacity: 0.75; }
+
+    .btn-cancel {
+      background: var(--btn-active);
+      color: var(--text);
+    }
+    .btn-submit {
+      background: var(--accent);
+      color: #ffffff;
+    }
+    .btn-submit:hover { filter: brightness(1.08); }
+
+    /* ── Link dialog ────────────────────────────────────────────────────────── */
+    #link-dialog {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 200;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0 0 env(safe-area-inset-bottom, 0);
+    }
+    @media (min-height: 500px) {
+      #link-dialog { align-items: center; padding: 20px; }
+    }
+    #link-dialog.open { display: flex; }
+
+    .dialog-card {
+      background: var(--bg);
+      border-radius: var(--radius-md) var(--radius-md) 0 0;
+      padding: 20px 20px calc(20px + env(safe-area-inset-bottom, 0));
+      width: 100%;
+      max-width: 420px;
+      box-shadow: var(--shadow-dialog);
+    }
+    @media (min-height: 500px) {
+      .dialog-card {
+        border-radius: var(--radius-md);
+        padding: 20px;
+      }
+    }
+
+    .dialog-title {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .dialog-input {
+      width: 100%;
+      height: 44px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0 12px;
+      font-size: 16px;
+      font-family: inherit;
+      background: var(--bg);
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.15s;
+      margin-bottom: 14px;
+    }
+    .dialog-input:focus { border-color: var(--accent); }
+
+    .dialog-btns {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .dialog-btn {
+      height: 38px;
+      padding: 0 18px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .dialog-btn-cancel { background: var(--btn-active); color: var(--text); }
+    .dialog-btn-ok     { background: var(--accent); color: #fff; }
+  </style>
+</head>
+<body>
+  <div id="app">
+
+    <!-- ── Header ── -->
+    <div id="header">
+      <span id="field-label">Rich Text</span>
+    </div>
+
+    <!-- ── Toolbar ── -->
+    <div id="toolbar" role="toolbar" aria-label="Formatting toolbar">
+
+      <!-- Row 1: Text style + inline formatting + undo/redo -->
+      <div class="toolbar-row">
+
+        <select id="block-format" class="tb-select" title="Text style" aria-label="Text style">
+          <option value="p">Paragraph</option>
+          <option value="h1">Heading 1</option>
+          <option value="h2">Heading 2</option>
+          <option value="h3">Heading 3</option>
+          <option value="blockquote">Quote</option>
+        </select>
+
+        <div class="tb-sep"></div>
+
+        <!-- Bold -->
+        <button class="tb-btn" id="fmt-bold" data-cmd="bold" title="Bold (⌘B)" aria-label="Bold">
+          <svg viewBox="0 0 24 24"><path d="M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"/></svg>
+        </button>
+
+        <!-- Italic -->
+        <button class="tb-btn" id="fmt-italic" data-cmd="italic" title="Italic (⌘I)" aria-label="Italic">
+          <svg viewBox="0 0 24 24"><path d="M10 4v3h2.21l-3.42 8H6v3h8v-3h-2.21l3.42-8H18V4z"/></svg>
+        </button>
+
+        <!-- Underline -->
+        <button class="tb-btn" id="fmt-underline" data-cmd="underline" title="Underline (⌘U)" aria-label="Underline">
+          <svg viewBox="0 0 24 24"><path d="M12 17c3.31 0 6-2.69 6-6V3h-2.5v8c0 1.93-1.57 3.5-3.5 3.5S8.5 12.93 8.5 11V3H6v8c0 3.31 2.69 6 6 6zm-7 2v2h14v-2H5z"/></svg>
+        </button>
+
+        <!-- Strikethrough -->
+        <button class="tb-btn" id="fmt-strikeThrough" data-cmd="strikeThrough" title="Strikethrough" aria-label="Strikethrough">
+          <svg viewBox="0 0 24 24"><path d="M6.85 7.08C6.85 4.37 9.45 3 12.24 3c1.64 0 3 .49 3.9 1.28.77.65 1.46 1.73 1.46 3.24h-3.01c0-.31-.05-.59-.15-.85-.29-.86-1.2-1.28-2.25-1.28-1.86 0-2.34.92-2.34 1.71 0 .09.01.47.28.8H6.85v-.82zM21 12v-2H3v2h9.62c1.15.45 1.96.75 1.96 1.97 0 1-.81 1.67-2.28 1.67-1.54 0-2.93-.54-2.93-2.51H6.4c0 .55.08 1.13.24 1.58.81 2.29 3.29 3.3 5.67 3.3 2.27 0 5.3-.89 5.3-4.05 0-.3-.01-.62-.08-.9H21z"/></svg>
+        </button>
+
+        <div class="tb-sep"></div>
+
+        <!-- Undo -->
+        <button class="tb-btn" data-cmd="undo" title="Undo (⌘Z)" aria-label="Undo">
+          <svg viewBox="0 0 24 24"><path d="M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z"/></svg>
+        </button>
+
+        <!-- Redo -->
+        <button class="tb-btn" data-cmd="redo" title="Redo (⌘Y)" aria-label="Redo">
+          <svg viewBox="0 0 24 24"><path d="M18.4 10.6C16.55 8.99 14.15 8 11.5 8c-4.65 0-8.58 3.03-9.96 7.22L3.9 15.7c1.05-3.19 4.05-5.5 7.6-5.5 1.95 0 3.73.72 5.12 1.88L13 15.5h9v-9l-3.6 4.1z"/></svg>
+        </button>
+
+      </div><!-- /row 1 -->
+
+      <!-- Row 2: Alignment + lists + link + colour + clear -->
+      <div class="toolbar-row">
+
+        <!-- Align left -->
+        <button class="tb-btn" id="fmt-justifyLeft" data-cmd="justifyLeft" title="Align left" aria-label="Align left">
+          <svg viewBox="0 0 24 24"><path d="M15 15H3v2h12v-2zm0-8H3v2h12V7zM3 13h18v-2H3v2zm0 8h18v-2H3v2zM3 3v2h18V3H3z"/></svg>
+        </button>
+
+        <!-- Align centre -->
+        <button class="tb-btn" id="fmt-justifyCenter" data-cmd="justifyCenter" title="Align centre" aria-label="Align centre">
+          <svg viewBox="0 0 24 24"><path d="M7 15v2h10v-2H7zm-4 6h18v-2H3v2zm0-8h18v-2H3v2zm4-6v2h10V7H7zM3 3v2h18V3H3z"/></svg>
+        </button>
+
+        <!-- Align right -->
+        <button class="tb-btn" id="fmt-justifyRight" data-cmd="justifyRight" title="Align right" aria-label="Align right">
+          <svg viewBox="0 0 24 24"><path d="M3 21h18v-2H3v2zm6-4h12v-2H9v2zm-6-4h18v-2H3v2zm6-4h12V7H9v2zM3 3v2h18V3H3z"/></svg>
+        </button>
+
+        <!-- Justify -->
+        <button class="tb-btn" id="fmt-justifyFull" data-cmd="justifyFull" title="Justify" aria-label="Justify">
+          <svg viewBox="0 0 24 24"><path d="M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-6v2h18V3H3z"/></svg>
+        </button>
+
+        <div class="tb-sep"></div>
+
+        <!-- Bullet list -->
+        <button class="tb-btn" data-cmd="insertUnorderedList" title="Bullet list" aria-label="Bullet list">
+          <svg viewBox="0 0 24 24"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12c-.83 0-1.5.68-1.5 1.5s.68 1.5 1.5 1.5 1.5-.68 1.5-1.5-.67-1.5-1.5-1.5zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z"/></svg>
+        </button>
+
+        <!-- Numbered list -->
+        <button class="tb-btn" data-cmd="insertOrderedList" title="Numbered list" aria-label="Numbered list">
+          <svg viewBox="0 0 24 24"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z"/></svg>
+        </button>
+
+        <!-- Indent -->
+        <button class="tb-btn" data-cmd="indent" title="Indent" aria-label="Indent">
+          <svg viewBox="0 0 24 24"><path d="M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zM3 3v2h18V3H3z"/><path d="M3 8.5v7l4-3.5z"/></svg>
+        </button>
+
+        <!-- Outdent -->
+        <button class="tb-btn" data-cmd="outdent" title="Outdent" aria-label="Outdent">
+          <svg viewBox="0 0 24 24"><path d="M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zM3 3v2h18V3H3z"/><path d="M11 8.5v7l-4-3.5z"/></svg>
+        </button>
+
+        <div class="tb-sep"></div>
+
+        <!-- Insert link -->
+        <button class="tb-btn" id="btn-link" title="Insert link (⌘K)" aria-label="Insert link">
+          <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+        </button>
+
+        <!-- Remove link -->
+        <button class="tb-btn" data-cmd="unlink" title="Remove link" aria-label="Remove link">
+          <svg viewBox="0 0 24 24"><path d="M17 7h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1 0 1.43-.98 2.63-2.31 2.98l1.46 1.46C20.88 15.61 22 13.95 22 12c0-2.76-2.24-5-5-5zm-1 4h-2.19l2 2H16v-2zM2 4.27l3.11 3.11C3.29 8.12 2 9.91 2 12c0 2.76 2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1 0-1.59 1.21-2.9 2.76-3.07L8.73 11H8v2h2.73l2 2H8v1.9h4.46l3.27 3.27 1.27-1.27L3.27 3 2 4.27z"/></svg>
+        </button>
+
+        <div class="tb-sep"></div>
+
+        <!-- Text colour -->
+        <label class="tb-color-wrap" title="Text colour" aria-label="Text colour">
+          <span class="tb-color-label">
+            <span class="tb-color-a">A</span>
+            <span id="color-swatch-bar"></span>
+          </span>
+          <input type="color" id="text-color-input" value="#000000" />
+        </label>
+
+        <div class="tb-sep"></div>
+
+        <!-- Clear formatting -->
+        <button class="tb-btn" data-cmd="removeFormat" title="Clear formatting" aria-label="Clear formatting">
+          <svg viewBox="0 0 24 24"><path d="M3.27 5L2 6.27l6.97 6.97L6.5 19h3l1.57-3.66L16.73 21 18 19.73 3.27 5zM6 5v.18L8.82 8h2.4l-.72 1.68 2.1 2.1L14.21 8H20V5H6z"/></svg>
+        </button>
+
+      </div><!-- /row 2 -->
+
+    </div><!-- /#toolbar -->
+
+    <!-- ── Editor ── -->
+    <div id="editor-wrap">
+      <div
+        id="editor"
+        contenteditable="true"
+        data-placeholder="Start typing…"
+        spellcheck="true"
+        autocorrect="on"
+        autocapitalize="sentences"
+        role="textbox"
+        aria-multiline="true"
+        aria-label="Rich text editor"
+      ></div>
+    </div>
+
+    <!-- ── Footer ── -->
+    <div id="footer">
+      <span id="word-count" aria-live="polite">0 words</span>
+      <div class="action-btns">
+        <button class="btn btn-cancel" id="btn-cancel">Cancel</button>
+        <button class="btn btn-submit" id="btn-submit">Save</button>
+      </div>
+    </div>
+
+  </div><!-- /#app -->
+
+  <!-- ── Link dialog ── -->
+  <div id="link-dialog" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+    <div class="dialog-card">
+      <div id="dialog-title" class="dialog-title">Insert Link</div>
+      <input
+        type="url"
+        id="link-url"
+        class="dialog-input"
+        placeholder="https://example.com"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        inputmode="url"
+      />
+      <div class="dialog-btns">
+        <button class="dialog-btn dialog-btn-cancel" id="link-dialog-cancel">Cancel</button>
+        <button class="dialog-btn dialog-btn-ok"     id="link-dialog-ok">Insert</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    'use strict';
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Dev / browser preview: inject fake params so the extension can be opened
+    // directly in any browser for testing.  This block is ignored inside Fulcrum
+    // because Fulcrum sets ?extension=1 in the URL.
+    // ─────────────────────────────────────────────────────────────────────────
+    if (!Fulcrum.isExtension) {
+      Fulcrum.params = {
+        type: 'fulcrum.extension',
+        data: {
+          field_name:  'notes',
+          field_label: 'Notes (Browser Preview)',
+          field_value: '<h2>Welcome to the Rich Text Editor</h2><p>This is a <strong>browser preview</strong>. Inside Fulcrum, this editor will load the real field value.</p><ul><li>Bold, italic, underline, strikethrough</li><li>Headings &amp; blockquotes</li><li>Ordered &amp; unordered lists</li><li>Links, text colour, alignment</li></ul>'
+        }
+      };
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // DOM references
+    // ─────────────────────────────────────────────────────────────────────────
+    const editor       = document.getElementById('editor');
+    const fieldLabel   = document.getElementById('field-label');
+    const wordCount    = document.getElementById('word-count');
+    const blockFmt     = document.getElementById('block-format');
+    const colorInput   = document.getElementById('text-color-input');
+    const swatchBar    = document.getElementById('color-swatch-bar');
+    const linkDialog   = document.getElementById('link-dialog');
+    const linkUrlInput = document.getElementById('link-url');
+
+    let savedRange = null;  // selection snapshot before link dialog opens
+    let fieldName  = '';
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Register Fulcrum.load IMMEDIATELY so the message listener is in place
+    // before Fulcrum sends the data payload. All functions called inside are
+    // hoisted declarations, so they are available even though their bodies
+    // appear later in the file. The callback itself fires async (postMessage
+    // or setTimeout), so all var/let/const declarations will be initialised.
+    // ─────────────────────────────────────────────────────────────────────────
+    Fulcrum.load(function (payload) {
+      var d = (payload && payload.data) || {};
+      console.log('[RTE] Fulcrum.load fired, data:', d);
+
+      fieldName = d.field_name || '';
+
+      if (d.field_label) {
+        fieldLabel.textContent = d.field_label;
+      }
+
+      loadFieldValue(d.field_value || '');
+      updateToolbarState();
+      updateWordCount();
+
+      // Place cursor at end of content
+      editor.focus();
+      try {
+        var range = document.createRange();
+        range.selectNodeContents(editor);
+        range.collapse(false);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      } catch (_) {console.log(_);}
+    });
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Toolbar state constants — declared early so exec() can reference them
+    // ─────────────────────────────────────────────────────────────────────────
+    var TOGGLE_CMDS = ['bold','italic','underline','strikeThrough','justifyLeft','justifyCenter','justifyRight','justifyFull'];
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // execCommand wrapper
+    // ─────────────────────────────────────────────────────────────────────────
+    function exec(cmd, value) {
+      editor.focus();
+      try {
+        document.execCommand(cmd, false, value != null ? value : null);
+      } catch (err) {
+        console.warn('[RTE] execCommand failed:', cmd, err);
+      }
+      updateToolbarState();
+      updateWordCount();
+    }
+
+    // Ensure paragraphs instead of divs on Enter
+    try {
+      document.execCommand('defaultParagraphSeparator', false, 'p');
+    } catch (_) {console.log(_);}
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Toolbar: generic data-cmd buttons
+    // ─────────────────────────────────────────────────────────────────────────
+    Array.from(document.querySelectorAll('.tb-btn[data-cmd]')).forEach(function (btn) {
+      // mousedown fires before blur — keeps editor focused on desktop
+      btn.addEventListener('mousedown', function (e) {
+        e.preventDefault();
+        exec(btn.dataset.cmd);
+      });
+      // touchstart for mobile, also prevents scroll interference
+      btn.addEventListener('touchstart', function (e) {
+        e.preventDefault();
+        exec(btn.dataset.cmd);
+      }, { passive: false });
+    });
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Block format select
+    // ─────────────────────────────────────────────────────────────────────────
+    blockFmt.addEventListener('change', function () {
+      editor.focus();
+      var tag = blockFmt.value;
+      exec('formatBlock', '<' + tag + '>');
+    });
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Text colour
+    // ─────────────────────────────────────────────────────────────────────────
+    colorInput.addEventListener('input', function () {
+      var colour = colorInput.value;
+      swatchBar.style.background = colour;
+      exec('foreColor', colour);
+    });
+
+    // Keep swatch in sync with cursor position
+    function syncColorSwatch() {
+      try {
+        var c = document.queryCommandValue('foreColor');
+        if (c) swatchBar.style.background = c;
+      } catch (_) {console.log(_);}
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Link dialog
+    // ─────────────────────────────────────────────────────────────────────────
+    document.getElementById('btn-link').addEventListener('mousedown', openLinkDialog);
+    document.getElementById('btn-link').addEventListener('touchstart', function (e) {
+      e.preventDefault();
+      openLinkDialog(e);
+    }, { passive: false });
+
+    function openLinkDialog(e) {
+      if (e) e.preventDefault();
+      var sel = window.getSelection();
+      savedRange = (sel && sel.rangeCount > 0) ? sel.getRangeAt(0).cloneRange() : null;
+      linkUrlInput.value = '';
+      // Pre-fill if cursor is on an existing link
+      if (savedRange) {
+        var anchor = getAnchorNode(sel.anchorNode);
+        if (anchor) linkUrlInput.value = anchor.href || '';
+      }
+      linkDialog.classList.add('open');
+      setTimeout(function () { linkUrlInput.focus(); }, 80);
+    }
+
+    function closeLinkDialog() {
+      linkDialog.classList.remove('open');
+      editor.focus();
+    }
+
+    function getAnchorNode(node) {
+      while (node) {
+        if (node.nodeName === 'A') return node;
+        node = node.parentNode;
+      }
+      return null;
+    }
+
+    document.getElementById('link-dialog-ok').addEventListener('click', insertLink);
+    document.getElementById('link-dialog-cancel').addEventListener('click', closeLinkDialog);
+
+    linkUrlInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter')  { e.preventDefault(); insertLink(); }
+      if (e.key === 'Escape') { e.preventDefault(); closeLinkDialog(); }
+    });
+
+    // Close on backdrop tap
+    linkDialog.addEventListener('mousedown', function (e) {
+      if (e.target === linkDialog) closeLinkDialog();
+    });
+
+    function insertLink() {
+      var url = linkUrlInput.value.trim();
+      closeLinkDialog();
+      if (!url) return;
+      // Prepend https:// if no protocol is present
+      if (!/^[a-zA-Z][a-zA-Z\d+\-.]*:\/\//.test(url)) {
+        url = 'https://' + url;
+      }
+      if (savedRange) {
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(savedRange);
+      }
+      exec('createLink', url);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Keyboard shortcuts
+    // ─────────────────────────────────────────────────────────────────────────
+    editor.addEventListener('keydown', function (e) {
+      var mod = e.ctrlKey || e.metaKey;
+      if (!mod) return;
+      switch (e.key.toLowerCase()) {
+        case 'b': e.preventDefault(); exec('bold');           break;
+        case 'i': e.preventDefault(); exec('italic');         break;
+        case 'u': e.preventDefault(); exec('underline');      break;
+        case 'y': e.preventDefault(); exec('redo');           break;
+        case 'k': e.preventDefault(); openLinkDialog(e);      break;
+      }
+    });
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Toolbar state sync
+    // ─────────────────────────────────────────────────────────────────────────
+    function updateToolbarState() {
+      TOGGLE_CMDS.forEach(function (cmd) {
+        var btn = document.getElementById('fmt-' + cmd);
+        if (btn) {
+          btn.classList.toggle('active', !!document.queryCommandState(cmd));
+          btn.setAttribute('aria-pressed', document.queryCommandState(cmd) ? 'true' : 'false');
+        }
+      });
+
+      // Block format select
+      try {
+        var block = document.queryCommandValue('formatBlock').toLowerCase().replace(/[<>]/g, '');
+        var opt = blockFmt.querySelector('option[value="' + block + '"]');
+        blockFmt.value = opt ? block : 'p';
+      } catch (_) {console.log(_);}
+
+      syncColorSwatch();
+    }
+
+    editor.addEventListener('input',    updateToolbarState);
+    editor.addEventListener('keyup',    updateToolbarState);
+    editor.addEventListener('mouseup',  updateToolbarState);
+    editor.addEventListener('touchend', updateToolbarState);
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Word / character counter
+    // ─────────────────────────────────────────────────────────────────────────
+    function updateWordCount() {
+      var text  = editor.innerText || '';
+      var words = text.trim() ? text.trim().split(/\s+/).length : 0;
+      var chars = text.replace(/\n/g, '').length;
+      wordCount.textContent =
+        words.toLocaleString() + ' word' + (words !== 1 ? 's' : '') +
+        ' · ' + chars.toLocaleString() + ' char' + (chars !== 1 ? 's' : '');
+    }
+
+    editor.addEventListener('input', updateWordCount);
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // HTML sanitiser  (strip dangerous tags / attributes before saving)
+    // ─────────────────────────────────────────────────────────────────────────
+    var ALLOWED_TAGS = new Set([
+      'p','br','b','strong','i','em','u','ins','s','del','strike',
+      'h1','h2','h3','h4','h5','h6',
+      'ul','ol','li','blockquote','hr',
+      'a','span','div','font'
+    ]);
+
+    var SAFE_STYLE_PROPS = new Set([
+      'color','background-color','font-weight','font-style','font-size',
+      'text-decoration','text-align','font-family',
+      'text-decoration-line','text-decoration-style','text-decoration-color'
+    ]);
+
+    function sanitizeStyle(styleStr) {
+      return (styleStr || '').split(';')
+        .map(function (s) { return s.trim(); })
+        .filter(function (part) {
+          var colon = part.indexOf(':');
+          if (colon < 0) return false;
+          var prop = part.slice(0, colon).trim().toLowerCase();
+          return SAFE_STYLE_PROPS.has(prop);
+        })
+        .join('; ');
+    }
+
+    function sanitizeNode(node) {
+      if (node.nodeType === Node.TEXT_NODE) return node.cloneNode(false);
+      if (node.nodeType !== Node.ELEMENT_NODE) return null;
+
+      var tag = node.tagName.toLowerCase();
+
+      if (!ALLOWED_TAGS.has(tag)) {
+        // Unwrap: keep the children, discard the element
+        var frag = document.createDocumentFragment();
+        Array.from(node.childNodes).forEach(function (child) {
+          var s = sanitizeNode(child);
+          if (s) frag.appendChild(s);
+        });
+        return frag;
+      }
+
+      var el = document.createElement(tag);
+
+      Array.from(node.attributes).forEach(function (attr) {
+        var name = attr.name.toLowerCase();
+        var val  = attr.value;
+
+        if (name === 'href') {
+          if (/^javascript:/i.test(val.trim())) return; // block JS URLs
+          el.setAttribute('href', val);
+          el.setAttribute('target', '_blank');
+          el.setAttribute('rel', 'noopener noreferrer');
+          return;
+        }
+        if (name === 'style') {
+          var safe = sanitizeStyle(val);
+          if (safe) el.setAttribute('style', safe);
+          return;
+        }
+        if (name === 'color' && tag === 'font') {
+          el.setAttribute('color', val);
+          return;
+        }
+        // Reject all other attributes (including on* event handlers)
+      });
+
+      Array.from(node.childNodes).forEach(function (child) {
+        var s = sanitizeNode(child);
+        if (s) el.appendChild(s);
+      });
+
+      return el;
+    }
+
+    function sanitizeHTML(html) {
+      var parser = new DOMParser();
+      var doc    = parser.parseFromString(html, 'text/html');
+      var frag   = document.createDocumentFragment();
+      Array.from(doc.body.childNodes).forEach(function (child) {
+        var s = sanitizeNode(child);
+        if (s) frag.appendChild(s);
+      });
+      var tmp = document.createElement('div');
+      tmp.appendChild(frag);
+      return tmp.innerHTML;
+    }
+
+    // Build the final output HTML (sanitised + trimmed)
+    function getOutputHTML() {
+      var tmp = document.createElement('div');
+      tmp.innerHTML = editor.innerHTML;
+
+      // Strip trailing empty block elements
+      var kids = Array.from(tmp.children);
+      for (var i = kids.length - 1; i >= 0; i--) {
+        var kid = kids[i];
+        if (kid.tagName === 'BR' || (kid.innerText || '').trim() === '') {
+          kid.remove();
+        } else {
+          break;
+        }
+      }
+
+      return sanitizeHTML(tmp.innerHTML);
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Load incoming field value into the editor
+    // ─────────────────────────────────────────────────────────────────────────
+    function loadFieldValue(value) {
+      if (!value) {
+        editor.innerHTML = '';
+        return;
+      }
+
+      // Detect HTML vs plain text
+      if (/<[a-zA-Z][^>]*>/.test(value)) {
+        editor.innerHTML = sanitizeHTML(value);
+      } else {
+        // Plain text: escape and preserve line breaks as paragraphs
+        editor.innerHTML = value.split('\n').map(function (line) {
+          var esc = line
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;');
+          return '<p>' + (esc || '<br>') + '</p>';
+        }).join('');
+      }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────────
+    // Action buttons
+    // ─────────────────────────────────────────────────────────────────────────
+    // Wire both click (desktop) and touchend (mobile) to prevent missed taps
+    var btnSubmit = document.getElementById('btn-submit');
+    var btnCancel = document.getElementById('btn-cancel');
+
+    function doSubmit() {
+      console.log('[RTE] doSubmit called, fieldName:', fieldName);
+      btnSubmit.disabled = true;
+      btnSubmit.textContent = 'Saving...';
+      var html;
+      try {
+        html = getOutputHTML();
+        console.log('[RTE] HTML output length:', html.length);
+      } catch (err) {
+        console.warn('[RTE] getOutputHTML failed, falling back to raw innerHTML:', err);
+        html = editor.innerHTML || '';
+      }
+      try {
+        Fulcrum.finish({
+          action:     'submit',
+          field_name: fieldName,
+          html_value: html
+        });
+        console.log('[RTE] Fulcrum.finish called successfully');
+      } catch (err) {
+        console.error('[RTE] Fulcrum.finish failed:', err);
+        btnSubmit.disabled = false;
+        btnSubmit.textContent = 'Save';
+      }
+    }
+
+    function doCancel() {
+      console.log('[RTE] doCancel called');
+      try {
+        Fulcrum.cancel();
+      } catch (err) {
+        try { Fulcrum.finish(null); } catch (err) { console.log(err); }
+      }
+    }
+
+    btnSubmit.addEventListener('click', doSubmit);
+    btnCancel.addEventListener('click', doCancel);
+
+    btnSubmit.addEventListener('touchend', function (e) {
+      e.preventDefault(); // prevents the subsequent click from double-firing
+      doSubmit();
+    });
+    btnCancel.addEventListener('touchend', function (e) {
+      e.preventDefault();
+      doCancel();
+    });
+
+  </script>
+</body>
+</html>
