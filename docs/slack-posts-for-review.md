@@ -6,155 +6,45 @@ Posts already documented and committed to the PR are listed at the end for refer
 
 ---
 
-## HIGH PRIORITY — Good candidates, need thread review / cleanup
+## HIGH PRIORITY — Requires manual code extraction
 
-These posts have strong documentation potential but require reading the thread to collect the actual code.
+These posts have strong documentation potential but the code is embedded in attachment files (`.fulcrumapp` exports, JSON files, or private Gists) that cannot be automatically extracted. They must be manually opened and scrubbed before documenting.
 
-### 1. Classification Set replacement with LOADRECORDS (Oct 4, 2024)
-**Creator:** @Mike
-**Message TS:** 1728082307.220689
-**Category:** Data Events
-**Description:** Shows how to use LOADRECORDS to replace a Classification Set when multiple attributes need to be drilled down. The main app uses a record link + LOADRECORDS to pull records from a linked app, creates dynamic choice lists, and lets users drill down like a classification set before making a final selection.
-**Why not included:** Thread not fully read during this audit pass. Strong documentation candidate — this is a powerful LOADRECORDS pattern.
-
----
-
-### 2. Auto-populate repeatable fields from linked app (Oct 17, 2024)
-**Creator:** @Mike
-**Message TS:** 1729168804.902669
-**Category:** Data Events
-**Description:** Repeatable fields can't be auto-populated via a record link field natively. This code works around that by auto-populating fields within a repeatable section from a linked app's repeatable section.
-**Why not included:** Thread not fully read. Useful workaround worth documenting.
-
----
-
-### 3. Query repeatables + photo captions + Google Street View (Oct 28, 2024)
-**Creator:** @Kyle Pennell
-**Message TS:** 1730154040.517309
-**Category:** Report Builder
-**Description:** Advanced Report Builder example that queries repeatable data, photo information, captions, and integrates Google Street View.
-**Why not included:** Thread not fully read. Very high value — the Google Street View integration in particular is a standout feature worth documenting.
-
----
-
-### 4. PDF Merge — combine multiple reports into one (Nov 12, 2024)
+### 1. PDF Merge — combine multiple reports into one (Nov 12, 2024)
 **Creator:** @Mike
 **Message TS:** 1731434972.437609
 **Category:** Report Builder
-**Description:** Shows how to merge multiple PDF reports into a single output. Includes options for pulling from other report templates, reference files, and attachment fields. 3 replies with implementation details.
-**Why not included:** Thread was identified but not read. This is a high-value Report Builder pattern. 7 replies, multiple options documented.
+**Description:** Shows how to merge multiple PDF reports into a single output. Includes options for pulling from other report templates, reference files, and attachment fields. 7 replies.
+**Action required:** Code is in a JSON attachment file in the Slack thread. Extract the script, scrub any customer-specific form IDs or API tokens, and create a standalone Report Builder example.
 
 ---
 
-### 5. FullCalendar.js calendar view for attendance tracker (Jan 27, 2025)
+### 2. FullCalendar.js calendar view for attendance tracker (Jan 27, 2025)
 **Creator:** @Diego C.
 **Message TS:** 1737982613.407389
 **Category:** Report Builder
 **Customer:** Asplundh
 **Description:** HTML report using the [FullCalendar.js](https://fullcalendar.io/) library to display attendance data in a calendar view. 4 replies.
-**Why not included:** Customer-specific (Asplundh) and thread not fully read. The FullCalendar.js integration is a compelling Report Builder pattern worth documenting with customer context removed.
+**Action required:** Code is embedded in a `.fulcrumapp` app export file attached to the thread. Extract the HTML App Extension code from the export, remove the Asplundh-specific field names and form references, and generalize as a Report Builder calendar example.
 
 ---
 
-### 6. Puppeteer stall technique for large PDF rendering (Aug 19, 2025)
-**Creator:** @Mike
-**Message TS:** 1755609304.908519
-**Category:** Report Builder
-**Description:** Code to stall the Puppeteer renderer in Report Builder from finishing the page before all async work completes. Makes a fetch call to an erroneous URL to ensure network activity, then aborts it when processing is done. Useful for rendering large maps or merging PDFs.
-**Why not included:** Thread not fully read. This is a useful advanced Report Builder tip. Only 1 reply — likely a short, self-contained snippet.
-
----
-
-### 7. Recursive/nesting-friendly photo-only renderer (Nov 4, 2024)
-**Creator:** @Kyle Pennell
-**Message TS:** 1762297567.785699
-**Category:** Report Builder
-**Description:** A Report Builder template that handles nested repeatables and renders photos cleanly. 6 replies, 1 taco reaction.
-**Why not included:** Thread not fully read. Nested repeatable photo rendering is a common pain point — worth documenting.
-
----
-
-### 8. Dynamic custom reports with EJS $params (Oct 8, 2024)
-**Creator:** @Diego C.
-**Message TS:** 1728410437.286789
-**Category:** Report Builder
-**Description:** Shows how to pass dynamic data via URL query parameters (`$params.query`) or POST requests (`$params.post`) into EJS report templates, enabling flexible filtering and sorting without hardcoding values.
-**Why not included:** Thread not fully read. A very useful pattern for parameterized reports.
-
----
-
-### 9. Concat PDF attachments to end of a report (Aug 12, 2025)
-**Creator:** @Mike
-**Message TS:** 1755021151.831909
-**Category:** Report Builder
-**Customer:** SESI
-**Description:** Shows how to concatenate PDF files from attachment fields onto the end of a generated report. 7 replies.
-**Why not included:** Customer-specific (SESI) but the core pattern is general. Thread not fully read.
-
----
-
-### 10. Override console.log to avoid errors on mobile (Sep 25, 2025)
-**Creator:** @Mike
-**Message TS:** 1758824108.935309
-**Category:** Data Events
-**Description:** A pattern for overriding `console.log` in Data Events so it doesn't cause errors or unexpected behavior on mobile devices. 5 replies.
-**Why not included:** Thread not fully read. Short and useful — likely suitable for an inline "tip" or quick example.
-
----
-
-### 11. Widgets Inventory Scanner App Extension (Feb 13, 2026)
+### 3. Widgets Inventory Scanner App Extension (Feb 13, 2026)
 **Creator:** @Jared Carey
 **Message TS:** 1771016554.597669
 **Category:** App Extensions
-**Description:** A self-contained HTML interface for mobile or web to barcode-scan items and perform rapid inventory quantity adjustments. The code is embedded in a `.fulcrumapp` app export file attached to the thread — it was not directly readable from Slack.
-**Why not included:** The HTML code is in a `.fulcrumapp` attachment file. To document this, extract the HTML from the app export, scrub any API tokens or form-specific field keys, and create a standalone App Extension example.
+**Description:** A self-contained HTML interface for mobile or web to barcode-scan items and perform rapid inventory quantity adjustments.
+**Action required:** Code is embedded in a `.fulcrumapp` app export file attached to the thread. Extract the HTML from the App Extension inside the export, scrub any API tokens or form-specific field keys, and create a standalone App Extension example.
 
 ---
 
-### 12. Salesforce trigger/class to create Fulcrum record (Mar 14, 2025)
-**Creator:** @Mike
-**Message TS:** 1741953090.521519
-**Category:** Integrations
-**Description:** Apex trigger and class for Salesforce that creates a Fulcrum record via the API when a new work order is created. 2 replies.
-**Why not included:** Thread not fully read. A useful integration example for Salesforce customers. Would fit best in an Integrations section of the docs.
-
----
-
-### 13. Web Mapping in the Report Builder (Mar 12, 2025)
+### 4. Web Mapping in the Report Builder (Mar 12, 2025)
 **Creator:** @Kyle Pennell
 **Customer:** SCE
 **Message TS:** 1741805961.410129
 **Category:** Report Builder
 **Description:** Shows how to embed a web map in a Report Builder PDF. 5 replies, 2 heart reactions, 1 esri reaction.
-**Why not included:** Thread not fully read. Web mapping in reports is a top request — worth documenting without the SCE-specific context.
-
----
-
-### 14. Add metadata to photos in default report (May 9, 2025)
-**Creator:** @Diego C.
-**Message TS:** 1746812946.323139
-**Category:** Report Builder
-**Description:** Shows how to add EXIF metadata (location, timestamp, etc.) to photos displayed in the default Fulcrum PDF report. 4 replies.
-**Why not included:** Thread not fully read. Photo metadata in reports is a common request.
-
----
-
-### 15. BambooHR integration — track worked hours (Jun 11, 2025)
-**Creator:** @Diego C.
-**Customer:** Q-Team
-**Message TS:** 1749662185.392449
-**Category:** Integrations / Node.js
-**Description:** A Node.js script that sends data from Fulcrum to BambooHR to track worked hours per employee. 5 replies.
-**Why not included:** Customer-specific (Q-Team) and thread not fully read. Once scrubbed of customer details, this is a good integration example.
-
----
-
-### 16. Data event user action logger (Jan 29, 2026)
-**Creator:** @Gus Ferrara
-**Message TS:** 1769725697.891659
-**Category:** Data Events
-**Description:** A data event that logs user actions (edits, field changes, etc.) within a record session. 3 replies.
-**Why not included:** Thread not fully read. A logging/auditing pattern useful for debugging and compliance use cases.
+**Action required:** Code is in a private Gist linked in the thread that is not publicly accessible. Kyle or the SE team needs to share the Gist contents or re-host the example. Once available, strip the SCE-specific context and document as a general web mapping pattern.
 
 ---
 
@@ -162,7 +52,7 @@ These posts have strong documentation potential but require reading the thread t
 
 These are useful tools but are primarily for internal SE team use, or are short snippets that could become quick reference examples.
 
-### 17. Enable Report Builder advanced features (Jul 25, 2024)
+### 5. Enable Report Builder advanced features (Jul 25, 2024)
 **Creator:** @Mike
 **Message TS:** 1721957817.936569
 **Category:** Tip / Console
@@ -171,7 +61,7 @@ These are useful tools but are primarily for internal SE team use, or are short 
 
 ---
 
-### 18. Bookmarklet to auto-copy API token (Nov 21, 2024)
+### 6. Bookmarklet to auto-copy API token (Nov 21, 2024)
 **Creator:** @Gus Ferrara
 **Message TS:** 1732231724.524269
 **Category:** Developer Utility / Bookmarklet
@@ -180,7 +70,7 @@ These are useful tools but are primarily for internal SE team use, or are short 
 
 ---
 
-### 19. Check parent-child repeatable relationships (Mar 6, 2025)
+### 7. Check parent-child repeatable relationships (Mar 6, 2025)
 **Creator:** @Kyle Pennell
 **Customer:** SCE
 **Message TS:** 1741301660.356099
@@ -190,7 +80,7 @@ These are useful tools but are primarily for internal SE team use, or are short 
 
 ---
 
-### 20. SQL: Extract all fields recursively using Query API (Mar 3, 2025)
+### 8. SQL: Extract all fields recursively using Query API (Mar 3, 2025)
 **Creator:** @Mike
 **Message TS:** 1741043285.859059
 **Category:** SQL / Query API
@@ -199,7 +89,7 @@ These are useful tools but are primarily for internal SE team use, or are short 
 
 ---
 
-### 21. Query all forms a user has access to (Mar 13, 2025)
+### 9. Query all forms a user has access to (Mar 13, 2025)
 **Creator:** @Mike
 **Message TS:** 1741897363.951789
 **Category:** SQL / Query API
@@ -208,7 +98,7 @@ These are useful tools but are primarily for internal SE team use, or are short 
 
 ---
 
-### 22. SQL pivot — columns to rows (Mar 2, 2025)
+### 10. SQL pivot — columns to rows (Mar 2, 2025)
 **Creator:** @Mike
 **Message TS:** 1740922111.106489
 **Category:** SQL / Query API
@@ -217,7 +107,7 @@ These are useful tools but are primarily for internal SE team use, or are short 
 
 ---
 
-### 23. Activate HTML advanced report feature via console (Mar 4, 2025)
+### 11. Activate HTML advanced report feature via console (Mar 4, 2025)
 **Creator:** @Diego C.
 **Message TS:** 1741099687.075229
 **Category:** Tip / Console
@@ -226,7 +116,7 @@ These are useful tools but are primarily for internal SE team use, or are short 
 
 ---
 
-### 24. Script to output CSV of data_name/key mapping (Oct 24, 2025)
+### 12. Script to output CSV of data_name/key mapping (Oct 24, 2025)
 **Creator:** @Gus Ferrara
 **Message TS:** 1761323102.635249
 **Category:** Developer Utility / Console
@@ -235,7 +125,7 @@ These are useful tools but are primarily for internal SE team use, or are short 
 
 ---
 
-### 25. Most Complex Calc Field Ever Made (Jan 30, 2025)
+### 13. Most Complex Calc Field Ever Made (Jan 30, 2025)
 **Creator:** @Kyle Pennell
 **Message TS:** 1738259002.250459
 **Category:** CALCULATIONS
@@ -244,7 +134,7 @@ These are useful tools but are primarily for internal SE team use, or are short 
 
 ---
 
-### 26. Local storage for parent-child record linking (Nov 25, 2025)
+### 14. Local storage for parent-child record linking (Nov 25, 2025)
 **Creator:** @Kyle Pennell
 **Message TS:** 1764110137.319979
 **Category:** Data Events
@@ -253,7 +143,7 @@ These are useful tools but are primarily for internal SE team use, or are short 
 
 ---
 
-### 27. Auto redirect to saved filter (Nov 12, 2025)
+### 15. Auto redirect to saved filter (Nov 12, 2025)
 **Creator:** @Kyle Pennell
 **Message TS:** 1762993164.617539
 **Category:** Utility / Tampermonkey or JS
@@ -262,7 +152,7 @@ These are useful tools but are primarily for internal SE team use, or are short 
 
 ---
 
-### 28. Export issues tab on Fulcrum import to CSV (Dec 23, 2025)
+### 16. Export issues tab on Fulcrum import to CSV (Dec 23, 2025)
 **Creator:** @Gus Ferrara
 **Message TS:** 1766508774.303799
 **Category:** Developer Utility / Console
@@ -355,3 +245,15 @@ These posts are either for internal SE team use, customer-specific without gener
 | `data-events-examples/geofencing-with-loadrecords-and-geometry.md` | @Andy Stewart | Data Events |
 | `app-extensions/date-picker-with-blackout-dates.md` | @Kyle Pennell | App Extensions |
 | `data-events-examples/import-npm-packages-into-data-events.md` | @Gus Ferrara | Data Events |
+| `data-events-examples/classification-set-replacement-with-loadrecords.md` | @Mike | Data Events |
+| `data-events-examples/auto-populate-repeatable-fields-from-linked-app.md` | @Mike | Data Events |
+| `data-events-examples/suppress-console-log-on-mobile.md` | @Mike | Data Events |
+| `data-events-examples/user-action-logger.md` | @Gus Ferrara | Data Events |
+| `reports-examples/puppeteer-stall-for-async-rendering.md` | @Mike | Report Builder |
+| `reports-examples/recursive-photo-renderer.md` | @Kyle Pennell | Report Builder |
+| `reports-examples/query-repeatables-photos-and-google-street-view.md` | @Kyle Pennell | Report Builder |
+| `reports-examples/photo-metadata-in-reports.md` | @Diego C. | Report Builder |
+| `reports-examples/concat-pdf-attachments-to-report.md` | @Mike | Report Builder |
+| `reports-examples/dynamic-reports-with-ejs-params.md` | @Diego C. | Report Builder |
+| `integration-examples/salesforce-create-fulcrum-record-on-work-order.md` | @Mike | Integrations |
+| `integration-examples/bamboohr-sync-worked-hours.md` | @Diego C. | Integrations |
