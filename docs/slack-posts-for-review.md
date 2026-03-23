@@ -8,156 +8,13 @@ Posts already documented and committed to the PR are listed at the end for refer
 
 ## HIGH PRIORITY — Requires manual code extraction
 
-These posts have strong documentation potential but the code is embedded in attachment files (`.fulcrumapp` exports, JSON files, or private Gists) that cannot be automatically extracted. They must be manually opened and scrubbed before documenting.
-
-### 1. PDF Merge — combine multiple reports into one (Nov 12, 2024)
-**Creator:** @Mike
-**Message TS:** 1731434972.437609
-**Category:** Report Builder
-**Description:** Shows how to merge multiple PDF reports into a single output. Includes options for pulling from other report templates, reference files, and attachment fields. 7 replies.
-**Action required:** Code is in a JSON attachment file in the Slack thread. Extract the script, scrub any customer-specific form IDs or API tokens, and create a standalone Report Builder example.
-
----
-
-### 2. FullCalendar.js calendar view for attendance tracker (Jan 27, 2025)
-**Creator:** @Diego C.
-**Message TS:** 1737982613.407389
-**Category:** Report Builder
-**Customer:** Asplundh
-**Description:** HTML report using the [FullCalendar.js](https://fullcalendar.io/) library to display attendance data in a calendar view. 4 replies.
-**Action required:** Code is embedded in a `.fulcrumapp` app export file attached to the thread. Extract the HTML App Extension code from the export, remove the Asplundh-specific field names and form references, and generalize as a Report Builder calendar example.
-
----
-
-### 3. Widgets Inventory Scanner App Extension (Feb 13, 2026)
-**Creator:** @Jared Carey
-**Message TS:** 1771016554.597669
-**Category:** App Extensions
-**Description:** A self-contained HTML interface for mobile or web to barcode-scan items and perform rapid inventory quantity adjustments.
-**Action required:** Code is embedded in a `.fulcrumapp` app export file attached to the thread. Extract the HTML from the App Extension inside the export, scrub any API tokens or form-specific field keys, and create a standalone App Extension example.
-
----
-
-### 4. Web Mapping in the Report Builder (Mar 12, 2025)
-**Creator:** @Kyle Pennell
-**Customer:** SCE
-**Message TS:** 1741805961.410129
-**Category:** Report Builder
-**Description:** Shows how to embed a web map in a Report Builder PDF. 5 replies, 2 heart reactions, 1 esri reaction.
-**Action required:** Code is in a private Gist linked in the thread that is not publicly accessible. Kyle or the SE team needs to share the Gist contents or re-host the example. Once available, strip the SCE-specific context and document as a general web mapping pattern.
+*All high-priority items have been documented. See Already Documented below.*
 
 ---
 
 ## MEDIUM PRIORITY — Useful utilities, internal or SE-team focused
 
-These are useful tools but are primarily for internal SE team use, or are short snippets that could become quick reference examples.
-
-### 5. Enable Report Builder advanced features (Jul 25, 2024)
-**Creator:** @Mike
-**Message TS:** 1721957817.936569
-**Category:** Tip / Console
-**Description:** One-liner console script to enable the HTML report builder feature flag: `window.localStorage.setItem('reportsEnabled', '1')`
-**Notes:** Very short. Could be added as a callout/tip in Report Builder documentation rather than a standalone example.
-
----
-
-### 6. Bookmarklet to auto-copy API token (Nov 21, 2024)
-**Creator:** @Gus Ferrara
-**Message TS:** 1732231724.524269
-**Category:** Developer Utility / Bookmarklet
-**Description:** A bookmarklet that reads the temporary API token from the Fulcrum `window` object and copies it to the clipboard.
-**Notes:** Useful for developers but not a Fulcrum API example per se. Could fit in a "Developer Tips" or "Utilities" section.
-
----
-
-### 7. Check parent-child repeatable relationships (Mar 6, 2025)
-**Creator:** @Kyle Pennell
-**Customer:** SCE
-**Message TS:** 1741301660.356099
-**Category:** Data Events / Report Builder
-**Description:** Code to check and validate parent-child repeatable relationships. 4 replies.
-**Notes:** Useful pattern but SCE-specific context needs to be stripped.
-
----
-
-### 8. SQL: Extract all fields recursively using Query API (Mar 3, 2025)
-**Creator:** @Mike
-**Message TS:** 1741043285.859059
-**Category:** SQL / Query API
-**Description:** A SQL query to recursively extract all fields within a form using the Fulcrum Query API.
-**Notes:** Good SQL example. Would fit in a Query API section.
-
----
-
-### 9. Query all forms a user has access to (Mar 13, 2025)
-**Creator:** @Mike
-**Message TS:** 1741897363.951789
-**Category:** SQL / Query API
-**Description:** A SQL query to retrieve all form names and IDs that each user in an org has access to. 1 reply.
-**Notes:** Useful admin query. Would fit in a Query API section.
-
----
-
-### 10. SQL pivot — columns to rows (Mar 2, 2025)
-**Creator:** @Mike
-**Message TS:** 1740922111.106489
-**Category:** SQL / Query API
-**Description:** A SQL query that converts each column in an app result into a separate row (`record_id, data_name, value`). 1 reply.
-**Notes:** Useful but very short. Best as an inline example or snippet.
-
----
-
-### 11. Activate HTML advanced report feature via console (Mar 4, 2025)
-**Creator:** @Diego C.
-**Message TS:** 1741099687.075229
-**Category:** Tip / Console
-**Description:** Console snippet to enable the advanced HTML report feature flag: `window.localStorage.setItem('app-designer-debug-mode', true); location.reload()`
-**Notes:** Very short. Could be a callout in App Designer documentation.
-
----
-
-### 12. Script to output CSV of data_name/key mapping (Oct 24, 2025)
-**Creator:** @Gus Ferrara
-**Message TS:** 1761323102.635249
-**Category:** Developer Utility / Console
-**Description:** A browser console script to run in the App Designer that outputs a CSV with the `data_name` and `key` mapping for every field. Useful for Report Builder and API work.
-**Notes:** Very practical SE tool. Could be documented as a developer utility tip.
-
----
-
-### 13. Most Complex Calc Field Ever Made (Jan 30, 2025)
-**Creator:** @Kyle Pennell
-**Message TS:** 1738259002.250459
-**Category:** CALCULATIONS
-**Description:** A complex calculation field expression involving repeatables. 3 replies.
-**Notes:** Thread not read. Interesting but the "most complex ever" framing may make it too bespoke for general docs. Read thread before deciding.
-
----
-
-### 14. Local storage for parent-child record linking (Nov 25, 2025)
-**Creator:** @Kyle Pennell
-**Message TS:** 1764110137.319979
-**Category:** Data Events
-**Description:** Uses local storage to create a record linking relationship between a parent and child form. 1 reply.
-**Notes:** Thread not read. Could be a useful alternative to built-in Record Links.
-
----
-
-### 15. Auto redirect to saved filter (Nov 12, 2025)
-**Creator:** @Kyle Pennell
-**Message TS:** 1762993164.617539
-**Category:** Utility / Tampermonkey or JS
-**Description:** Code to automatically redirect to a saved filter in Fulcrum. 5 replies, 1 clapping reaction.
-**Notes:** Thread not read. Could be a useful productivity tip.
-
----
-
-### 16. Export issues tab on Fulcrum import to CSV (Dec 23, 2025)
-**Creator:** @Gus Ferrara
-**Message TS:** 1766508774.303799
-**Category:** Developer Utility / Console
-**Description:** A browser console script to export the "issues" tab from a Fulcrum import job to a CSV file. 1 reply.
-**Notes:** Useful but narrow use case. Good for an SE tools reference.
+*All medium-priority items have been documented or moved to LOW PRIORITY. See below.*
 
 ---
 
@@ -227,6 +84,8 @@ These posts are either for internal SE team use, customer-specific without gener
 | Aug 14, 2025 | Gus | Log on desktop only (not mobile) | Very short — 2-line function |
 | Sep 23, 2025 | Kyle | Enable HTML view PDF reports (console) | Quick console tip |
 | Oct 28, 2025 | Kyle | Detect records updated across all apps | Python, internal |
+| Mar 6, 2025 | Kyle | Check parent-child repeatable relationships (SCE) | Thread unreadable; SCE-specific context makes generalization unclear |
+| Nov 12, 2025 | Kyle | Auto redirect to saved filter (Tampermonkey) | Hardcoded customer dashboard UUID; too narrow for public docs |
 
 ---
 
@@ -257,3 +116,16 @@ These posts are either for internal SE team use, customer-specific without gener
 | `reports-examples/dynamic-reports-with-ejs-params.md` | @Diego C. | Report Builder |
 | `integration-examples/salesforce-create-fulcrum-record-on-work-order.md` | @Mike | Integrations |
 | `integration-examples/bamboohr-sync-worked-hours.md` | @Diego C. | Integrations |
+| `reports-examples/merge-pdf-attachments-with-pdf-lib.md` | @Mike | Report Builder |
+| `reports-examples/fullcalendar-attendance-report.md` | @Diego C. | Report Builder |
+| `app-extension-examples/inventory-scanner-with-barcode.md` | @Jared Carey | App Extensions |
+| `reports-examples/interactive-web-map-with-data-table.md` | @Kyle Pennell | Report Builder |
+| `data-events-examples/pass-record-id-between-apps-with-storage.md` | @Kyle Pennell | Data Events |
+| `data-events-examples/calculate-status-from-repeatable-values.md` | @Kyle Pennell | Data Events |
+| `query-api-examples/extract-form-fields-recursively.md` | @Mike | Query API |
+| `query-api-examples/forms-accessible-per-user.md` | @Mike | Query API |
+| `query-api-examples/pivot-columns-to-rows.md` | @Mike | Query API |
+| `utilities-examples/app-designer-field-mapping-csv.md` | @Gus Ferrara | Utilities |
+| `utilities-examples/enable-feature-flags-via-console.md` | @Mike / @Diego C. | Utilities |
+| `utilities-examples/export-import-issues-to-csv.md` | @Gus Ferrara | Utilities |
+| `utilities-examples/api-token-copy-bookmarklet.md` | @Gus Ferrara | Utilities |
