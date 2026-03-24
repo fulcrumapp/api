@@ -29,30 +29,25 @@ These posts are either for internal SE team use, customer-specific without gener
 | Aug 2, 2024 | Kyle | React Report Template (Omnicell) | Customer-specific template, too large without context |
 | Aug 19, 2024 | Kyle | Satellite imagery with WMS in QGIS | QGIS tutorial, not Fulcrum API |
 | Aug 28, 2024 | Kyle | Python script for Fulcrum DB backup | Internal utility |
-| Aug 29, 2024 | Mike | API endpoint for exports | Too brief — thread not read |
 | Aug 30, 2024 | Kyle | Managed vs. non-managed users from API | Internal admin utility |
 | Sep 2, 2024 | Diego C. | Convert shapefiles to MBTiles (SCE) | QGIS tutorial, not Fulcrum API |
 | Sep 13, 2024 | Diego C. | Bulk update multiple forms via script | Internal migration tool |
 | Sep 18, 2024 | Israel Perez | Python extract assets from PDF | General Python, not Fulcrum-specific |
 | Sep 20, 2024 | Mike | Pull data from ESRI feature service to CSV | Specific integration, narrow use |
 | Sep 24, 2024 | Mike | "This is mikes code share" | Test post |
-| Sep 25, 2024 | Kyle | Simple React App (report) | Not fully read; may be too minimal |
 | Sep 25, 2024 | Kyle | Complex React App with Login | Complex, customer-specific |
 | Oct 3, 2024 | Mike | Restore deleted form with Fulcrum CLI | Very short CLI tip |
 | Oct 8, 2024 | Mike | Count users via changesets (Query API) | Short SQL query |
 | Oct 9, 2024 | Kyle | Clear out all clearable fields | Short data event utility |
 | Oct 14, 2024 | Kyle | Split large CSV for importing | Python utility, generic |
-| Oct 16, 2024 | Mike | Parsing nested repeatables with calc field | CALCULATIONS — needs thread read |
-| Oct 28, 2024 | Kyle | Double query in report for project filter | Very brief; needs thread |
 | Nov 1, 2024 | Kyle | Spatial join query (PostGIS) | SQL example, short |
 | Nov 4, 2024 | Mike | Get list of forms in CSV from Admin console | Internal admin console script |
 | Nov 4, 2024 | Andy | Convert hyperlinks to URL in Excel/Access (VBA) | Excel VBA, not Fulcrum |
 | Nov 4, 2024 | Kyle | Bulk upload fields / create large forms | Python, internal |
 | Nov 4, 2024 | Kyle | Importer script for SCE (Puppeteer) | Internal SCE-specific tool |
-| Nov 4, 2024 | Peter | Open 3rd party data migration (Python) | Generic API example, needs thread |
+| Nov 4, 2024 | Peter | Open 3rd party data migration (Python) | Code is in a .py file attachment; cannot be extracted without download |
 | Nov 4, 2024 | Diego C. | PDF parsed with Ghostscript and uploaded to Fulcrum | Complex setup, Node.js |
 | Nov 5, 2024 | Diego C. | Script to build and export CSV from query | Generic JS |
-| Nov 21, 2024 | Gus | API token bookmarklet | Developer tip, not a code example |
 | Dec 16, 2024 | Kyle | App icon bulk uploader (Puppeteer) | Internal SE tool |
 | Dec 18, 2024 | Israel Perez | Photo caption aggregator (Trileaf) | Customer-specific HTML tool |
 | Dec 23, 2024 | Gus | Import geometries from CSV via API | Python utility, needs thread |
@@ -63,30 +58,26 @@ These posts are either for internal SE team use, customer-specific without gener
 | Jan 24, 2025 | Mike | GDAL to convert TIF to MBTiles | GDAL/QGIS tutorial |
 | Jan 24, 2025 | Kyle | Record History Fixer for specific field | Internal Python utility |
 | Jan 28, 2025 | Diego C. | Failed photo log viewer (Osmose) | Customer-specific HTML tool |
-| Jan 28, 2025 | Kyle | Extract JSON from photo EXIF data | Needs thread |
 | Jan 31, 2025 | Mike | CSS double-border trick for report tables | Quick CSS tip |
 | Feb 13, 2025 | Kyle | Regex to find uncommented console.log (VSCode) | Dev tip, not Fulcrum API |
 | Feb 13, 2025 | Gus | Tampermonkey nav script for Fulcrum admin | Internal SE tool |
 | Feb 18, 2025 | Mike | Sequential numbering via webhooks | Complex, requires external webhook setup |
+| Mar 6, 2025 | Kyle | Check parent-child repeatable relationships (SCE) | Thread unreadable; SCE-specific context makes generalization unclear |
 | Mar 13, 2025 | Israel Perez | Rich Text Editor (NSK) | Customer-specific (contains admin link) |
 | Mar 13, 2025 | Gus | Toggl bookmarklet for SE hours | Internal SE team tool |
 | Mar 14, 2025 | Kyle | Python data downloader for Power BI | Integration, narrow use case |
 | Mar 28, 2025 | Kyle | Simple Multi Poly Script | Python utility |
 | Apr 2, 2025 | Kyle | Bridge multipolys to polys | Python, internal |
-| Apr 3, 2025 | Mike | Save docs from report stage (desktop + mobile) | Needs thread — Report Builder tip |
 | Apr 7, 2025 | Kyle | Python notebook for URL report shares | Internal debugging tool |
 | Apr 25, 2025 | Kyle | Nested Record History Parser | Internal API utility |
 | Jul 10, 2025 | Kyle | Backspace deletes a field (Tampermonkey) | Internal SE tool |
 | Jul 11, 2025 | Kyle | Org Migration Script with Record Links | Internal migration tool |
 | Jul 11, 2025 | Kyle | Record Link Dependencies printer | Internal tool |
 | Jul 11, 2025 | Kyle | Network Diagram for record links | Python visualization, internal |
-| Jul 15, 2025 | Mike | Download CSV of a Choice List | Short utility, needs thread |
 | Aug 14, 2025 | Gus | Log on desktop only (not mobile) | Very short — 2-line function |
 | Sep 23, 2025 | Kyle | Enable HTML view PDF reports (console) | Quick console tip |
 | Oct 28, 2025 | Kyle | Detect records updated across all apps | Python, internal |
-| Mar 6, 2025 | Kyle | Check parent-child repeatable relationships (SCE) | Thread unreadable; SCE-specific context makes generalization unclear |
 | Nov 12, 2025 | Kyle | Auto redirect to saved filter (Tampermonkey) | Hardcoded customer dashboard UUID; too narrow for public docs |
-| Nov 4, 2024 | Peter | Open 3rd party data migration (Python) | Code is in a .py file attachment; cannot be extracted without download |
 
 ---
 
