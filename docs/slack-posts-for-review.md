@@ -24,20 +24,14 @@ These posts are either for internal SE team use, customer-specific without gener
 
 | Date | Creator | Description | Reason |
 |---|---|---|---|
-| Jul 31, 2024 | Peter | Reorder repeatables by field value (Ocular) | Customer-specific field keys; needs full rewrite |
 | Aug 1, 2024 | Mike | Power BI dynamic date table (Merjent) | Power BI M formula, not Fulcrum API |
 | Aug 2, 2024 | Kyle | React Report Template (Omnicell) | Customer-specific template, too large without context |
 | Aug 19, 2024 | Kyle | Satellite imagery with WMS in QGIS | QGIS tutorial, not Fulcrum API |
-| Aug 28, 2024 | Kyle | Python script for Fulcrum DB backup | Internal utility |
-| Aug 30, 2024 | Kyle | Managed vs. non-managed users from API | Internal admin utility |
-| Sep 2, 2024 | Diego C. | Convert shapefiles to MBTiles (SCE) | QGIS tutorial, not Fulcrum API |
-| Sep 13, 2024 | Diego C. | Bulk update multiple forms via script | Internal migration tool |
+| Aug 28, 2024 | Kyle | Python script for Fulcrum DB backup | Code in .ipynb attachment; cannot be extracted without download |
 | Sep 18, 2024 | Israel Perez | Python extract assets from PDF | General Python, not Fulcrum-specific |
-| Sep 20, 2024 | Mike | Pull data from ESRI feature service to CSV | Specific integration, narrow use |
 | Sep 24, 2024 | Mike | "This is mikes code share" | Test post |
 | Sep 25, 2024 | Kyle | Complex React App with Login | Complex, customer-specific |
 | Oct 3, 2024 | Mike | Restore deleted form with Fulcrum CLI | Very short CLI tip |
-| Oct 8, 2024 | Mike | Count users via changesets (Query API) | Short SQL query |
 | Oct 9, 2024 | Kyle | Clear out all clearable fields | Short data event utility |
 | Oct 14, 2024 | Kyle | Split large CSV for importing | Python utility, generic |
 | Nov 1, 2024 | Kyle | Spatial join query (PostGIS) | SQL example, short |
@@ -128,3 +122,13 @@ These posts are either for internal SE team use, customer-specific without gener
 | `reports-examples/save-pdf-on-mobile-and-desktop.md` | @Mike | Report Builder |
 | `utilities-examples/download-choice-list-as-csv.md` | @Mike | Utilities |
 | `integration-examples/trigger-export-via-api.md` | @Mike | Integrations |
+| `integration-examples/sort-repeatable-rows-by-field-value.md` | @Peter | Integrations |
+| `app-extension-examples/add-text-caption-to-photo.md` | @Israel Perez | App Extensions |
+| `map-layers-examples/convert-raster-and-vector-data-to-mbtiles.md` | @Diego C. / @Mike | Map Layers |
+| `integration-examples/identify-managed-vs-nonmanaged-users.md` | @Kyle Pennell | Integrations |
+| `integration-examples/bulk-update-app-settings.md` | @Diego C. | Integrations |
+| `query-api-examples/count-active-users-by-changesets.md` | @Mike | Query API |
+| `integration-examples/sequential-numbering-with-google-apps-script.md` | @Mike | Integrations |
+| `integration-examples/import-esri-feature-service-to-fulcrum.md` | @Mike | Integrations |
+| `utilities-examples/print-record-link-dependencies.md` | @Kyle Pennell | Utilities |
+| `utilities-examples/visualize-record-link-network.md` | @Kyle Pennell | Utilities |
