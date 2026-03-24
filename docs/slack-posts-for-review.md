@@ -86,6 +86,7 @@ These posts are either for internal SE team use, customer-specific without gener
 | Oct 28, 2025 | Kyle | Detect records updated across all apps | Python, internal |
 | Mar 6, 2025 | Kyle | Check parent-child repeatable relationships (SCE) | Thread unreadable; SCE-specific context makes generalization unclear |
 | Nov 12, 2025 | Kyle | Auto redirect to saved filter (Tampermonkey) | Hardcoded customer dashboard UUID; too narrow for public docs |
+| Nov 4, 2024 | Peter | Open 3rd party data migration (Python) | Code is in a .py file attachment; cannot be extracted without download |
 
 ---
 
@@ -129,3 +130,10 @@ These posts are either for internal SE team use, customer-specific without gener
 | `utilities-examples/enable-feature-flags-via-console.md` | @Mike / @Diego C. | Utilities |
 | `utilities-examples/export-import-issues-to-csv.md` | @Gus Ferrara | Utilities |
 | `utilities-examples/api-token-copy-bookmarklet.md` | @Gus Ferrara | Utilities |
+| `calculations-examples/access-nested-repeatable-values-in-calc-field.md` | @Kyle Pennell | Calculations |
+| `reports-examples/filter-report-by-project-name.md` | @Kyle Pennell | Report Builder |
+| `query-api-examples/query-photo-exif-data.md` | @Kyle Pennell | Query API |
+| `reports-examples/simple-react-app-with-query-api.md` | @Kyle Pennell | Report Builder |
+| `reports-examples/save-pdf-on-mobile-and-desktop.md` | @Mike | Report Builder |
+| `utilities-examples/download-choice-list-as-csv.md` | @Mike | Utilities |
+| `integration-examples/trigger-export-via-api.md` | @Mike | Integrations |
