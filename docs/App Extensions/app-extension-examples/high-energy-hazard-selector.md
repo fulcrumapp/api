@@ -17,6 +17,18 @@ This app extension example gives users a custom hazard selection interface in Fu
 
 Use this when you want a guided hazard selection workflow that runs from inside a Fulcrum form and uses a Reference File for offline-friendly access in the mobile app.
 
+## Demo Clip
+Watch a short clip of the extension workflow:
+
+[Download clip: rich-text-editor-clip.mp4](https://reportassets.fulcrumapp.com/readme-assets/Using%20Fulcrum%20OPENEXTENSION%20for%20Enhanced%20User%20Experiences%20and%20Workflows.mp4)
+
+What this clip shows:
+
+Launching a custom HTML web application from Fulcrum using OPENEXTENSION()
+Configuring the app and data event to trigger the extension
+Interacting with a visual, icon-based hazard selection interface
+Returning and storing selected values back in Fulcrum
+
 ## Setup
 1. Download [high-energy-hazard-selector.html](https://reportassets.fulcrumapp.com/readme-assets/high-energy-hazard-selector.html) and upload it as a **Reference File** in your app.
 2. Add a trigger field (commonly a Hyperlink field) with a data name such as `select_high_energy_hazards`.
@@ -50,23 +62,14 @@ Use this when you want a guided hazard selection workflow that runs from inside 
  *   This field stores the returned hazard values.
  *   Data name (example): high_energy_hazards
  *
- * Replace BOTH data names below with your actual field data names.
- *
- * NOTE
- * ────
- * This example uses a Reference File with attachment:// for HTML referencing
- * through OPENEXTENSION().
- *
- * The data configuration below is intentionally commented out.
+ * Replace BOTH data names below in the data event with your actual field data names.
  */
 
 ON('click', 'select_high_energy_hazards', () => {
   OPENEXTENSION({
-    url: 'attachment://high-energy-hazard-selector.html',
+    url: 'https://high-energy-icon-selector.netlify.app/',
     title: 'High Energy Hazards',
-
-    // data: { high_energy_hazards: $high_energy_hazards },
-
+    data: { high_energy_hazards: $high_energy_hazards },
     onMessage: ({ data }) => {
       SETVALUE('high_energy_hazards', data.high_energy_hazards);
     }
