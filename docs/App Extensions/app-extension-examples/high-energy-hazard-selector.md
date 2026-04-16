@@ -20,7 +20,7 @@ Use this when you want a guided hazard selection workflow that runs from inside 
 ## Demo Clip
 Watch a short clip of the extension workflow:
 
-[Download clip: rich-text-editor-clip.mp4](https://reportassets.fulcrumapp.com/readme-assets/Using%20Fulcrum%20OPENEXTENSION%20for%20Enhanced%20User%20Experiences%20and%20Workflows.mp4)
+[Download clip: high-energy-hazard-selector.mp4](https://reportassets.fulcrumapp.com/readme-assets/Using%20Fulcrum%20OPENEXTENSION%20for%20Enhanced%20User%20Experiences%20and%20Workflows.mp4)
 
 What this clip shows:
 
