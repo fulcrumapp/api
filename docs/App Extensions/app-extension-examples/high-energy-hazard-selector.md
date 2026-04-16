@@ -23,11 +23,10 @@ Watch a short clip of the extension workflow:
 [Download clip: high-energy-hazard-selector.mp4](https://reportassets.fulcrumapp.com/readme-assets/Using%20Fulcrum%20OPENEXTENSION%20for%20Enhanced%20User%20Experiences%20and%20Workflows.mp4)
 
 What this clip shows:
-
-Launching a custom HTML web application from Fulcrum using OPENEXTENSION()
-Configuring the app and data event to trigger the extension
-Interacting with a visual, icon-based hazard selection interface
-Returning and storing selected values back in Fulcrum
+- Launching a custom HTML web application from Fulcrum using OPENEXTENSION()
+- Configuring the app and data event to trigger the extension
+- Interacting with a visual, icon-based hazard selection interface
+- Returning and storing selected values back in Fulcrum
 
 ## Setup
 1. Download [high-energy-hazard-selector.html](https://reportassets.fulcrumapp.com/readme-assets/high-energy-hazard-selector.html) and upload it as a **Reference File** in your app.
