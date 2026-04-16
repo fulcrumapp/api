@@ -186,7 +186,7 @@ Associate audio recordings with this field by launching the microphone or select
 
 ## SketchField
 
-Associate sketches with this field by drawing on a canvas with an optional background. Each Sketch field allows any number of photos to be added to it.
+Associate sketches with this field by drawing on a canvas with an optional background. Each Sketch field allows any number of sketches to be added to it.
 
 | Property    | Type   | Required | Description                        |
 | ----------- | ------ | -------- | ---------------------------------- |
