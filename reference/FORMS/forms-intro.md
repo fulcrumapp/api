@@ -186,7 +186,7 @@ Associate audio recordings with this field by launching the microphone or select
 
 ## SketchField
 
-Capture freehand sketches to attach to the record with optional background images.
+Associate sketches with this field by drawing on a canvas with an optional background. Each Sketch field allows any number of photos to be added to it.
 
 | Property    | Type   | Required | Description                        |
 | ----------- | ------ | -------- | ---------------------------------- |
