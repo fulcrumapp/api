@@ -77,4 +77,4 @@ ON('click', 'select_high_energy_hazards', () => {
 ```
 
 ## Extension File
-The full extension file is available here: [rich-text-editor.html](https://reportassets.fulcrumapp.com/readme-assets/high-energy-hazard-selector.html)
+The full extension file is available here: [high-energy-hazard-selector.html](https://reportassets.fulcrumapp.com/readme-assets/high-energy-hazard-selector.html)
