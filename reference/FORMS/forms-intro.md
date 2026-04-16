@@ -71,7 +71,7 @@ The Forms API gives you access to your form fields, or app schema.
 
 | Property                   | Type    | Required | Description                                                                                                                                                                                                                                                                                                                                                                   |
 | -------------------------- | ------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type                       | string  | yes      | Must be one of the valid element types: `"TextField"`, `"YesNoField"`, `"Label"`, `"Section"`, `"ChoiceField"`, `"ClassificationField"`, `"PhotoField"`, `"VideoField"`, `"AudioField"`, `"BarcodeField"`, `"DateTimeField"`, `"TimeField"`, `"Section"`, `"Repeatable"`, `"AddressField"`, `"SignatureField"`, `"HyperlinkField"`, `"CalculatedField"`, `"RecordLinkField"`. |
+| type                       | string  | yes      | Must be one of the valid element types: `"TextField"`, `"YesNoField"`, `"Label"`, `"Section"`, `"ChoiceField"`, `"ClassificationField"`, `"PhotoField"`, `"VideoField"`, `"AudioField"`, `"SketchField"`, `"BarcodeField"`, `"DateTimeField"`, `"TimeField"`, `"Section"`, `"Repeatable"`, `"AddressField"`, `"SignatureField"`, `"HyperlinkField"`, `"CalculatedField"`, `"RecordLinkField"`. |
 | key                        | string  | yes      | The id for the field. Must be unique to the form and lowercase. The Fulcrum app builder uses system generated 4 character codes.                                                                                                                                                                                                                                              |
 | label                      | string  | yes      | The field label, visible to mobile and web users.                                                                                                                                                                                                                                                                                                                             |
 | data\_name                 | string  | yes      | Can be set manually or auto generated using the label of the element. This field will be the column name on all exported files. It is recommended to use something that works easily with Esri Shapefiles that have a 10 character maximum column heading limitation.                                                                                                         |
@@ -183,6 +183,16 @@ Associate audio recordings with this field by launching the microphone or select
 | track\_enabled | boolean | no       | GPS track enabled?                  |
 | min\_length    | number  | no       | Minimum number of audio recordings. |
 | max\_length    | number  | no       | Maximum number of audio recordings. |
+
+## SketchField
+
+Capture freehand sketches to attach to the record with optional background images.
+
+| Property    | Type   | Required | Description                        |
+| ----------- | ------ | -------- | ---------------------------------- |
+| backgrounds | array  | no       | Array of background image objects. |
+| min\_length | number | no       | Minimum number of sketches.        |
+| max\_length | number | no       | Maximum number of sketches.        |
 
 ## Section
 
