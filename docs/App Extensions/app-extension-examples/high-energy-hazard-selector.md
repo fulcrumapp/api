@@ -70,11 +70,7 @@ ON('click', 'select_high_energy_hazards', () => {
     title: 'High Energy Hazards',
     data: { high_energy_hazards: $high_energy_hazards },
     onMessage: ({ data }) => {
-      var selectedHazards = data && typeof data.high_energy_hazards === 'string'
-        ? data.high_energy_hazards
-        : '';
-
-      SETVALUE('high_energy_hazards', selectedHazards);
+      SETVALUE('high_energy_hazards', data.high_energy_hazards);
     }
   });
 });
