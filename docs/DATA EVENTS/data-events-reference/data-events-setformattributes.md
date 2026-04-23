@@ -20,7 +20,7 @@ Allows you to configure specific device functionality and behaviors at the form 
 * Force record to be sync’d upon save
 * Control the minimum accuracy required for the GPS location
 * Disable the ability to manually move the record location
-* Disable the “Save as Draft” feature
+* Disable the “Save as Draft” feature (*Note*: Drafts will still be created when user creates a background track.)
 * Control photo and video quality settings
 
 The following table contains the available properties that be set:
