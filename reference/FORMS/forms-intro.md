@@ -188,11 +188,14 @@ Associate audio recordings with this field by launching the microphone or select
 
 Associate sketches with this field by drawing on a canvas with an optional background. Each Sketch field allows any number of sketches to be added to it.
 
-| Property    | Type   | Required | Description                        |
-| ----------- | ------ | -------- | ---------------------------------- |
-| backgrounds | array  | no       | Array of background image objects. |
-| min\_length | number | no       | Minimum number of sketches.        |
-| max\_length | number | no       | Maximum number of sketches.        |
+| Property                      | Type    | Required | Description                                                                 |
+| ----------------------------- | ------- | -------- | --------------------------------------------------------------------------- |
+| backgrounds                   | array   | no       | Array of background image objects.                                          |
+| min\_length                   | number  | no       | Minimum number of sketches.                                                 |
+| max\_length                   | number  | no       | Maximum number of sketches.                                                 |
+| map\_background\_enabled      | boolean | no       | Enable map background option for sketches. Defaults to `false`.             |
+| blank\_canvas\_enabled        | boolean | no       | Enable blank canvas option for sketches. Defaults to `true`.                |
+| custom\_background\_enabled   | boolean | no       | Enable custom background image option for sketches. Defaults to `false`.    |
 
 ## Section
 
