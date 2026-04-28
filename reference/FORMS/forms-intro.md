@@ -128,7 +128,7 @@ For simple yes/no questions with optional neutral state.
 | neutral\_enabled         | boolean | yes                 | Enable N/A choice?                                                   |
 | neutral                  | object  | if neutral\_enabled | Label/Value for neutral choice (`{"label": "N/A","value": "n/a"}`).  |
 | positive                 | object  | yes                 | Label/Value for positive choice (`{"label": "Yes","value": "yes"}`). |
-| negative                 | object  | yes                 | Label/Value for positive choice (`{"label": "No","value": "no"}`).   |
+| negative                 | object  | yes                 | Label/Value for negative choice (`{"label": "No","value": "no"}`).   |
 | default\_previous\_value | boolean | `false`             | Whether to automatically set the previously used value.              |
 
 ## ChoiceField
