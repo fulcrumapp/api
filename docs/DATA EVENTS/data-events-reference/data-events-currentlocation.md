@@ -16,6 +16,8 @@ Returns a location object containing metadata about the user's current location.
 
 Returns the current device location as an object. This can be used for Q/A purposes or other custom processing logic. This is *not* always the same as the record location. For example, if editing an imported record or previously created record, the current location will be different.
 
+**NOTE:** `CURRENTLOCATION` always uses the location of the mobile device itself, even if an external GPS receiver is connected.
+
 Returns data in the following format:
 
 ```json
