@@ -79,4 +79,4 @@ ON('click', 'select_illness_symptoms_if_any', () => {
 ```
 
 ## Extension File
-The full extension file is available here: [high-energy-hazard-selector.html](https://reportassets.fulcrumapp.com/readme-assets/illness-symptoms-selector.html)
+The full extension file is available here: [illness-symptoms-selector.html](https://reportassets.fulcrumapp.com/readme-assets/illness-symptoms-selector.html)
