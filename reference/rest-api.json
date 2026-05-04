@@ -2023,19 +2023,19 @@
           },
           "positive": {
             "$ref": "#/components/schemas/YesNoLabelValue",
-            "description": "Required for YesNoField. Label/value for the positive (Yes) choice. Example: {\"label\": \"Yes\", \"value\": \"yes\"}"
+            "description": "Applicable to YesNoField. Label/value for the positive (Yes) choice. Example: {\"label\": \"Yes\", \"value\": \"yes\"}"
           },
           "negative": {
             "$ref": "#/components/schemas/YesNoLabelValue",
-            "description": "Required for YesNoField. Label/value for the negative (No) choice. Example: {\"label\": \"No\", \"value\": \"no\"}"
+            "description": "Applicable to YesNoField. Label/value for the negative (No) choice. Example: {\"label\": \"No\", \"value\": \"no\"}"
           },
           "neutral_enabled": {
             "type": "boolean",
-            "description": "Required for YesNoField. Whether the N/A option is enabled."
+            "description": "Applicable to YesNoField. Whether the N/A option is enabled."
           },
           "neutral": {
             "$ref": "#/components/schemas/YesNoLabelValue",
-            "description": "Required for YesNoField when neutral_enabled is true. Label/value for the neutral (N/A) choice."
+            "description": "Applicable to YesNoField when neutral_enabled is true. Label/value for the neutral (N/A) choice."
           },
           "elements": {
             "type": "array",
