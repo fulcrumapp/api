@@ -16,7 +16,7 @@ next:
 
 This app extension example gives users a custom illness symptoms selection interface in Fulcrum. It opens a dedicated HTML extension from a Hyperlink field, allows users to select any current symptoms, and writes the selected values back to a target text field.
 
-Use this when you want a guided pre-work safety authorization or pre-job briefing workflow that runs from inside a Fulcrum form and uses a Reference File for offline-friendly access in the mobile app.
+Use this when you want a selector for illness symptom screening at a job-site or work location. This app extension runs inside a Fulcrum form and uses a Reference File for offline-friendly access in the mobile app.
 
 ## Demo Clip
 Watch a short clip of the extension workflow:
