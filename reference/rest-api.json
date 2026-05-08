@@ -2089,9 +2089,16 @@
             "items": {"type": "object"}
           },
           "required_conditions_type": {
-            "type": "string",
-            "enum": ["all", "any"],
-            "description": "Match all or any conditions to require this field"
+            "description": "Match all or any conditions to require this field",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": ["all", "any"]
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "required_conditions": {
             "type": "array",
