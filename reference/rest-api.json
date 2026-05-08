@@ -2072,9 +2072,16 @@
             "description": "Helper text shown below the field"
           },
           "visible_conditions_type": {
-            "type": "string",
-            "enum": ["all", "any"],
-            "description": "Match all or any conditions to display this field"
+            "description": "Match all or any conditions to display this field",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": ["all", "any"]
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "visible_conditions": {
             "type": "array",
