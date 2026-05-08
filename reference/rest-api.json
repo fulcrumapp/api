@@ -2065,7 +2065,10 @@
             "description": "Default values for field types that store multiple values. Shape varies by field type and may be array, object, or null."
           },
           "description": {
-            "type": "string",
+            "oneOf": [
+              {"type": "string"},
+              {"type": "null"}
+            ],
             "description": "Helper text shown below the field"
           },
           "visible_conditions_type": {
