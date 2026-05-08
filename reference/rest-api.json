@@ -1889,23 +1889,34 @@
       },
       "FormElementChoice": {
         "type": "object",
-        "description": "A selectable choice option for ChoiceField elements",
-        "required": ["label", "value"],
+        "description": "A single selectable choice in a ChoiceField or StatusField",
+        "required": [
+          "label",
+          "value"
+        ],
         "properties": {
           "label": {
             "type": "string",
-            "description": "Display label shown to the user"
+            "description": "Display label for the choice"
           },
           "value": {
             "type": "string",
-            "description": "Stored value in the database"
+            "description": "Stored value for the choice"
+          },
+          "color": {
+            "type": "string",
+            "description": "Hex color string used for status field choices (e.g. '#FF0000')",
+            "nullable": true
           }
         }
       },
       "YesNoLabelValue": {
         "type": "object",
         "description": "Label/value pair for YesNoField positive, negative, or neutral options",
-        "required": ["label", "value"],
+        "required": [
+          "label",
+          "value"
+        ],
         "properties": {
           "label": {
             "type": "string",
@@ -1920,12 +1931,19 @@
       "CalculatedFieldDisplay": {
         "type": "object",
         "description": "Display formatting for CalculatedField elements",
-        "required": ["style"],
+        "required": [
+          "style"
+        ],
         "properties": {
           "style": {
             "type": "string",
             "description": "Calculated value display style",
-            "enum": ["number", "currency", "date", "string"]
+            "enum": [
+              "number",
+              "currency",
+              "date",
+              "string"
+            ]
           },
           "currency": {
             "type": "string",
@@ -1936,7 +1954,10 @@
       "StatusFieldChoice": {
         "type": "object",
         "description": "A selectable status value for a form status field",
-        "required": ["label", "value"],
+        "required": [
+          "label",
+          "value"
+        ],
         "properties": {
           "label": {
             "type": "string",
@@ -1955,11 +1976,17 @@
       "StatusField": {
         "type": "object",
         "description": "Status field configuration for a form",
-        "required": ["type", "label", "data_name"],
+        "required": [
+          "type",
+          "label",
+          "data_name"
+        ],
         "properties": {
           "type": {
             "type": "string",
-            "enum": ["StatusField"],
+            "enum": [
+              "StatusField"
+            ],
             "description": "Status field type identifier"
           },
           "key": {
@@ -1991,281 +2018,1388 @@
           }
         }
       },
-      "FormElement": {
+      "FormElementCondition": {
         "type": "object",
-        "description": "A form field or section element. Field type names are sourced from fulcrum-schema data elements plus layout-only Section and Label elements. Additional properties vary by field type — see the Forms reference documentation for type-specific properties.",
-        "required": ["type", "key", "label", "data_name", "required", "disabled", "hidden"],
+        "description": "A visibility or required condition rule applied to a form element",
+        "required": [
+          "field_key",
+          "operator",
+          "value"
+        ],
+        "properties": {
+          "field_key": {
+            "type": "string",
+            "description": "The key of the field being tested"
+          },
+          "operator": {
+            "type": "string",
+            "description": "Comparison operator",
+            "enum": [
+              "equal_to",
+              "not_equal_to",
+              "is_empty",
+              "is_not_empty",
+              "contains",
+              "does_not_contain",
+              "starts_with",
+              "greater_than",
+              "less_than",
+              "greater_than_or_equal_to",
+              "less_than_or_equal_to"
+            ]
+          },
+          "value": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The value to compare against (may be null for is_empty/is_not_empty operators)"
+          }
+        }
+      },
+      "FormClassificationItem": {
+        "type": "object",
+        "description": "A hierarchical classification item",
+        "required": [
+          "label",
+          "value"
+        ],
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          },
+          "child_classifications": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FormClassificationItem"
+            }
+          }
+        }
+      },
+      "FormClassificationSetSchema": {
+        "type": "object",
+        "description": "Inline classification set definition",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Classification set resource ID"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FormClassificationItem"
+            }
+          }
+        }
+      },
+      "FormYesNoOption": {
+        "type": "object",
+        "description": "Label/value pair for a YesNoField option",
+        "required": [
+          "label",
+          "value"
+        ],
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "FormCalculatedDisplay": {
+        "type": "object",
+        "description": "Display settings for a CalculatedField",
+        "properties": {
+          "style": {
+            "type": "string",
+            "enum": [
+              "number",
+              "currency",
+              "date",
+              "string"
+            ],
+            "description": "Display rendering style"
+          },
+          "currency": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "ISO 4217 currency code (e.g. 'USD'), only used when style is 'currency'"
+          }
+        }
+      },
+      "FormBaseElement": {
+        "type": "object",
+        "description": "Common properties shared by all form elements",
+        "required": [
+          "type",
+          "key",
+          "data_name",
+          "label"
+        ],
         "properties": {
           "type": {
             "type": "string",
-            "description": "Field type identifier",
+            "description": "The element type discriminator",
             "enum": [
               "TextField",
-              "YesNoField",
-              "Label",
-              "Section",
               "ChoiceField",
               "ClassificationField",
+              "YesNoField",
               "PhotoField",
               "VideoField",
               "AudioField",
-              "AttachmentField",
-              "SketchField",
+              "SignatureField",
               "BarcodeField",
               "DateTimeField",
+              "DateField",
               "TimeField",
               "Repeatable",
+              "Section",
               "AddressField",
-              "SignatureField",
               "HyperlinkField",
               "CalculatedField",
               "RecordLinkField",
+              "AttachmentField",
               "CheckboxField",
               "DynamicField",
               "LocationField",
-              "ButtonField"
+              "ButtonField",
+              "SketchField",
+              "Label",
+              "StatusField"
             ]
           },
           "key": {
             "type": "string",
-            "description": "Unique field key within the form. Must be lowercase. The Fulcrum app builder uses 4-character codes."
+            "description": "Unique 4-character hex key identifying this element within the form (e.g. 'af72')"
           },
           "label": {
-            "type": "string",
-            "description": "Display label visible to users"
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Display label for the field"
           },
           "data_name": {
             "type": "string",
-            "description": "Programmatic name used in form_values, exports, and queries. Recommended to keep under 10 characters for Shapefile compatibility."
+            "description": "Snake-case column name used in exports and the query API (e.g. 'park_name')"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Help text shown below the field label"
           },
           "required": {
             "type": "boolean",
-            "description": "Whether the field is required"
+            "description": "Whether a value is required to save the record",
+            "default": false
           },
           "disabled": {
             "type": "boolean",
-            "description": "Whether the field is read-only"
+            "description": "Whether the field is read-only in the mobile app",
+            "default": false
           },
           "hidden": {
             "type": "boolean",
-            "description": "Whether the field is hidden on mobile"
+            "description": "Whether the field is hidden by default",
+            "default": false
           },
           "default_value": {
-            "description": "Default value for the field. Shape varies by field type and may be string, number, boolean, array, object, or null. Required for non-Section types."
-          },
-          "default_values": {
-            "description": "Default values for field types that store multiple values. Shape varies by field type and may be array, object, or null."
-          },
-          "description": {
-            "oneOf": [
-              {"type": "string"},
-              {"type": "null"}
-            ],
-            "description": "Helper text shown below the field"
+            "description": "Default value pre-populated when a new record is created. Type depends on the element type."
           },
           "visible_conditions_type": {
-            "description": "Match all or any conditions to display this field",
-            "oneOf": [
-              {
-                "type": "string",
-                "enum": ["all", "any"]
-              },
-              {
-                "type": "null"
-              }
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Whether ALL or ANY visible conditions must be met. Null means no conditions.",
+            "enum": [
+              "all",
+              "any"
             ]
           },
           "visible_conditions": {
-            "description": "Visibility conditions",
-            "oneOf": [
-              {
-                "type": "array",
-                "items": {"type": "object"}
-              },
-              {"type": "null"}
-            ]
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "Conditions that control when this element is visible",
+            "items": {
+              "$ref": "#/components/schemas/FormElementCondition"
+            }
           },
           "required_conditions_type": {
-            "description": "Match all or any conditions to require this field",
-            "oneOf": [
-              {
-                "type": "string",
-                "enum": ["all", "any"]
-              },
-              {
-                "type": "null"
-              }
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Whether ALL or ANY required conditions must be met. Null means no conditions.",
+            "enum": [
+              "all",
+              "any"
             ]
           },
           "required_conditions": {
-            "type": "array",
-            "description": "Requirement conditions",
-            "items": {"type": "object"}
+            "type": [
+              "array",
+              "null"
+            ],
+            "description": "Conditions that control when this element becomes required",
+            "items": {
+              "$ref": "#/components/schemas/FormElementCondition"
+            }
+          }
+        }
+      },
+      "FormTextFieldElement": {
+        "description": "A single-line or multi-line text field. Set `numeric: true` and `format` for numeric inputs.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
           },
-          "default_previous_value": {
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "TextField"
+                ]
+              },
+              "numeric": {
+                "type": "boolean",
+                "description": "When true, restricts input to numbers. Use `format` to specify integer vs decimal.",
+                "default": false
+              },
+              "format": {
+                "type": "string",
+                "description": "Numeric display format. Only applicable when `numeric` is true.",
+                "enum": [
+                  "decimal",
+                  "integer"
+                ]
+              },
+              "min": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Minimum numeric value (only when `numeric` is true)"
+              },
+              "max": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Maximum numeric value (only when `numeric` is true)"
+              },
+              "pattern": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Regular expression that the value must match"
+              },
+              "pattern_description": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Human-readable description of the pattern requirement"
+              },
+              "min_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Minimum number of characters (or items for media fields)"
+              },
+              "max_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Maximum number of characters (or items for media fields)"
+              }
+            }
+          }
+        ]
+      },
+      "FormYesNoFieldElement": {
+        "description": "A Yes / No field with optional neutral (N/A) state.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "YesNoField"
+                ]
+              },
+              "positive": {
+                "description": "Configuration for the 'yes' option",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FormYesNoOption"
+                  }
+                ]
+              },
+              "negative": {
+                "description": "Configuration for the 'no' option",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FormYesNoOption"
+                  }
+                ]
+              },
+              "neutral": {
+                "description": "Configuration for the neutral/N/A option",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FormYesNoOption"
+                  }
+                ]
+              },
+              "neutral_enabled": {
+                "type": "boolean",
+                "description": "When true, the neutral option is shown",
+                "default": false
+              }
+            }
+          }
+        ]
+      },
+      "FormPhotoFieldElement": {
+        "description": "A photo capture field. Stores one or more photos per record.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "PhotoField"
+                ]
+              },
+              "min_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "max_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormVideoFieldElement": {
+        "description": "A video capture field.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "VideoField"
+                ]
+              },
+              "track_enabled": {
+                "type": "boolean",
+                "description": "When true, GPS track is recorded with the video",
+                "default": false
+              },
+              "audio_enabled": {
+                "type": "boolean",
+                "description": "When true, audio is recorded with the video",
+                "default": true
+              },
+              "min_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "max_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormAudioFieldElement": {
+        "description": "An audio recording field.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "AudioField"
+                ]
+              },
+              "min_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "max_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormSignatureFieldElement": {
+        "description": "A signature capture field.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SignatureField"
+                ]
+              },
+              "agreement_text": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Legal agreement text displayed above the signature pad"
+              }
+            }
+          }
+        ]
+      },
+      "FormBarcodeFieldElement": {
+        "description": "A barcode / QR-code scanner field.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "BarcodeField"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormDateTimeFieldElement": {
+        "description": "A combined date and time field.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "DateTimeField"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormDateFieldElement": {
+        "description": "A date-only field.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "DateField"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormTimeFieldElement": {
+        "description": "A time-only field.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "TimeField"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormRepeatableElement": {
+        "description": "A repeatable section (child records) that can contain its own set of fields and captures 0-N rows per parent record.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "required": [
+              "elements"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "Repeatable"
+                ]
+              },
+              "elements": {
+                "type": "array",
+                "description": "Child elements within the repeatable",
+                "items": {
+                  "$ref": "#/components/schemas/FormElement"
+                }
+              },
+              "title_field_key": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Key of the child field used as the repeatable row title"
+              },
+              "title_field_keys": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "description": "Keys of child fields used to compose the repeatable row title",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "geometry_types": {
+                "type": "array",
+                "description": "Allowed geometry types for child record location. Empty array disables location on children.",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Point",
+                    "LineString",
+                    "Polygon"
+                  ]
+                }
+              },
+              "geometry_required": {
+                "type": "boolean",
+                "description": "When true, a location is required on each child record",
+                "default": false
+              },
+              "min_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Minimum number of child records required"
+              },
+              "max_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Maximum number of child records allowed"
+              }
+            }
+          }
+        ]
+      },
+      "FormSectionElement": {
+        "description": "A collapsible section that groups child elements. Sections do not capture data themselves.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "required": [
+              "elements"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "Section"
+                ]
+              },
+              "display": {
+                "type": "string",
+                "description": "Layout style for the section",
+                "enum": [
+                  "inline",
+                  "drilldown"
+                ],
+                "default": "inline"
+              },
+              "elements": {
+                "type": "array",
+                "description": "Child elements contained within this section",
+                "items": {
+                  "$ref": "#/components/schemas/FormElement"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "FormAddressFieldElement": {
+        "description": "A structured address field with sub-components (street, city, state, zip, etc.).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "AddressField"
+                ]
+              },
+              "auto_populate": {
+                "type": "boolean",
+                "description": "When true, the address is automatically populated from the device GPS location",
+                "default": false
+              }
+            }
+          }
+        ]
+      },
+      "FormHyperlinkFieldElement": {
+        "description": "A field that stores a URL and displays it as a tappable hyperlink.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "HyperlinkField"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormCalculatedFieldElement": {
+        "description": "A read-only field whose value is computed from a JavaScript expression over other field values.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "CalculatedField"
+                ]
+              },
+              "expression": {
+                "type": "string",
+                "description": "JavaScript expression evaluated at runtime. Reference other fields with `$field_data_name`.",
+                "example": "$first_name + ' ' + $last_name"
+              },
+              "display": {
+                "description": "Controls how the calculated result is formatted for display",
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/FormCalculatedDisplay"
+                  }
+                ]
+              },
+              "default_values": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "description": "Optional map of field data names to default values used when the expression cannot be evaluated",
+                "additionalProperties": true
+              }
+            }
+          }
+        ]
+      },
+      "FormRecordLinkFieldElement": {
+        "description": "A field that links to records in another Fulcrum form.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "RecordLinkField"
+                ]
+              },
+              "allow_existing_records": {
+                "type": "boolean",
+                "description": "Allow linking to existing records",
+                "default": true
+              },
+              "allow_creating_records": {
+                "type": "boolean",
+                "description": "Allow creating new linked records inline",
+                "default": false
+              },
+              "allow_updating_records": {
+                "type": "boolean",
+                "description": "Allow editing linked records inline",
+                "default": false
+              },
+              "allow_empty_records": {
+                "type": "boolean",
+                "description": "Allow saving without selecting a linked record",
+                "default": true
+              },
+              "linked_form_id": {
+                "type": "string",
+                "description": "ID of the form that records can be linked from"
+              }
+            }
+          }
+        ]
+      },
+      "FormAttachmentFieldElement": {
+        "description": "A file attachment field for arbitrary file uploads.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "AttachmentField"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormCheckboxFieldElement": {
+        "description": "A boolean checkbox field (true/false).",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "CheckboxField"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormDynamicFieldElement": {
+        "description": "A dynamic / checklist field whose items are loaded at runtime from a data source.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "DynamicField"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormLocationFieldElement": {
+        "description": "A field that captures a geographic point (latitude, longitude) separate from the record location.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "LocationField"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormButtonFieldElement": {
+        "description": "A button that triggers a Data Event action when tapped.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "ButtonField"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormSketchFieldElement": {
+        "description": "A field for freehand sketch / drawing input.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "SketchField"
+                ]
+              },
+              "min_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "max_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormLabelElement": {
+        "description": "A non-data display label / heading used to organize the form layout.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "Label"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "FormChoiceFieldElement": {
+        "description": "A single-select or multi-select dropdown / radio field.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "ChoiceField"
+                ]
+              },
+              "multiple": {
+                "type": "boolean",
+                "description": "When true, allows selecting multiple choices",
+                "default": false
+              },
+              "allow_other": {
+                "type": "boolean",
+                "description": "When true, users can type a custom value not in the choices list",
+                "default": false
+              },
+              "choices": {
+                "type": "array",
+                "description": "List of selectable options",
+                "items": {
+                  "$ref": "#/components/schemas/FormElementChoice"
+                }
+              },
+              "choice_list_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "ID of a shared Choice List resource to use instead of inline choices"
+              },
+              "min_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Minimum number of selections required (when `multiple` is true)"
+              },
+              "max_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Maximum number of selections allowed (when `multiple` is true)"
+              }
+            }
+          }
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "choices"
+            ]
+          },
+          {
+            "required": [
+              "choice_list_id"
+            ]
+          }
+        ]
+      },
+      "FormClassificationFieldElement": {
+        "description": "A hierarchical classification field backed by a Classification Set.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "ClassificationField"
+                ]
+              },
+              "allow_other": {
+                "type": "boolean",
+                "description": "When true, users can enter a value not in the classification set",
+                "default": false
+              },
+              "classification_set_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "ID of a shared Classification Set resource"
+              },
+              "classification_set_schema": {
+                "description": "Inline classification set definition (alternative to classification_set_id)",
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/components/schemas/FormClassificationSetSchema"
+                  }
+                ]
+              }
+            }
+          }
+        ],
+        "anyOf": [
+          {
+            "required": [
+              "classification_set_id"
+            ]
+          },
+          {
+            "required": [
+              "classification_set_schema"
+            ]
+          }
+        ]
+      },
+      "FormStatusField": {
+        "type": "object",
+        "description": "The status field configuration for a form. The status field is a special system-level choice field present on every record.",
+        "required": [
+          "type",
+          "key",
+          "data_name",
+          "choices"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "StatusField"
+            ],
+            "description": "Always 'StatusField'"
+          },
+          "key": {
+            "type": "string",
+            "description": "Always '@status' for the status field",
+            "default": "@status"
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label for the status field",
+            "default": "Status"
+          },
+          "data_name": {
+            "type": "string",
+            "description": "Column name used in exports",
+            "default": "status"
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Help text shown below the status field label"
+          },
+          "default_value": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The default status value applied to new records"
+          },
+          "enabled": {
             "type": "boolean",
-            "description": "Whether to automatically set the previously used value"
+            "description": "When true, the status field is visible on the record",
+            "default": true
+          },
+          "read_only": {
+            "type": "boolean",
+            "description": "When true, the status field cannot be changed in the mobile app",
+            "default": false
+          },
+          "hidden": {
+            "type": "boolean",
+            "description": "When true, the status field is hidden from the record form",
+            "default": false
+          },
+          "required": {
+            "type": "boolean",
+            "description": "When true, a status value is required to save the record",
+            "default": false
+          },
+          "disabled": {
+            "type": "boolean",
+            "default": false
           },
           "choices": {
             "type": "array",
-            "description": "Inline choices for ChoiceField elements",
+            "description": "List of valid status values. Each choice has a label, value, and display color.",
             "items": {
               "$ref": "#/components/schemas/FormElementChoice"
             }
+          }
+        }
+      },
+      "FormBody": {
+        "type": "object",
+        "description": "The form object sent when creating or updating a form",
+        "required": [
+          "name",
+          "elements"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The display name of the form"
           },
-          "positive": {
-            "$ref": "#/components/schemas/YesNoLabelValue",
-            "description": "Applicable to YesNoField. Label/value for the positive (Yes) choice. Example: {\"label\": \"Yes\", \"value\": \"yes\"}"
-          },
-          "negative": {
-            "$ref": "#/components/schemas/YesNoLabelValue",
-            "description": "Applicable to YesNoField. Label/value for the negative (No) choice. Example: {\"label\": \"No\", \"value\": \"no\"}"
-          },
-          "neutral_enabled": {
-            "type": "boolean",
-            "description": "Applicable to YesNoField. Whether the N/A option is enabled."
-          },
-          "neutral": {
-            "$ref": "#/components/schemas/YesNoLabelValue",
-            "description": "Applicable to YesNoField when neutral_enabled is true. Label/value for the neutral (N/A) choice."
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A longer description of the form's purpose"
           },
           "elements": {
             "type": "array",
-            "description": "Child elements for Section and Repeatable types",
+            "description": "Ordered list of form elements (fields, sections, repeatables, labels, etc.)",
             "items": {
               "$ref": "#/components/schemas/FormElement"
             }
           },
-          "display": {
-            "description": "Display configuration. Section elements use a string (inline or drilldown). CalculatedField elements use an object with style and optional currency.",
+          "status_field": {
+            "description": "Configuration for the built-in status field. Omit to use the default status field settings.",
             "oneOf": [
               {
-                "type": "string",
-                "enum": ["inline", "drilldown"]
-              },
-              {
-                "$ref": "#/components/schemas/CalculatedFieldDisplay"
-              },
-              {
                 "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/FormStatusField"
               }
             ]
           },
-          "numeric": {
+          "title_field_keys": {
+            "type": "array",
+            "description": "Keys of the fields whose values are combined to form the record title",
+            "items": {
+              "type": "string"
+            }
+          },
+          "record_prefix": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Short prefix prepended to auto-generated record numbers (e.g. 'INV')"
+          },
+          "geometry_types": {
+            "type": "array",
+            "description": "Allowed geometry types for record location. Omit or leave empty to disable record location.",
+            "items": {
+              "type": "string",
+              "enum": [
+                "Point",
+                "LineString",
+                "Polygon"
+              ]
+            }
+          },
+          "geometry_required": {
             "type": "boolean",
-            "description": "TextField: restrict to numeric input"
+            "description": "When true, a location is required to save the record",
+            "default": false
           },
-          "pattern": {
-            "type": "string",
-            "description": "TextField: regex pattern for validation"
+          "script": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "JavaScript Data Events script evaluated on the mobile app"
           },
-          "min_length": {
-            "type": "integer",
-            "description": "Minimum length (text) or minimum count (photos/videos/audio/sketches)"
-          },
-          "max_length": {
-            "type": "integer",
-            "description": "Maximum length (text) or maximum count (photos/videos/audio/sketches)"
-          },
-          "multiple": {
+          "projects_enabled": {
             "type": "boolean",
-            "description": "ChoiceField: allow multiple selections"
+            "description": "When true, records can be assigned to projects",
+            "default": true
           },
-          "allow_other": {
+          "assignment_enabled": {
             "type": "boolean",
-            "description": "ChoiceField/ClassificationField: allow free-text Other option"
+            "description": "When true, records can be assigned to users",
+            "default": true
           },
-          "choice_list_id": {
-            "type": "string",
-            "description": "ChoiceField: ID of a shared choice list"
-          },
-          "classification_set_id": {
-            "type": "string",
-            "description": "ClassificationField: ID of the classification set (required for ClassificationField)"
-          },
-          "record_link_form_id": {
-            "type": "string",
-            "description": "RecordLinkField: ID of the linked form"
-          },
-          "record_link_default_field_key": {
-            "type": "string",
-            "description": "RecordLinkField: key of the linked form field to display by default"
-          },
-          "agreement_text": {
-            "type": "string",
-            "description": "SignatureField: agreement text shown above the signature pad"
-          },
-          "default_url": {
-            "type": "string",
-            "description": "HyperlinkField: default URL value"
-          },
-          "auto_populate": {
+          "auto_assign": {
             "type": "boolean",
-            "description": "AddressField/LocationField: automatically populate from GPS or device location"
+            "description": "When true, new records are automatically assigned to the creating user",
+            "default": false
           },
-          "expression": {
-            "type": "string",
-            "description": "CalculatedField: calculation expression"
+          "hidden_on_dashboard": {
+            "type": "boolean",
+            "description": "When true, this form is hidden from the Fulcrum dashboard",
+            "default": false
+          }
+        }
+      },
+      "FormElement": {
+        "description": "A single form element. Use the `type` property to determine which element-specific fields apply.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/FormTextFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormChoiceFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormClassificationFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormYesNoFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormPhotoFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormVideoFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormAudioFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormSignatureFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormBarcodeFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormDateTimeFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormDateFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormTimeFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormRepeatableElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormSectionElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormAddressFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormHyperlinkFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormCalculatedFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormRecordLinkFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormAttachmentFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormCheckboxFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormDynamicFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormLocationFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormButtonFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormSketchFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormLabelElement"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "TextField": "#/components/schemas/FormTextFieldElement",
+            "ChoiceField": "#/components/schemas/FormChoiceFieldElement",
+            "ClassificationField": "#/components/schemas/FormClassificationFieldElement",
+            "YesNoField": "#/components/schemas/FormYesNoFieldElement",
+            "PhotoField": "#/components/schemas/FormPhotoFieldElement",
+            "VideoField": "#/components/schemas/FormVideoFieldElement",
+            "AudioField": "#/components/schemas/FormAudioFieldElement",
+            "SignatureField": "#/components/schemas/FormSignatureFieldElement",
+            "BarcodeField": "#/components/schemas/FormBarcodeFieldElement",
+            "DateTimeField": "#/components/schemas/FormDateTimeFieldElement",
+            "DateField": "#/components/schemas/FormDateFieldElement",
+            "TimeField": "#/components/schemas/FormTimeFieldElement",
+            "Repeatable": "#/components/schemas/FormRepeatableElement",
+            "Section": "#/components/schemas/FormSectionElement",
+            "AddressField": "#/components/schemas/FormAddressFieldElement",
+            "HyperlinkField": "#/components/schemas/FormHyperlinkFieldElement",
+            "CalculatedField": "#/components/schemas/FormCalculatedFieldElement",
+            "RecordLinkField": "#/components/schemas/FormRecordLinkFieldElement",
+            "AttachmentField": "#/components/schemas/FormAttachmentFieldElement",
+            "CheckboxField": "#/components/schemas/FormCheckboxFieldElement",
+            "DynamicField": "#/components/schemas/FormDynamicFieldElement",
+            "LocationField": "#/components/schemas/FormLocationFieldElement",
+            "ButtonField": "#/components/schemas/FormButtonFieldElement",
+            "SketchField": "#/components/schemas/FormSketchFieldElement",
+            "Label": "#/components/schemas/FormLabelElement"
           }
         }
       },
       "FormRequest": {
         "type": "object",
-        "required": ["form"],
+        "description": "Request body for creating or updating a form",
+        "required": [
+          "form"
+        ],
         "properties": {
           "form": {
-            "type": "object",
-            "required": ["name", "elements"],
-            "properties": {
-              "name": {
-                "type": "string",
-                "description": "Name of the form"
-              },
-              "description": {
-                "type": "string",
-                "description": "Description of the form"
-              },
-              "elements": {
-                "type": "array",
-                "description": "Form elements (fields and sections). See FormElement schema for required properties per field type.",
-                "items": {
-                  "$ref": "#/components/schemas/FormElement"
-                }
-              },
-              "status_field": {
-                "$ref": "#/components/schemas/StatusField"
-              },
-              "geometry_types": {
-                "type": "array",
-                "description": "Geometry types: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "auto_assign": {
-                "type": "boolean",
-                "description": "Assign records to the creating user"
-              },
-              "projects_enabled": {
-                "type": "boolean",
-                "description": "Enable projects for this form"
-              },
-              "assignment_enabled": {
-                "type": "boolean",
-                "description": "Enable record assignment"
-              },
-              "title_field_keys": {
-                "type": "array",
-                "description": "Field keys used to generate record titles",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "script": {
-                "type": "string",
-                "description": "Custom Data Events script"
-              }
-            }
+            "$ref": "#/components/schemas/FormBody"
           }
         }
       },
@@ -2316,7 +3450,9 @@
               },
               "geometry_types": {
                 "type": "array",
-                "items": {"type": "string"}
+                "items": {
+                  "type": "string"
+                }
               },
               "auto_assign": {
                 "type": "boolean"
@@ -5156,7 +6292,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Entity — validation errors (e.g. missing required element properties like disabled, hidden, required). Note: some element validation failures (e.g. YesNoField missing positive/negative) may incorrectly return 500 instead of 422.",
+            "description": "Unprocessable Entity \u2014 validation errors (e.g. missing required element properties like disabled, hidden, required). Note: some element validation failures (e.g. YesNoField missing positive/negative) may incorrectly return 500 instead of 422.",
             "content": {
               "application/json": {
                 "schema": {
@@ -5278,7 +6414,7 @@
             }
           },
           "422": {
-            "description": "Unprocessable Entity — validation errors",
+            "description": "Unprocessable Entity \u2014 validation errors",
             "content": {
               "application/json": {
                 "schema": {
@@ -10535,7 +11671,11 @@
             "description": "The field to sort results by.",
             "schema": {
               "type": "string",
-              "enum": ["name", "file_size", "uploaded_at"]
+              "enum": [
+                "name",
+                "file_size",
+                "uploaded_at"
+              ]
             }
           },
           {
@@ -10544,7 +11684,10 @@
             "description": "The sort direction(asc, desc). Default is asc.",
             "schema": {
               "type": "string",
-              "enum": ["asc", "desc"],
+              "enum": [
+                "asc",
+                "desc"
+              ],
               "default": "asc"
             }
           },
