@@ -52,10 +52,10 @@ jobs:
       - name: Check for external schema references
         working-directory: reference
         run: |
-          count=$(grep -c '"./components/schemas' rest-api.json || true)
+          count=$(grep -cF '"./components/schemas' rest-api.json || true)
           if [ "$count" -gt 0 ]; then
             echo "❌ Found $count external \$ref path(s) — ReadMe does not support external file references"
-            grep -n '"./components/schemas' rest-api.json
+            grep -nF '"./components/schemas' rest-api.json
             exit 1
           fi
           echo "✅ No external \$ref paths found"
