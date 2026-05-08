@@ -1887,11 +1887,335 @@
           }
         }
       },
+      "FormElementChoice": {
+        "type": "object",
+        "description": "A selectable choice option for ChoiceField elements",
+        "required": ["label", "value"],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Display label shown to the user"
+          },
+          "value": {
+            "type": "string",
+            "description": "Stored value in the database"
+          }
+        }
+      },
+      "YesNoLabelValue": {
+        "type": "object",
+        "description": "Label/value pair for YesNoField positive, negative, or neutral options",
+        "required": ["label", "value"],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Display label (e.g. Yes, No, N/A)"
+          },
+          "value": {
+            "type": "string",
+            "description": "Stored value (e.g. yes, no, n/a)"
+          }
+        }
+      },
+      "CalculatedFieldDisplay": {
+        "type": "object",
+        "description": "Display formatting for CalculatedField elements",
+        "required": ["style"],
+        "properties": {
+          "style": {
+            "type": "string",
+            "description": "Calculated value display style",
+            "enum": ["number", "currency", "date", "string"]
+          },
+          "currency": {
+            "type": "string",
+            "description": "ISO 4217 currency code. Required when style is currency."
+          }
+        }
+      },
+      "StatusFieldChoice": {
+        "type": "object",
+        "description": "A selectable status value for a form status field",
+        "required": ["label", "value"],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Display label shown to the user"
+          },
+          "value": {
+            "type": "string",
+            "description": "Stored status value"
+          },
+          "color": {
+            "type": "string",
+            "description": "Status color as a hex value, usually with a leading #"
+          }
+        }
+      },
+      "StatusField": {
+        "type": "object",
+        "description": "Status field configuration for a form",
+        "required": ["type", "label", "data_name"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["StatusField"],
+            "description": "Status field type identifier"
+          },
+          "key": {
+            "type": "string",
+            "description": "Status field key"
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label visible to users"
+          },
+          "data_name": {
+            "type": "string",
+            "description": "Programmatic status field name"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Whether the status field is enabled"
+          },
+          "default_value": {
+            "type": "string",
+            "description": "Default status value"
+          },
+          "choices": {
+            "type": "array",
+            "description": "Available status choices",
+            "items": {
+              "$ref": "#/components/schemas/StatusFieldChoice"
+            }
+          }
+        }
+      },
+      "FormElement": {
+        "type": "object",
+        "description": "A form field or section element. Field type names are sourced from fulcrum-schema data elements plus layout-only Section and Label elements. Additional properties vary by field type — see the Forms reference documentation for type-specific properties.",
+        "required": ["type", "key", "label", "data_name", "required", "disabled", "hidden"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Field type identifier",
+            "enum": [
+              "TextField",
+              "YesNoField",
+              "Label",
+              "Section",
+              "ChoiceField",
+              "ClassificationField",
+              "PhotoField",
+              "VideoField",
+              "AudioField",
+              "AttachmentField",
+              "SketchField",
+              "BarcodeField",
+              "DateTimeField",
+              "TimeField",
+              "Repeatable",
+              "AddressField",
+              "SignatureField",
+              "HyperlinkField",
+              "CalculatedField",
+              "RecordLinkField",
+              "CheckboxField",
+              "DynamicField",
+              "LocationField",
+              "ButtonField"
+            ]
+          },
+          "key": {
+            "type": "string",
+            "description": "Unique field key within the form. Must be lowercase. The Fulcrum app builder uses 4-character codes."
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label visible to users"
+          },
+          "data_name": {
+            "type": "string",
+            "description": "Programmatic name used in form_values, exports, and queries. Recommended to keep under 10 characters for Shapefile compatibility."
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the field is required"
+          },
+          "disabled": {
+            "type": "boolean",
+            "description": "Whether the field is read-only"
+          },
+          "hidden": {
+            "type": "boolean",
+            "description": "Whether the field is hidden on mobile"
+          },
+          "default_value": {
+            "description": "Default value for the field. Shape varies by field type and may be string, number, boolean, array, object, or null. Required for non-Section types."
+          },
+          "default_values": {
+            "description": "Default values for field types that store multiple values. Shape varies by field type and may be array, object, or null."
+          },
+          "description": {
+            "oneOf": [
+              {"type": "string"},
+              {"type": "null"}
+            ],
+            "description": "Helper text shown below the field"
+          },
+          "visible_conditions_type": {
+            "description": "Match all or any conditions to display this field",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": ["all", "any"]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "visible_conditions": {
+            "description": "Visibility conditions",
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {"type": "object"}
+              },
+              {"type": "null"}
+            ]
+          },
+          "required_conditions_type": {
+            "description": "Match all or any conditions to require this field",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": ["all", "any"]
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "required_conditions": {
+            "type": "array",
+            "description": "Requirement conditions",
+            "items": {"type": "object"}
+          },
+          "default_previous_value": {
+            "type": "boolean",
+            "description": "Whether to automatically set the previously used value"
+          },
+          "choices": {
+            "type": "array",
+            "description": "Inline choices for ChoiceField elements",
+            "items": {
+              "$ref": "#/components/schemas/FormElementChoice"
+            }
+          },
+          "positive": {
+            "$ref": "#/components/schemas/YesNoLabelValue",
+            "description": "Applicable to YesNoField. Label/value for the positive (Yes) choice. Example: {\"label\": \"Yes\", \"value\": \"yes\"}"
+          },
+          "negative": {
+            "$ref": "#/components/schemas/YesNoLabelValue",
+            "description": "Applicable to YesNoField. Label/value for the negative (No) choice. Example: {\"label\": \"No\", \"value\": \"no\"}"
+          },
+          "neutral_enabled": {
+            "type": "boolean",
+            "description": "Applicable to YesNoField. Whether the N/A option is enabled."
+          },
+          "neutral": {
+            "$ref": "#/components/schemas/YesNoLabelValue",
+            "description": "Applicable to YesNoField when neutral_enabled is true. Label/value for the neutral (N/A) choice."
+          },
+          "elements": {
+            "type": "array",
+            "description": "Child elements for Section and Repeatable types",
+            "items": {
+              "$ref": "#/components/schemas/FormElement"
+            }
+          },
+          "display": {
+            "description": "Display configuration. Section elements use a string (inline or drilldown). CalculatedField elements use an object with style and optional currency.",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": ["inline", "drilldown"]
+              },
+              {
+                "$ref": "#/components/schemas/CalculatedFieldDisplay"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "numeric": {
+            "type": "boolean",
+            "description": "TextField: restrict to numeric input"
+          },
+          "pattern": {
+            "type": "string",
+            "description": "TextField: regex pattern for validation"
+          },
+          "min_length": {
+            "type": "integer",
+            "description": "Minimum length (text) or minimum count (photos/videos/audio/sketches)"
+          },
+          "max_length": {
+            "type": "integer",
+            "description": "Maximum length (text) or maximum count (photos/videos/audio/sketches)"
+          },
+          "multiple": {
+            "type": "boolean",
+            "description": "ChoiceField: allow multiple selections"
+          },
+          "allow_other": {
+            "type": "boolean",
+            "description": "ChoiceField/ClassificationField: allow free-text Other option"
+          },
+          "choice_list_id": {
+            "type": "string",
+            "description": "ChoiceField: ID of a shared choice list"
+          },
+          "classification_set_id": {
+            "type": "string",
+            "description": "ClassificationField: ID of the classification set (required for ClassificationField)"
+          },
+          "record_link_form_id": {
+            "type": "string",
+            "description": "RecordLinkField: ID of the linked form"
+          },
+          "record_link_default_field_key": {
+            "type": "string",
+            "description": "RecordLinkField: key of the linked form field to display by default"
+          },
+          "agreement_text": {
+            "type": "string",
+            "description": "SignatureField: agreement text shown above the signature pad"
+          },
+          "default_url": {
+            "type": "string",
+            "description": "HyperlinkField: default URL value"
+          },
+          "auto_populate": {
+            "type": "boolean",
+            "description": "AddressField/LocationField: automatically populate from GPS or device location"
+          },
+          "expression": {
+            "type": "string",
+            "description": "CalculatedField: calculation expression"
+          }
+        }
+      },
       "FormRequest": {
         "type": "object",
+        "required": ["form"],
         "properties": {
           "form": {
             "type": "object",
+            "required": ["name", "elements"],
             "properties": {
               "name": {
                 "type": "string",
@@ -1903,17 +2227,130 @@
               },
               "elements": {
                 "type": "array",
-                "description": "Form elements/fields",
+                "description": "Form elements (fields and sections). See FormElement schema for required properties per field type.",
                 "items": {
-                  "type": "object"
+                  "$ref": "#/components/schemas/FormElement"
+                }
+              },
+              "status_field": {
+                "$ref": "#/components/schemas/StatusField"
+              },
+              "geometry_types": {
+                "type": "array",
+                "description": "Geometry types: Point, MultiPoint, LineString, MultiLineString, Polygon, MultiPolygon",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "auto_assign": {
+                "type": "boolean",
+                "description": "Assign records to the creating user"
+              },
+              "projects_enabled": {
+                "type": "boolean",
+                "description": "Enable projects for this form"
+              },
+              "assignment_enabled": {
+                "type": "boolean",
+                "description": "Enable record assignment"
+              },
+              "title_field_keys": {
+                "type": "array",
+                "description": "Field keys used to generate record titles",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "script": {
+                "type": "string",
+                "description": "Custom Data Events script"
+              }
+            }
+          }
+        }
+      },
+      "FormResponse": {
+        "type": "object",
+        "description": "Response containing a single form object",
+        "properties": {
+          "form": {
+            "type": "object",
+            "description": "The form object with common properties and metadata. Additional form properties may also be returned by the API.",
+            "additionalProperties": true,
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique form ID"
+              },
+              "name": {
+                "type": "string",
+                "description": "Form name"
+              },
+              "description": {
+                "type": "string",
+                "description": "Form description"
+              },
+              "elements": {
+                "type": "array",
+                "description": "Form elements",
+                "items": {
+                  "$ref": "#/components/schemas/FormElement"
+                }
+              },
+              "status_field": {
+                "$ref": "#/components/schemas/StatusField"
+              },
+              "record_count": {
+                "type": "integer",
+                "description": "Number of records in this form"
+              },
+              "created_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "ISO 8601 creation timestamp"
+              },
+              "updated_at": {
+                "type": "string",
+                "format": "date-time",
+                "description": "ISO 8601 last update timestamp"
+              },
+              "geometry_types": {
+                "type": "array",
+                "items": {"type": "string"}
+              },
+              "auto_assign": {
+                "type": "boolean"
+              },
+              "projects_enabled": {
+                "type": "boolean"
+              },
+              "assignment_enabled": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      },
+      "FormValidationErrorResponse": {
+        "type": "object",
+        "description": "Validation error response for form create/update. Returns nested error messages per field.",
+        "properties": {
+          "form": {
+            "type": "object",
+            "properties": {
+              "errors": {
+                "type": "object",
+                "description": "Map of field names to arrays of error messages",
+                "additionalProperties": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               }
             }
           }
-        },
-        "required": [
-          "form"
-        ]
+        }
       },
       "GroupCreateRequest": {
         "type": "object",
@@ -2363,7 +2800,7 @@
                 "type": "string",
                 "enum": [
                   "advanced",
-                  "simple"
+                  "basic"
                 ],
                 "description": "The type of the report template"
               },
@@ -2391,15 +2828,7 @@
                 "properties": {
                   "size": {
                     "type": "string",
-                    "enum": [
-                      "Letter",
-                      "Legal",
-                      "Tabloid",
-                      "Ledger",
-                      "A3",
-                      "A4"
-                    ],
-                    "description": "Page size for the report"
+                    "description": "Page size for the report. Accepts Letter, Legal, Tabloid, Ledger, A0-A8, B0-B10, or custom sizes in WIDTHxHEIGHT format."
                   },
                   "landscape": {
                     "type": "boolean",
@@ -2424,8 +2853,8 @@
                   "output": {
                     "type": "string",
                     "enum": [
-                      "pdf",
-                      "docx"
+                      "html",
+                      "pdf"
                     ],
                     "description": "Output format"
                   },
@@ -2555,10 +2984,12 @@
                       "type": "object",
                       "required": [
                         "name",
-                        "label",
                         "type",
                         "required",
-                        "multiple"
+                        "multiple",
+                        "options",
+                        "query",
+                        "default"
                       ],
                       "properties": {
                         "name": {
@@ -2591,13 +3022,13 @@
                           "description": "Whether multiple values are allowed"
                         },
                         "options": {
-                          "description": "Available options for the parameter - can be array, object, or null"
+                          "description": "Available options for the parameter. The API accepts an array or null."
                         },
                         "query": {
-                          "description": "Query to filter available options - can be string, object, or null"
+                          "description": "Query to filter available options. The API accepts a string or null."
                         },
                         "default": {
-                          "description": "Default value(s) for the parameter - can be any type"
+                          "description": "Default value(s) for the parameter. The API accepts an array or null."
                         }
                       }
                     }
@@ -2605,6 +3036,138 @@
                 }
               }
             }
+          }
+        }
+      },
+      "ReportTemplate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the report template"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the report template"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the report template"
+          },
+          "body": {
+            "type": "string",
+            "description": "The HTML/EJS template for the report body"
+          },
+          "header": {
+            "type": "string",
+            "description": "The HTML/EJS template for the report header"
+          },
+          "filename_pattern": {
+            "type": "string",
+            "description": "Pattern for generating report filenames"
+          },
+          "footer": {
+            "type": "string",
+            "description": "The HTML/EJS template for the report footer"
+          },
+          "styles": {
+            "type": "string",
+            "description": "CSS styles for the report"
+          },
+          "script": {
+            "type": "string",
+            "description": "JavaScript code for the report"
+          },
+          "config": {
+            "type": "object",
+            "description": "Configuration settings for the report",
+            "additionalProperties": true
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive"
+            ],
+            "description": "The status of the report template"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "advanced",
+              "basic"
+            ],
+            "description": "The type of the report template"
+          },
+          "form_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ID of the form this report template is associated with"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the report template was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the report template was last updated"
+          },
+          "created_by": {
+            "type": "string",
+            "description": "Display name of the user who created the report template"
+          },
+          "created_by_id": {
+            "type": "string",
+            "description": "ID of the user who created the report template"
+          },
+          "updated_by": {
+            "type": "string",
+            "description": "Display name of the user who last updated the report template"
+          },
+          "updated_by_id": {
+            "type": "string",
+            "description": "ID of the user who last updated the report template"
+          }
+        }
+      },
+      "ReportTemplateResponse": {
+        "type": "object",
+        "required": [
+          "report_template"
+        ],
+        "properties": {
+          "report_template": {
+            "$ref": "#/components/schemas/ReportTemplate"
+          }
+        }
+      },
+      "ReportTemplatesResponse": {
+        "type": "object",
+        "required": [
+          "report_templates"
+        ],
+        "properties": {
+          "report_templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReportTemplate"
+            }
+          },
+          "current_page": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          },
+          "total_count": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
           }
         }
       },
@@ -4582,22 +5145,22 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/FormResponse"
                 }
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "422": {
+            "description": "Unprocessable Entity — validation errors (e.g. missing required element properties like disabled, hidden, required). Note: some element validation failures (e.g. YesNoField missing positive/negative) may incorrectly return 500 instead of 422.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestResponse"
+                  "$ref": "#/components/schemas/FormValidationErrorResponse"
                 }
               }
             }
@@ -4709,17 +5272,17 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/FormResponse"
                 }
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
+          "422": {
+            "description": "Unprocessable Entity — validation errors",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/BadRequestResponse"
+                  "$ref": "#/components/schemas/FormValidationErrorResponse"
                 }
               }
             }
@@ -11944,7 +12507,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ReportTemplatesResponse"
                 }
               }
             }
@@ -11976,12 +12539,12 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ReportTemplateResponse"
                 }
               }
             }
@@ -12022,7 +12585,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ReportTemplateResponse"
                 }
               }
             }
@@ -12070,7 +12633,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ReportTemplateResponse"
                 }
               }
             }
@@ -12109,7 +12672,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ReportTemplateResponse"
                 }
               }
             }
