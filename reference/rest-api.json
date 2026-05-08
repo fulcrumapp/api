@@ -1925,9 +1925,83 @@
           }
         }
       },
+      "CalculatedFieldDisplay": {
+        "type": "object",
+        "description": "Display formatting for CalculatedField elements",
+        "required": ["style"],
+        "properties": {
+          "style": {
+            "type": "string",
+            "description": "Calculated value display style",
+            "enum": ["number", "currency", "date", "string"]
+          },
+          "currency": {
+            "type": "string",
+            "description": "ISO 4217 currency code. Required when style is currency."
+          }
+        }
+      },
+      "StatusFieldChoice": {
+        "type": "object",
+        "description": "A selectable status value for a form status field",
+        "required": ["label", "value"],
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Display label shown to the user"
+          },
+          "value": {
+            "type": "string",
+            "description": "Stored status value"
+          },
+          "color": {
+            "type": "string",
+            "description": "Status color as a hex value, usually with a leading #"
+          }
+        }
+      },
+      "StatusField": {
+        "type": "object",
+        "description": "Status field configuration for a form",
+        "required": ["type", "label", "data_name"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["StatusField"],
+            "description": "Status field type identifier"
+          },
+          "key": {
+            "type": "string",
+            "description": "Status field key"
+          },
+          "label": {
+            "type": "string",
+            "description": "Display label visible to users"
+          },
+          "data_name": {
+            "type": "string",
+            "description": "Programmatic status field name"
+          },
+          "enabled": {
+            "type": "boolean",
+            "description": "Whether the status field is enabled"
+          },
+          "default_value": {
+            "type": "string",
+            "description": "Default status value"
+          },
+          "choices": {
+            "type": "array",
+            "description": "Available status choices",
+            "items": {
+              "$ref": "#/components/schemas/StatusFieldChoice"
+            }
+          }
+        }
+      },
       "FormElement": {
         "type": "object",
-        "description": "A form field or section element. All elements share common required properties. Additional properties vary by field type — see the Forms reference documentation for type-specific properties.",
+        "description": "A form field or section element. Field type names are sourced from fulcrum-schema data elements plus layout-only Section and Label elements. Additional properties vary by field type — see the Forms reference documentation for type-specific properties.",
         "required": ["type", "key", "label", "data_name", "required", "disabled", "hidden"],
         "properties": {
           "type": {
@@ -1943,6 +2017,7 @@
               "PhotoField",
               "VideoField",
               "AudioField",
+              "AttachmentField",
               "SketchField",
               "BarcodeField",
               "DateTimeField",
@@ -1952,7 +2027,11 @@
               "SignatureField",
               "HyperlinkField",
               "CalculatedField",
-              "RecordLinkField"
+              "RecordLinkField",
+              "CheckboxField",
+              "DynamicField",
+              "LocationField",
+              "ButtonField"
             ]
           },
           "key": {
@@ -1980,11 +2059,10 @@
             "description": "Whether the field is hidden on mobile"
           },
           "default_value": {
-            "description": "Default value for the field. Required for non-Section types.",
-            "oneOf": [
-              {"type": "string"},
-              {"type": "null"}
-            ]
+            "description": "Default value for the field. Shape varies by field type and may be string, number, boolean, array, object, or null. Required for non-Section types."
+          },
+          "default_values": {
+            "description": "Default values for field types that store multiple values. Shape varies by field type and may be array, object, or null."
           },
           "description": {
             "type": "string",
@@ -2045,9 +2123,19 @@
             }
           },
           "display": {
-            "type": "string",
-            "enum": ["inline", "drilldown"],
-            "description": "Display type for Section elements"
+            "description": "Display configuration. Section elements use a string (inline or drilldown). CalculatedField elements use an object with style and optional currency.",
+            "oneOf": [
+              {
+                "type": "string",
+                "enum": ["inline", "drilldown"]
+              },
+              {
+                "$ref": "#/components/schemas/CalculatedFieldDisplay"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "numeric": {
             "type": "boolean",
@@ -2081,6 +2169,26 @@
             "type": "string",
             "description": "ClassificationField: ID of the classification set (required for ClassificationField)"
           },
+          "record_link_form_id": {
+            "type": "string",
+            "description": "RecordLinkField: ID of the linked form"
+          },
+          "record_link_default_field_key": {
+            "type": "string",
+            "description": "RecordLinkField: key of the linked form field to display by default"
+          },
+          "agreement_text": {
+            "type": "string",
+            "description": "SignatureField: agreement text shown above the signature pad"
+          },
+          "default_url": {
+            "type": "string",
+            "description": "HyperlinkField: default URL value"
+          },
+          "auto_populate": {
+            "type": "boolean",
+            "description": "AddressField/LocationField: automatically populate from GPS or device location"
+          },
           "expression": {
             "type": "string",
             "description": "CalculatedField: calculation expression"
@@ -2111,8 +2219,7 @@
                 }
               },
               "status_field": {
-                "type": "object",
-                "description": "Status field configuration. See Forms reference for properties."
+                "$ref": "#/components/schemas/StatusField"
               },
               "geometry_types": {
                 "type": "array",
@@ -2176,8 +2283,7 @@
                 }
               },
               "status_field": {
-                "type": "object",
-                "description": "Status field configuration"
+                "$ref": "#/components/schemas/StatusField"
               },
               "record_count": {
                 "type": "integer",
