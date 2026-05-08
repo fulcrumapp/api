@@ -20,7 +20,7 @@ Allows you to configure specific device functionality and behaviors at the form 
 * Force record to be sync’d upon save
 * Control the minimum accuracy required for the GPS location
 * Disable the ability to manually move the record location
-* Disable the “Save as Draft” feature
+* Disable the “Save as Draft” feature (*Note*: Drafts will still be created when user creates a background track.)
 * Control photo and video quality settings
 
 The following table contains the available properties that be set:
@@ -32,7 +32,7 @@ The following table contains the available properties that be set:
 | `auto_location_minimum_accuracy` | integer | minimum accuracy in meters for the auto-populated location                     | 1500            |
 | `manual_location_enabled`        | boolean | allow manually changing the record location                                    | true            |
 | `media_gallery_enabled`          | boolean | allow media from the gallery or camera roll                                    | true            |
-| `media_capture_enabled`          | boolean | allow media from the camera                                                    | true            |
+| `media_capture_enabled`          | boolean | allow media from the camera; allow sketches to be added                        | true            |
 | `photo_quality`                  | integer | maximum dimension of photos in pixels, or 'native'                             | user-preference |
 | `video_quality`                  | string  | video resolution, one of: 480p, 720p, 1080p, 2160p (device/platform dependent) | user-preference |
 | `drafts_enabled`                 | boolean | allow saving record as a draft                                                 | true            |

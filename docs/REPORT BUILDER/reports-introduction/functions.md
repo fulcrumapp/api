@@ -1,15 +1,16 @@
 ---
 title: Functions
-excerpt: ''
+excerpt: ""
 deprecated: false
 hidden: false
 metadata:
-  title: ''
-  description: ''
+  title: ""
+  description: ""
   robots: index
 next:
-  description: ''
+  description: ""
 ---
+
 ## API
 
 Make a Fulcrum [REST API](https://fulcrum.readme.io/reference) call
@@ -27,10 +28,10 @@ String
 ### Examples
 
 ```js
-API('/choice_lists', {qs: {per_page: 1}})
+API("/choice_lists", { qs: { per_page: 1 } });
 ```
 
-***
+---
 
 ## AUDIOURL
 
@@ -49,10 +50,10 @@ String
 ### Examples
 
 ```js
-AUDIOURL($my_audio_field[0].audio_id, {version: 'original'})
+AUDIOURL($my_audio_field[0].audio_id, { version: "original" });
 ```
 
-***
+---
 
 ## FORMATDATE
 
@@ -71,10 +72,10 @@ String
 ### Examples
 
 ```js
-FORMATDATE(new Date())
+FORMATDATE(new Date());
 ```
 
-***
+---
 
 ## GET
 
@@ -93,10 +94,10 @@ String
 ### Examples
 
 ```js
-GET('https://jsonplaceholder.typicode.com/posts', {qs: {userId: 1}})
+GET("https://jsonplaceholder.typicode.com/posts", { qs: { userId: 1 } });
 ```
 
-***
+---
 
 ## GETBLOB
 
@@ -115,10 +116,10 @@ String
 ### Examples
 
 ```js
-GETBLOB('https://learn.fulcrumapp.com/img/branding/fulcrum-icon.png')
+GETBLOB("https://learn.fulcrumapp.com/img/branding/fulcrum-icon.png");
 ```
 
-***
+---
 
 ## JSONREQUEST
 
@@ -135,10 +136,13 @@ String
 ### Examples
 
 ```js
-JSONREQUEST({url: 'https://jsonplaceholder.typicode.com/posts', qs: {userId: 1}})
+JSONREQUEST({
+  url: "https://jsonplaceholder.typicode.com/posts",
+  qs: { userId: 1 },
+});
 ```
 
-***
+---
 
 ## LOG
 
@@ -155,10 +159,10 @@ String
 ### Examples
 
 ```js
-LOG('Hello World')
+LOG("Hello World");
 ```
 
-***
+---
 
 ## PHOTOURL
 
@@ -177,10 +181,10 @@ String
 ### Examples
 
 ```js
-PHOTOURL($my_photo_field[0].photo_id, {version: 'thumb'})
+PHOTOURL($my_photo_field[0].photo_id, { version: "thumb" });
 ```
 
-***
+---
 
 ## QS
 
@@ -202,7 +206,7 @@ QS({name: "Robert", age: "20"}
 // name=Robert&age=20
 ```
 
-***
+---
 
 ## QUERY
 
@@ -221,10 +225,10 @@ String
 ### Examples
 
 ```js
-QUERY('SELECT name FROM forms', {format: 'json'})
+QUERY("SELECT name FROM forms", { format: "json" });
 ```
 
-***
+---
 
 ## QUERYVALUE
 
@@ -241,10 +245,10 @@ String
 ### Examples
 
 ```js
-QUERYVALUE(`SELECT form_id FROM forms WHERE name = '${form.name}'`)
+QUERYVALUE(`SELECT form_id FROM forms WHERE name = '${form.name}'`);
 ```
 
-***
+---
 
 ## RENDER
 
@@ -252,7 +256,7 @@ The RENDER function is created automatically in all new advanced report template
 
 ### Parameters
 
-`feature` Record or RepeatableItemValue (**required**) - The feature you are looking to render. 
+`feature` Record or RepeatableItemValue (**required**) - The feature you are looking to render.
 
 `options` System level variable that does not need to be defined.
 
@@ -263,7 +267,12 @@ The RENDER function is created automatically in all new advanced report template
 ### Function Definition
 
 ```javascript
-const RENDER = (feature, options, eachFunction, {container, parent, index, allValues} = {}) => {
+const RENDER = (
+  feature,
+  options,
+  eachFunction,
+  { container, parent, index, allValues } = {}
+) => {
   if (!container) {
     container = feature.formValues.container;
   }
@@ -275,40 +284,74 @@ const RENDER = (feature, options, eachFunction, {container, parent, index, allVa
   for (const element of container.elements) {
     const formValue = feature.formValues.get(element.key);
 
-    const renderSection = element.isSectionElement ? () => {
-      global.RENDER(feature, options, eachFunction, {container: element, parent, feature, index, allValues});
-    } : null;
+    const renderSection = element.isSectionElement
+      ? () => {
+          global.RENDER(feature, options, eachFunction, {
+            container: element,
+            parent,
+            feature,
+            index,
+            allValues,
+          });
+        }
+      : null;
 
-    const renderRepeatableItems = element.isRepeatableElement ? (eachItemFunction) => {
-      if (!formValue) {
-        return;
-      }
+    const renderRepeatableItems = element.isRepeatableElement
+      ? (eachItemFunction) => {
+          if (!formValue) {
+            return;
+          }
 
-      for (let i = 0; i < formValue.items.length; ++i) {
-        const item = formValue.items[i];
+          for (let i = 0; i < formValue.items.length; ++i) {
+            const item = formValue.items[i];
 
-        const newAllValues = allValues.copy();
+            const newAllValues = allValues.copy();
 
-        newAllValues.merge(item.formValues);
-        newAllValues.merge(feature.formValues); // Add parent values too
+            newAllValues.merge(item.formValues);
+            newAllValues.merge(feature.formValues); // Add parent values too
 
-        const renderItem = () => {
-          global.RENDER(item, options, eachFunction, {container: element, parent: feature, feature: item, index: i, allValues: newAllValues});
-        };
+            const renderItem = () => {
+              global.RENDER(item, options, eachFunction, {
+                container: element,
+                parent: feature,
+                feature: item,
+                index: i,
+                allValues: newAllValues,
+              });
+            };
 
-        eachItemFunction({element, value: item, renderItem, container: element, parent: feature, feature: item, index: i, allValues: newAllValues});
-      }
-    } : null;
+            eachItemFunction({
+              element,
+              value: item,
+              renderItem,
+              container: element,
+              parent: feature,
+              feature: item,
+              index: i,
+              allValues: newAllValues,
+            });
+          }
+        }
+      : null;
 
     if (eachFunction) {
-      eachFunction({element, value: formValue, renderSection, renderRepeatableItems, container, feature, index, parent, allValues});
+      eachFunction({
+        element,
+        value: formValue,
+        renderSection,
+        renderRepeatableItems,
+        container,
+        feature,
+        index,
+        parent,
+        allValues,
+      });
     }
   }
 };
-
 ```
 
-***
+---
 
 <br />
 
@@ -336,10 +379,10 @@ JSON - the feature `elements` and `values`
     <h1 class="field-section"><%= element.label %></h1>
   <% } else if (element.isRepeatableElement) { %>
     <% if (value.length) { %>
-      <h1 class='field-section'><%= element.label %> <%= value && `(${value.displayValue})` %></h1>
+      <h1 class="field-section"><%= element.label %> <%= value && `(${value.displayValue})` %></h1>
     <% } else { %>
       <h1 class="field-section"><%= value && value.displayValue %></h1>
-      <% } %>
+    <% } %>
   <% } else if (element.isPhotoElement) { %>
     <div class="field">
       <h2 class="field-label"><%= element.label %></h2>
@@ -349,6 +392,15 @@ JSON - the feature `elements` and `values`
           <% if (item.caption) { %>
             <p><%= item.caption %></p>
           <% } %>
+        <% }); %>
+      </div>
+    </div>
+  <% } else if (element.isSketchElement) { %>
+    <div class="field">
+      <h2 class="field-label"><%= element.label %></h2>
+      <div class="field-value">
+        <% value && value.items.forEach((item, index) => { %>
+          <img class="sketch" src="<%= SKETCHURL(item.mediaID) %>" />
         <% }); %>
       </div>
     </div>
@@ -366,10 +418,10 @@ JSON - the feature `elements` and `values`
       <% } %>
     </div>
   <% } else if (element.isRecordLinkElement) { %>
-    <div class="field"> 
+    <div class="field">
       <h2 class="field-label"><%= element.label %></h2>
       <% if (value && !value.isEmpty) { %>
-        <div class="field-value"><%= value.items.map(item => item.displayValue).join(', ') %></div>
+        <div class="field-value"><%= value.items.map(item => item.displayValue).join(", ") %></div>
       <% } %>
     </div>
   <% } else { %>
@@ -381,7 +433,7 @@ JSON - the feature `elements` and `values`
 <% }) %>
 ```
 
-***
+---
 
 <br />
 
@@ -402,10 +454,34 @@ String
 ### Examples
 
 ```js
-SIGNATUREURL($my_signature_field.signature_id, {version: 'original'})
+SIGNATUREURL($my_signature_field.signature_id, { version: "original" });
 ```
 
-***
+---
+
+<br />
+
+## SKETCHURL
+
+Generate a public sketch URL
+
+### Parameters
+
+`id` String (**required**) - The ID of the sketch
+
+`options` Object - `{version: 'large', expires: null}`
+
+### Returns
+
+String
+
+### Examples
+
+```js
+SKETCHURL($my_sketch_field[0].mediaID, { version: "large" });
+```
+
+---
 
 ## STATICMAP
 
@@ -417,7 +493,7 @@ Generate a Google or Esri Static Map based on the value of the report template�
 
 To change the map engine in the STATICMAP function directly, update the options passed into the parameters of the STATICMAP function:
 
-`<%= STATICMAP({mapEngine: ‘esri’, markers, ...SET_MAP_OPTIONS()}) %>`
+`<%= STATICMAP({mapEngine: 'esri', markers, ...SET_MAP_OPTIONS()}) %>`
 
 ### Returns
 
@@ -426,18 +502,20 @@ String
 ### Examples
 
 ```js Google
-STATICMAP({mapEngine: ‘google’,markers: '34.052230,-118.243680', maptype: 'hybrid', size: '300x300'})
+STATICMAP({mapEngine: 'google',markers: '34.052230,-118.243680', maptype: 'hybrid', size: '300x300'})
 ```
 
 ```js Esri
-<img src='<%= STATICMAP({mapEngine: ‘esri’, ...SET_MAP_OPTIONS()}) %>' />
+<img src="<%= STATICMAP({mapEngine: 'esri', ...SET_MAP_OPTIONS()}) %>" />
 ```
 
 ```html
-<img src="<%= STATICMAP({markers: '34.052230,-118.243680', maptype: 'hybrid', size: '300x300'}) %>" />
+<img
+  src="<%= STATICMAP({markers: '34.052230,-118.243680', maptype: 'hybrid', size: '300x300'}) %>"
+/>
 ```
 
-***
+---
 
 ## TOJSON
 
@@ -454,10 +532,10 @@ String
 ### Examples
 
 ```js
-TOJSON(API('/choice_lists').choice_lists[0].name)
+TOJSON(API("/choice_lists").choice_lists[0].name);
 ```
 
-***
+---
 
 ## VIDEOURL
 
@@ -476,5 +554,5 @@ String
 ### Examples
 
 ```js
-VIDEOURL($my_video_field[0].video_id, {version: 'original'})
+VIDEOURL($my_video_field[0].video_id, { version: "original" });
 ```
