@@ -2783,7 +2783,7 @@
                 "type": "string",
                 "enum": [
                   "advanced",
-                  "simple"
+                  "basic"
                 ],
                 "description": "The type of the report template"
               },
@@ -2811,15 +2811,7 @@
                 "properties": {
                   "size": {
                     "type": "string",
-                    "enum": [
-                      "Letter",
-                      "Legal",
-                      "Tabloid",
-                      "Ledger",
-                      "A3",
-                      "A4"
-                    ],
-                    "description": "Page size for the report"
+                    "description": "Page size for the report. Accepts Letter, Legal, Tabloid, Ledger, A0-A8, B0-B10, or custom sizes in WIDTHxHEIGHT format."
                   },
                   "landscape": {
                     "type": "boolean",
@@ -2844,8 +2836,8 @@
                   "output": {
                     "type": "string",
                     "enum": [
-                      "pdf",
-                      "docx"
+                      "html",
+                      "pdf"
                     ],
                     "description": "Output format"
                   },
@@ -2975,10 +2967,12 @@
                       "type": "object",
                       "required": [
                         "name",
-                        "label",
                         "type",
                         "required",
-                        "multiple"
+                        "multiple",
+                        "options",
+                        "query",
+                        "default"
                       ],
                       "properties": {
                         "name": {
@@ -3011,13 +3005,13 @@
                           "description": "Whether multiple values are allowed"
                         },
                         "options": {
-                          "description": "Available options for the parameter - can be array, object, or null"
+                          "description": "Available options for the parameter. The API accepts an array or null."
                         },
                         "query": {
-                          "description": "Query to filter available options - can be string, object, or null"
+                          "description": "Query to filter available options. The API accepts a string or null."
                         },
                         "default": {
-                          "description": "Default value(s) for the parameter - can be any type"
+                          "description": "Default value(s) for the parameter. The API accepts an array or null."
                         }
                       }
                     }
@@ -3025,6 +3019,138 @@
                 }
               }
             }
+          }
+        }
+      },
+      "ReportTemplate": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the report template"
+          },
+          "name": {
+            "type": "string",
+            "description": "The name of the report template"
+          },
+          "description": {
+            "type": "string",
+            "description": "A description of the report template"
+          },
+          "body": {
+            "type": "string",
+            "description": "The HTML/EJS template for the report body"
+          },
+          "header": {
+            "type": "string",
+            "description": "The HTML/EJS template for the report header"
+          },
+          "filename_pattern": {
+            "type": "string",
+            "description": "Pattern for generating report filenames"
+          },
+          "footer": {
+            "type": "string",
+            "description": "The HTML/EJS template for the report footer"
+          },
+          "styles": {
+            "type": "string",
+            "description": "CSS styles for the report"
+          },
+          "script": {
+            "type": "string",
+            "description": "JavaScript code for the report"
+          },
+          "config": {
+            "type": "object",
+            "description": "Configuration settings for the report",
+            "additionalProperties": true
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "inactive"
+            ],
+            "description": "The status of the report template"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "advanced",
+              "basic"
+            ],
+            "description": "The type of the report template"
+          },
+          "form_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The ID of the form this report template is associated with"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the report template was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the report template was last updated"
+          },
+          "created_by": {
+            "type": "string",
+            "description": "Display name of the user who created the report template"
+          },
+          "created_by_id": {
+            "type": "string",
+            "description": "ID of the user who created the report template"
+          },
+          "updated_by": {
+            "type": "string",
+            "description": "Display name of the user who last updated the report template"
+          },
+          "updated_by_id": {
+            "type": "string",
+            "description": "ID of the user who last updated the report template"
+          }
+        }
+      },
+      "ReportTemplateResponse": {
+        "type": "object",
+        "required": [
+          "report_template"
+        ],
+        "properties": {
+          "report_template": {
+            "$ref": "#/components/schemas/ReportTemplate"
+          }
+        }
+      },
+      "ReportTemplatesResponse": {
+        "type": "object",
+        "required": [
+          "report_templates"
+        ],
+        "properties": {
+          "report_templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ReportTemplate"
+            }
+          },
+          "current_page": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          },
+          "total_count": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
           }
         }
       },
@@ -12364,7 +12490,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ReportTemplatesResponse"
                 }
               }
             }
@@ -12396,12 +12522,12 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ReportTemplateResponse"
                 }
               }
             }
@@ -12442,7 +12568,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ReportTemplateResponse"
                 }
               }
             }
@@ -12490,7 +12616,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ReportTemplateResponse"
                 }
               }
             }
@@ -12529,7 +12655,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ReportTemplateResponse"
                 }
               }
             }
