@@ -2294,10 +2294,12 @@
               },
               "created_at": {
                 "type": "string",
+                "format": "date-time",
                 "description": "ISO 8601 creation timestamp"
               },
               "updated_at": {
                 "type": "string",
+                "format": "date-time",
                 "description": "ISO 8601 last update timestamp"
               },
               "geometry_types": {
