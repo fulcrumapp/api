@@ -3,11 +3,13 @@ name: Validate OpenAPI
 on:
   pull_request:
     paths:
+      - '.github/workflows/validate-openapi.yml'
       - 'reference/rest-api.json'
   push:
     branches:
       - v2
     paths:
+      - '.github/workflows/validate-openapi.yml'
       - 'reference/rest-api.json'
 
 jobs:
