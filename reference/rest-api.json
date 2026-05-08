@@ -2084,9 +2084,14 @@
             ]
           },
           "visible_conditions": {
-            "type": "array",
             "description": "Visibility conditions",
-            "items": {"type": "object"}
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {"type": "object"}
+              },
+              {"type": "null"}
+            ]
           },
           "required_conditions_type": {
             "description": "Match all or any conditions to require this field",
