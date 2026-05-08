@@ -2283,7 +2283,8 @@
         "properties": {
           "form": {
             "type": "object",
-            "description": "The form object with all properties and metadata",
+            "description": "The form object with common properties and metadata. Additional form properties may also be returned by the API.",
+            "additionalProperties": true,
             "properties": {
               "id": {
                 "type": "string",
