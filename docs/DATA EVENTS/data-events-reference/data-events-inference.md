@@ -10,14 +10,17 @@ metadata:
 next:
   description: ''
 ---
-***
 
-**Description**\
+## Description
+
 The `INFERENCE` function performs inference on a given input, typically an image, using a specified machine learning model. It processes the input data and returns the results in a format suitable for further analysis or display within your application. This is useful for integrating AI-driven features, such as object detection, classification, or image recognition, into your application components.
+
+> ⚠️ **Upcoming Change: INFERENCE Data Event Library Update**
+> We'll be updating the underlying library powering the INFERENCE data event in a future release. If your workflows depend on this event, we'd like to hear from you before the change goes out. Please reach out to [product@fulcrumapp.com](mailto:product@fulcrumapp.com) with any questions or concerns.
 
 **THIS FUNCTION WORKS ON MOBILE DEVICES, BUT NOT IN THE WEB RECORD EDITOR**
 
-**Parameters**
+## Parameters
 
 * `options` object (required) - An object containing the parameters for the function.
   * `photo_id` string (required) - The identifier of the photo to be processed.
@@ -32,7 +35,7 @@ The `INFERENCE` function performs inference on a given input, typically an image
   * `error` object - Contains information if an error occurs during inference.
   * `result` object - Contains the outputs of the inference.
 
-**Examples**
+## Examples
 
 ```javascript
 // Example of performing inference on a photo using a pre-trained model and handling the results
@@ -68,7 +71,7 @@ ON('add-photo', 'photos', (event) => {
 });
 ```
 
-**Usage**
+## Usage
 
 The `INFERENCE` function is typically used when you need to perform AI-driven tasks such as image classification, object detection, or any other form of model inference. By providing a photo ID and the relevant model, you can process images directly within your application and obtain results for further action, like displaying detected objects or classifying images.
 
