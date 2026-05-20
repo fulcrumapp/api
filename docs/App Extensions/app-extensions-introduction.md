@@ -140,7 +140,7 @@ For best results, include the following in your prompt:
 Here's a starting-point prompt you can adapt:
 
 > I'm building a Fulcrum App Extension. Here is the starter HTML template:
-[paste template]
+> [paste template]
 > My extension should:
 >
 > - Show a list of the items passed in via data.items (each has a name and status)
