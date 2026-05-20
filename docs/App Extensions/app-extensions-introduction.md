@@ -10,97 +10,225 @@ metadata:
 next:
   description: ''
 ---
-App Extensions provide a mechanism to extend and integrate Fulcrum with custom UI using HTML, CSS, JavaScript and Data Events. You can build a web page that will be opened within Fulcrum and provide a smooth transition between your Fulcrum app and your custom web app. Using Reference Files to store your extension also enables it to work offline. You can build a single extension and it will work on iOS, Android and web with the same capability and behavior.
 
-## Use Cases
+## What are App Extensions?
 
-* Open an application that provides custom UI for complex business logic and processing
-* Add a custom picker that provides logic or features not built in Fulcrum (image selection, custom search)
-* Custom field types (SVG area selection, custom range pickers, color ramps)
-* Summary report interface for inspections with verifications and warning confirmations
-* Embedding mini charts and graphs to visualize inspection results
-* Custom "sub-forms"
+App Extensions let you embed a custom web page inside Fulcrum. When a user taps a button or field in your form, Fulcrum opens your HTML page in a full-screen panel, your page runs whatever logic you've built, and when it closes it can write data back into the form. Everything happens inside the Fulcrum mobile or web app — no browser switching, no external sign-ins.
+You write the HTML, CSS, and JavaScript. Fulcrum handles opening the page, passing in the current form data, and receiving results back.
+App Extensions work the same way on iOS, Android, and web.
 
-## App Extensions consist of 3 basic parts
+### Use Cases
 
-1. A Data Event script that calls `OPENEXTENSION()` to open the app extension
-2. A `Fulcrum.load()` handler inside your custom web app to load the parameters passed from the Data Event `OPENEXTENSION()` call (e.g. setup UI and load the current field values, if any)
-3. A call to `Fulcrum.finish(data)` to pass back data to the Data Event handler
+- Custom UI for complex business logic (e.g., a QC dashboard that lets field crews flag issues on a schematic)
+- Custom pickers not built into Fulcrum (image selection, advanced search, barcode workflows)
+- Custom field types (SVG area selectors, range pickers, color ramps)
+- Inspection summary interfaces (verifications, warning confirmations, sign-off screens)
+- Charts and dashboards embedded inside a form
+- Custom sub-forms (multi-step workflows that feel like a separate app)
 
-## Data Event Example
+## How It Works
 
-Below is a complete example of a simple app extension to display a web page with a button and pass data back and forth between Fulcrum and the extension.
+An App Extension has two parts that work together: a **Data Event script** attached to your Fulcrum form, and a **custom HTML page** that contains your extension's UI and logic.
 
-Assumptions:
+### The three steps
 
-* A hyperlink field on your form named `open_extension`
-* Access to Data Events and Reference Files
+1. **Your Data Event** calls `OPENEXTENSION()` — This triggers the extension to open and passes in any data from the form (field values, record IDs, etc.)
+1. **Your HTML page receives the data and runs** — The `Fulcrum.load()` handler fires when the page is ready. Use it to set up your UI with the data passed in from the form.
+1. **Your page** calls `Fulcrum.finish(data)` — This closes the extension and sends results back to Fulcrum, where the `onMessage` handler in your Data Event receives them and can write values back to your form.
 
-Here is an example of a Data Event script to open the extension. This consists of mainly of the `url` parameter, which is used to specify the app extension location. You can use any online web address, or use the `attachments://` scheme to use a Reference File attached to the form. Using Reference Files for extensions allows them to work offline. In this case, we've uploaded our HTML file and named it `simple.html`. We also pass in a `data` parameter to pass data into the extension. In this example, we are passing a parameter named `test_value`. You can pass any data into your extension. The last parameter is an `onMessage` handler. This function will called when the extension closes to process the result. In the example, the extension is passing back a value named `simple_result`.
+### Where the HTML file lives
 
-```js
-ON('click', 'open_extension', () => {
-  OPENEXTENSION({
-    url: 'attachment://simple.html',
-    title: 'Simple Extension',
-    data: { test_value: 'World' },
-    onMessage: ({ data }) => {
-      ALERT(data.simple_result);
-    }
-  });
-});
-```
+Your HTML file can be hosted anywhere reachable by HTTPS, or stored as a Reference File directly on the form.
+
+> 💡 **Tip**
+> Storing your HTML as a Reference File using the attachment:// scheme lets the extension work offline. If you use an external HTTPS URL, the extension requires an internet connection.
+
+> ⚠️  **Note**
+> App Extensions run in a sandboxed browser environment. This means you cannot save files locally to the device, generate downloadable images or PDFs, or access local device storage. Offline use is supported only for the page itself (via Reference Files) — not for API calls or dynamic data.
+
+## Quick Start
+
+### What you need
+
+- A Fulcrum form with Data Events enabled
+- Access to Reference Files (to store your HTML file on the form)
+- A text editor or AI coding tool to write HTML/JavaScript
+
+### Step 1: Create your HTML file
+
+Start with the template below. Copy it into a file named my-extension.html.
 
 ```html
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Hello World</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>My Extension</title>
 
-    <!-- Fulcrum extension script snippet, do not modify -->
+
+    <!-- Required: Fulcrum extension script — do not modify -->
     <script>(()=>{var s=(e,i)=>()=>(i||e((i={exports:{}}).exports,i),i.exports);var o=s((a,r)=>{var l=new URLSearchParams(location.search);function c(e){try{return JSON.parse(e)}catch(i){return null}}r.exports=window.Fulcrum={isExtension:l.get("extension")==="1",initialize:()=>{var i;let{params:e}=Fulcrum;Fulcrum.id=e==null?void 0:e.id,Fulcrum.url=e==null?void 0:e.url,Fulcrum.data=e==null?void 0:e.data,Fulcrum.origin=e==null?void 0:e.origin,(i=Fulcrum.onLoadOnce)==null||i.call(Fulcrum)},load:e=>{Fulcrum.onLoadOnce=()=>{Fulcrum.params&&!Fulcrum.isLoaded&&(Fulcrum.isLoaded=!0,e({data:Fulcrum.data}))},Fulcrum.onLoadOnce()},send:(e,{close:i=!1}={})=>{var u;e=e!=null?e:{};let n={id:Fulcrum.id,url:Fulcrum.url,data:e,close:i};(u=window.webkit)!=null&&u.messageHandlers?window.webkit.messageHandlers.extensionListener.postMessage(JSON.stringify(n)):window.parent&&window.parent.postMessage({extensionMessage:n},Fulcrum.origin)},receive:e=>{let i=c(e.data);i&&i.command==="initialize"&&!Fulcrum.params&&(Fulcrum.params=i.params,Fulcrum.initialize())},finish:e=>{Fulcrum.send(e,{close:!0})}};Fulcrum.isExtension?window.addEventListener("message",Fulcrum.receive,!1):window.addEventListener("DOMContentLoaded",Fulcrum.initialize)});o();})();</script>
-    
-    <script type="text/javascript">
-      // the ready() handler is called when the extension loads and is ready to process the data value
+
+
+    <script>
+      // Called when the extension opens — data contains values passed from the form
       Fulcrum.load(({ data }) => {
-        // get a reference to the button
-        const button = document.querySelector('button');
-
-        // assign the button text to the value from Data Events
-        button.textContent = `Hello ${data.test_value}!`;
-
-        // setup a click handler to finish the extension and send a result back to Fulcrum
-        button.addEventListener('click', () => {
-          Fulcrum.finish({ simple_result: `Hello ${data.test_value}!` });
-        });
+        document.getElementById('greeting').textContent = 'Hello, ' + (data.name || 'World') + '!';
       });
+
+
+      function done() {
+        // Pass results back to the form and close the extension
+        Fulcrum.finish({ result: 'Done!' });
+      }
     </script>
   </head>
   <body>
-    <button>Hello</button>
+    <h1 id="greeting">Loading...</h1>
+    <button onclick="done()">Submit</button>
   </body>
 </html>
 ```
 
-## App Extension web page API
+### Step 2: Upload the file to your form
 
-Including the App Extension snippet provides the basic API to interact with App Extensions. You can also utilize the npm package [fulcrum-extensions](https://www.npmjs.com/package/fulcrum-extensions) to interact with App Extensions.
+1. In the Fulcrum form builder, open Reference Files
+1. Upload your `my-extension.html` file
+1. Note the filename exactly — you'll reference it in your Data Event as `attachment://my-extension.html`
 
-```html
-<!-- Fulcrum extension script snippet, do not modify -->
-<script>(()=>{var s=(e,i)=>()=>(i||e((i={exports:{}}).exports,i),i.exports);var o=s((a,r)=>{var l=new URLSearchParams(location.search);function c(e){try{return JSON.parse(e)}catch(i){return null}}r.exports=window.Fulcrum={isExtension:l.get("extension")==="1",initialize:()=>{var i;let{params:e}=Fulcrum;Fulcrum.id=e==null?void 0:e.id,Fulcrum.url=e==null?void 0:e.url,Fulcrum.data=e==null?void 0:e.data,Fulcrum.origin=e==null?void 0:e.origin,(i=Fulcrum.onLoadOnce)==null||i.call(Fulcrum)},load:e=>{Fulcrum.onLoadOnce=()=>{Fulcrum.params&&!Fulcrum.isLoaded&&(Fulcrum.isLoaded=!0,e({data:Fulcrum.data}))},Fulcrum.onLoadOnce()},send:(e,{close:i=!1}={})=>{var u;e=e!=null?e:{};let n={id:Fulcrum.id,url:Fulcrum.url,data:e,close:i};(u=window.webkit)!=null&&u.messageHandlers?window.webkit.messageHandlers.extensionListener.postMessage(JSON.stringify(n)):window.parent&&window.parent.postMessage({extensionMessage:n},Fulcrum.origin)},receive:e=>{let i=c(e.data);i&&i.command==="initialize"&&!Fulcrum.params&&(Fulcrum.params=i.params,Fulcrum.initialize())},finish:e=>{Fulcrum.send(e,{close:!0})}};Fulcrum.isExtension?window.addEventListener("message",Fulcrum.receive,!1):window.addEventListener("DOMContentLoaded",Fulcrum.initialize)});o();})();</script>
+### Step 3: Add a Data Event to open the extension
 
+In your form's Data Events editor, add a script that calls `OPENEXTENSION()`. This example triggers the extension when a button field named `launch_tool` is tapped:
+
+``` javascript
+ON('click', 'launch_tool', () => {
+  OPENEXTENSION({
+    url: 'attachment://my-extension.html',
+    title: 'My Extension',
+    data: {
+      // Pass any form values into the extension
+      name: $inspector_name,
+      record_id: RECORDID(),
+    },
+    onMessage: ({ data }) => {
+      // Write results back to form fields
+      SETVALUE('result_field', data.result);
+    }
+  });
+});
 ```
 
-**`Fulcrum.load(callback: (data: any) => void)`**
+> 💡 **Tip**
+> Any Fulcrum field value, record metadata, or calculation result can be passed in the data object. The extension receives it as a plain JavaScript object.
 
-* `callback`: `function` called when the page loads, use this to initialize the state in extension. It's passed a `data` argument that equals the `data` parameter passed from `OPENEXTERNAL({ data })` from Data Events.
+## Building with AI
 
-Use this function to initialize the extension and perform any assignming of existing UI from the data passed in from `OPENEXTERNAL()`. Example: setting the current value of a custom field when editing existing data.
+App Extensions are well-suited to AI-assisted development (sometimes called "vibe coding"). You can describe what you want to a tool like Claude, ChatGPT, or Gemini, and have it generate the HTML, CSS, and JavaScript for your extension.
 
-**`Fulcrum.finish(data: any)`**
+### What to give your AI tool
 
-* `data`: `any` the data to be sent back to the Data Events `onMessage` handler.
+For best results, include the following in your prompt:
 
-Use this function to end the extension session and pass data back to the Data Events `onMessage` handler.
+- **The starter template above** — paste it in so the AI understands the Fulcrum extension API structure
+- **What data you're passing in** — list the field names and types from your `data` object
+- **What the UI should do** — describe the interaction: what the user sees, what they do, what gets sent back
+- **What gets sent back** — describe the structure of what `Fulcrum.finish()` should return
+
+### Example prompt
+
+Here's a starting-point prompt you can adapt:
+
+> I'm building a Fulcrum App Extension. Here is the starter HTML template:
+> [paste template]
+> My extension should:
+>
+> - Show a list of the items passed in via data.items (each has a name and status)
+> - Let the user mark each item as pass/fail with a button
+> - When the user taps Done, call Fulcrum.finish() with an array of
+>   { name, status } objects reflecting their selections
+>
+> Keep it simple — plain HTML, no build step, no external libraries.
+
+## App Extension API Reference
+
+Including the Fulcrum extension script in your HTML provides the following API. You can also use the npm package [fulcrum-extensions](https://www.npmjs.com/package/fulcrum-extensions) as an alternative.
+
+### Fulcrum.load(callback)
+
+Called when the extension page has loaded and is ready to receive data from Fulcrum.
+
+``` javascript
+Fulcrum.load(({ data }) => {
+  // data equals the object passed from OPENEXTENSION({ data: {...} })
+  // Use this to initialize your UI with existing form values
+});
+```
+
+- Called once per extension session, after the page finishes loading
+- The data argument is the plain object you passed into `OPENEXTENSION({ data: {...} })`
+- Use this to pre-populate your UI with existing form values when the user is editing a record
+
+### Fulcrum.finish(data)
+
+Closes the extension and sends results back to the `onMessage` handler in your Data Event.
+
+``` javascript
+Fulcrum.finish({
+  // Return any data you want to write back to the form
+  field_value: 'some result',
+  score: 42,
+});
+```
+
+- Call this when the user is done — it closes the extension panel
+- The object you pass is available as data inside the `onMessage` callback in your Data Event
+- Calling `Fulcrum.finish()` with no argument closes the extension without sending any data back
+
+### OPENEXTENSION() — Data Events
+
+Called from your Data Event script to open an App Extension. See the `OPENEXTENSION` reference for full parameter documentation.
+
+``` javascript
+OPENEXTENSION({
+  url: 'attachment://my-extension.html',  // or any HTTPS URL
+  title: 'My Extension',                   // shown in the panel header
+  data: { /* any data to pass in */ },
+  onMessage: ({ data }) => {
+    // called when Fulcrum.finish(data) is called in your HTML
+  }
+});
+```
+
+## Known Limitations
+
+App Extensions run in a sandboxed browser environment. The following capabilities are not supported:
+
+### File and photo access
+
+- You cannot save files or images to the device from within an extension
+- You cannot generate downloadable raster images (PNG, JPEG, PDF)
+- Photos from Fulcrum photo fields must be fetched via the Fulcrum API (HTTPS) — there is no direct local access
+
+### Offline limitations
+
+- Using the Fulcrum API inside your extension (e.g., to fetch choice lists or photos) requires an internet connection, even if the HTML page itself is stored offline as a Reference File
+- Choice lists managed in Fulcrum must be fetched via the API and cannot be accessed locally
+
+### Hardware connectivity
+
+- HTTP-based hardware protocols (e.g., 360-degree cameras that communicate over local Wi-Fi via HTTP) do not work in the sandboxed HTTPS environment
+- Bluetooth device support is not currently available in App Extensions
+
+### State persistence
+
+- Extensions open to a fresh state each time — data from a previous session is not automatically restored
+- To preserve state across sessions, write data back to a Fulcrum form field via `Fulcrum.finish()` and pass it back in on the next open via the data parameter
+
+## Examples
+
+The following examples are available in the Examples section of the docs:
+
+- [Rich Text Editor](https://docs.fulcrumapp.com/docs/rich-text-editor)
+- [High Energy Hazard Selector](https://docs.fulcrumapp.com/docs/high-energy-hazard-selector)
+- [Illness Symptoms Selector](https://docs.fulcrumapp.com/docs/illness-symptoms-selector)
