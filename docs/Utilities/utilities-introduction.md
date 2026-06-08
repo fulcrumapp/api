@@ -48,3 +48,7 @@ Simplifies the creation and maintenance of Fulcrum classification sets, which ar
 ## [Fulcrum Data Viewer](https://data-viewer.util.fulcrumapp.com/)
 
 A public-facing split-view data viewer powered by Fulcrum shared filters. Provide a Fulcrum shared filter URL and Data Viewer renders the matching records in a side-by-side map and detail view — no Fulcrum login required. This makes it easy to share live field data snapshots with clients, community stakeholders, or colleagues who don't have a Fulcrum account, without granting them access to your organization.
+
+## [Fulcrum Deploy](http://fulcrum-deploy.util.fulcrumapp.com/)
+
+A web-based tool for managing Fulcrum app configurations between sandbox and production environments. Fulcrum Deploy lets you pull production apps into sandbox for testing or modification, promote validated sandbox apps to production, and review a detailed diff of changes across form elements, metadata, scripts, and status fields before committing. It also supports rollback — restoring a prior production state back into sandbox — and provides a Change History tab for browsing previous versions and deployments. Optionally, production records can be copied into sandbox alongside the app definition.
