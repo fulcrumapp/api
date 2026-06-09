@@ -109,5 +109,7 @@ Both the Android and iOS apps support opening the app using the `fulcrumapp://` 
   * `<a href="https://web.fulcrumapp.com/action/#new-record?form_id=123-xyz">Create new record</a>` for new records
   * `<a href="https://web.fulcrumapp.com/action/#edit-record?record_id=xyz-123">Edit record</a>` for existing edits\ <br />\
     This solution should work for both Android and iOS.\ <br />
-* **URL Actions and Record Updates**: When using URL actions to fetch data from external systems and update Fulcrum records via return URLs and URL actions, the record remains in edit mode which blocks updates. This blocking is intentional to prevent data loss and overwrites during URL action operations.\
-  To properly handle this, call SAVE() after OPENURL(). This ensures that when you return to the record via URL actions, it opens fresh and ready for updates.
+* **URL Actions and Record Updates**: When `OPENURL()` is triggered while a record is in edit mode, Fulcrum will prompt you to save the current record as a draft before opening the new record. This prevents data loss and ensures the target record opens fresh and ready for updates.\
+  **Recommended pattern:** Call `SAVE()` before `OPENURL()`. When `SAVE()` is called first, the current record is saved automatically and the app navigates directly to the target record without displaying a confirmation prompt — on both iOS and Android.\
+  \
+  > **Note:** On Android, navigating via a URL action preserves the previous navigation history, so users can navigate back to prior screens. On iOS, the app navigates directly to the target record.
