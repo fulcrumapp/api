@@ -57,7 +57,7 @@ Both the Android and iOS apps support opening the app using the `fulcrumapp://` 
 | `project_id`    | no       | The project ID of the new record                                                            |
 | `status`        | no       | The status of the new record                                                                |
 | `latitude`      | no       | The latitude of the new record                                                              |
-| `longitude`     | no       | The latitude of the new record                                                              |
+| `longitude`     | no       | The longitude of the new record                                                             |
 | `...attributes` | no       | Any other URL encoded attributes should be `data_name=value` pairs to set on the new record |
 
 # Edit Record Parameters
@@ -105,11 +105,14 @@ Both the Android and iOS apps support opening the app using the `fulcrumapp://` 
 
 # Notes
 
-* **Compatibility with Core Android Apps:** Several core Android apps, including Gmail and Messenger do not support custom schemes and will not correctly link to Fulcrum if you try to use the following `<a href="fulcrumapp://new-record?form_id=123-xyz">Create new record</a>`. We have set up a dedicated HTTP page to help overcome this issue by providing a web link, which opens the browser and redirects to open the Fulcrum app. If you are dealing with this issue, try the following:\ <br />
+* **Compatibility with Core Android Apps:** Several core Android apps, including Gmail and Messenger do not support custom schemes and will not correctly link to Fulcrum if you try to use the following `<a href="fulcrumapp://new-record?form_id=123-xyz">Create new record</a>`. We have set up a dedicated HTTP page to help overcome this issue by providing a web link, which opens the browser and redirects to open the Fulcrum app. If you are dealing with this issue, try the following:
   * `<a href="https://web.fulcrumapp.com/action/#new-record?form_id=123-xyz">Create new record</a>` for new records
-  * `<a href="https://web.fulcrumapp.com/action/#edit-record?record_id=xyz-123">Edit record</a>` for existing edits\ <br />\
-    This solution should work for both Android and iOS.\ <br />
-* **URL Actions and Record Updates**: When `OPENURL()` is triggered while a record is in edit mode, Fulcrum will prompt you to save the current record as a draft before opening the new record. This prevents data loss and ensures the target record opens fresh and ready for updates.\
-  **Recommended pattern:** Call `SAVE()` before `OPENURL()`. When `SAVE()` is called first, the current record is saved automatically and the app navigates directly to the target record without displaying a confirmation prompt — on both iOS and Android.\
-  \
+  * `<a href="https://web.fulcrumapp.com/action/#edit-record?record_id=xyz-123">Edit record</a>` for existing edits
+
+  This solution should work for both Android and iOS.
+
+* **URL Actions and Record Updates**: When `OPENURL()` is triggered while a record is in edit mode, Fulcrum will prompt you to save the current record as a draft before opening the new record. This prevents data loss and ensures the target record opens fresh and ready for updates.
+
+  **Recommended pattern:** Call `SAVE()` before `OPENURL()`. When `SAVE()` is called first, the current record is saved automatically and the app navigates directly to the target record without displaying a confirmation prompt — on both iOS and Android.
+
   > **Note:** On Android, navigating via a URL action preserves the previous navigation history, so users can navigate back to prior screens. On iOS, the app navigates directly to the target record.
