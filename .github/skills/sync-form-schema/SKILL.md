@@ -89,7 +89,7 @@ GET https://raw.githubusercontent.com/fulcrumapp/fulcrum-schema/main/test/fixtur
 GET https://raw.githubusercontent.com/fulcrumapp/fulcrum-core/main/src/form.js
 ```
 
-Use `fetch_webpage` or `mcp_github_github_get_file_contents` to retrieve these.
+Retrieve these files using a GitHub file-contents tool (preferred) or by downloading the raw.githubusercontent.com URLs.
 
 ### Step 2 — Diff Against Current Schemas
 
