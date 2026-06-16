@@ -30,7 +30,7 @@ What this clip shows:
 - Returning and storing selected values back in Fulcrum
 
 ## Setup
-1. Download [illness-symptoms-selector.html](https://reportassets.fulcrumapp.com/readme-assets/illness-symptoms-selector.html) and upload it as a **Reference File** in your app.
+1. Download <a href="https://reportassets.fulcrumapp.com/readme-assets/illness-symptoms-selector.html" download="https://reportassets.fulcrumapp.com/readme-assets/illness-symptoms-selector.html">illness-symptoms-selector.html</a> and upload it as a **Reference File** in your app.
 2. Add a trigger field, commonly a Hyperlink field, with a data name such as `select_illness_symptoms_if_any`.
    - Recommended label: **Select Illness Symptoms (If Any)**
 3. Add a target Text field with a data name such as `illness_symptoms`.
