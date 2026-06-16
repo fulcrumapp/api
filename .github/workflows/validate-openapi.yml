@@ -12,6 +12,8 @@ on:
       - '.github/workflows/validate-openapi.yml'
       - 'reference/rest-api.json'
 
+permissions:
+  contents: read
 jobs:
   validate:
     name: Validate OpenAPI Spec
