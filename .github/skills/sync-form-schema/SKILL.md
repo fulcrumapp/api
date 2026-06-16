@@ -162,7 +162,7 @@ gh pr create \
 ## Schema Conventions
 
 - **Naming**: `Form{TypeName}Element` for element schemas (PascalCase matching the type string)
-- **Structure**: All typed elements use `allOf: [{ $ref: FormBaseElement }, { type: object, properties: { type: { enum: ["TypeName"] }, ...extra props } }]`
+- **Structure**: All typed elements use `allOf: [{ "$ref": "#/components/schemas/FormBaseElement" }, { type: object, properties: { type: { enum: ["TypeName"] }, ...extra props } }]`
 - **References**: Internal only — `"$ref": "#/components/schemas/SchemaName"`
 - **Recursive refs**: `FormSectionElement` and `FormRepeatableElement` reference `FormElement` for their `elements` arrays — this is intentional and valid
 - **Nullable**: Properties that can be null in the API response should include `"nullable": true`
