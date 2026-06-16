@@ -26,26 +26,28 @@ The authoritative form model lives in two GitHub repos:
 
 ## OpenAPI Schemas to Keep Current
 
-All schemas live inline in `reference/rest-api.json` under `components.schemas`. The ones that
-map to the form model are:
+All schemas live inline in `reference/rest-api.json` under `components.schemas`. The current
+form model in that file is **not** split into per-element OpenAPI schemas such as
+`FormBaseElement`, `FormTextFieldElement`, or `FormChoiceFieldElement`, and `FormElement` is not
+currently documented there as a `oneOf` discriminated union. Do not update this skill as if that
+refactor has already happened.
+
+Use the schema names that actually exist in `reference/rest-api.json` today:
 
 | OpenAPI Schema | Maps From |
 |----------------|-----------|
-| `FormBaseElement` | Common base properties on all elements (`key`, `data_name`, `label`, `required`, `hidden`, `disabled`, conditions, etc.) |
-| `FormElement` | `oneOf` discriminated union — must list ALL element types from `data-elements.js` |
-| `FormTextFieldElement` | `TextField` — numeric, format, min, max, pattern, min_length, max_length |
-| `FormChoiceFieldElement` | `ChoiceField` — choices, choice_list_id, multiple, allow_other |
-| `FormClassificationFieldElement` | `ClassificationField` — classification_set_id, classification_set_schema |
-| `FormYesNoFieldElement` | `YesNoField` — positive, negative, neutral, neutral_enabled |
-| `FormPhotoFieldElement` | `PhotoField` — min_length, max_length |
-| `FormVideoFieldElement` | `VideoField` — track_enabled, audio_enabled |
-| `FormAudioFieldElement` | `AudioField` |
-| `FormSignatureFieldElement` | `SignatureField` — agreement_text |
-| `FormBarcodeFieldElement` | `BarcodeField` |
-| `FormDateTimeFieldElement` | `DateTimeField` |
-| `FormDateFieldElement` | `DateField` |
-| `FormTimeFieldElement` | `TimeField` |
-| `FormAddressFieldElement` | `AddressField` — auto_populate |
+| `FormElement` | Primary form element schema. Keep its properties, enums, and required fields aligned with the upstream Fulcrum element model and fixture JSON. |
+| `StatusField` | Status field definition used by the current spec. Keep it aligned with the upstream status field shape. |
+| `StatusFieldChoice` | Status choice objects nested under status fields. Keep choice properties and enums aligned with upstream data. |
+
+If you find new upstream element-specific attributes in `fulcrum-schema` or `fulcrum-core`, first
+check whether they belong on the existing `FormElement` schema in `reference/rest-api.json`.
+Only document or edit per-element schemas after `reference/rest-api.json` has been explicitly
+refactored to introduce them.
+
+When syncing, treat the upstream fixture and element definitions as the source of truth for field
+names, required properties, enum values, and nested object shapes; then map those changes onto the
+actual current OpenAPI schemas listed above.
 | `FormHyperlinkFieldElement` | `HyperlinkField` |
 | `FormCalculatedFieldElement` | `CalculatedField` — expression, display, default_values |
 | `FormRecordLinkFieldElement` | `RecordLinkField` — allow_existing_records, linked_form_id, etc. |
