@@ -269,6 +269,9 @@
               }
             }
           },
+          "gps_device_capture": {
+            "$ref": "#/components/schemas/GpsDeviceCapture"
+          },
           "speed": {
             "type": "number",
             "nullable": true,
@@ -458,6 +461,9 @@
           "geometry": {
             "$ref": "#/components/schemas/Geometry"
           },
+          "gps_device_capture": {
+            "$ref": "#/components/schemas/GpsDeviceCapture"
+          },
           "speed": {
             "type": "number",
             "nullable": true
@@ -510,6 +516,113 @@
           }
         },
         "description": "Location metadata captured at creation or update time."
+      },
+      "GpsDeviceCapture": {
+        "type": "object",
+        "description": "Flexible GPS device metadata captured with a record.",
+        "additionalProperties": true,
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the GPS device"
+          },
+          "manufacturer": {
+            "type": "string",
+            "description": "Manufacturer of the GPS device"
+          },
+          "fix_type": {
+            "type": "string",
+            "description": "Type of GPS fix"
+          },
+          "satellite_count": {
+            "type": "integer",
+            "description": "Number of satellites used for the fix"
+          },
+          "hdop": {
+            "type": "number",
+            "description": "Horizontal dilution of precision"
+          },
+          "vdop": {
+            "type": "number",
+            "description": "Vertical dilution of precision"
+          },
+          "pdop": {
+            "type": "number",
+            "description": "Position dilution of precision"
+          },
+          "differential_correction": {
+            "type": "boolean",
+            "description": "Whether differential correction was used"
+          },
+          "antenna_height": {
+            "type": "number",
+            "description": "Antenna height in meters"
+          },
+          "firmware_version": {
+            "type": "string",
+            "description": "Device firmware version"
+          },
+          "geometry": {
+            "$ref": "#/components/schemas/Geometry",
+            "description": "GPS-captured geometry reference used to compute geometry_matches_capture"
+          },
+          "geometry_matches_capture": {
+            "type": "boolean",
+            "readOnly": true,
+            "description": "Server-computed flag indicating whether the current record geometry matches gps_device_capture.geometry"
+          }
+        }
+      },
+      "GpsDeviceCaptureRequest": {
+        "type": "object",
+        "description": "Flexible GPS device metadata captured with a record.",
+        "additionalProperties": true,
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the GPS device"
+          },
+          "manufacturer": {
+            "type": "string",
+            "description": "Manufacturer of the GPS device"
+          },
+          "fix_type": {
+            "type": "string",
+            "description": "Type of GPS fix"
+          },
+          "satellite_count": {
+            "type": "integer",
+            "description": "Number of satellites used for the fix"
+          },
+          "hdop": {
+            "type": "number",
+            "description": "Horizontal dilution of precision"
+          },
+          "vdop": {
+            "type": "number",
+            "description": "Vertical dilution of precision"
+          },
+          "pdop": {
+            "type": "number",
+            "description": "Position dilution of precision"
+          },
+          "differential_correction": {
+            "type": "boolean",
+            "description": "Whether differential correction was used"
+          },
+          "antenna_height": {
+            "type": "number",
+            "description": "Antenna height in meters"
+          },
+          "firmware_version": {
+            "type": "string",
+            "description": "Device firmware version"
+          },
+          "geometry": {
+            "$ref": "#/components/schemas/Geometry",
+            "description": "GPS-captured geometry reference used to compute geometry_matches_capture"
+          }
+        }
       },
       "AttachmentCopyAllRequest": {
         "type": "object",
@@ -3798,6 +3911,10 @@
                 "$ref": "#/components/schemas/Geometry",
                 "description": "Optional GeoJSON geometry (Point, LineString, Polygon, MultiLineString, or MultiPolygon). If provided, latitude/longitude will be updated to reflect this geometry."
               },
+              "gps_device_capture": {
+                "$ref": "#/components/schemas/GpsDeviceCaptureRequest",
+                "description": "Flexible GPS device metadata captured with the record."
+              },
               "form_values": {
                 "type": "object",
                 "description": "Field values keyed by field key",
@@ -3842,6 +3959,10 @@
               "geometry": {
                 "$ref": "#/components/schemas/Geometry",
                 "description": "Optional GeoJSON geometry (Point, LineString, Polygon, MultiLineString, or MultiPolygon). If provided, latitude/longitude will be updated to reflect this geometry."
+              },
+              "gps_device_capture": {
+                "$ref": "#/components/schemas/GpsDeviceCaptureRequest",
+                "description": "Flexible GPS device metadata captured with the record."
               },
               "form_values": {
                 "type": "object",
