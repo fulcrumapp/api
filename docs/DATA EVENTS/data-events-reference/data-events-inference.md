@@ -13,36 +13,48 @@ next:
 
 ## Description
 
-The `INFERENCE` function performs on-device machine learning or generative AI inference using a specified model. It supports computer vision tasks (such as image classification, object detection, or image recognition) via **LiteRT** and generative text tasks (such as summarization, assistant chats, or text classification) via **LiteRT-LM**.
+The `INFERENCE` function performs on-device machine learning or generative AI inference using a specified model. It supports computer vision tasks (such as image classification, object detection, or image recognition) and generative text tasks (such as summarization, assistant chats, or text classification) directly on the mobile device.
 
 **THIS FUNCTION WORKS ON MOBILE DEVICES, BUT NOT IN THE WEB RECORD EDITOR**
 
 > ⚠️ **Device Resource & Battery Usage Warning**
 > On-device model inference is highly resource-intensive and will consume substantial battery and memory. Requirements scale directly with the size of the loaded model.
 > 
-> **Generative LLMs (LiteRT-LM)** are especially demanding; consider limiting them to modern flagship devices and/or documenting minimum device requirements (RAM/SoC) for your users.
+> **Generative LLMs** are especially demanding; consider limiting them to modern flagship devices and/or documenting minimum device requirements (RAM/SoC) for your users.
 
 ## Execution Modes
 
-The execution mode is determined automatically by the structure of the `options` and `options.config` arguments:
+The execution mode determines how the system runs the model. It supports three modes:
 
-1. **Modern Vision ML (LiteRT)**: Used for on-device computer vision tasks. Triggered when `options.config` is provided and contains a `size` parameter.
-2. **Modern Generative LLM (LiteRT-LM)**: Used for on-device generative text tasks. Triggered when `options.config` is provided and contains `prompt` or `systemPrompt`.
-3. **Legacy Vision ML (ONNX - Deprecated)**: Used when `options.config` is omitted. **Support for ONNX is deprecated. Please upgrade to the modern LiteRT configurations.**
+1. **Vision ML**: Used for on-device computer vision tasks (such as image classification, object detection, or image recognition).
+2. **Generative LLM**: Used for on-device generative text tasks (such as summarization, assistant chats, or text classification).
+3. **Legacy Vision ML (ONNX - Deprecated)**: Fallback execution when `options.config` is omitted. **Support for ONNX is deprecated. Please upgrade to modern configurations.**
+
+> ⚠️ **Model Type Auto-Detection**
+>
+> The model type is determined **strictly by the file extension** of the model file passed to `options.model`.
+>
+> Auto-detection is **not** determined or overridden by the parameters passed inside `options.config`. However, **the parameters in `options.config` must match the auto-detected model type** (e.g., providing a `size` parameter for a Vision ML model, or a `prompt` parameter for a Generative LLM).
+
 
 ---
 
-## Model Resolution & Reference Types
+## Model Resolution & Supported File Extensions
 
-The `options.model` parameter accepts a string representing the model filename uploaded to the reference files:
+The `options.model` parameter accepts a string representing the model filename uploaded to the reference files.
 
-1. **Form Reference File (Highest Priority)**: If you bundle custom models as form reference files (e.g. `mobilenet.tflite` or `gemma.gguf`), pass the exact filename (including extension) as the model string.
-<!-- Uncomment the following line when the model catalog is ready to launch. -->
-<!-- 2. **Model Catalog**: Searches the central model catalog by display name or catalog ID (e.g. `'gemma-4b-e2b'`). Models should be downloaded first. -->
+### Supported File Extensions & Model Types
 
-**Auto-Detection of Model Type**:
-* Files ending in `.tflite` default to **Vision ML** (LiteRT).
-* Files ending in `.gguf`, `.litertlm`, or `.task` default to **Generative LLM**.
+The system detects the correct machine learning engine to use based on the file extension of the model:
+
+| File Extension | Detected Model Type | Typical Use Cases |
+| :--- | :--- | :--- |
+| **`.tflite`** | **Vision ML** | Image classification, object detection, image recognition |
+| **`.gguf`**, **`.litertlm`**, **`.task`** | **Generative LLM** | Text generation, text summarization, assistant chats, text classification |
+
+### Model Loading
+
+If you bundle custom models as form reference files (e.g., `mobilenet.tflite` or `gemma.gguf`), pass the exact filename (including extension) as the `options.model` string.
 
 ---
 
@@ -56,12 +68,12 @@ The `options.model` parameter accepts a string representing the model filename u
 
 ---
 
-### Mode 1: Vision ML (LiteRT)
+### Mode 1: Vision ML (for `.tflite` models)
 *Used for running image classification, object detection, and other computer vision models.*
 
 * `options` object:
   * `photo_id` string (required) - The identifier of the photo to be processed.
-  * `config` object (required) - Configuration for the LiteRT runtime:
+  * `config` object (required) - Configuration for the computer vision engine:
     * `size` number (required) - The input image will be resized to a square before passing it to the model. `size` is the size of a side. It must be greater than 0 and it should match what the model expects.
     * `format` string (optional) - The format of the input image data. Either `'chw'` (channels, height, width) or `'hwc'` (height, width, channels).
     * `inputType` string (optional) - The data type of the input model. Either `'int8'` or `'float'`.
@@ -70,12 +82,12 @@ The `options.model` parameter accepts a string representing the model filename u
 
 ---
 
-### Mode 2: Modern Generative LLM
+### Mode 2: Generative LLM (for `.gguf`, `.litertlm`, and `.task` models)
 *Used for running on-device generative AI large language models.*
 
 * `options` object:
   * `photo_id` string (optional) - Omit for text-only LLM tasks. Provide the identifier of the photo to include for multimodal LLMs.
-  * `config` object (required) - Configuration for the LiteRT-LM runtime:
+  * `config` object (required) - Configuration for the generative text engine:
     * `prompt` string (optional*) - The input instruction prompt.
     * `systemPrompt` string (optional*) - System instructions to guide the model's behavior, tone, or role.
     * `temperature` number (optional) - Controls randomness in generation. Must be non-negative.
@@ -90,7 +102,7 @@ The `options.model` parameter accepts a string representing the model filename u
 ---
 
 ### Mode 3: Legacy Vision ML (ONNX - Deprecated)
-*Deprecated. Use Modern Vision ML (LiteRT) config-based schemas instead.*
+*Deprecated. Use Modern Vision ML config-based schemas instead.*
 
 * `options` object:
   * `photo_id` string (required)
