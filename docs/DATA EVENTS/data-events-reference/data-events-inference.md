@@ -18,9 +18,9 @@ The `INFERENCE` function performs on-device machine learning or generative AI in
 **THIS FUNCTION WORKS ON MOBILE DEVICES, BUT NOT IN THE WEB RECORD EDITOR**
 
 > ⚠️ **Device Resource & Battery Usage Warning**
-> On-device model inference is highly resource-intensive and will consume substantial battery and memory. When writing Data Events using the `INFERENCE` expression, please be mindful of these hardware requirements, which scale directly with the size of the loaded model.
+> On-device model inference is highly resource-intensive and will consume substantial battery and memory. Requirements scale directly with the size of the loaded model.
 > 
-> Due to the significant computational overhead of **Generative LLMs (LiteRT-LM)**, we strongly suggest recommending or restricting these features to modern, high-end mobile devices (such as the iPhone 17 Pro and equivalent high-end Android devices to run gemma-4-e2b) to ensure a smooth and responsive user experience.
+> **Generative LLMs (LiteRT-LM)** are especially demanding; consider limiting them to modern flagship devices and/or documenting minimum device requirements (RAM/SoC) for your users.
 
 ## Execution Modes
 
