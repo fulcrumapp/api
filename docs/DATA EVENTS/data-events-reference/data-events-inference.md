@@ -27,7 +27,7 @@ The `INFERENCE` function performs on-device machine learning or generative AI in
 The execution mode is determined automatically by the structure of the `options` and `options.config` arguments:
 
 1. **Modern Vision ML (LiteRT)**: Used for on-device computer vision tasks. Triggered when `options.config` is provided and contains a `size` parameter.
-2. **Modern Generative LLM (LiteRT-LM)**: Used for on-device generative text tasks. Triggered when `options.config` is provided and contains `prompt` or `systemPrompt` (and `options.photo_id` is omitted).
+2. **Modern Generative LLM (LiteRT-LM)**: Used for on-device generative text tasks. Triggered when `options.config` is provided and contains `prompt` or `systemPrompt`.
 3. **Legacy Vision ML (ONNX - Deprecated)**: Used when `options.config` is omitted. **Support for ONNX is deprecated. Please upgrade to the modern LiteRT configurations.**
 
 ---
