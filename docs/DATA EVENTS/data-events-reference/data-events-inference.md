@@ -97,7 +97,7 @@ If you bundle custom models as form reference files (e.g., `mobilenet.tflite` or
     * `contextSize` number (optional) - Context window size. Must be a positive integer.
     * `stopTokens` array (optional) - Array of non-empty strings representing tokens that halt generation.
   
-  *\*Note: At least one of `prompt` or `systemPrompt` must be provided.*
+  * **Note:** At least one of `prompt` or `systemPrompt` must be provided.
 
 ---
 
