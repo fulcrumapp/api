@@ -74,7 +74,7 @@ The `options.model` parameter accepts a string representing the model filename u
 *Used for running on-device generative AI large language models.*
 
 * `options` object:
-  * `photo_id` (must be a string or it should be omitted) - Must not be supplied for text-only LLM tasks and should be the identifier of the photo for multimodal LLMs.
+  * `photo_id` string (optional) - Omit for text-only LLM tasks. Provide the identifier of the photo to include for multimodal LLMs.
   * `config` object (required) - Configuration for the LiteRT-LM runtime:
     * `prompt` string (optional*) - The input instruction prompt.
     * `systemPrompt` string (optional*) - System instructions to guide the model's behavior, tone, or role.
