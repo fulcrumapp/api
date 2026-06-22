@@ -50,7 +50,7 @@ The `options.model` parameter accepts a string representing the model filename u
 
 ### Common Parameters
 * `options` object (required) - An object containing the parameters for the function.
-  * `model` string (required) - The exact model filename, catalog ID, or display name to be loaded.
+  * `model` string (required) - The exact model filename uploaded to the form's reference files to be loaded.
   * `form_id` string (optional) - The identifier of the form (defaults to current form).
   * `form_name` string (optional) - The name of the form.
 
