@@ -20,7 +20,7 @@ The `INFERENCE` function performs on-device machine learning or generative AI in
 > ⚠️ **Device Resource & Battery Usage Warning**
 > On-device model inference is highly resource-intensive and will consume substantial battery and memory. When writing Data Events using the `INFERENCE` expression, please be mindful of these hardware requirements, which scale directly with the size of the loaded model.
 > 
-> Due to the significant computational overhead of **Generative LLMs (LiteRT-LM)**, we strongly suggest recommending or restricting these features to modern, high-end mobile devices (such as the iPhone 17 Pro and equivalent high-end Android devices) to ensure a smooth and responsive user experience.
+> Due to the significant computational overhead of **Generative LLMs (LiteRT-LM)**, we strongly suggest recommending or restricting these features to modern, high-end mobile devices (such as the iPhone 17 Pro and equivalent high-end Android devices to run gemma-4-e2b) to ensure a smooth and responsive user experience.
 
 ## Execution Modes
 
@@ -34,7 +34,7 @@ The execution mode is determined automatically by the structure of the `options`
 
 ## Model Resolution & Reference Types
 
-The `options.model` parameter accepts a string representing the model name, file, or catalog ID. The system resolves this value by searching four sources in the following strict priority order:
+The `options.model` parameter accepts a string representing the model filename uploaded to the reference files:
 
 1. **Form Reference File (Highest Priority)**: If you bundle custom models as form reference files (e.g. `mobilenet.tflite` or `gemma.gguf`), pass the exact filename (including extension) as the model string.
 <!-- Uncomment the following line when the model catalog is ready to launch. -->
@@ -74,7 +74,7 @@ The `options.model` parameter accepts a string representing the model name, file
 *Used for running on-device generative AI large language models.*
 
 * `options` object:
-  * `photo_id` (must be `null` or `undefined`) - Must not be supplied for text-only LLM tasks.
+  * `photo_id` (must be a string or it should be omitted) - Must not be supplied for text-only LLM tasks and should be the identifier of the photo for multimodal LLMs.
   * `config` object (required) - Configuration for the LiteRT-LM runtime:
     * `prompt` string (optional*) - The input instruction prompt.
     * `systemPrompt` string (optional*) - System instructions to guide the model's behavior, tone, or role.
@@ -150,7 +150,7 @@ ON('save-record', () => {
   if (!notes) return;
 
   INFERENCE({
-    model: 'gemma-4-e2b.literlm',
+    model: 'gemma-4-e2b.litertlm',
     config: {
       systemPrompt: 'You are an assistant. Summarize the user text in one short sentence.',
       prompt: notes,
