@@ -50,11 +50,11 @@ The system detects the correct machine learning engine to use based on the file 
 | File Extension | Detected Model Type | Typical Use Cases |
 | :--- | :--- | :--- |
 | **`.tflite`** | **Vision ML** | Object detection |
-| **`.gguf`**, **`.litertlm`**, **`.task`** | **Generative LLM** | Text generation, text summarization, assistant chats, text classification |
+| **`.litertlm`**, **`.task`** | **Generative LLM** | Text generation, text summarization, assistant chats, text classification |
 
 ### Model Loading
 
-If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `gemma.gguf`), pass the exact filename (including extension) as the `options.model` string.
+If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `gemma.litertlm`), pass the exact filename (including extension) as the `options.model` string.
 
 ---
 
@@ -82,7 +82,7 @@ If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `g
 
 ---
 
-### Mode 2: Generative LLM (for `.gguf`, `.litertlm`, and `.task` models)
+### Mode 2: Generative LLM (for `.litertlm` and `.task` models)
 *Used for running on-device generative AI large language models.*
 
 * `options` object:
