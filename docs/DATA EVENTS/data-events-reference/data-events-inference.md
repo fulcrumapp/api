@@ -13,7 +13,7 @@ next:
 
 ## Description
 
-The `INFERENCE` function performs on-device machine learning inference using a specified model. It supports computer vision tasks (such as image classification, object detection, or image recognition) directly on the mobile device.
+The `INFERENCE` function performs on-device machine learning inference using a specified model. It supports computer vision tasks (such as object detection) directly on the mobile device.
 
 **THIS FUNCTION WORKS ON MOBILE DEVICES, BUT NOT IN THE WEB RECORD EDITOR**
 
@@ -24,7 +24,7 @@ The `INFERENCE` function performs on-device machine learning inference using a s
 
 The execution mode determines how the system runs the model. It supports two modes:
 
-1. **Vision ML**: Used for on-device computer vision tasks (such as image classification, object detection, or image recognition).
+1. **Vision ML**: Used for on-device computer vision tasks (such as object detection).
 2. **Legacy Vision ML (ONNX - Deprecated)**: Fallback execution when `options.config` is omitted. **Support for ONNX is deprecated. Please upgrade to modern configurations.**
 
 > ⚠️ **Model Type Auto-Detection**
@@ -46,7 +46,7 @@ The system detects the correct machine learning engine to use based on the file 
 
 | File Extension | Detected Model Type | Typical Use Cases |
 | :--- | :--- | :--- |
-| **`.tflite`** | **Vision ML** | Image classification, object detection, image recognition |
+| **`.tflite`** | **Vision ML** | Object detection |
 
 ### Model Loading
 
@@ -65,7 +65,7 @@ If you bundle custom models as form reference files (e.g., `mobilenet.tflite`), 
 ---
 
 ### Mode 1: Vision ML (for `.tflite` models)
-*Used for running image classification, object detection, and other computer vision models.*
+*Used for running object detection and other computer vision models.*
 
 * `options` object:
   * `photo_id` string (required) - The identifier of the photo to be processed.
@@ -103,7 +103,7 @@ If you bundle custom models as form reference files (e.g., `mobilenet.tflite`), 
 
 ### Example 1: Vision ML
 ```javascript
-// Perform on-device image classification when a photo is added
+// Perform on-device object detection when a photo is added
 ON('add-photo', 'photos', (event) => {
   INFERENCE({
     model: 'fulcrum-pylon.tflite', // Model reference file uploaded to the form
@@ -133,6 +133,6 @@ ON('add-photo', 'photos', (event) => {
 ## Usage
 
 The `INFERENCE` function is typically used in applications requiring offline, local, or low-latency intelligence on-device:
-* **Image Recognition / Classification**: Verify image contents, detect equipment, or perform safety audits offline without any internet connection.
+* **Object Detection**: Verify image contents, detect equipment, or perform safety audits offline without any internet connection.
 
 **Note:** This feature is only available with Elite and Enterprise plans. Check out [our plans page](https://www.fulcrumapp.com/pricing/) for more information.
