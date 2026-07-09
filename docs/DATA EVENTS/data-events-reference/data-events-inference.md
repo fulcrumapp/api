@@ -25,7 +25,7 @@ The `INFERENCE` function performs on-device machine learning inference using a s
 The execution mode determines how the system runs the model. It supports two modes:
 
 1. **Vision ML**: Used for on-device computer vision tasks (such as object detection).
-2. **Legacy Vision ML (ONNX - Deprecated)**: Fallback execution when `options.config` is omitted. **Support for ONNX is deprecated. Please upgrade to modern configurations.**
+2. **Legacy Vision ML**: Legacy format. Migrate to the new format. **Support for ONNX is deprecated. Please upgrade to modern configurations.**
 
 > ⚠️ **Model Type Auto-Detection**
 >
@@ -50,7 +50,7 @@ The system detects the correct machine learning engine to use based on the file 
 
 ### Model Loading
 
-If you bundle custom models as form reference files (e.g., `mobilenet.tflite`), pass the exact filename (including extension) as the `options.model` string.
+If you bundle custom models as form reference files (e.g., `yolov5.tflite`), pass the exact filename (including extension) as the `options.model` string.
 
 ---
 
@@ -72,7 +72,7 @@ If you bundle custom models as form reference files (e.g., `mobilenet.tflite`), 
   * `config` object (required) - Configuration for the computer vision engine:
     * `size` number (required) - The input image will be resized to a square before passing it to the model. `size` is the size of a side. It must be greater than 0 and it should match what the model expects.
     * `format` string (optional) - The format of the input image data. Either `'chw'` (channels, height, width) or `'hwc'` (height, width, channels).
-    * `inputType` string (optional) - The data type of the input model. Either `'int8'` or `'float'`.
+    * `inputType` string (optional) - The data type of the input layer. Either `'int8'` or `'float'`.
     * `mean` array (optional) - An array of exactly 3 numbers for normalizing the input data (e.g. `[0.485, 0.456, 0.406]`).
     * `std` array (optional) - An array of exactly 3 numbers for normalization standard deviations (e.g. `[0.229, 0.224, 0.225]`).
 
@@ -95,7 +95,10 @@ If you bundle custom models as form reference files (e.g., `mobilenet.tflite`), 
 * `callback` function (required) - Executed after the inference is completed. Receives two arguments:
   * `error` object - Contains error information if inference fails, otherwise `null`.
   * `result` object - Contains the outputs:
-    * A `result.outputs` object where output arrays are automatically flattened.
+    * **For Vision ML**: A `result.outputs.detections` array. Each entry is an object with:
+      * `box` array - The bounding box coordinates `[x, y, width, height]`.
+      * `score` number - The confidence score for the detection.
+      * `class` number - The detected class index.
 
 ---
 
@@ -121,11 +124,10 @@ ON('add-photo', 'photos', (event) => {
       return;
     }
 
-    const outputs = result.outputs;
-    const scores = Object.values(outputs)[0].value;
-    
-    // Process output scores...
-    SETVALUE('class_result', 'Successfully analyzed image!');
+    const detections = result.outputs.detections;
+
+    // Process detected objects...
+    SETVALUE('class_result', `Detected ${detections.length} object(s)!`);
   });
 });
 ```
