@@ -76,6 +76,27 @@ Photo size can be modified in STYLES section under `.photo-column figure img`.  
   photo size screenshot
 </Image>
 
+You can also choose which image version `PHOTOURL()` returns by passing an optional second argument.
+
+## Parameters
+
+- `id` (String, required) - The photo ID
+- `options` (Object, optional) - Configuration options
+  - `version` - Image version: `'large'` (default), `'thumb'`, `'original'`
+  - `expires` - Expiration timestamp (default: `null`)
+
+## Examples
+
+```html
+// Default large version
+<img class="<%= IMAGE_SIZE() %>" src='<%= PHOTOURL(item.mediaID) %>' />
+
+// Thumb version
+<img class="<%= IMAGE_SIZE() %>" src='<%= PHOTOURL(item.mediaID, { version: "thumb" }) %>' />
+
+// Original full resolution
+<img class="<%= IMAGE_SIZE() %>" src='<%= PHOTOURL(item.mediaID, { version: "original" }) %>' />
+
 # Remove a margin space before and/or after the photo field
 
 Sometimes the report will generate empty spaces after attaching photos or the photos will cover other section of the report.  In order to prevent this, go to the BODY section and add `page-break-inside: auto;` to the `style="flex-direction: column;"` and add `style="height: 100%;"` to the `<div class='field-label-full'>` in `element.isPhotoElement` block:
