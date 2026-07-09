@@ -13,25 +13,28 @@ next:
 
 ## Description
 
-The `INFERENCE` function performs on-device machine learning inference using a specified model. It supports computer vision tasks (such as object detection) directly on the mobile device.
+The `INFERENCE` function performs on-device machine learning or generative AI inference using a specified model. It supports computer vision tasks (such as object detection) and generative text tasks (such as summarization, assistant chats, or text classification) directly on the mobile device.
 
 **THIS FUNCTION WORKS ON MOBILE DEVICES, BUT NOT IN THE WEB RECORD EDITOR**
 
 > ⚠️ **Device Resource & Battery Usage Warning**
 > On-device model inference is highly resource-intensive and will consume substantial battery and memory. Requirements scale directly with the size of the loaded model.
+> 
+> **Generative LLMs** are especially demanding; consider limiting them to modern flagship devices and/or documenting minimum device requirements (RAM/SoC) for your users.
 
 ## Execution Modes
 
-The execution mode determines how the system runs the model. It supports two modes:
+The execution mode determines how the system runs the model. It supports three modes:
 
 1. **Vision ML**: Used for on-device computer vision tasks (such as object detection).
-2. **Legacy Vision ML**: Legacy format. Migrate to the new format. **Support for ONNX is deprecated. Please upgrade to modern configurations.**
+2. **Generative LLM**: Used for on-device generative text tasks (such as summarization, assistant chats, or text classification).
+3. **Legacy Vision ML**: Legacy format. Migrate to the new format. **Support for ONNX is deprecated. Please upgrade to modern configurations.**
 
 > ⚠️ **Model Type Auto-Detection**
 >
 > The model type is determined **strictly by the file extension** of the model file passed to `options.model`.
 >
-> Auto-detection is **not** determined or overridden by the parameters passed inside `options.config`. However, **the parameters in `options.config` must match the auto-detected model type** (e.g., providing a `size` parameter for a Vision ML model).
+> Auto-detection is **not** determined or overridden by the parameters passed inside `options.config`. However, **the parameters in `options.config` must match the auto-detected model type** (e.g., providing a `size` parameter for a Vision ML model, or a `prompt` parameter for a Generative LLM).
 
 
 ---
@@ -47,10 +50,11 @@ The system detects the correct machine learning engine to use based on the file 
 | File Extension | Detected Model Type | Typical Use Cases |
 | :--- | :--- | :--- |
 | **`.tflite`** | **Vision ML** | Object detection |
+| **`.gguf`**, **`.litertlm`**, **`.task`** | **Generative LLM** | Text generation, text summarization, assistant chats, text classification |
 
 ### Model Loading
 
-If you bundle custom models as form reference files (e.g., `yolov5.tflite`), pass the exact filename (including extension) as the `options.model` string.
+If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `gemma.gguf`), pass the exact filename (including extension) as the `options.model` string.
 
 ---
 
@@ -78,7 +82,26 @@ If you bundle custom models as form reference files (e.g., `yolov5.tflite`), pas
 
 ---
 
-### Mode 2: Legacy Vision ML (ONNX - Deprecated)
+### Mode 2: Generative LLM (for `.gguf`, `.litertlm`, and `.task` models)
+*Used for running on-device generative AI large language models.*
+
+* `options` object:
+  * `photo_id` string (optional) - Omit for text-only LLM tasks. Provide the identifier of the photo to include for multimodal LLMs.
+  * `config` object (required) - Configuration for the generative text engine:
+    * `prompt` string (optional*) - The input instruction prompt.
+    * `systemPrompt` string (optional*) - System instructions to guide the model's behavior, tone, or role.
+    * `temperature` number (optional) - Controls randomness in generation. Must be non-negative.
+    * `topK` number (optional) - Restricts sampling to the top K most likely tokens. Must be a positive integer.
+    * `topP` number (optional) - Restricts sampling to cumulative probability P. Must be non-negative.
+    * `maxTokens` number (optional) - Maximum number of tokens to generate. Must be a positive integer.
+    * `contextSize` number (optional) - Context window size. Must be a positive integer.
+    * `stopTokens` array (optional) - Array of non-empty strings representing tokens that halt generation.
+  
+  * **Note:** At least one of `prompt` or `systemPrompt` must be provided.
+
+---
+
+### Mode 3: Legacy Vision ML (ONNX - Deprecated)
 *Deprecated. Use Modern Vision ML config-based schemas instead.*
 
 * `options` object:
@@ -99,6 +122,7 @@ If you bundle custom models as form reference files (e.g., `yolov5.tflite`), pas
       * `box` array - The bounding box coordinates `[x, y, width, height]`.
       * `score` number - The confidence score for the detection.
       * `class` number - The detected class index.
+    * **For Generative LLM**: A `result.outputs` object containing `result.outputs.text` (the generated text response) and a `result.modelType` of `'LLM'`.
 
 ---
 
@@ -132,9 +156,37 @@ ON('add-photo', 'photos', (event) => {
 });
 ```
 
+### Example 2: Modern Generative LLM
+```javascript
+// Use an on-device LLM to summarize notes when a record is saved
+ON('save-record', () => {
+  const notes = VALUE('notes');
+  if (!notes) return;
+
+  INFERENCE({
+    model: 'gemma-4-e2b.litertlm',
+    config: {
+      systemPrompt: 'You are an assistant. Summarize the user text in one short sentence.',
+      prompt: notes,
+      temperature: 0.7,
+      maxTokens: 100
+    }
+  }, (error, result) => {
+    if (error) {
+      ALERT('Summarization failed: ' + error.message);
+      return;
+    }
+
+    // Access the generated response text
+    SETVALUE('summary', result.outputs.text);
+  });
+});
+```
+
 ## Usage
 
 The `INFERENCE` function is typically used in applications requiring offline, local, or low-latency intelligence on-device:
 * **Object Detection**: Verify image contents, detect equipment, or perform safety audits offline without any internet connection.
+* **On-Device LLMs**: Perform smart form calculations, generate field summaries, suggest translations, or parse unstructured user text instantly in the field.
 
 **Note:** This feature is only available with Elite and Enterprise plans. Check out [our plans page](https://www.fulcrumapp.com/pricing/) for more information.
