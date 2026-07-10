@@ -96,6 +96,7 @@ You can also choose which image version `PHOTOURL()` returns by passing an optio
 
 // Original full resolution
 <img class="<%= IMAGE_SIZE() %>" src='<%= PHOTOURL(item.mediaID, { version: 'original' }) %>' />
+```
 
 # Remove a margin space before and/or after the photo field
 
