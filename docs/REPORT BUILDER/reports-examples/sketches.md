@@ -58,7 +58,7 @@ The `SKETCHURL()` function generates a public URL for a sketch. It accepts two p
 
 - `id` (String, required) - The sketch ID
 - `options` (Object, optional) - Configuration options
-  - `version` - Image version: `'large'` (default), `'original'`
+  - `version` - Image version: `'large'` (default), `'thumb'`, `'original'`
   - `expires` - Expiration timestamp (default: `null`)
 
 ### Examples
@@ -66,6 +66,9 @@ The `SKETCHURL()` function generates a public URL for a sketch. It accepts two p
 ```html
 // Default large version
 <img src="<%= SKETCHURL(item.mediaID) %>" />
+
+// Thumbnail version
+<img src="<%= SKETCHURL(item.mediaID, { version: 'thumb' }) %>" />
 
 // Original full resolution
 <img src="<%= SKETCHURL(item.mediaID, { version: 'original' }) %>" />
