@@ -89,7 +89,7 @@ You can also choose which image version `PHOTOURL()` returns by passing an optio
 
 ```html
 // Default large version
-<img class="<%= IMAGE_SIZE() %>" src='<%= PHOTOURL(item.mediaID) %>' />
+<img class="<%= IMAGE_SIZE() %>" src="<%= PHOTOURL(item.mediaID) %>" />
 
 // Thumbnail version
 <img class="<%= IMAGE_SIZE() %>" src="<%= PHOTOURL(item.mediaID, { version: 'thumb' }) %>" />
