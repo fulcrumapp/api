@@ -270,7 +270,8 @@
             }
           },
           "gps_device_capture": {
-            "$ref": "#/components/schemas/GpsDeviceCapture"
+            "$ref": "#/components/schemas/GpsDeviceCapture",
+            "description": "Flexible GPS device metadata captured with the record."
           },
           "speed": {
             "type": "number",
@@ -462,7 +463,8 @@
             "$ref": "#/components/schemas/Geometry"
           },
           "gps_device_capture": {
-            "$ref": "#/components/schemas/GpsDeviceCapture"
+            "$ref": "#/components/schemas/GpsDeviceCapture",
+            "description": "Flexible GPS device metadata captured with the record."
           },
           "speed": {
             "type": "number",
