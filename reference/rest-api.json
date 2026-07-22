@@ -271,6 +271,7 @@
           },
           "gps_device_capture": {
             "$ref": "#/components/schemas/GpsDeviceCapture",
+            "nullable": true,
             "description": "Flexible GPS device metadata captured with the record."
           },
           "speed": {
@@ -464,6 +465,7 @@
           },
           "gps_device_capture": {
             "$ref": "#/components/schemas/GpsDeviceCapture",
+            "nullable": true,
             "description": "Flexible GPS device metadata captured with the record."
           },
           "speed": {
@@ -586,14 +588,6 @@
             }
           }
         ]
-      },
-      "GpsDeviceCaptureRequest": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/GpsDeviceCaptureBase"
-          }
-        ],
-        "description": "GPS device metadata accepted during create/update. This request shape excludes geometry_matches_capture."
       },
       "AttachmentCopyAllRequest": {
         "type": "object",
@@ -3883,8 +3877,8 @@
                 "description": "Optional GeoJSON geometry (Point, LineString, Polygon, MultiLineString, or MultiPolygon). If provided, latitude/longitude will be updated to reflect this geometry."
               },
               "gps_device_capture": {
-                "$ref": "#/components/schemas/GpsDeviceCaptureRequest",
-                "description": "Flexible GPS device metadata captured with the record."
+                "$ref": "#/components/schemas/GpsDeviceCaptureBase",
+                "description": "Flexible GPS device metadata captured with the record. Known keys are documented and additional device-specific keys are accepted."
               },
               "form_values": {
                 "type": "object",
@@ -3932,8 +3926,8 @@
                 "description": "Optional GeoJSON geometry (Point, LineString, Polygon, MultiLineString, or MultiPolygon). If provided, latitude/longitude will be updated to reflect this geometry."
               },
               "gps_device_capture": {
-                "$ref": "#/components/schemas/GpsDeviceCaptureRequest",
-                "description": "Flexible GPS device metadata captured with the record."
+                "$ref": "#/components/schemas/GpsDeviceCaptureBase",
+                "description": "Flexible GPS device metadata captured with the record. Known keys are documented and additional device-specific keys are accepted."
               },
               "form_values": {
                 "type": "object",
