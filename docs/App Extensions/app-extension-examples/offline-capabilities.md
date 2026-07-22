@@ -100,7 +100,6 @@ ON('click', 'show_linked_record', () => {
         records: result.records, // each: {id, form_values:{name, ...}, latitude, longitude, status, ...}
       },
       onMessage: function(result){
-        console.log(result);
         // set linked record field to what was selected in the extension.
         SETVALUE('linked_record', result.data.selected);
       }
