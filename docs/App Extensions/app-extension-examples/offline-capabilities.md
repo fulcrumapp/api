@@ -78,7 +78,7 @@ The example displays the value of the repeatable child field with data name `25f
 
 ## Offline Linked Records
 
-Use this pattern when field users need to inspect data from records linked to the current record. The Data Event loads the selected linked records and then provides their values to the extension.
+Use this pattern when field users need to inspect and change data from record links. The Data Event loads the selected linked records and then provides their values to the extension. The extension enables the user to select which records are linked, and then sends those selections back to data events to apply the new values.
 
 ### Add the Linked-Records Data Event
 
@@ -86,23 +86,23 @@ Configure this Data Event on the button or other element whose `data_name` is `s
 
 ```js
 ON('click', 'show_linked_record', () => {
-  const linkedIds = $linked_record.map(r => r.record_id) || [];
-  if (!linkedIds.length) {
-    ALERT('No linked records');
-    return;
-  }
+  const linkedIds = $linked_record.map(r => r.record_id) || []; // selected record(s)
+  const linkedAppRecords = [];
+
   LOADRECORDS({
-    ids: linkedIds,
-    form_id: '1111-2222-abcd-efgh', // replace with linked record app ID
+    form_id: '1111-2222-abcd-efgh', // id of the linked form, or use form_name: 'name of linked form'
   }, function(err, result){
     if (err) { ALERT('Failed: '+err.message); return; }
     OPENEXTENSION({
       url: 'attachment://linked-record.html',
       data: {
-        linked_ids: linkedIds,
-        linked_records: result.records, // each: {id, form_values:{name, ...}, latitude, longitude, status, ...}
+        selected: linkedIds,
+        records: result.records, // each: {id, form_values:{name, ...}, latitude, longitude, status, ...}
       },
-      onMessage: function(msg){}
+      onMessage: function(result){
+        // set linked record field to what was selected in the extension.
+        SETVALUE('linked_record', result.data.selected);
+      }
     });
   });
 });
@@ -119,23 +119,70 @@ Upload the following file as a form reference file named `linked-record.html`. T
 
 <script>
   Fulcrum.load(({data})=>{
-    const recs = data.linked_records||[];
+    const { records, selected } = data;
+    const selectedIds = new Set(selected.map(selection => selection.record_id));
+    const select = document.getElementById('records');
     const list = document.getElementById('list');
 
-    recs.forEach(r=>{
+    records.forEach(r=>{
+      const option = document.createElement('option');
+      option.value = r.id;
+      option.textContent = r.form_values['41df']; // Replace with a field key from the linked app
+      option.selected = selectedIds.has(r.id);
+      select.appendChild(option);
+    });
+
+    const renderSelected = () => {
+      list.replaceChildren();
+      const selectedRecords = records.filter(r => selectedIds.has(r.id));
+
+      selectedRecords.forEach(r=>{
       const header = document.createElement('h1');
       header.textContent = 'Status: ' + r.status;
+      const subheader = document.createElement('h1');
+      subheader.textContent = r.form_values['41df']; // Replace with a field key from the linked app
       const p = document.createElement('p');
       p.textContent = 'Form Values:' + JSON.stringify(r.form_values);
       list.appendChild(header);
+      list.appendChild(subheader);
       list.appendChild(p);
+      });
+    };
+
+    select.addEventListener('change', () => {
+      selectedIds.clear();
+      Array.from(select.selectedOptions).forEach(option => selectedIds.add(option.value));
+      renderSelected();
+    });
+
+    renderSelected();
+
+    document.getElementById('done').addEventListener('click', () => {
+      const selected = Array.from(select.selectedOptions).map(option => option.value);
+      // send the current selections back to data events
+      Fulcrum.finish({selected});
     });
   });
-</script>
 
+</script>
+<style>
+  body {
+    font-family: sans-serif;
+    margin: 20px;
+  }
+  #records {
+    width: 100%;
+    height: 200px;
+  }
+  label {
+    display: block;
+    margin-bottom: 5px;
+  }
+</style>
+
+
+<label for="records">Facility</label>
+<select id="records" multiple></select>
+<button id="done">Save</button>
 <div id="list"></div>
 ```
-
-### Offline Availability
-
-The extension file is available offline because it is stored as a form reference file. `LOADRECORDS` must retrieve linked records before opening the extension, so the linked-record Data Event requires a connection when it runs. Once the extension receives `linked_records`, it can render the supplied data without further network requests.
