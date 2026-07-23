@@ -270,7 +270,7 @@
             }
           },
           "gps_device_capture": {
-            "$ref": "#/components/schemas/GpsDeviceCapture",
+            "$ref": "#/components/schemas/GpsDeviceCaptureBase",
             "nullable": true,
             "description": "Flexible GPS device metadata captured with the record."
           },
@@ -464,7 +464,7 @@
             "$ref": "#/components/schemas/Geometry"
           },
           "gps_device_capture": {
-            "$ref": "#/components/schemas/GpsDeviceCapture",
+            "$ref": "#/components/schemas/GpsDeviceCaptureBase",
             "nullable": true,
             "description": "Flexible GPS device metadata captured with the record."
           },
@@ -568,26 +568,17 @@
           },
           "geometry": {
             "$ref": "#/components/schemas/Geometry",
-            "description": "GPS-captured geometry reference used to derive geometry_matches_capture when available."
+            "description": "GPS-captured geometry reference."
           }
         }
       },
-      "GpsDeviceCapture": {
+      "GpsDeviceCaptureRequest": {
         "allOf": [
           {
             "$ref": "#/components/schemas/GpsDeviceCaptureBase"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "geometry_matches_capture": {
-                "type": "boolean",
-                "readOnly": true,
-                "description": "Response-only hint indicating whether the current record geometry matches gps_device_capture.geometry."
-              }
-            }
           }
-        ]
+        ],
+        "description": "GPS device metadata accepted during create/update. Known keys are documented and additional device-specific keys are accepted."
       },
       "AttachmentCopyAllRequest": {
         "type": "object",
@@ -3877,8 +3868,9 @@
                 "description": "Optional GeoJSON geometry (Point, LineString, Polygon, MultiLineString, or MultiPolygon). If provided, latitude/longitude will be updated to reflect this geometry."
               },
               "gps_device_capture": {
-                "$ref": "#/components/schemas/GpsDeviceCaptureBase",
-                "description": "Flexible GPS device metadata captured with the record. Known keys are documented and additional device-specific keys are accepted."
+                "$ref": "#/components/schemas/GpsDeviceCaptureRequest",
+                "nullable": true,
+                "description": "Flexible GPS device metadata captured with the record. Set null to clear metadata."
               },
               "form_values": {
                 "type": "object",
@@ -3926,8 +3918,9 @@
                 "description": "Optional GeoJSON geometry (Point, LineString, Polygon, MultiLineString, or MultiPolygon). If provided, latitude/longitude will be updated to reflect this geometry."
               },
               "gps_device_capture": {
-                "$ref": "#/components/schemas/GpsDeviceCaptureBase",
-                "description": "Flexible GPS device metadata captured with the record. Known keys are documented and additional device-specific keys are accepted."
+                "$ref": "#/components/schemas/GpsDeviceCaptureRequest",
+                "nullable": true,
+                "description": "Flexible GPS device metadata captured with the record. Set null to clear metadata."
               },
               "form_values": {
                 "type": "object",
