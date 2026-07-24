@@ -269,6 +269,11 @@
               }
             }
           },
+          "gps_device_capture": {
+            "$ref": "#/components/schemas/GpsDeviceCaptureBase",
+            "nullable": true,
+            "description": "Flexible GPS device metadata captured with the record."
+          },
           "speed": {
             "type": "number",
             "nullable": true,
@@ -458,6 +463,11 @@
           "geometry": {
             "$ref": "#/components/schemas/Geometry"
           },
+          "gps_device_capture": {
+            "$ref": "#/components/schemas/GpsDeviceCaptureBase",
+            "nullable": true,
+            "description": "Flexible GPS device metadata captured with the record."
+          },
           "speed": {
             "type": "number",
             "nullable": true
@@ -510,6 +520,65 @@
           }
         },
         "description": "Location metadata captured at creation or update time."
+      },
+      "GpsDeviceCaptureBase": {
+        "type": "object",
+        "description": "Flexible GPS device metadata captured with a record.",
+        "additionalProperties": true,
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the GPS device"
+          },
+          "manufacturer": {
+            "type": "string",
+            "description": "Manufacturer of the GPS device"
+          },
+          "fix_type": {
+            "type": "string",
+            "description": "Type of GPS fix"
+          },
+          "satellite_count": {
+            "type": "integer",
+            "description": "Number of satellites used for the fix"
+          },
+          "hdop": {
+            "type": "number",
+            "description": "Horizontal dilution of precision"
+          },
+          "vdop": {
+            "type": "number",
+            "description": "Vertical dilution of precision"
+          },
+          "pdop": {
+            "type": "number",
+            "description": "Position dilution of precision"
+          },
+          "differential_correction": {
+            "type": "boolean",
+            "description": "Whether differential correction was used"
+          },
+          "antenna_height": {
+            "type": "number",
+            "description": "Antenna height in meters"
+          },
+          "firmware_version": {
+            "type": "string",
+            "description": "Device firmware version"
+          },
+          "geometry": {
+            "$ref": "#/components/schemas/Geometry",
+            "description": "GPS-captured geometry reference."
+          }
+        }
+      },
+      "GpsDeviceCaptureRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GpsDeviceCaptureBase"
+          }
+        ],
+        "description": "GPS device metadata accepted during create/update. Known keys are documented and additional device-specific keys are accepted."
       },
       "AttachmentCopyAllRequest": {
         "type": "object",
@@ -3893,6 +3962,11 @@
                 "$ref": "#/components/schemas/Geometry",
                 "description": "Optional GeoJSON geometry (Point, LineString, Polygon, MultiLineString, or MultiPolygon). If provided, latitude/longitude will be updated to reflect this geometry."
               },
+              "gps_device_capture": {
+                "$ref": "#/components/schemas/GpsDeviceCaptureRequest",
+                "nullable": true,
+                "description": "Flexible GPS device metadata captured with the record. Set null to clear metadata."
+              },
               "form_values": {
                 "type": "object",
                 "description": "Field values keyed by field key",
@@ -3937,6 +4011,11 @@
               "geometry": {
                 "$ref": "#/components/schemas/Geometry",
                 "description": "Optional GeoJSON geometry (Point, LineString, Polygon, MultiLineString, or MultiPolygon). If provided, latitude/longitude will be updated to reflect this geometry."
+              },
+              "gps_device_capture": {
+                "$ref": "#/components/schemas/GpsDeviceCaptureRequest",
+                "nullable": true,
+                "description": "Flexible GPS device metadata captured with the record. Set null to clear metadata."
               },
               "form_values": {
                 "type": "object",
