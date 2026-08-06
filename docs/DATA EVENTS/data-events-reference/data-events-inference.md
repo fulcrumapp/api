@@ -13,25 +13,29 @@ next:
 
 ## Description
 
-The `INFERENCE` function performs on-device machine learning inference using a specified model. It supports computer vision tasks (such as object detection) directly on the mobile device.
+The `INFERENCE` function performs on-device machine learning or generative AI inference using a specified model. It supports computer vision tasks (such as object detection) and generative text tasks (such as summarization, assistant chats, or text classification) directly on the mobile device.
 
 **THIS FUNCTION WORKS ON MOBILE DEVICES, BUT NOT IN THE WEB RECORD EDITOR**
 
 > ⚠️ **Device Resource & Battery Usage Warning**
 > On-device model inference is highly resource-intensive and will consume substantial battery and memory. Requirements scale directly with the size of the loaded model.
+> 
+> **SLMs** are especially demanding; consider limiting them to modern flagship devices and/or documenting minimum device requirements (RAM/SoC) for your users.
+>
+> SLM support is currently **beta**. Contact [product@fulcrumapp.com](mailto:product@fulcrumapp.com) if you are interested in testing it.
 
 ## Execution Modes
 
 The execution mode determines how the system runs the model. It supports two modes:
 
 1. **Vision ML**: Used for on-device computer vision tasks (such as object detection).
-2. **Legacy Vision ML**: Legacy format. Migrate to the new format. **Support for ONNX is deprecated. Please upgrade to modern configurations.**
+2. **SLM**: Used for on-device generative text tasks (such as summarization, assistant chats, or text classification).
 
 > ⚠️ **Model Type Auto-Detection**
 >
 > The model type is determined **strictly by the file extension** of the model file passed to `options.model`.
 >
-> Auto-detection is **not** determined or overridden by the parameters passed inside `options.config`. However, **the parameters in `options.config` must match the auto-detected model type** (e.g., providing a `size` parameter for a Vision ML model).
+> Auto-detection is **not** determined or overridden by the parameters passed inside `options.config`. However, **the parameters in `options.config` must match the auto-detected model type** (e.g., providing a `size` parameter for a Vision ML model, or a `prompt` parameter for an SLM).
 
 
 ---
@@ -47,10 +51,13 @@ The system detects the correct machine learning engine to use based on the file 
 | File Extension | Detected Model Type | Typical Use Cases |
 | :--- | :--- | :--- |
 | **`.tflite`** | **Vision ML** | Object detection |
+| **`.litertlm`**, **`.task`** | **SLM** | Text generation, text summarization, assistant chats, text classification |
 
 ### Model Loading
 
-If you bundle custom models as form reference files (e.g., `yolov5.tflite`), pass the exact filename (including extension) as the `options.model` string.
+If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `gemma.litertlm`), pass the exact filename (including extension) as the `options.model` string. Form reference files are resolved for offline use after synchronization.
+
+For Vision ML, upload `labels.txt` as a separate form reference file alongside the `.tflite` model. The filename must be exactly `labels.txt`; do not pass it as `options.model`. When present, it is loaded automatically for that model.
 
 ---
 
@@ -76,18 +83,42 @@ If you bundle custom models as form reference files (e.g., `yolov5.tflite`), pas
     * `mean` array (optional) - An array of exactly 3 numbers for normalizing the input data (e.g. `[0.485, 0.456, 0.406]`).
     * `std` array (optional) - An array of exactly 3 numbers for normalization standard deviations (e.g. `[0.229, 0.224, 0.225]`).
 
+#### Class labels
+
+For example, upload these two form reference files:
+
+* `fulcrum-pylon.tflite`
+* `labels.txt`
+
+For example, the contents of `labels.txt` could be:
+
+```text
+person
+vehicle
+equipment
+```
+
+The `labels.txt` file must be UTF-8 text with one class label per line. The parser supports CRLF, LF, and CR line endings, trims surrounding whitespace, and ignores blank lines. The order of the remaining labels maps to the model's class indexes.
+
+The runtime reads labels from `labels.txt` when it is available. A missing, unreadable, or empty file is non-fatal; inference continues without resolved labels. Resolved labels are returned in `result.labels`.
+
 ---
 
-### Mode 2: Legacy Vision ML (ONNX - Deprecated)
-*Deprecated. Use Modern Vision ML config-based schemas instead.*
+### Mode 2: SLM (for `.litertlm` and `.task` models)
+*Used for running on-device generative text models.*
 
 * `options` object:
-  * `photo_id` string (required)
-  * `size` number (required)
-  * `format` string (optional) - Either `'hwc'` or `'chw'`.
-  * `type` string (optional) - Either `'uint8'` or `'float'`.
-  * `mean` array (optional)
-  * `std` array (optional)
+  * `photo_id` string (optional) - Omit for text-only SLM tasks. Provide the identifier of the photo to include for multimodal SLMs.
+  * `config` object (required) - Configuration for the generative text engine:
+    * `prompt` string (optional*) - The input instruction prompt.
+    * `systemPrompt` string (optional*) - System instructions to guide the model's behavior, tone, or role.
+    * `temperature` number (optional) - Controls randomness in generation. Must be non-negative.
+    * `topK` number (optional) - Restricts sampling to the top K most likely tokens. Must be a positive integer.
+    * `topP` number (optional) - Restricts sampling to cumulative probability P. Must be between 0 and 1.
+    * `maxTokens` number (optional) - Maximum number of tokens to generate. Must be a positive integer.
+    * `contextSize` number (optional) - Context window size. Must be a positive integer.
+
+  * **Note:** At least one of `prompt` or `systemPrompt` must be provided.
 
 ---
 
@@ -99,6 +130,8 @@ If you bundle custom models as form reference files (e.g., `yolov5.tflite`), pas
       * `box` array - The bounding box coordinates `[x, y, width, height]`.
       * `score` number - The confidence score for the detection.
       * `class` number - The detected class index.
+    * **For Vision ML with labels**: A `result.labels` array containing the resolved class labels. The label at an index corresponds to the detection's `class` value.
+    * **For SLM**: The generated text is returned in the top-level `result.outputs.text` property.
 
 ---
 
@@ -106,6 +139,10 @@ If you bundle custom models as form reference files (e.g., `yolov5.tflite`), pas
 
 ### Example 1: Vision ML
 ```javascript
+// Form reference files uploaded to the form:
+// - fulcrum-pylon.tflite
+// - labels.txt
+//
 // Perform on-device object detection when a photo is added
 ON('add-photo', 'photos', (event) => {
   INFERENCE({
@@ -126,8 +163,35 @@ ON('add-photo', 'photos', (event) => {
 
     const detections = result.outputs.detections;
 
-    // Process detected objects...
+    // Detection class indexes correspond to the entries in labels.txt.
     SETVALUE('class_result', `Detected ${detections.length} object(s)!`);
+  });
+});
+```
+
+### Example 2: Modern SLM
+```javascript
+// Use an on-device SLM to summarize notes when a record is saved
+ON('save-record', () => {
+  const notes = VALUE('notes');
+  if (!notes) return;
+
+  INFERENCE({
+    model: 'gemma-4-e2b.litertlm',
+    config: {
+      systemPrompt: 'You are an assistant. Summarize the user text in one short sentence.',
+      prompt: notes,
+      temperature: 0.7,
+      maxTokens: 100
+    }
+  }, (error, result) => {
+    if (error) {
+      ALERT('Summarization failed: ' + error.message);
+      return;
+    }
+
+    // Access the generated response text
+    SETVALUE('summary', result.outputs.text);
   });
 });
 ```
@@ -136,5 +200,6 @@ ON('add-photo', 'photos', (event) => {
 
 The `INFERENCE` function is typically used in applications requiring offline, local, or low-latency intelligence on-device:
 * **Object Detection**: Verify image contents, detect equipment, or perform safety audits offline without any internet connection.
+* **On-Device SLMs**: Perform smart form calculations, generate field summaries, suggest translations, or parse unstructured user text instantly in the field. This capability is beta; contact [product@fulcrumapp.com](mailto:product@fulcrumapp.com) if you are interested in testing it.
 
 **Note:** This feature is only available with Elite and Enterprise plans. Check out [our plans page](https://www.fulcrumapp.com/pricing/) for more information.
