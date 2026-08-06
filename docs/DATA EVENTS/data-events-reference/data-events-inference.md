@@ -57,6 +57,8 @@ The system detects the correct machine learning engine to use based on the file 
 
 If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `gemma.litertlm`), pass the exact filename (including extension) as the `options.model` string. Form reference files are resolved for offline use after synchronization.
 
+For Vision ML, upload `labels.txt` as a separate form reference file alongside the `.tflite` model. The filename must be exactly `labels.txt`; do not pass it as `options.model`. When present, it is loaded automatically for that model.
+
 ---
 
 ## Parameters
@@ -84,7 +86,20 @@ If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `g
 
 #### Class labels
 
-Vision ML models can use a `labels.txt` file supplied as a form reference file. The file must be UTF-8 text with one class label per line. The parser supports CRLF, LF, and CR line endings, trims surrounding whitespace, and ignores blank lines. The order of the remaining labels maps to the model's class indexes.
+For example, upload these two form reference files:
+
+* `fulcrum-pylon.tflite`
+* `labels.txt`
+
+For example, the contents of `labels.txt` could be:
+
+```text
+person
+vehicle
+equipment
+```
+
+The `labels.txt` file must be UTF-8 text with one class label per line. The parser supports CRLF, LF, and CR line endings, trims surrounding whitespace, and ignores blank lines. The order of the remaining labels maps to the model's class indexes.
 
 The inline `config.labels` array takes precedence over `labels.txt`. If no inline labels are provided, the runtime uses `labels.txt` when it is available. A missing, unreadable, or empty file is non-fatal; inference continues without resolved labels. Resolved labels are returned in `result.labels`.
 
@@ -125,6 +140,10 @@ The inline `config.labels` array takes precedence over `labels.txt`. If no inlin
 
 ### Example 1: Vision ML
 ```javascript
+// Form reference files uploaded to the form:
+// - fulcrum-pylon.tflite
+// - labels.txt
+//
 // Perform on-device object detection when a photo is added
 ON('add-photo', 'photos', (event) => {
   INFERENCE({
