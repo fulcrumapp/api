@@ -51,7 +51,9 @@ The system detects the correct machine learning engine to use based on the file 
 | File Extension | Detected Model Type | Typical Use Cases |
 | :--- | :--- | :--- |
 | **`.tflite`** | **Vision ML** | Object detection |
-| **`.gguf`**, **`.litertlm`**, **`.task`** | **SLM** | Text generation, text summarization, assistant chats, text classification |
+| **`.litertlm`**, **`.task`** | **SLM** | Text generation, text summarization, assistant chats, text classification |
+
+Public support is limited to LiteRT (`.tflite`) and LiteRT-LM (`.litertlm` and `.task`) model formats.
 
 ### Model Loading
 
@@ -90,7 +92,7 @@ The inline `config.labels` array takes precedence over `labels.txt`. If no inlin
 
 ---
 
-### Mode 2: SLM (for `.gguf`, `.litertlm`, and `.task` models)
+### Mode 2: SLM (for `.litertlm` and `.task` models)
 *Used for running on-device generative text models.*
 
 * `options` object:
