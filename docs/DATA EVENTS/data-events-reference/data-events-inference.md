@@ -82,7 +82,6 @@ For Vision ML, upload `labels.txt` as a separate form reference file alongside t
     * `inputType` string (optional) - The data type of the input layer. Either `'int8'` or `'float'`.
     * `mean` array (optional) - An array of exactly 3 numbers for normalizing the input data (e.g. `[0.485, 0.456, 0.406]`).
     * `std` array (optional) - An array of exactly 3 numbers for normalization standard deviations (e.g. `[0.229, 0.224, 0.225]`).
-    * `labels` array (optional) - Inline class labels. When provided, these take precedence over a `labels.txt` reference file, including when set to an empty array (`[]`).
 
 #### Class labels
 
@@ -101,7 +100,7 @@ equipment
 
 The `labels.txt` file must be UTF-8 text with one class label per line. The parser supports CRLF, LF, and CR line endings, trims surrounding whitespace, and ignores blank lines. The order of the remaining labels maps to the model's class indexes.
 
-The inline `config.labels` array takes precedence over `labels.txt`. If no inline labels are provided, the runtime uses `labels.txt` when it is available. A missing, unreadable, or empty file is non-fatal; inference continues without resolved labels. Resolved labels are returned in `result.labels`.
+The runtime reads labels from `labels.txt` when it is available. A missing, unreadable, or empty file is non-fatal; inference continues without resolved labels. Resolved labels are returned in `result.labels`.
 
 ---
 
