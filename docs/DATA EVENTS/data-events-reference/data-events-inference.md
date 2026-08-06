@@ -20,15 +20,16 @@ The `INFERENCE` function performs on-device machine learning or generative AI in
 > ⚠️ **Device Resource & Battery Usage Warning**
 > On-device model inference is highly resource-intensive and will consume substantial battery and memory. Requirements scale directly with the size of the loaded model.
 > 
-> **Generative LLMs** are especially demanding; consider limiting them to modern flagship devices and/or documenting minimum device requirements (RAM/SoC) for your users.
+> **Generative LLMs and SLMs** are especially demanding; consider limiting them to modern flagship devices and/or documenting minimum device requirements (RAM/SoC) for your users.
+>
+> Generative LLM and SLM support is currently **beta**. Contact [product@fulcrumapp.com](mailto:product@fulcrumapp.com) if you are interested in testing it.
 
 ## Execution Modes
 
-The execution mode determines how the system runs the model. It supports three modes:
+The execution mode determines how the system runs the model. It supports two modes:
 
 1. **Vision ML**: Used for on-device computer vision tasks (such as object detection).
-2. **Generative LLM**: Used for on-device generative text tasks (such as summarization, assistant chats, or text classification).
-3. **Legacy Vision ML**: Legacy format. Migrate to the new format. **Support for ONNX is deprecated. Please upgrade to modern configurations.**
+2. **Generative LLM**: Used for on-device generative text tasks (such as summarization, assistant chats, or text classification). This includes supported small language models (SLMs).
 
 > ⚠️ **Model Type Auto-Detection**
 >
@@ -50,11 +51,11 @@ The system detects the correct machine learning engine to use based on the file 
 | File Extension | Detected Model Type | Typical Use Cases |
 | :--- | :--- | :--- |
 | **`.tflite`** | **Vision ML** | Object detection |
-| **`.litertlm`**, **`.task`** | **Generative LLM** | Text generation, text summarization, assistant chats, text classification |
+| **`.gguf`**, **`.litertlm`**, **`.task`** | **Generative LLM** | Text generation, text summarization, assistant chats, text classification |
 
 ### Model Loading
 
-If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `gemma.litertlm`), pass the exact filename (including extension) as the `options.model` string.
+If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `gemma.litertlm`), pass the exact filename (including extension) as the `options.model` string. Form reference files are resolved for offline use after synchronization.
 
 ---
 
@@ -79,11 +80,18 @@ If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `g
     * `inputType` string (optional) - The data type of the input layer. Either `'int8'` or `'float'`.
     * `mean` array (optional) - An array of exactly 3 numbers for normalizing the input data (e.g. `[0.485, 0.456, 0.406]`).
     * `std` array (optional) - An array of exactly 3 numbers for normalization standard deviations (e.g. `[0.229, 0.224, 0.225]`).
+    * `labels` array (optional) - Inline class labels. When provided, these take precedence over a `labels.txt` reference file, including when set to an empty array (`[]`).
+
+#### Class labels
+
+Vision ML models can use a `labels.txt` file supplied as a form reference file. The file must be UTF-8 text with one class label per line. The parser supports CRLF, LF, and CR line endings, trims surrounding whitespace, and ignores blank lines. The order of the remaining labels maps to the model's class indexes.
+
+The inline `config.labels` array takes precedence over `labels.txt`. If no inline labels are provided, the runtime uses `labels.txt` when it is available. A missing, unreadable, or empty file is non-fatal; inference continues without resolved labels. Resolved labels are returned in `result.labels`.
 
 ---
 
-### Mode 2: Generative LLM (for `.litertlm` and `.task` models)
-*Used for running on-device generative AI large language models.*
+### Mode 2: Generative LLM (for `.gguf`, `.litertlm`, and `.task` models)
+*Used for running on-device generative AI large language models and SLMs.*
 
 * `options` object:
   * `photo_id` string (optional) - Omit for text-only LLM tasks. Provide the identifier of the photo to include for multimodal LLMs.
@@ -95,22 +103,8 @@ If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `g
     * `topP` number (optional) - Restricts sampling to cumulative probability P. Must be non-negative.
     * `maxTokens` number (optional) - Maximum number of tokens to generate. Must be a positive integer.
     * `contextSize` number (optional) - Context window size. Must be a positive integer.
-    * `stopTokens` array (optional) - Array of non-empty strings representing tokens that halt generation.
-  
+
   * **Note:** At least one of `prompt` or `systemPrompt` must be provided.
-
----
-
-### Mode 3: Legacy Vision ML (ONNX - Deprecated)
-*Deprecated. Use Modern Vision ML config-based schemas instead.*
-
-* `options` object:
-  * `photo_id` string (required)
-  * `size` number (required)
-  * `format` string (optional) - Either `'hwc'` or `'chw'`.
-  * `type` string (optional) - Either `'uint8'` or `'float'`.
-  * `mean` array (optional)
-  * `std` array (optional)
 
 ---
 
@@ -122,6 +116,7 @@ If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `g
       * `box` array - The bounding box coordinates `[x, y, width, height]`.
       * `score` number - The confidence score for the detection.
       * `class` number - The detected class index.
+    * **For Vision ML with labels**: A `result.labels` array containing the resolved class labels. The label at an index corresponds to the detection's `class` value.
     * **For Generative LLM**: A `result.outputs` object containing `result.outputs.text` (the generated text response) and a `result.modelType` of `'LLM'`.
 
 ---
@@ -149,9 +144,11 @@ ON('add-photo', 'photos', (event) => {
     }
 
     const detections = result.outputs.detections;
+    const labels = result.labels || [];
 
     // Process detected objects...
-    SETVALUE('class_result', `Detected ${detections.length} object(s)!`);
+    const firstLabel = detections.length > 0 ? labels[detections[0].class] : null;
+    SETVALUE('class_result', firstLabel || `Detected ${detections.length} object(s)!`);
   });
 });
 ```
@@ -187,6 +184,6 @@ ON('save-record', () => {
 
 The `INFERENCE` function is typically used in applications requiring offline, local, or low-latency intelligence on-device:
 * **Object Detection**: Verify image contents, detect equipment, or perform safety audits offline without any internet connection.
-* **On-Device LLMs**: Perform smart form calculations, generate field summaries, suggest translations, or parse unstructured user text instantly in the field.
+* **On-Device LLMs and SLMs**: Perform smart form calculations, generate field summaries, suggest translations, or parse unstructured user text instantly in the field. This capability is beta; contact [product@fulcrumapp.com](mailto:product@fulcrumapp.com) if you are interested in testing it.
 
 **Note:** This feature is only available with Elite and Enterprise plans. Check out [our plans page](https://www.fulcrumapp.com/pricing/) for more information.
