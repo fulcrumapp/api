@@ -20,22 +20,22 @@ The `INFERENCE` function performs on-device machine learning or generative AI in
 > ⚠️ **Device Resource & Battery Usage Warning**
 > On-device model inference is highly resource-intensive and will consume substantial battery and memory. Requirements scale directly with the size of the loaded model.
 > 
-> **Generative LLMs and SLMs** are especially demanding; consider limiting them to modern flagship devices and/or documenting minimum device requirements (RAM/SoC) for your users.
+> **SLMs** are especially demanding; consider limiting them to modern flagship devices and/or documenting minimum device requirements (RAM/SoC) for your users.
 >
-> Generative LLM and SLM support is currently **beta**. Contact [product@fulcrumapp.com](mailto:product@fulcrumapp.com) if you are interested in testing it.
+> SLM support is currently **beta**. Contact [product@fulcrumapp.com](mailto:product@fulcrumapp.com) if you are interested in testing it.
 
 ## Execution Modes
 
 The execution mode determines how the system runs the model. It supports two modes:
 
 1. **Vision ML**: Used for on-device computer vision tasks (such as object detection).
-2. **Generative LLM**: Used for on-device generative text tasks (such as summarization, assistant chats, or text classification). This includes supported small language models (SLMs).
+2. **SLM**: Used for on-device generative text tasks (such as summarization, assistant chats, or text classification).
 
 > ⚠️ **Model Type Auto-Detection**
 >
 > The model type is determined **strictly by the file extension** of the model file passed to `options.model`.
 >
-> Auto-detection is **not** determined or overridden by the parameters passed inside `options.config`. However, **the parameters in `options.config` must match the auto-detected model type** (e.g., providing a `size` parameter for a Vision ML model, or a `prompt` parameter for a Generative LLM).
+> Auto-detection is **not** determined or overridden by the parameters passed inside `options.config`. However, **the parameters in `options.config` must match the auto-detected model type** (e.g., providing a `size` parameter for a Vision ML model, or a `prompt` parameter for an SLM).
 
 
 ---
@@ -51,7 +51,7 @@ The system detects the correct machine learning engine to use based on the file 
 | File Extension | Detected Model Type | Typical Use Cases |
 | :--- | :--- | :--- |
 | **`.tflite`** | **Vision ML** | Object detection |
-| **`.gguf`**, **`.litertlm`**, **`.task`** | **Generative LLM** | Text generation, text summarization, assistant chats, text classification |
+| **`.gguf`**, **`.litertlm`**, **`.task`** | **SLM** | Text generation, text summarization, assistant chats, text classification |
 
 ### Model Loading
 
@@ -90,11 +90,11 @@ The inline `config.labels` array takes precedence over `labels.txt`. If no inlin
 
 ---
 
-### Mode 2: Generative LLM (for `.gguf`, `.litertlm`, and `.task` models)
-*Used for running on-device generative AI large language models and SLMs.*
+### Mode 2: SLM (for `.gguf`, `.litertlm`, and `.task` models)
+*Used for running on-device generative text models.*
 
 * `options` object:
-  * `photo_id` string (optional) - Omit for text-only LLM tasks. Provide the identifier of the photo to include for multimodal LLMs.
+  * `photo_id` string (optional) - Omit for text-only SLM tasks. Provide the identifier of the photo to include for multimodal SLMs.
   * `config` object (required) - Configuration for the generative text engine:
     * `prompt` string (optional*) - The input instruction prompt.
     * `systemPrompt` string (optional*) - System instructions to guide the model's behavior, tone, or role.
@@ -117,7 +117,7 @@ The inline `config.labels` array takes precedence over `labels.txt`. If no inlin
       * `score` number - The confidence score for the detection.
       * `class` number - The detected class index.
     * **For Vision ML with labels**: A `result.labels` array containing the resolved class labels. The label at an index corresponds to the detection's `class` value.
-    * **For Generative LLM**: A `result.outputs` object containing `result.outputs.text` (the generated text response) and a `result.modelType` of `'LLM'`.
+    * **For SLM**: A `result.outputs` object containing `result.outputs.text` (the generated text response).
 
 ---
 
@@ -153,9 +153,9 @@ ON('add-photo', 'photos', (event) => {
 });
 ```
 
-### Example 2: Modern Generative LLM
+### Example 2: Modern SLM
 ```javascript
-// Use an on-device LLM to summarize notes when a record is saved
+// Use an on-device SLM to summarize notes when a record is saved
 ON('save-record', () => {
   const notes = VALUE('notes');
   if (!notes) return;
@@ -184,6 +184,6 @@ ON('save-record', () => {
 
 The `INFERENCE` function is typically used in applications requiring offline, local, or low-latency intelligence on-device:
 * **Object Detection**: Verify image contents, detect equipment, or perform safety audits offline without any internet connection.
-* **On-Device LLMs and SLMs**: Perform smart form calculations, generate field summaries, suggest translations, or parse unstructured user text instantly in the field. This capability is beta; contact [product@fulcrumapp.com](mailto:product@fulcrumapp.com) if you are interested in testing it.
+* **On-Device SLMs**: Perform smart form calculations, generate field summaries, suggest translations, or parse unstructured user text instantly in the field. This capability is beta; contact [product@fulcrumapp.com](mailto:product@fulcrumapp.com) if you are interested in testing it.
 
 **Note:** This feature is only available with Elite and Enterprise plans. Check out [our plans page](https://www.fulcrumapp.com/pricing/) for more information.
