@@ -102,7 +102,7 @@ The inline `config.labels` array takes precedence over `labels.txt`. If no inlin
     * `systemPrompt` string (optional*) - System instructions to guide the model's behavior, tone, or role.
     * `temperature` number (optional) - Controls randomness in generation. Must be non-negative.
     * `topK` number (optional) - Restricts sampling to the top K most likely tokens. Must be a positive integer.
-    * `topP` number (optional) - Restricts sampling to cumulative probability P. Must be non-negative.
+    * `topP` number (optional) - Restricts sampling to cumulative probability P. Must be between 0 and 1.
     * `maxTokens` number (optional) - Maximum number of tokens to generate. Must be a positive integer.
     * `contextSize` number (optional) - Context window size. Must be a positive integer.
 
@@ -119,7 +119,7 @@ The inline `config.labels` array takes precedence over `labels.txt`. If no inlin
       * `score` number - The confidence score for the detection.
       * `class` number - The detected class index.
     * **For Vision ML with labels**: A `result.labels` array containing the resolved class labels. The label at an index corresponds to the detection's `class` value.
-    * **For SLM**: A `result.outputs` object containing `result.outputs.text` (the generated text response).
+    * **For SLM**: The generated text is returned in the top-level `result.outputs.text` property.
 
 ---
 
