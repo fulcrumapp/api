@@ -162,11 +162,9 @@ ON('add-photo', 'photos', (event) => {
     }
 
     const detections = result.outputs.detections;
-    const labels = result.labels || [];
 
-    // Process detected objects...
-    const firstLabel = detections.length > 0 ? labels[detections[0].class] : null;
-    SETVALUE('class_result', firstLabel || `Detected ${detections.length} object(s)!`);
+    // Detection class indexes correspond to the entries in labels.txt.
+    SETVALUE('class_result', `Detected ${detections.length} object(s)!`);
   });
 });
 ```
