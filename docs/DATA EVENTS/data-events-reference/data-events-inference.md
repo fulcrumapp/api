@@ -53,8 +53,6 @@ The system detects the correct machine learning engine to use based on the file 
 | **`.tflite`** | **Vision ML** | Object detection |
 | **`.litertlm`**, **`.task`** | **SLM** | Text generation, text summarization, assistant chats, text classification |
 
-Public support is limited to LiteRT (`.tflite`) and LiteRT-LM (`.litertlm` and `.task`) model formats.
-
 ### Model Loading
 
 If you bundle custom models as form reference files (e.g., `yolov5.tflite` or `gemma.litertlm`), pass the exact filename (including extension) as the `options.model` string. Form reference files are resolved for offline use after synchronization.
