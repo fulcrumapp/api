@@ -32,7 +32,7 @@ obj = {
       "hdop": 0.8,
       "geometry": {
         "type": "Point",
-        "coordinates": [-82.637, 27.771]
+        "coordinates": [-82.638039, 27.770787]
       }
     },
     "form_values": {
@@ -65,7 +65,7 @@ const obj = {
     "hdop": 0.8,
     "geometry": {
       "type": "Point",
-      "coordinates": [-82.637, 27.771]
+      "coordinates": [-82.638039, 27.770787]
     }
   },
   "form_values": {
@@ -103,7 +103,7 @@ record = {
     "hdop"=>0.8,
     "geometry"=>{
       "type"=>"Point",
-      "coordinates"=>[-82.637, 27.771]
+      "coordinates"=>[-82.638039, 27.770787]
     }
   },
   "form_values"=>{

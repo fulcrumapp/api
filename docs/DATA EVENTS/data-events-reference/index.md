@@ -49,20 +49,21 @@ The callback for record events is passed an event parameter with a `name` attrib
 }
 ```
 
-A `change-geometry` event uses `value` for the GeoJSON geometry. When external GPS metadata is available, `gpsData` is a top-level sibling of `value`. Keys inside `gpsData` vary by device and client.
+A `change-geometry` event uses `value` for the GeoJSON geometry. When external GPS metadata is available, `gpsData` is a top-level sibling of `value`. Keys inside `gpsData` vary by device and client. The object below is an illustrative example, not a canonical schema.
 
 ```json
 {
   "name": "change-geometry",
   "value": {
     "type": "Point",
-    "coordinates": [-82.637, 27.771]
+    "coordinates": [-82.638039, 27.770787]
   },
   "gpsData": {
     "deviceName": "Trimble R2",
     "fixType": "RTK",
     "satellites": 14,
-    "hdop": 0.8
+    "hdop": 0.8,
+    "...": "additional device-specific keys"
   }
 }
 ```

@@ -100,7 +100,7 @@ See the examples below for valid and invalid usages of this endpoint.
             "hdop": 0.8,
             "geometry": {
                 "type": "Point",
-                "coordinates": [-82.637, 27.771]
+                "coordinates": [-82.638039, 27.770787]
             }
         }
     }

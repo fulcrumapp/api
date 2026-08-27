@@ -368,7 +368,8 @@ WHERE _gps_device_capture @> '{"fix_type": "RTK"}';
 SELECT _record_id,
        _gps_device_capture->>'satellite_count' AS satellites
 FROM "Form Name"
-WHERE (_gps_device_capture->>'satellite_count')::int >= 12;
+WHERE (_gps_device_capture->>'satellite_count') ~ '^[0-9]+$'
+  AND (_gps_device_capture->>'satellite_count')::int >= 12;
 ```
 
 # SQL Reference Material
