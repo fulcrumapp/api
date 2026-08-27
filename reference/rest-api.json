@@ -6693,6 +6693,20 @@
                             ],
                             "type": "Point"
                           },
+                          "gps_device_capture": {
+                            "device_name": "Trimble R2",
+                            "manufacturer": "Trimble",
+                            "fix_type": "RTK",
+                            "satellite_count": 14,
+                            "hdop": 0.8,
+                            "geometry": {
+                              "type": "Point",
+                              "coordinates": [
+                                -82.637,
+                                27.771
+                              ]
+                            }
+                          },
                           "horizontal_accuracy": null,
                           "id": "da5fafc4-2e69-4c8c-a6bb-831d9e124a30",
                           "latitude": 0,
@@ -6951,6 +6965,32 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RecordRequest"
+              },
+              "examples": {
+                "With GPS device capture": {
+                  "value": {
+                    "record": {
+                      "form_id": "aa9816b6-ebec-4f14-88df-7v5844c2237d",
+                      "latitude": 27.771,
+                      "longitude": -82.637,
+                      "gps_device_capture": {
+                        "device_name": "Trimble R2",
+                        "manufacturer": "Trimble",
+                        "fix_type": "RTK",
+                        "satellite_count": 14,
+                        "hdop": 0.8,
+                        "geometry": {
+                          "type": "Point",
+                          "coordinates": [
+                            -82.637,
+                            27.771
+                          ]
+                        }
+                      },
+                      "form_values": {}
+                    }
+                  }
+                }
               }
             }
           }
@@ -6999,6 +7039,20 @@
                             0
                           ],
                           "type": "Point"
+                        },
+                        "gps_device_capture": {
+                          "device_name": "Trimble R2",
+                          "manufacturer": "Trimble",
+                          "fix_type": "RTK",
+                          "satellite_count": 14,
+                          "hdop": 0.8,
+                          "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                              -82.637,
+                              27.771
+                            ]
+                          }
                         },
                         "horizontal_accuracy": null,
                         "id": "da5fafc4-2e69-4c8c-a6bb-831d9e194a30",
@@ -7108,6 +7162,20 @@
                             0
                           ],
                           "type": "Point"
+                        },
+                        "gps_device_capture": {
+                          "device_name": "Trimble R2",
+                          "manufacturer": "Trimble",
+                          "fix_type": "RTK",
+                          "satellite_count": 14,
+                          "hdop": 0.8,
+                          "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                              -82.637,
+                              27.771
+                            ]
+                          }
                         },
                         "horizontal_accuracy": null,
                         "id": "da5fafc4-2e69-4c8c-a6bb-831d9e194a30",
@@ -7228,6 +7296,32 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RecordRequest"
+              },
+              "examples": {
+                "With GPS device capture": {
+                  "value": {
+                    "record": {
+                      "form_id": "aa9816b6-ebec-4f14-88df-7v5844c2237d",
+                      "latitude": 27.771,
+                      "longitude": -82.637,
+                      "gps_device_capture": {
+                        "device_name": "Trimble R2",
+                        "manufacturer": "Trimble",
+                        "fix_type": "RTK",
+                        "satellite_count": 14,
+                        "hdop": 0.8,
+                        "geometry": {
+                          "type": "Point",
+                          "coordinates": [
+                            -82.637,
+                            27.771
+                          ]
+                        }
+                      },
+                      "form_values": {}
+                    }
+                  }
+                }
               }
             }
           }
@@ -7310,6 +7404,28 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RecordPatchRequest"
+              },
+              "examples": {
+                "With GPS device capture": {
+                  "value": {
+                    "record": {
+                      "gps_device_capture": {
+                        "device_name": "Trimble R2",
+                        "manufacturer": "Trimble",
+                        "fix_type": "RTK",
+                        "satellite_count": 14,
+                        "hdop": 0.8,
+                        "geometry": {
+                          "type": "Point",
+                          "coordinates": [
+                            -82.637,
+                            27.771
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }

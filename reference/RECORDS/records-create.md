@@ -24,6 +24,17 @@ obj = {
     "form_id": "my-form-id",
     "latitude": 27.770787,
     "longitude": -82.638039,
+    "gps_device_capture": {
+      "device_name": "Trimble R2",
+      "manufacturer": "Trimble",
+      "fix_type": "RTK",
+      "satellite_count": 14,
+      "hdop": 0.8,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.637, 27.771]
+      }
+    },
     "form_values": {
       "2832": "123-ABC",
       "8373": {
@@ -46,6 +57,17 @@ const obj = {
   "form_id": "my-form-id",
   "latitude": 27.770787,
   "longitude": -82.638039,
+  "gps_device_capture": {
+    "device_name": "Trimble R2",
+    "manufacturer": "Trimble",
+    "fix_type": "RTK",
+    "satellite_count": 14,
+    "hdop": 0.8,
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-82.637, 27.771]
+    }
+  },
   "form_values": {
     "2832": "123-ABC",
     "8373": {
@@ -73,6 +95,17 @@ record = {
   "form_id"=>"my-form-id",
   "latitude"=>27.770787,
   "longitude"=>-82.638039,
+  "gps_device_capture"=>{
+    "device_name"=>"Trimble R2",
+    "manufacturer"=>"Trimble",
+    "fix_type"=>"RTK",
+    "satellite_count"=>14,
+    "hdop"=>0.8,
+    "geometry"=>{
+      "type"=>"Point",
+      "coordinates"=>[-82.637, 27.771]
+    }
+  },
   "form_values"=>{
     "2832"=>"123-ABC",
     "8373"=>{

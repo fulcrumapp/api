@@ -67,6 +67,7 @@ These headers work for create, update, and delete actions.
 | horizontal\_accuracy | number  | no       | yes      | Accuracy of the latitude and longitude in meters.                                                                                                                                  |
 | vertical\_accuracy   | number  | no       | yes      | Accuracy of the altitude value in meters.                                                                                                                                          |
 | geometry             | GeoJSON | no       | no       | Point, LineString or Polygon of the record. [See below](https://docs.fulcrumapp.com/reference/records-intro#using-the-new-geometry-field)                                          |
+| gps\_device\_capture | object  | no       | no       | Flexible GPS receiver metadata captured with the record. Common keys include `device_name`, `manufacturer`, `fix_type`, `satellite_count`, `hdop`, `vdop`, `pdop`, and `geometry` (GeoJSON). Additional device-specific keys are allowed. Send `null` on create/update to clear the value. |
 
 ## Form Value Field Types
 
@@ -209,7 +210,18 @@ If you do not wish to update a record’s location, there is no need to send in 
     "speed": null,
     "course": 170.0,
     "horizontal_accuracy": 3.9,
-    "vertical_accuracy": null
+    "vertical_accuracy": null,
+    "gps_device_capture": {
+      "device_name": "Trimble R2",
+      "manufacturer": "Trimble",
+      "fix_type": "RTK",
+      "satellite_count": 14,
+      "hdop": 0.8,
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-82.637, 27.771]
+      }
+    }
   }
 }
 ```
