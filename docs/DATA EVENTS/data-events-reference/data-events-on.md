@@ -45,8 +45,10 @@ ON('change', 'weather_summary', callback);
 ```
 
 ```js
-var callback = function () {
-  // Do something with the location via LATITUDE() AND LONGITUDE() values
+var callback = function (event) {
+  // event.value is the record geometry as GeoJSON (Point, LineString, or Polygon).
+  // event.gpsData is optional and present when external GPS metadata is available.
+  // gpsData keys can differ by platform. Persisted snake_case metadata is record gps_device_capture.
 };
 
 // Listens for changes to a record's geometry (location) and executes callback
@@ -54,8 +56,8 @@ ON('change-geometry', callback);
 ```
 
 ```js
-var callback = function () {
-  // Do something with the repeatable location via LATITUDE() AND LONGITUDE() values
+var callback = function (event) {
+  // Repeatable geometry is on event.value. Optional event.gpsData is device-dependent.
 };
 
 // Listens for changes to a repeatable item's geometry and executes callback

@@ -346,6 +346,31 @@ Every Fulcrum form contains standard system columns, in addition to your custom 
 | `_course`              | number    | The GPS course in degrees (0.0-360), only recorded if the device is moving.                                                                                           |
 | `_horizontal_accuracy` | number    | The GPS latitude and longitude accuracy in meters.                                                                                                                    |
 | `_vertical_accuracy`   | number    | The GPS altitude accuracy in meters. (Only reported on iOS devices)                                                                                                   |
+| `_gps_device_capture`  | jsonb     | Flexible GPS receiver metadata captured with the record. Present on schema v6 form tables. Query inner keys with PostgreSQL JSON operators.                           |
+
+## Querying GPS device capture
+
+`_gps_device_capture` is a JSON object. Different devices send different keys. Common keys include `device_name`, `manufacturer`, `fix_type`, `satellite_count`, `hdop`, and `geometry`.
+
+```sql
+SELECT _record_id, _gps_device_capture
+FROM "Form Name"
+WHERE _gps_device_capture->>'device_name' = 'Trimble R2';
+```
+
+```sql
+SELECT _record_id
+FROM "Form Name"
+WHERE _gps_device_capture @> '{"fix_type": "RTK"}';
+```
+
+```sql
+SELECT _record_id,
+       _gps_device_capture->>'satellite_count' AS satellites
+FROM "Form Name"
+WHERE (_gps_device_capture->>'satellite_count') ~ '^[0-9]+$'
+  AND (_gps_device_capture->>'satellite_count')::int >= 12;
+```
 
 # SQL Reference Material
 

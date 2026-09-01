@@ -89,6 +89,26 @@ See the examples below for valid and invalid usages of this endpoint.
 }
 ```
 
+```json
+{
+    "record": {
+        "gps_device_capture": {
+            "device_name": "Trimble R2",
+            "manufacturer": "Trimble",
+            "fix_type": "RTK",
+            "satellite_count": 14,
+            "hdop": 0.8,
+            "geometry": {
+                "type": "Point",
+                "coordinates": [-82.638039, 27.770787]
+            }
+        }
+    }
+}
+```
+
+Sending `gps_device_capture: null` clears stored GPS device metadata. Additional device-specific keys are allowed.
+
 ## Invalid Examples
 
 ```json

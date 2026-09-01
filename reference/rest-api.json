@@ -6670,7 +6670,7 @@
                           "created_duration": 116,
                           "created_location": null,
                           "edited_duration": 119,
-                          "form_id": "aa9816b6-ebec-4f14-88df-7v5844c2237d",
+                          "form_id": "aa9816b6-ebec-4f14-88df-775844c2237d",
                           "form_values": {
                             "31e8": {
                               "admin_area": "Illinois",
@@ -6692,6 +6692,20 @@
                               0
                             ],
                             "type": "Point"
+                          },
+                          "gps_device_capture": {
+                            "device_name": "Trimble R2",
+                            "manufacturer": "Trimble",
+                            "fix_type": "RTK",
+                            "satellite_count": 14,
+                            "hdop": 0.8,
+                            "geometry": {
+                              "type": "Point",
+                              "coordinates": [
+                                -82.638039,
+                                27.770787
+                              ]
+                            }
                           },
                           "horizontal_accuracy": null,
                           "id": "da5fafc4-2e69-4c8c-a6bb-831d9e124a30",
@@ -6951,6 +6965,32 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RecordRequest"
+              },
+              "examples": {
+                "With GPS device capture": {
+                  "value": {
+                    "record": {
+                      "form_id": "aa9816b6-ebec-4f14-88df-775844c2237d",
+                      "latitude": 27.770787,
+                      "longitude": -82.638039,
+                      "gps_device_capture": {
+                        "device_name": "Trimble R2",
+                        "manufacturer": "Trimble",
+                        "fix_type": "RTK",
+                        "satellite_count": 14,
+                        "hdop": 0.8,
+                        "geometry": {
+                          "type": "Point",
+                          "coordinates": [
+                            -82.638039,
+                            27.770787
+                          ]
+                        }
+                      },
+                      "form_values": {}
+                    }
+                  }
+                }
               }
             }
           }
@@ -6977,7 +7017,7 @@
                         "created_duration": 116,
                         "created_location": null,
                         "edited_duration": 119,
-                        "form_id": "aa9816b6-ebec-4f14-88df-7v5844c2237d",
+                        "form_id": "aa9816b6-ebec-4f14-88df-775844c2237d",
                         "form_values": {
                           "31e8": {
                             "admin_area": "Illinois",
@@ -6999,6 +7039,20 @@
                             0
                           ],
                           "type": "Point"
+                        },
+                        "gps_device_capture": {
+                          "device_name": "Trimble R2",
+                          "manufacturer": "Trimble",
+                          "fix_type": "RTK",
+                          "satellite_count": 14,
+                          "hdop": 0.8,
+                          "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                              -82.638039,
+                              27.770787
+                            ]
+                          }
                         },
                         "horizontal_accuracy": null,
                         "id": "da5fafc4-2e69-4c8c-a6bb-831d9e194a30",
@@ -7086,7 +7140,7 @@
                         "created_duration": 116,
                         "created_location": null,
                         "edited_duration": 119,
-                        "form_id": "aa9816b6-ebec-4f14-88df-7v5844c2237d",
+                        "form_id": "aa9816b6-ebec-4f14-88df-775844c2237d",
                         "form_values": {
                           "31e8": {
                             "admin_area": "Illinois",
@@ -7108,6 +7162,20 @@
                             0
                           ],
                           "type": "Point"
+                        },
+                        "gps_device_capture": {
+                          "device_name": "Trimble R2",
+                          "manufacturer": "Trimble",
+                          "fix_type": "RTK",
+                          "satellite_count": 14,
+                          "hdop": 0.8,
+                          "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                              -82.638039,
+                              27.770787
+                            ]
+                          }
                         },
                         "horizontal_accuracy": null,
                         "id": "da5fafc4-2e69-4c8c-a6bb-831d9e194a30",
@@ -7228,6 +7296,32 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RecordRequest"
+              },
+              "examples": {
+                "With GPS device capture": {
+                  "value": {
+                    "record": {
+                      "form_id": "aa9816b6-ebec-4f14-88df-775844c2237d",
+                      "latitude": 27.770787,
+                      "longitude": -82.638039,
+                      "gps_device_capture": {
+                        "device_name": "Trimble R2",
+                        "manufacturer": "Trimble",
+                        "fix_type": "RTK",
+                        "satellite_count": 14,
+                        "hdop": 0.8,
+                        "geometry": {
+                          "type": "Point",
+                          "coordinates": [
+                            -82.638039,
+                            27.770787
+                          ]
+                        }
+                      },
+                      "form_values": {}
+                    }
+                  }
+                }
               }
             }
           }
@@ -7310,6 +7404,28 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RecordPatchRequest"
+              },
+              "examples": {
+                "With GPS device capture": {
+                  "value": {
+                    "record": {
+                      "gps_device_capture": {
+                        "device_name": "Trimble R2",
+                        "manufacturer": "Trimble",
+                        "fix_type": "RTK",
+                        "satellite_count": 14,
+                        "hdop": 0.8,
+                        "geometry": {
+                          "type": "Point",
+                          "coordinates": [
+                            -82.638039,
+                            27.770787
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
