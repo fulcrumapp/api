@@ -25,6 +25,7 @@ App Extensions work the same way on iOS, Android, and web.
 - Inspection summary interfaces (verifications, warning confirmations, sign-off screens)
 - Charts and dashboards embedded inside a form
 - Custom sub-forms (multi-step workflows that feel like a separate app)
+- Shareable PDF output (e.g., a chain-of-custody ticket or inspection summary the field user can save, share, or print as a PDF directly from the record)
 
 ## How It Works
 
@@ -193,7 +194,10 @@ Called from your Data Event script to open an App Extension. See the `OPENEXTENS
 OPENEXTENSION({
   url: 'attachment://my-extension.html',  // or any HTTPS URL
   title: 'My Extension',                   // shown in the panel header
-  data: { /* any data to pass in */ },
+  data: {
+    /* any data to pass in */
+    actions: ['sharePDF'], // optional — only needed if you want the Share button (PDF export) to appear on mobile
+  },
   onMessage: ({ data }) => {
     // called when Fulcrum.finish(data) is called in your HTML
   }
@@ -232,3 +236,4 @@ The following examples are available in the Examples section of the docs:
 - [Rich Text Editor](https://docs.fulcrumapp.com/docs/rich-text-editor)
 - [High Energy Hazard Selector](https://docs.fulcrumapp.com/docs/high-energy-hazard-selector)
 - [Illness Symptoms Selector](https://docs.fulcrumapp.com/docs/illness-symptoms-selector)
+- [Share PDF](https://docs.fulcrumapp.com/docs/share-pdf)
