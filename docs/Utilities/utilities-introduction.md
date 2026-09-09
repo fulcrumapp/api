@@ -29,10 +29,6 @@ A browser-based interface for Fulcrum's [Query API](https://developer.fulcrumapp
 
 A photo-first data exploration tool that gives you a visual way to browse and manage your Fulcrum records across multiple records simultaneously. Rather than navigating record by record in the standard editor, Explorer surfaces all your Fulcrum photos in a unified gallery view, making it easy to review field imagery, identify gaps in photo documentation, and quickly locate records by their associated images. Explorer also supports inline data editing and bulk field updates, making it useful for quality assurance and post-collection data cleanup.
 
-## [Fulcrum Dispatcher](https://dispatcher.util.fulcrumapp.com/)
-
-A map-driven bulk assignment and triage tool for Fulcrum records. Use the lasso selection tool to draw a region on the map and select a group of records, then update their status, project, or assignment all at once. Dispatcher is especially valuable for dispatch coordinators and project managers who need to reassign work orders, update job statuses after a site visit, or organize records into projects across a geographic area — all without opening each record individually.
-
 ## [Fulcrum Photo Grouper](https://photo-grouper.util.fulcrumapp.com/)
 
 Automates the process of associating bulk photo uploads with the correct Fulcrum records based on GPS metadata. Upload a batch of photos — such as imagery captured by a drone or a field camera — and Photo Grouper reads the latitude and longitude from each photo's EXIF data to automatically attach it to the nearest matching Fulcrum record. This is particularly useful for drone survey workflows, environmental inspections, and any field operation where large volumes of geo-tagged imagery need to be linked to asset or site records in Fulcrum.
