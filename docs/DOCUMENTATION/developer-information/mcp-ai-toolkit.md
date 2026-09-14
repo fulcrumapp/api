@@ -18,20 +18,20 @@ next:
 
 This page is the developer reference for Fulcrum MCP and the Fulcrum AI Toolkit. For a setup walkthrough aimed at non-technical users, see the [Fulcrum MCP & AI Toolkit (Labs)](https://help.fulcrumapp.com/en/articles/16926261-fulcrum-mcp-ai-toolkit-labs) help article.
 
-# Overview
+## Overview
 
 Fulcrum MCP is an MCP server that lets any MCP-compatible client (Claude, ChatGPT, Copilot, custom agents, etc.) build and manage Fulcrum apps and query live data.
 
 The Fulcrum AI Toolkit is a library of skills — prompt-level guidance, not a server — that teaches a client Fulcrum's platform conventions (field types, safe automation patterns, what to flag) so it uses the MCP tools correctly. The Toolkit does not bundle or configure any MCP server itself; its `mcp.json` is intentionally empty.
 
-The two install and operate independently, but are meant to be used together.
+The two install and can operate independently, but are meant to be used together.
 
-# Endpoints
+## Endpoints
 
 One endpoint per region. Use the endpoint that matches your organization's Fulcrum instance, not your physical location — there is no automatic fallback between regions.
 
 | Region | Endpoint |
-|---|---|
+| --- | --- |
 | United States (default) | `https://mcp.fulcrumapp.com/mcp` |
 | Australia | `https://mcp.fulcrumapp-au.com/mcp` |
 | Europe | `https://mcp.fulcrumapp-eu.com/mcp` |
@@ -39,19 +39,19 @@ One endpoint per region. Use the endpoint that matches your organization's Fulcr
 
 Use the `/mcp` path specifically. It's the unified endpoint that exposes both App MCP and Query MCP tools (see [Tools](#tools) below).
 
-# Transport & protocol
+## Transport & protocol
 
 Streamable HTTP, JSON-RPC 2.0. Standard MCP lifecycle:
 
-```
+```text
 initialize → notifications/initialized → tools/list / tools/call
 ```
 
-# Auth
+## Auth
 
 Bearer token only — no OAuth yet. Generate a token from your Fulcrum account settings, then send it on every request:
 
-```
+```http
 Authorization: Bearer YOUR_FULCRUM_API_TOKEN
 ```
 
@@ -73,7 +73,7 @@ Two failure modes worth calling out explicitly for implementers:
 1. **An invalid or malformed token does not produce a transport-level 401/403.** The HTTP call returns `200 OK`; the failure surfaces inside the JSON-RPC result as `isError: true`, e.g. `{"content":[{"type":"text","text":"fulcrum request failed: HTTP 401"}],"isError":true}`. Check for this — don't assume `200` means success. (A request with *no* `Authorization` header at all does get a clean `401`.)
 2. **Immediately after `initialize`, `/mcp` can return a one-time `400 invalid session ID header`.** Retrying the same request with the same session ID succeeds. This is a known backend session-affinity issue on the MCP gateway, not a client bug — implement one retry on this specific error rather than surfacing it to the user.
 
-# Tools
+## Tools
 
 `/mcp` exposes **56 tools across 17 categories**:
 
@@ -81,7 +81,7 @@ Two failure modes worth calling out explicitly for implementers:
 - **3 Query MCP tools** — read-only data access, prefixed `query-mcp_`.
 
 | Category | Tool count |
-|---|---|
+| --- | --- |
 | forms | 8 |
 | choice_lists | 5 |
 | classification_sets | 5 |
@@ -104,12 +104,12 @@ Two failure modes worth calling out explicitly for implementers:
 >
 > The table below was generated from a live `tools/list` call against `https://mcp.fulcrumapp.com/mcp` on 2026-09-11. Tool names, descriptions, and counts can drift as the server evolves — re-run `tools/list` against your own connection if this page is more than a few weeks old.
 
-## Tool reference
+### Tool reference
 
 #### Forms
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_forms_create` | Create a new Fulcrum form (app). The elements field must be built using fulcrum_schema_build_form first — do not hand-craft element JSON, as the API requires exact boolean and type-specific attributes that only the builder provides correctly. A default report template is automatically created for the new form unless skip_default_report is true. |
 | `app-mcp_fulcrum_forms_delete` | Delete a Fulcrum form by ID. This permanently removes the form and all its records. |
 | `app-mcp_fulcrum_forms_get` | Get a single Fulcrum form by ID, including its complete field schema, status field, and metadata. |
@@ -122,7 +122,7 @@ Two failure modes worth calling out explicitly for implementers:
 #### Choice Lists
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_choice_lists_create` | Create a new Fulcrum choice list with label/value pairs. |
 | `app-mcp_fulcrum_choice_lists_delete` | Delete a Fulcrum choice list by ID. |
 | `app-mcp_fulcrum_choice_lists_get` | Get a single Fulcrum choice list by ID, including all choices. |
@@ -132,7 +132,7 @@ Two failure modes worth calling out explicitly for implementers:
 #### Classification Sets
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_classification_sets_create` | Create a new Fulcrum classification set with hierarchical items. |
 | `app-mcp_fulcrum_classification_sets_delete` | Delete a Fulcrum classification set by ID. |
 | `app-mcp_fulcrum_classification_sets_get` | Get a single Fulcrum classification set by ID, including the full hierarchy. |
@@ -142,7 +142,7 @@ Two failure modes worth calling out explicitly for implementers:
 #### Projects
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_projects_create` | Create a new Fulcrum project. |
 | `app-mcp_fulcrum_projects_delete` | Delete a Fulcrum project by ID. |
 | `app-mcp_fulcrum_projects_get` | Get a single Fulcrum project by ID. |
@@ -152,7 +152,7 @@ Two failure modes worth calling out explicitly for implementers:
 #### Report Templates
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_report_templates_create` | Create a Fulcrum report template. Report Builder EJS uses form, record, organization, record.formValues.find('data_name'), RENDER/RENDERVALUES, and uppercase helpers such as FORMATDATE, PHOTOURL, SKETCHURL, SIGNATUREURL, AUDIOURL, VIDEOURL, STATICMAP, QUERY, QUERYVALUE, API, and TOJSON. |
 | `app-mcp_fulcrum_report_templates_delete` | Delete a report template by ID. |
 | `app-mcp_fulcrum_report_templates_get` | Get a single report template by ID, including its EJS body, header, footer, and CSS. |
@@ -162,7 +162,7 @@ Two failure modes worth calling out explicitly for implementers:
 #### Webhooks
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_webhooks_create` | Create a new Fulcrum webhook. Webhook URL must be HTTPS. |
 | `app-mcp_fulcrum_webhooks_delete` | Delete a Fulcrum webhook by ID. |
 | `app-mcp_fulcrum_webhooks_get` | Get a single Fulcrum webhook by ID. |
@@ -172,7 +172,7 @@ Two failure modes worth calling out explicitly for implementers:
 #### Reference Files
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_reference_files_delete` | Delete a reference file from a Fulcrum form. |
 | `app-mcp_fulcrum_reference_files_get` | Get metadata for a single reference file attached to a Fulcrum form. |
 | `app-mcp_fulcrum_reference_files_list` | List reference files attached to a Fulcrum form. Reference files are supplementary data files (HTML extensions, CSVs, JSONs, images, etc.) used by Data Events and app extensions. App extensions uploaded as reference files can be opened via OPENEXTENSION('filename.html') and work offline without external hosting. |
@@ -181,7 +181,7 @@ Two failure modes worth calling out explicitly for implementers:
 #### Expressions
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_expressions_data_events_reference` | Get the reference for Fulcrum Data Event hooks and JavaScript functions. Data Events are JavaScript scripts that run on record lifecycle events (load, new-record, edit-record, save-record, validate-record, change, etc). Shows available hooks, value manipulation functions (SETVALUE, SETHIDDEN, SETREQUIRED, etc), HTTP functions (REQUEST), and UI functions (ALERT, CONFIRM, OPENEXTENSION). |
 | `app-mcp_fulcrum_expressions_explain` | Get detailed documentation for a specific Fulcrum expression function, including parameters, return type, and usage example. |
 | `app-mcp_fulcrum_expressions_list_functions` | List Fulcrum calculation expression functions with descriptions, parameters, return types, and examples. These functions are used in CalculatedField expressions. Optionally filter by category. |
@@ -189,7 +189,7 @@ Two failure modes worth calling out explicitly for implementers:
 #### Extensions
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_extensions_explain` | Get detailed documentation for a specific app extension pattern including use cases, recommended fields, features, and required Data Event hooks. |
 | `app-mcp_fulcrum_extensions_generate` | Generate a complete app extension from a pattern. Returns three artifacts: (1) Data Event JavaScript to wire up the extension, (2) HTML template for the extension UI, and (3) setup instructions. IMPORTANT for picker pattern: the extension REPLACES native pickers — store results in a TextField (not a ChoiceField). The extension IS the picker UI. Use a HyperlinkField as the trigger button and ON('click') to open the extension. By default, extensions are designed to be uploaded as reference files via fulcrum_reference_files_upload — this makes them self-contained and available offline with no external hosting. Optionally provide extension_url to host externally instead. |
 | `app-mcp_fulcrum_extensions_list_patterns` | List available Fulcrum app extension patterns. Extensions are custom HTML views opened via OPENEXTENSION() in Data Events. Patterns include: picker (lookup/search), editor (rich editing), visualization (charts/maps), input (device/sensor), integration (backend sync). |
@@ -197,7 +197,7 @@ Two failure modes worth calling out explicitly for implementers:
 #### Schema
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_schema_build_field` | Build a valid Fulcrum field element from a high-level description. Generates a properly structured field with a unique key, required booleans, and type-specific defaults (e.g. display object for CalculatedField). Use this to construct individual fields before assembling them into fulcrum_schema_build_form. |
 | `app-mcp_fulcrum_schema_build_form` | Build a complete, API-ready Fulcrum form payload. Generates unique keys and all required attributes (hidden, disabled, required, display) for every field. Always use this to produce elements for fulcrum_forms_create — never hand-craft the JSON directly, as the API will reject incomplete fields. |
 | `app-mcp_fulcrum_schema_field_types` | List all Fulcrum field types with their properties and validation rules. Optionally filter by category (text, choice, media, datetime, layout, location, computed, relationship). Use this before creating or modifying forms to understand available field types. |
@@ -205,7 +205,7 @@ Two failure modes worth calling out explicitly for implementers:
 #### Query MCP (read-only, exclusive to `/mcp`)
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `query-mcp_form_summaries` | List the Fulcrum forms available to the current user. |
 | `query-mcp_get_form_query_tables` | Get the Query table definitions for a Fulcrum form. |
 | `query-mcp_query_records` | Run a read-only, single-line SQL query against collected Fulcrum records. Newlines are not supported. |
@@ -213,44 +213,44 @@ Two failure modes worth calling out explicitly for implementers:
 #### Layers
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_layers_get` | Get a single Fulcrum map layer by ID. |
 | `app-mcp_fulcrum_layers_list` | List Fulcrum map layers. |
 
 #### Audit Logs
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_audit_logs_list` | List audit log entries showing who performed what actions in the organization. |
 
 #### Changesets
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_changesets_list` | List changesets (batches of record creates/updates/deletes). Optionally filter by form_id. |
 
 #### Memberships
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_memberships_list` | List organization members. Useful for finding member IDs for record assignment and understanding team structure. |
 
 #### Reports
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_reports_create` | Generate/run a PDF report for a Fulcrum record. Pass record_id and optionally template_id; the response includes state and a download URL when available. |
 
 #### Roles
 
 | Tool | Description |
-|---|---|
+| --- | --- |
 | `app-mcp_fulcrum_roles_list` | List organization roles and their permissions. Useful for understanding what actions members can perform. |
 
-# AI Toolkit installation
+## AI Toolkit installation
 
 | Client | Install |
-|---|---|
+| --- | --- |
 | Claude Code | `/plugin marketplace add https://github.com/fulcrumapp/fulcrum-ai-toolkit.git`<br>`/plugin install fulcrum-ai-toolkit@fulcrum-ai-toolkit` |
 | Codex | `codex plugin marketplace add fulcrumapp/fulcrum-ai-toolkit`<br>`codex plugin add fulcrum-ai-toolkit@fulcrum-ai-toolkit` |
 | GitHub Copilot CLI | `copilot plugin marketplace add fulcrumapp/fulcrum-ai-toolkit`<br>`copilot plugin install fulcrum-ai-toolkit@fulcrum-ai-toolkit` |
@@ -260,9 +260,9 @@ Two failure modes worth calling out explicitly for implementers:
 
 The Toolkit ships 16 skills covering the build lifecycle: discovery, field/structure selection, safe automation, data-event patterns, safety-field flagging, and querying data correctly. Full skill list and source: [github.com/fulcrumapp/fulcrum-ai-toolkit](https://github.com/fulcrumapp/fulcrum-ai-toolkit).
 
-# Known limitations (Labs)
+## Known limitations (Labs)
 
 | Issue | Behavior | Workaround |
-|---|---|---|
+| --- | --- | --- |
 | Invalid/malformed token | Returns transport-level `200 OK`; failure is `isError: true` inside the JSON-RPC result, not an HTTP 401/403. | Check `isError` on every `tools/call` response — don't infer success from the HTTP status alone. |
-| Post-`initialize` session error | `/mcp` can return a one-time `400 invalid session ID header` on the request immediately after `initialize`. | Retry once with the same session ID. Known backend session-affinity issue on the MCP gateway, not a client bug. |
+| Post-`initialize` session error | `/mcp` can return a one-time `400 invalid session ID header` on the request immediately after `initialize`. | Retry once with the same session ID. This is a known backend session-affinity issue on the MCP gateway. |
