@@ -32,12 +32,12 @@ One endpoint per region. Use the endpoint that matches your organization's Fulcr
 
 | Region | Endpoint |
 | --- | --- |
-| United States (default) | `https://mcp.fulcrumapp.com/mcp` |
-| Australia | `https://mcp.fulcrumapp-au.com/mcp` |
-| Europe | `https://mcp.fulcrumapp-eu.com/mcp` |
-| Canada | `https://mcp.fulcrumapp-ca.com/mcp` |
+| United States (default) | `https://mcp.fulcrumapp.com` |
+| Australia | `https://mcp.fulcrumapp-au.com` |
+| Europe | `https://mcp.fulcrumapp-eu.com` |
+| Canada | `https://mcp.fulcrumapp-ca.com` |
 
-Use the `/mcp` path specifically. It's the unified endpoint that exposes both App MCP and Query MCP tools (see [Tools](#tools) below).
+This is the unified endpoint that exposes both App MCP and Query MCP tools (see [Tools](#tools) below).
 
 ## Transport & protocol
 
@@ -61,7 +61,7 @@ Minimal config example:
 {
   "mcpServers": {
     "fulcrum": {
-      "url": "https://mcp.fulcrumapp.com/mcp",
+      "url": "https://mcp.fulcrumapp.com",
       "headers": { "Authorization": "Bearer YOUR_FULCRUM_API_TOKEN" }
     }
   }
@@ -71,11 +71,11 @@ Minimal config example:
 Two failure modes worth calling out explicitly for implementers:
 
 1. **An invalid or malformed token does not produce a transport-level 401/403.** The HTTP call returns `200 OK`; the failure surfaces inside the JSON-RPC result as `isError: true`, e.g. `{"content":[{"type":"text","text":"fulcrum request failed: HTTP 401"}],"isError":true}`. Check for this — don't assume `200` means success. (A request with *no* `Authorization` header at all does get a clean `401`.)
-2. **Immediately after `initialize`, `/mcp` can return a one-time `400 invalid session ID header`.** Retrying the same request with the same session ID succeeds. This is a known backend session-affinity issue on the MCP gateway, not a client bug — implement one retry on this specific error rather than surfacing it to the user.
+2. **Immediately after `initialize`, MCP can return a one-time `400 invalid session ID header`.** Retrying the same request with the same session ID succeeds. This is a known backend session-affinity issue on the MCP gateway, not a client bug — implement one retry on this specific error rather than surfacing it to the user.
 
 ## Tools
 
-`/mcp` exposes **56 tools across 17 categories**:
+MCP exposes **56 tools across 17 categories**:
 
 - **53 App MCP tools** — building/managing apps (forms, choice lists, webhooks, extensions, report templates, schema, etc.), prefixed `app-mcp_`.
 - **3 Query MCP tools** — read-only data access, prefixed `query-mcp_`.
@@ -102,7 +102,7 @@ Two failure modes worth calling out explicitly for implementers:
 
 > 📘 Generated from a live `tools/list` call
 >
-> The table below was generated from a live `tools/list` call against `https://mcp.fulcrumapp.com/mcp` on 2026-09-11. Tool names, descriptions, and counts can drift as the server evolves — re-run `tools/list` against your own connection if this page is more than a few weeks old.
+> The table below was generated from a live `tools/list` call against `https://mcp.fulcrumapp.com` on 2026-09-11. Tool names, descriptions, and counts can drift as the server evolves — re-run `tools/list` against your own connection if this page is more than a few weeks old.
 
 ### Tool reference
 
@@ -202,7 +202,7 @@ Two failure modes worth calling out explicitly for implementers:
 | `app-mcp_fulcrum_schema_build_form` | Build a complete, API-ready Fulcrum form payload. Generates unique keys and all required attributes (hidden, disabled, required, display) for every field. Always use this to produce elements for fulcrum_forms_create — never hand-craft the JSON directly, as the API will reject incomplete fields. |
 | `app-mcp_fulcrum_schema_field_types` | List all Fulcrum field types with their properties and validation rules. Optionally filter by category (text, choice, media, datetime, layout, location, computed, relationship). Use this before creating or modifying forms to understand available field types. |
 
-#### Query MCP (read-only, exclusive to `/mcp`)
+#### Query MCP (read-only, exclusive to MCP)
 
 | Tool | Description |
 | --- | --- |
@@ -265,4 +265,4 @@ The Toolkit ships 16 skills covering the build lifecycle: discovery, field/struc
 | Issue | Behavior | Workaround |
 | --- | --- | --- |
 | Invalid/malformed token | Returns transport-level `200 OK`; failure is `isError: true` inside the JSON-RPC result, not an HTTP 401/403. | Check `isError` on every `tools/call` response — don't infer success from the HTTP status alone. |
-| Post-`initialize` session error | `/mcp` can return a one-time `400 invalid session ID header` on the request immediately after `initialize`. | Retry once with the same session ID. This is a known backend session-affinity issue on the MCP gateway. |
+| Post-`initialize` session error | Fulcrum MCP can return a one-time `400 invalid session ID header` on the request immediately after `initialize`. | Retry once with the same session ID. This is a known backend session-affinity issue on the MCP gateway. |
