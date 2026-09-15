@@ -32,10 +32,10 @@ One endpoint per region. Use the endpoint that matches your organization's Fulcr
 
 | Region | Endpoint |
 | --- | --- |
-| United States (default) | `https://mcp.fulcrumapp.com/mcp` |
-| Australia | `https://mcp.fulcrumapp-au.com/mcp` |
-| Europe | `https://mcp.fulcrumapp-eu.com/mcp` |
-| Canada | `https://mcp.fulcrumapp-ca.com/mcp` |
+| United States (default) | `https://mcp.fulcrumapp.com` |
+| Australia | `https://mcp.fulcrumapp-au.com` |
+| Europe | `https://mcp.fulcrumapp-eu.com` |
+| Canada | `https://mcp.fulcrumapp-ca.com` |
 
 Use the `/mcp` path specifically. It's the unified endpoint that exposes both App MCP and Query MCP tools (see [Tools](#tools) below).
 
@@ -61,7 +61,7 @@ Minimal config example:
 {
   "mcpServers": {
     "fulcrum": {
-      "url": "https://mcp.fulcrumapp.com/mcp",
+      "url": "https://mcp.fulcrumapp.com",
       "headers": { "Authorization": "Bearer YOUR_FULCRUM_API_TOKEN" }
     }
   }
@@ -102,7 +102,7 @@ Two failure modes worth calling out explicitly for implementers:
 
 > 📘 Generated from a live `tools/list` call
 >
-> The table below was generated from a live `tools/list` call against `https://mcp.fulcrumapp.com/mcp` on 2026-09-11. Tool names, descriptions, and counts can drift as the server evolves — re-run `tools/list` against your own connection if this page is more than a few weeks old.
+> The table below was generated from a live `tools/list` call against `https://mcp.fulcrumapp.com` on 2026-09-11. Tool names, descriptions, and counts can drift as the server evolves — re-run `tools/list` against your own connection if this page is more than a few weeks old.
 
 ### Tool reference
 
@@ -265,4 +265,4 @@ The Toolkit ships 16 skills covering the build lifecycle: discovery, field/struc
 | Issue | Behavior | Workaround |
 | --- | --- | --- |
 | Invalid/malformed token | Returns transport-level `200 OK`; failure is `isError: true` inside the JSON-RPC result, not an HTTP 401/403. | Check `isError` on every `tools/call` response — don't infer success from the HTTP status alone. |
-| Post-`initialize` session error | `/mcp` can return a one-time `400 invalid session ID header` on the request immediately after `initialize`. | Retry once with the same session ID. This is a known backend session-affinity issue on the MCP gateway. |
+| Post-`initialize` session error | Fulcrum MCP can return a one-time `400 invalid session ID header` on the request immediately after `initialize`. | Retry once with the same session ID. This is a known backend session-affinity issue on the MCP gateway. |
