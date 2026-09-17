@@ -24,7 +24,7 @@ Fulcrum MCP is an MCP server that lets any MCP-compatible client (Claude, ChatGP
 
 The Fulcrum AI Toolkit is a library of skills — prompt-level guidance, not a server — that teaches a client Fulcrum's platform conventions (field types, safe automation patterns, what to flag) so it uses the MCP tools correctly. The Toolkit currently does not bundle or configure any MCP server itself; its `mcp.json` is intentionally empty.
 
-The two install and can operate independently, but are meant to be used together.
+The two can be installed and operated independently, but are meant to be used together.
 
 ## Endpoints
 
