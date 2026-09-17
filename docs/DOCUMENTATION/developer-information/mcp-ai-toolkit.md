@@ -78,7 +78,7 @@ Two failure modes worth calling out explicitly for implementers:
 App MCP tools help with building/managing apps (forms, choice lists, webhooks, extensions, report templates, schema, etc.) and are prefixed with `app-mcp_`.
 Query MCP tools provide read-only data access, and are prefixed with `query-mcp_`.
 
-Generate a `tools/list` call to view the current complete list.
+ To see the current complete list, first connect your MCP-compatible client to Fulcrum, then open that client’s MCP tools/server inspector and view the tools exposed by the connected server. In clients that expose raw MCP protocol methods instead of a tools browser, send the MCP `tools/list` request over the established client connection and inspect the response there.
 
 ## AI Toolkit installation
 
