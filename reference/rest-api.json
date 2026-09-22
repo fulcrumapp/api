@@ -269,6 +269,11 @@
               }
             }
           },
+          "gps_device_capture": {
+            "$ref": "#/components/schemas/GpsDeviceCaptureBase",
+            "nullable": true,
+            "description": "Flexible GPS device metadata captured with the record."
+          },
           "speed": {
             "type": "number",
             "nullable": true,
@@ -458,6 +463,11 @@
           "geometry": {
             "$ref": "#/components/schemas/Geometry"
           },
+          "gps_device_capture": {
+            "$ref": "#/components/schemas/GpsDeviceCaptureBase",
+            "nullable": true,
+            "description": "Flexible GPS device metadata captured with the record."
+          },
           "speed": {
             "type": "number",
             "nullable": true
@@ -510,6 +520,65 @@
           }
         },
         "description": "Location metadata captured at creation or update time."
+      },
+      "GpsDeviceCaptureBase": {
+        "type": "object",
+        "description": "Flexible GPS device metadata captured with a record.",
+        "additionalProperties": true,
+        "properties": {
+          "device_name": {
+            "type": "string",
+            "description": "Name of the GPS device"
+          },
+          "manufacturer": {
+            "type": "string",
+            "description": "Manufacturer of the GPS device"
+          },
+          "fix_type": {
+            "type": "string",
+            "description": "Type of GPS fix"
+          },
+          "satellite_count": {
+            "type": "integer",
+            "description": "Number of satellites used for the fix"
+          },
+          "hdop": {
+            "type": "number",
+            "description": "Horizontal dilution of precision"
+          },
+          "vdop": {
+            "type": "number",
+            "description": "Vertical dilution of precision"
+          },
+          "pdop": {
+            "type": "number",
+            "description": "Position dilution of precision"
+          },
+          "differential_correction": {
+            "type": "boolean",
+            "description": "Whether differential correction was used"
+          },
+          "antenna_height": {
+            "type": "number",
+            "description": "Antenna height in meters"
+          },
+          "firmware_version": {
+            "type": "string",
+            "description": "Device firmware version"
+          },
+          "geometry": {
+            "$ref": "#/components/schemas/Geometry",
+            "description": "GPS-captured geometry reference."
+          }
+        }
+      },
+      "GpsDeviceCaptureRequest": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/GpsDeviceCaptureBase"
+          }
+        ],
+        "description": "GPS device metadata accepted during create/update. Known keys are documented and additional device-specific keys are accepted."
       },
       "AttachmentCopyAllRequest": {
         "type": "object",
@@ -3202,7 +3271,7 @@
             }
           },
           "status_field": {
-            "description": "Configuration for the built-in status field. Omit to use the default status field settings.",
+            "description": "Configuration for the built-in status field. For new forms, omit this property to use the default status field settings. For updates, omit this property to preserve the form's existing status field configuration. Set it to null to clear the status field.",
             "oneOf": [
               {
                 "type": "null"
@@ -3607,6 +3676,101 @@
           "layer"
         ]
       },
+      "Layer": {
+        "type": "object",
+        "description": "Layer returned by the API",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the layer"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true,
+            "description": "Description of the layer"
+          },
+          "type": {
+            "type": "string",
+            "description": "Layer type (e.g., fulcrum, xyz, tilejson, geojson, mbtiles, wms, feature-service)"
+          },
+          "source": {
+            "type": "string",
+            "description": "Source URL or data for the layer"
+          },
+          "bounds": {
+            "type": "array",
+            "nullable": true,
+            "description": "Layer bounds",
+            "items": {
+              "type": "number"
+            }
+          },
+          "center": {
+            "type": "number",
+            "nullable": true,
+            "description": "Layer center"
+          },
+          "maxzoom": {
+            "type": "number",
+            "nullable": true,
+            "description": "Maximum layer zoom"
+          },
+          "minzoom": {
+            "type": "number",
+            "nullable": true,
+            "description": "Minimum layer zoom"
+          },
+          "access_token": {
+            "type": "string",
+            "nullable": true,
+            "description": "Layer access token"
+          },
+          "id": {
+            "type": "string",
+            "description": "Layer ID"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the layer was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Timestamp when the layer was last updated"
+          },
+          "file_size": {
+            "type": "integer",
+            "nullable": true,
+            "description": "File size in bytes, when applicable"
+          },
+          "file_version": {
+            "type": "integer",
+            "description": "Number of times the layer file has changed; 0 for layers without files",
+            "readOnly": true,
+            "minimum": 0
+          }
+        }
+      },
+      "LayerResponse": {
+        "type": "object",
+        "properties": {
+          "layer": {
+            "$ref": "#/components/schemas/Layer"
+          }
+        }
+      },
+      "LayerListResponse": {
+        "type": "object",
+        "properties": {
+          "layers": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Layer"
+            }
+          }
+        }
+      },
       "MembershipCreateRequest": {
         "type": "object",
         "properties": {
@@ -3798,6 +3962,11 @@
                 "$ref": "#/components/schemas/Geometry",
                 "description": "Optional GeoJSON geometry (Point, LineString, Polygon, MultiLineString, or MultiPolygon). If provided, latitude/longitude will be updated to reflect this geometry."
               },
+              "gps_device_capture": {
+                "$ref": "#/components/schemas/GpsDeviceCaptureRequest",
+                "nullable": true,
+                "description": "Flexible GPS device metadata captured with the record. Set null to clear metadata."
+              },
               "form_values": {
                 "type": "object",
                 "description": "Field values keyed by field key",
@@ -3842,6 +4011,11 @@
               "geometry": {
                 "$ref": "#/components/schemas/Geometry",
                 "description": "Optional GeoJSON geometry (Point, LineString, Polygon, MultiLineString, or MultiPolygon). If provided, latitude/longitude will be updated to reflect this geometry."
+              },
+              "gps_device_capture": {
+                "$ref": "#/components/schemas/GpsDeviceCaptureRequest",
+                "nullable": true,
+                "description": "Flexible GPS device metadata captured with the record. Set null to clear metadata."
               },
               "form_values": {
                 "type": "object",
@@ -6496,7 +6670,7 @@
                           "created_duration": 116,
                           "created_location": null,
                           "edited_duration": 119,
-                          "form_id": "aa9816b6-ebec-4f14-88df-7v5844c2237d",
+                          "form_id": "aa9816b6-ebec-4f14-88df-775844c2237d",
                           "form_values": {
                             "31e8": {
                               "admin_area": "Illinois",
@@ -6518,6 +6692,20 @@
                               0
                             ],
                             "type": "Point"
+                          },
+                          "gps_device_capture": {
+                            "device_name": "Trimble R2",
+                            "manufacturer": "Trimble",
+                            "fix_type": "RTK",
+                            "satellite_count": 14,
+                            "hdop": 0.8,
+                            "geometry": {
+                              "type": "Point",
+                              "coordinates": [
+                                -82.638039,
+                                27.770787
+                              ]
+                            }
                           },
                           "horizontal_accuracy": null,
                           "id": "da5fafc4-2e69-4c8c-a6bb-831d9e124a30",
@@ -6777,6 +6965,32 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RecordRequest"
+              },
+              "examples": {
+                "With GPS device capture": {
+                  "value": {
+                    "record": {
+                      "form_id": "aa9816b6-ebec-4f14-88df-775844c2237d",
+                      "latitude": 27.770787,
+                      "longitude": -82.638039,
+                      "gps_device_capture": {
+                        "device_name": "Trimble R2",
+                        "manufacturer": "Trimble",
+                        "fix_type": "RTK",
+                        "satellite_count": 14,
+                        "hdop": 0.8,
+                        "geometry": {
+                          "type": "Point",
+                          "coordinates": [
+                            -82.638039,
+                            27.770787
+                          ]
+                        }
+                      },
+                      "form_values": {}
+                    }
+                  }
+                }
               }
             }
           }
@@ -6803,7 +7017,7 @@
                         "created_duration": 116,
                         "created_location": null,
                         "edited_duration": 119,
-                        "form_id": "aa9816b6-ebec-4f14-88df-7v5844c2237d",
+                        "form_id": "aa9816b6-ebec-4f14-88df-775844c2237d",
                         "form_values": {
                           "31e8": {
                             "admin_area": "Illinois",
@@ -6825,6 +7039,20 @@
                             0
                           ],
                           "type": "Point"
+                        },
+                        "gps_device_capture": {
+                          "device_name": "Trimble R2",
+                          "manufacturer": "Trimble",
+                          "fix_type": "RTK",
+                          "satellite_count": 14,
+                          "hdop": 0.8,
+                          "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                              -82.638039,
+                              27.770787
+                            ]
+                          }
                         },
                         "horizontal_accuracy": null,
                         "id": "da5fafc4-2e69-4c8c-a6bb-831d9e194a30",
@@ -6912,7 +7140,7 @@
                         "created_duration": 116,
                         "created_location": null,
                         "edited_duration": 119,
-                        "form_id": "aa9816b6-ebec-4f14-88df-7v5844c2237d",
+                        "form_id": "aa9816b6-ebec-4f14-88df-775844c2237d",
                         "form_values": {
                           "31e8": {
                             "admin_area": "Illinois",
@@ -6934,6 +7162,20 @@
                             0
                           ],
                           "type": "Point"
+                        },
+                        "gps_device_capture": {
+                          "device_name": "Trimble R2",
+                          "manufacturer": "Trimble",
+                          "fix_type": "RTK",
+                          "satellite_count": 14,
+                          "hdop": 0.8,
+                          "geometry": {
+                            "type": "Point",
+                            "coordinates": [
+                              -82.638039,
+                              27.770787
+                            ]
+                          }
                         },
                         "horizontal_accuracy": null,
                         "id": "da5fafc4-2e69-4c8c-a6bb-831d9e194a30",
@@ -7054,6 +7296,32 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RecordRequest"
+              },
+              "examples": {
+                "With GPS device capture": {
+                  "value": {
+                    "record": {
+                      "form_id": "aa9816b6-ebec-4f14-88df-775844c2237d",
+                      "latitude": 27.770787,
+                      "longitude": -82.638039,
+                      "gps_device_capture": {
+                        "device_name": "Trimble R2",
+                        "manufacturer": "Trimble",
+                        "fix_type": "RTK",
+                        "satellite_count": 14,
+                        "hdop": 0.8,
+                        "geometry": {
+                          "type": "Point",
+                          "coordinates": [
+                            -82.638039,
+                            27.770787
+                          ]
+                        }
+                      },
+                      "form_values": {}
+                    }
+                  }
+                }
               }
             }
           }
@@ -7136,6 +7404,28 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/RecordPatchRequest"
+              },
+              "examples": {
+                "With GPS device capture": {
+                  "value": {
+                    "record": {
+                      "gps_device_capture": {
+                        "device_name": "Trimble R2",
+                        "manufacturer": "Trimble",
+                        "fix_type": "RTK",
+                        "satellite_count": 14,
+                        "hdop": 0.8,
+                        "geometry": {
+                          "type": "Point",
+                          "coordinates": [
+                            -82.638039,
+                            27.770787
+                          ]
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
@@ -8248,7 +8538,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/LayerListResponse"
                 }
               }
             }
@@ -8303,7 +8593,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/LayerResponse"
                 }
               }
             }
@@ -8352,7 +8642,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/LayerResponse"
                 }
               }
             }
@@ -8416,7 +8706,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/LayerResponse"
                 }
               }
             }

@@ -12,7 +12,7 @@ next:
 ---
 The Layers API gives you access to the [map layers](http://help.fulcrumapp.com/maps-and-layers/general/how-do-you-add-a-map-layer-to-fulcrum) within your Fulcrum account.
 
-# Properties
+## Properties
 
 | Property      | Type   | Required | Readonly | Description                                                                      |
 | ------------- | ------ | -------- | -------- | -------------------------------------------------------------------------------- |
@@ -29,8 +29,9 @@ The Layers API gives you access to the [map layers](http://help.fulcrumapp.com/m
 | created\_at   | string | no       | yes      | Timestamp when the layer was created.                                            |
 | updated\_at   | string | no       | yes      | Timestamp when the layer was last updated.                                       |
 | file\_size    | number | no       | yes      | The file size (for mbtiles).                                                     |
+| file\_version | number | no       | yes      | File change count; `0` for layers without files.                                 |
 
-# Validations
+## Validations
 
 The following properties must be included in order to create/update a layer object in our system. Any validation errors will return a `422` and an object with a list of validation errors.
 
@@ -56,12 +57,12 @@ Example validation response if `type` is not included:
 }
 ```
 
-# Notes
+## Notes
 
 * The entire layer object is required when making an update. Omitting fields with existing data will result in data loss! The typical workflow for updating an existing layer is to fetch the layer object, modify it, and then submit the PUT request.
 * For more information on uploading MBTiles files, please see [AWS Interactions](https://docs.fulcrumapp.com/reference/aws-interactions)
 
-# Sample Response
+## Sample Response
 
 ```json
 {
@@ -78,12 +79,13 @@ Example validation response if `type` is not included:
     "created_at": "2014-10-22T17:07:53Z",
     "updated_at": "2014-10-24T19:21:05Z",
     "type": "xyz",
-    "file_size": 0
+    "file_size": 0,
+    "file_version": 0
   }
 }
 ```
 
-# Here's an example of how to upload an MBTiles file in python
+## Here's an example of how to upload an MBTiles file in python
 
 ```python
 import requests
