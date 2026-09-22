@@ -50,7 +50,7 @@ names, required properties, enum values, and nested object shapes; then map thos
 actual current OpenAPI schemas listed above.
 | `FormHyperlinkFieldElement` | `HyperlinkField` |
 | `FormCalculatedFieldElement` | `CalculatedField` — expression, display, default_values |
-| `FormRecordLinkFieldElement` | `RecordLinkField` — allow_existing_records, linked_form_id, etc. |
+| `FormRecordLinkFieldElement` | `RecordLinkField` — required `form_id`; at least one of `allow_existing_records` or `allow_creating_records` must be true. Do not document `linked_form_id` as the element attribute. |
 | `FormAttachmentFieldElement` | `AttachmentField` |
 | `FormCheckboxFieldElement` | `CheckboxField` |
 | `FormDynamicFieldElement` | `DynamicField` |

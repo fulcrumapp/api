@@ -2855,13 +2855,14 @@
         ]
       },
       "FormRecordLinkFieldElement": {
-        "description": "A field that links to records in another Fulcrum form.",
+        "description": "A field that links to records in another Fulcrum form. The element attribute is form_id. At least one of allow_existing_records or allow_creating_records must be true; the API does not apply a default when both are omitted.",
         "allOf": [
           {
             "$ref": "#/components/schemas/FormBaseElement"
           },
           {
             "type": "object",
+            "required": ["form_id"],
             "properties": {
               "type": {
                 "type": "string",
@@ -2869,15 +2870,17 @@
                   "RecordLinkField"
                 ]
               },
+              "form_id": {
+                "type": "string",
+                "description": "Resource ID of an existing form in this account whose records can be linked. linked_form_id is not a Forms API element attribute."
+              },
               "allow_existing_records": {
                 "type": "boolean",
-                "description": "Allow linking to existing records",
-                "default": true
+                "description": "Allow linking to existing records. At least one of allow_existing_records or allow_creating_records must be true."
               },
               "allow_creating_records": {
                 "type": "boolean",
-                "description": "Allow creating new linked records inline",
-                "default": false
+                "description": "Allow creating new linked records inline in the mobile app. This is a schema flag, not a record-creation API. At least one of allow_existing_records or allow_creating_records must be true."
               },
               "allow_updating_records": {
                 "type": "boolean",
@@ -2888,10 +2891,6 @@
                 "type": "boolean",
                 "description": "Allow saving without selecting a linked record",
                 "default": true
-              },
-              "linked_form_id": {
-                "type": "string",
-                "description": "ID of the form that records can be linked from"
               }
             }
           }
