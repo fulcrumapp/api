@@ -62,4 +62,4 @@ if (duration !== null && duration < 10) {
 - Measures the wall-clock time between when the new record was opened and when it was first saved. It does not exclude time when the app was backgrounded.
 - Returns `null` for records created on the Fulcrum web app.
 - Returns `null` if the mobile app did not capture duration data (for example, records created with older versions of the app).
-- This value is fixed after first save. It does not update on subsequent edits. To measure time spent on updates, use `this.featureUpdatedDuration` or `this.featureEditedDuration`.
+- This value is fixed after first save. It does not update on subsequent edits. Use `this.featureUpdatedDuration` for the most recent mobile session, or `this.featureEditedDuration` for cumulative time that includes creation and all later mobile updates.

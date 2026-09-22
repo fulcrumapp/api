@@ -44,6 +44,10 @@
 - calculations-ref-fieldnames
 - calculations-ref-fields
 - calculations-ref-fieldtype
+- feature-created-duration
+- feature-created-location-properties
+- feature-duration-properties
+- feature-updated-location-properties
 - calculations-ref-find
 - calculations-ref-first
 - calculations-ref-fixed

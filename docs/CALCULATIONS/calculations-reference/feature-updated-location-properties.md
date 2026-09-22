@@ -39,12 +39,31 @@ this.featureUpdatedLatitude
 ```
 
 ```js
-// Calculate distance moved between creation and last update (approximate, flat-earth)
-var latDiff = this.featureUpdatedLatitude - this.featureCreatedLatitude;
-var lonDiff = this.featureUpdatedLongitude - this.featureCreatedLongitude;
-var approxMeters = Math.sqrt(latDiff * latDiff + lonDiff * lonDiff) * 111320;
-SETRESULT(ROUND(approxMeters, 1) + 'm');
+// Approximate local distance, scaling longitude by the cosine of mean latitude
+var createdLat = this.featureCreatedLatitude;
+var createdLon = this.featureCreatedLongitude;
+var updatedLat = this.featureUpdatedLatitude;
+var updatedLon = this.featureUpdatedLongitude;
+
+if (createdLat !== null && createdLon !== null &&
+    updatedLat !== null && updatedLon !== null) {
+  var meanLat = ((createdLat + updatedLat) / 2) * Math.PI / 180;
+  var latMeters = (updatedLat - createdLat) * 111320;
+  var lonDiff = updatedLon - createdLon;
+  if (lonDiff > 180) {
+    lonDiff -= 360;
+  } else if (lonDiff < -180) {
+    lonDiff += 360;
+  }
+  var lonMeters = lonDiff * 111320 * Math.cos(meanLat);
+  var approxMeters = Math.sqrt(latMeters * latMeters + lonMeters * lonMeters);
+  SETRESULT(ROUND(approxMeters, 1) + 'm');
+} else {
+  SETRESULT('Distance unavailable');
+}
 ```
+
+This equirectangular approximation accounts for the shorter east-west distance at higher latitudes and is intended for local distances.
 
 ## Notes
 
