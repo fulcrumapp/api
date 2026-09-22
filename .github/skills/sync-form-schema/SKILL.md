@@ -50,7 +50,9 @@ names, required properties, enum values, and nested object shapes; then map thos
 actual current OpenAPI schemas listed above.
 | `FormHyperlinkFieldElement` | `HyperlinkField` |
 | `FormCalculatedFieldElement` | `CalculatedField` — expression, display, default_values |
-| `FormRecordLinkFieldElement` | `RecordLinkField` — required `form_id`; at least one of `allow_existing_records` or `allow_creating_records` must be true. Do not document `linked_form_id` as the element attribute. |
+| `FormRecordLinkFieldElement` | `RecordLinkField` — see the RecordLinkField exception below. Do not document `linked_form_id` or `allow_empty_records`. |
+| `FormRecordLinkCondition` | `record_conditions` item — `linked_form_field_key`, `operator`, and either `value` or `value_field_key` |
+| `FormRecordLinkDefault` | `record_defaults` item — `source_field_key` and `destination_field_key` |
 | `FormAttachmentFieldElement` | `AttachmentField` |
 | `FormCheckboxFieldElement` | `CheckboxField` |
 | `FormDynamicFieldElement` | `DynamicField` |
@@ -68,6 +70,21 @@ actual current OpenAPI schemas listed above.
 | `FormClassificationItem` | Hierarchical classification item (recursive) |
 | `FormYesNoOption` | Yes/No option shape |
 | `FormCalculatedDisplay` | Calculated field display style |
+
+## RecordLinkField exception
+
+`FormRecordLinkFieldElement` is aligned with the Rails Forms API, not with fulcrum-schema fixtures, fulcrum-schema sync notes, or an older OpenAPI draft. A sync must not restore `linked_form_id` or `allow_empty_records`. Those are not Rails attributes. `ElementParser` drops unknown keys. Saving without a link is the universal `required` boolean, not a RecordLink property.
+
+Contract: `fulcrumapp/fulcrum` `app/classes/form/record_link_field.rb`, `app/classes/form/record_link_condition.rb`, `app/classes/form/record_link_default.rb`, and `app/models/validators/form/record_link_fields.rb`.
+
+- `form_id` is required. It must be a string resource id of an existing form in the account.
+- At least one of `allow_existing_records` or `allow_creating_records` must be true. Describe that constraint in prose. Do not add an OpenAPI `default` for any allow flag. The API does not fill in a missing allow flag.
+- Persisted attributes are `form_id`, `allow_creating_records`, `allow_existing_records`, `allow_updating_records`, `allow_multiple_records`, `record_conditions_type`, `record_conditions`, `record_defaults`, and `default_previous_value`.
+- Omitted `allow_updating_records` and `allow_multiple_records` are stored as false. `record_defaults` are ignored when `allow_multiple_records` is true.
+- `record_conditions` items are `linked_form_field_key`, `operator`, and either `value` or `value_field_key`.
+- `record_defaults` items are `source_field_key` and `destination_field_key`.
+- The account plan must have record links enabled, or the form is rejected.
+- Form builder defaults are not API defaults: `allow_existing_records` true; `allow_creating_records`, `allow_updating_records`, and `allow_multiple_records` false.
 
 ## Sync Workflow
 
