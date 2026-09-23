@@ -2856,7 +2856,7 @@
       },
       "FormRecordLinkCondition": {
         "type": "object",
-        "description": "A filter on which records from the linked form can be selected. Rails does not require these keys on input: missing linked_form_field_key or operator is serialized as null. The serialized item contains value_field_key when it is set; otherwise it contains value (which may be null).",
+        "description": "A filter on which records from the linked form can be selected. Rails does not require these keys on input: missing linked_form_field_key or operator is serialized as null, and unknown input keys are dropped rather than rejected. Input may contain both value and value_field_key; when value_field_key is set, only it is serialized, otherwise value (possibly null) is serialized.",
         "properties": {
           "linked_form_field_key": {
             "type": [
@@ -2894,7 +2894,7 @@
       },
       "FormRecordLinkDefault": {
         "type": "object",
-        "description": "Copies a value from a field on this form into a field on a newly created linked record. Rails does not require either key on input; missing keys are serialized as null. Ignored and not stored when allow_multiple_records is true.",
+        "description": "Copies a value from a field on this form into a field on a newly created linked record. Rails does not require either key on input; missing keys are serialized as null and unknown input keys are dropped rather than rejected. Ignored and not stored when allow_multiple_records is true.",
         "properties": {
           "source_field_key": {
             "type": [
@@ -2913,7 +2913,7 @@
         }
       },
       "FormRecordLinkFieldElement": {
-        "description": "A field that links to records in another form in this account. form_id is required and must be the resource id of an existing form. At least one of allow_existing_records or allow_creating_records must be true. The API does not apply a default when an allow flag is omitted. The account plan must have record links enabled, or the form is rejected. Unknown keys are dropped. Saving without a link is the universal required boolean, not a RecordLink property. linked_form_id and allow_empty_records are not element attributes.",
+        "description": "A field that links to records in another form in this account. form_id is required and must be the resource id of an existing form. At least one of allow_existing_records or allow_creating_records must be true; neither is implicitly enabled when omitted. Omitted allow_updating_records and allow_multiple_records are stored as false. The account plan must have record links enabled, or the form is rejected. Unknown keys are dropped. Saving without a link is the universal required boolean, not a RecordLink property. linked_form_id and allow_empty_records are not element attributes.",
         "allOf": [
           {
             "$ref": "#/components/schemas/FormBaseElement"
