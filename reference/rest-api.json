@@ -2955,12 +2955,7 @@
                   "string",
                   "null"
                 ],
-                "description": "Whether all or any record_conditions must match. Null when there are no conditions. When conditions are present and this is omitted or not \"all\", it is stored as \"any\".",
-                "enum": [
-                  "all",
-                  "any",
-                  null
-                ]
+                "description": "Whether all or any record_conditions must match. Null when there are no conditions. With conditions present, \"all\" is stored as \"all\"; an omitted value or any other string is stored as \"any\". Responses contain \"all\", \"any\", or null."
               },
               "record_conditions": {
                 "type": [
