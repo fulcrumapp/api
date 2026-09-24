@@ -97,7 +97,7 @@
       },
       "RecordsSearchRequest": {
         "type": "object",
-        "description": "All properties are optional filters. Unknown properties are ignored; a recognized filter that is only supported by the other search endpoint returns 400. The JSON body uses the same filters and semantics as the matching GET collection action.",
+        "description": "All properties are optional filters. The JSON body is passed to the same existing collection action as the matching GET route. Property schemas describe expected inputs; POST does not add endpoint-specific field or type validation.",
         "properties": {
           "record_id": {
             "type": "string",
@@ -225,18 +225,18 @@
           },
           "include_record_links": {
             "type": "boolean",
-            "description": "When true, include record_links using the existing GET behavior."
+            "description": "When true, include record_links using the existing behavior; false disables this option."
           },
           "return_form_values_raw": {
             "type": "boolean",
-            "description": "When true, return raw form values using the existing GET behavior."
+            "description": "When true, return raw form values using the existing behavior; false disables this option."
           }
         },
         "additionalProperties": true
       },
       "RecordsHistorySearchRequest": {
         "type": "object",
-        "description": "All properties are optional filters. Unknown properties are ignored; a recognized filter that is only supported by the other search endpoint returns 400. The JSON body uses the same filters and semantics as the matching GET collection action.",
+        "description": "All properties are optional filters. The JSON body is passed to the same existing collection action as the matching GET route. Property schemas describe expected inputs; POST does not add endpoint-specific field or type validation.",
         "properties": {
           "record_id": {
             "type": "string",
@@ -340,18 +340,18 @@
           },
           "return_form_values_raw": {
             "type": "boolean",
-            "description": "When true, return raw form values using the existing GET behavior."
+            "description": "When true, return raw form values using the existing behavior; false disables this option."
           },
           "for_sync": {
             "type": "boolean",
-            "description": "When true, apply the existing sync access and project/assignment masking behavior."
+            "description": "When true, apply the existing sync access and project/assignment masking behavior; false disables this option."
           }
         },
         "additionalProperties": true
       },
       "RecordsSyncSearchErrorResponse": {
         "type": "object",
-        "description": "Structured validation or ingress error response for the records sync search endpoints.",
+        "description": "Structured ingress error response for an oversized records sync search request.",
         "required": [
           "errors"
         ],
@@ -369,9 +369,7 @@
                 "code": {
                   "type": "string",
                   "enum": [
-                    "invalid_request",
-                    "request_too_large",
-                    "unsupported_media_type"
+                    "request_too_large"
                   ]
                 },
                 "message": {
@@ -7392,7 +7390,7 @@
     "/v2/records/search": {
       "post": {
         "summary": "Search records for sync",
-        "description": "Search authorized records using the same collection behavior as GET /v2/records.json. Authentication, record authorization, filter scopes, ascending updated_at ordering, sequence handling, and pagination are unchanged. A present non-empty newest_first string requests descending updated_at ordering regardless of its value. include_record_links and return_form_values_raw are JSON booleans; true enables the corresponding existing response behavior. The page-size limit remains 20000. A recognized history-only filter returns 400.",
+        "description": "Search authorized records using the same collection behavior as GET /v2/records.json. Authentication, record authorization, filter scopes, ascending updated_at ordering, sequence handling, and pagination are unchanged. A present non-empty newest_first string requests descending updated_at ordering regardless of its value. include_record_links and return_form_values_raw are JSON booleans; true enables the corresponding existing response behavior and false disables it. The page-size limit remains 20000. The POST action does not add field or type validation.",
         "operationId": "records-search",
         "requestBody": {
           "required": true,
@@ -7417,23 +7415,21 @@
             }
           },
           "400": {
-            "description": "The JSON body has an invalid root shape or field type, or includes a supported filter that is not applicable to this endpoint. The request is rejected before record queries.",
+            "description": "The existing collection action returns a bad-request response for request conditions it already handles.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RecordsSyncSearchErrorResponse"
-                },
-                "examples": {
-                  "Error": {
-                    "value": {
-                      "errors": [
-                        {
-                          "code": "invalid_request",
-                          "message": "The search request body is invalid."
-                        }
-                      ]
-                    }
-                  }
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
                 }
               }
             }
@@ -7452,28 +7448,6 @@
                         {
                           "code": "request_too_large",
                           "message": "The request body exceeds the ingress size limit."
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "415": {
-            "description": "The request must use Content-Type: application/json.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecordsSyncSearchErrorResponse"
-                },
-                "examples": {
-                  "Error": {
-                    "value": {
-                      "errors": [
-                        {
-                          "code": "unsupported_media_type",
-                          "message": "Content-Type must be application/json."
                         }
                       ]
                     }
@@ -8023,7 +7997,7 @@
     "/v2/records/history/search": {
       "post": {
         "summary": "Search record history for sync",
-        "description": "Search record history using the same collection behavior as GET /v2/records/history.json. Authentication, RecordHistory.accessible_by authorization, history scopes, ordering, sequence handling, and pagination are unchanged. for_sync: true applies the existing sync access and project/assignment masking behavior. return_form_values_raw is a JSON boolean. The page-size limit remains 20000. Record-only date filters and include_record_links are not applicable and return 400.",
+        "description": "Search record history using the same collection behavior as GET /v2/records/history.json. Authentication, RecordHistory.accessible_by authorization, history scopes, ordering, sequence handling, and pagination are unchanged. for_sync and return_form_values_raw are JSON booleans; true enables the existing behavior and false disables it. The page-size limit remains 20000. The POST action does not add field or type validation.",
         "operationId": "records-history-search",
         "requestBody": {
           "required": true,
@@ -8048,23 +8022,11 @@
             }
           },
           "400": {
-            "description": "The JSON body has an invalid root shape or field type, or includes a supported filter that is not applicable to this endpoint. The request is rejected before record queries.",
+            "description": "The existing collection action returns a bad-request response for request conditions it already handles.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/RecordsSyncSearchErrorResponse"
-                },
-                "examples": {
-                  "Error": {
-                    "value": {
-                      "errors": [
-                        {
-                          "code": "invalid_request",
-                          "message": "The search request body is invalid."
-                        }
-                      ]
-                    }
-                  }
+                  "$ref": "#/components/schemas/BadRequestResponse"
                 }
               }
             }
@@ -8083,28 +8045,6 @@
                         {
                           "code": "request_too_large",
                           "message": "The request body exceeds the ingress size limit."
-                        }
-                      ]
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "415": {
-            "description": "The request must use Content-Type: application/json.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/RecordsSyncSearchErrorResponse"
-                },
-                "examples": {
-                  "Error": {
-                    "value": {
-                      "errors": [
-                        {
-                          "code": "unsupported_media_type",
-                          "message": "Content-Type must be application/json."
                         }
                       ]
                     }
