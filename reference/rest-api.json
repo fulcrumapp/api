@@ -2856,7 +2856,7 @@
       },
       "FormRecordLinkCondition": {
         "type": "object",
-        "description": "A filter on which records from the linked form can be selected. On input, Rails accepts but drops unknown keys; responses serialize only the declared properties. Rails does not require these keys on input: missing linked_form_field_key or operator is serialized as null. Input may contain both value and value_field_key; when value_field_key is set, only it is serialized, otherwise value (possibly null) is serialized.",
+        "description": "A filter on which records from the linked form can be selected. These properties are optional in the shared schema because Rails accepts incomplete input. When serializing a condition, Rails includes linked_form_field_key and operator (null if unset); it includes value (possibly null) unless value_field_key is set, in which case it includes only value_field_key. Unknown input keys are accepted and dropped; responses serialize only declared properties.",
         "additionalProperties": true,
         "properties": {
           "linked_form_field_key": {
@@ -2895,7 +2895,7 @@
       },
       "FormRecordLinkDefault": {
         "type": "object",
-        "description": "Copies a value from a field on this form into a field on a newly created linked record. On input, Rails accepts but drops unknown keys; responses serialize only the declared properties. Rails does not require either key on input; missing keys are serialized as null. Ignored and not stored when allow_multiple_records is true.",
+        "description": "Copies a value from a field on this form into a field on a newly created linked record. These properties are optional in the shared schema because Rails accepts incomplete input; when serializing a default, Rails includes source_field_key and destination_field_key (null if unset). Unknown input keys are accepted and dropped; responses serialize only declared properties. Ignored and not stored when allow_multiple_records is true.",
         "additionalProperties": true,
         "properties": {
           "source_field_key": {
@@ -2915,7 +2915,7 @@
         }
       },
       "FormRecordLinkFieldElement": {
-        "description": "A field linking records from another form. form_id is required and must identify an existing form by resource id. At least one of allow_existing_records or allow_creating_records must be true; the API does not enable either when omitted. On input, Rails accepts but drops unknown element properties, including linked_form_id and allow_empty_records; responses serialize only declared properties. Saving without a link is controlled by the common required property. The account plan must have record links enabled.",
+        "description": "A field linking records from another form. form_id is required and must identify an existing form by resource id. At least one of allow_existing_records or allow_creating_records must be true; the API does not enable either when omitted. This shared schema permits unknown element properties on input; Rails accepts then drops them, including linked_form_id and allow_empty_records. Responses serialize only declared properties. Saving without a link is controlled by the common required property. The account plan must have record links enabled.",
         "allOf": [
           {
             "$ref": "#/components/schemas/FormBaseElement"
