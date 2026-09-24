@@ -50,7 +50,9 @@ names, required properties, enum values, and nested object shapes; then map thos
 actual current OpenAPI schemas listed above.
 | `FormHyperlinkFieldElement` | `HyperlinkField` |
 | `FormCalculatedFieldElement` | `CalculatedField` — expression, display, default_values |
-| `FormRecordLinkFieldElement` | `RecordLinkField` — allow_existing_records, linked_form_id, etc. |
+| `FormRecordLinkFieldElement` | `RecordLinkField` — see the RecordLinkField exception below. Do not document `linked_form_id` or `allow_empty_records`. |
+| `FormRecordLinkCondition` | `record_conditions` item — `linked_form_field_key`, `operator`, and either `value` or `value_field_key` |
+| `FormRecordLinkDefault` | `record_defaults` item — `source_field_key` and `destination_field_key` |
 | `FormAttachmentFieldElement` | `AttachmentField` |
 | `FormCheckboxFieldElement` | `CheckboxField` |
 | `FormDynamicFieldElement` | `DynamicField` |
@@ -68,6 +70,26 @@ actual current OpenAPI schemas listed above.
 | `FormClassificationItem` | Hierarchical classification item (recursive) |
 | `FormYesNoOption` | Yes/No option shape |
 | `FormCalculatedDisplay` | Calculated field display style |
+
+Follow the canonical reviewer policy in `AGENTS.md` under "Review Against the Implemented API";
+this skill covers only sync-specific Rails behavior.
+
+## RecordLinkField exception
+
+`FormRecordLinkFieldElement` is aligned with the Rails Forms API, not with fulcrum-schema fixtures, fulcrum-schema sync notes, or an older OpenAPI draft. A sync must not restore `linked_form_id` or `allow_empty_records` as element properties. `Form::RecordLinkField#from_json` reads `form_id`, and `to_hash` serializes it. When saving, `Form#update_form_links` resolves that form resource id and stores the target form's database id as `forms_links.linked_form_id`; that is an internal association column, not an element JSON attribute. An element-level `linked_form_id` is ignored. `ElementParser` drops unknown keys. Saving without a link is the universal `required` boolean, not a RecordLink property.
+
+Contract: `fulcrumapp/fulcrum` `app/classes/form/record_link_field.rb`, `app/classes/form/record_link_condition.rb`, `app/classes/form/record_link_default.rb`, and `app/models/validators/form/record_link_fields.rb`.
+
+- `form_id` is required. It must be a string resource id of an existing form in the account. Rails reads and returns this element property; `forms_links.linked_form_id` is derived internally when the form is saved.
+- At least one of `allow_existing_records` or `allow_creating_records` must be true. Describe the constraint in prose and preserve the `anyOf` with `required` and `enum: [true]` branches on the element schema for compatibility with OpenAPI tooling. This is validation, not a default. Do not add an OpenAPI `default` for any allow flag. The API does not fill in a missing allow flag.
+- Rails accepts but drops unknown RecordLink element input keys and serializes only declared properties in responses. Preserve `additionalProperties: true` on the RecordLink element branch to document permissive input; `FormBaseElement` does not close additional properties. Do not claim this prevents clients from sending unknown keys.
+- Persisted attributes are `form_id`, `allow_creating_records`, `allow_existing_records`, `allow_updating_records`, `allow_multiple_records`, `record_conditions_type`, `record_conditions`, `record_defaults`, and `default_previous_value`.
+- Omitted `allow_updating_records` and `allow_multiple_records` are stored as false. `record_defaults` are ignored when `allow_multiple_records` is true.
+- When `record_conditions` is an array, only the input string `all` is stored as `all`; an omitted `record_conditions_type` or any other input string is stored as `any`. Do not constrain the shared request/response property with an enum of response-only values.
+- The shared `record_conditions` item schema leaves keys optional because Rails accepts incomplete input. When serializing an item, Rails includes `linked_form_field_key` and `operator` (null if unset), and includes either `value` (possibly null) or `value_field_key` (which takes precedence if set). Unknown input keys are accepted then dropped; keep `additionalProperties: true` to document permissive input, and state that responses serialize only declared properties. Do not add input `required` or an exclusive `oneOf`.
+- The shared `record_defaults` item schema leaves keys optional because Rails accepts incomplete input. When serializing an item, Rails includes `source_field_key` and `destination_field_key` (null if unset). Unknown input keys are accepted then dropped; keep `additionalProperties: true` to document permissive input and state that responses serialize only declared properties.
+- The account plan must have record links enabled, or the form is rejected.
+- Form builder defaults are not API defaults: `allow_existing_records` true; `allow_creating_records`, `allow_updating_records`, and `allow_multiple_records` false.
 
 ## Sync Workflow
 
