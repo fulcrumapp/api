@@ -2857,6 +2857,7 @@
       "FormRecordLinkCondition": {
         "type": "object",
         "description": "A filter on which records from the linked form can be selected. Rails does not require these keys on input: missing linked_form_field_key or operator is serialized as null, and unknown input keys are dropped rather than rejected. Input may contain both value and value_field_key; when value_field_key is set, only it is serialized, otherwise value (possibly null) is serialized.",
+        "additionalProperties": true,
         "properties": {
           "linked_form_field_key": {
             "type": [
@@ -2907,6 +2908,7 @@
       "FormRecordLinkDefault": {
         "type": "object",
         "description": "Copies a value from a field on this form into a field on a newly created linked record. Rails does not require either key on input; missing keys are serialized as null and unknown input keys are dropped rather than rejected. Ignored and not stored when allow_multiple_records is true.",
+        "additionalProperties": true,
         "properties": {
           "source_field_key": {
             "type": [
@@ -3001,9 +3003,7 @@
                 ],
                 "properties": {
                   "allow_existing_records": {
-                    "enum": [
-                      true
-                    ]
+                    "const": true
                   }
                 }
               },
@@ -3013,9 +3013,7 @@
                 ],
                 "properties": {
                   "allow_creating_records": {
-                    "enum": [
-                      true
-                    ]
+                    "const": true
                   }
                 }
               }
