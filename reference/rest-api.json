@@ -2913,7 +2913,7 @@
         }
       },
       "FormRecordLinkFieldElement": {
-        "description": "A field that links to records in another form in this account. form_id is required and must be the resource id of an existing form. At least one of allow_existing_records or allow_creating_records must be true; neither is implicitly enabled when omitted. Omitted allow_updating_records and allow_multiple_records are stored as false. The account plan must have record links enabled, or the form is rejected. Unknown keys are dropped. Saving without a link is the universal required boolean, not a RecordLink property. linked_form_id and allow_empty_records are not element attributes.",
+        "description": "A field that links to records in another form in this account. form_id is required and must be the resource id of an existing form. Rails parses and serializes form_id on the element, then resolves it to an internal linked-form association when saving. An element-level linked_form_id is ignored and is not returned. At least one of allow_existing_records or allow_creating_records must be true; neither is implicitly enabled when omitted. Omitted allow_updating_records and allow_multiple_records are stored as false. The account plan must have record links enabled, or the form is rejected. Unknown keys are dropped. Saving without a link is the universal required boolean, not a RecordLink property. allow_empty_records is not an element attribute.",
         "allOf": [
           {
             "$ref": "#/components/schemas/FormBaseElement"
@@ -2932,7 +2932,7 @@
               },
               "form_id": {
                 "type": "string",
-                "description": "Resource id of an existing form in this account whose records can be linked. This is the element attribute. linked_form_id is not a Forms API element attribute and is dropped."
+                "description": "Resource id of an existing form in this account whose records can be linked. Rails reads and returns this element attribute, then resolves it to the linked-form association when saving. Do not send linked_form_id as an element property; it is ignored."
               },
               "allow_existing_records": {
                 "type": "boolean",
