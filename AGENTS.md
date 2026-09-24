@@ -70,6 +70,12 @@ wc -l reference/rest-api.json
 5. **Run comprehensive validation**: Use the validation prompt (see below) before considering work complete
 6. **Document changes**: Note what was changed and why
 
+### Review Against the Implemented API
+
+For every OpenAPI schema change, reviewers must compare the schema with the concrete Rails API behavior, including request parsing, element `from_json`/`to_hash` serialization, validators, persistence callbacks, targeted tests, and representative API examples. Upstream schema packages and fixtures are useful references, but they do not override observed Rails behavior when the two differ.
+
+This repository documents the Rails API; it does not change that API's implementation. Do not modify Rails behavior to make it match the OpenAPI schema. When they differ, update the schema to describe what Rails actually accepts, stores, normalizes, ignores, and returns, and identify any implementation discrepancy separately.
+
 ### Comprehensive Validation Command
 
 Use this multi-tool validation approach after completing any changes:

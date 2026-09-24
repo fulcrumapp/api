@@ -71,6 +71,16 @@ actual current OpenAPI schemas listed above.
 | `FormYesNoOption` | Yes/No option shape |
 | `FormCalculatedDisplay` | Calculated field display style |
 
+## Reviewer requirement: compare with the implemented Rails API
+
+Before approving or changing a schema, compare it with the concrete Rails Forms API request and
+response path: element parsing, `from_json`/`to_hash`, validators, persistence callbacks, targeted
+tests, and representative API examples. Upstream schemas and fixtures are inputs to that review,
+not a substitute for checking what Rails actually accepts, stores, normalizes, ignores, and returns.
+This repository describes the Rails API; do not change Rails implementation behavior to fit the
+schema. If upstream references and Rails disagree, document the observed Rails behavior in OpenAPI
+and call out the discrepancy separately.
+
 ## RecordLinkField exception
 
 `FormRecordLinkFieldElement` is aligned with the Rails Forms API, not with fulcrum-schema fixtures, fulcrum-schema sync notes, or an older OpenAPI draft. A sync must not restore `linked_form_id` or `allow_empty_records` as element properties. `Form::RecordLinkField#from_json` reads `form_id`, and `to_hash` serializes it. When saving, `Form#update_form_links` resolves that form resource id and stores the target form's database id as `forms_links.linked_form_id`; that is an internal association column, not an element JSON attribute. An element-level `linked_form_id` is ignored. `ElementParser` drops unknown keys. Saving without a link is the universal `required` boolean, not a RecordLink property.
