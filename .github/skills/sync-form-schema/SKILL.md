@@ -71,9 +71,8 @@ actual current OpenAPI schemas listed above.
 | `FormYesNoOption` | Yes/No option shape |
 | `FormCalculatedDisplay` | Calculated field display style |
 
-For reviewer process, follow the repository-wide `AGENTS.md` section
-`Review Against the Implemented API`; that is the canonical policy. This skill retains only
-sync-specific Rails behavior.
+Follow the canonical reviewer policy in `AGENTS.md` under "Review Against the Implemented API";
+this skill covers only sync-specific Rails behavior.
 
 ## RecordLinkField exception
 

@@ -2873,7 +2873,27 @@
             "description": "Comparison operator. The form builder writes equal_to, not_equal_to, contains, starts_with, greater_than, less_than, is_empty, or is_not_empty. Choice, classification, and yes/no fields use equal_to, not_equal_to, is_empty, and is_not_empty."
           },
           "value": {
-            "description": "Literal JSON value compared against the linked form field. May be any JSON value. Rails preserves its JSON type and serializes value (possibly null) when value_field_key is not set."
+            "description": "Literal JSON value compared against the linked form field. May be any JSON value. Rails preserves its JSON type and serializes value (possibly null) when value_field_key is not set.",
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "object"
+              },
+              {
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "value_field_key": {
             "type": [
