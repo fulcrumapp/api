@@ -71,15 +71,8 @@ actual current OpenAPI schemas listed above.
 | `FormYesNoOption` | Yes/No option shape |
 | `FormCalculatedDisplay` | Calculated field display style |
 
-## Reviewer requirement: compare with the implemented Rails API
-
-Before approving or changing a schema, compare it with the concrete Rails Forms API request and
-response path: element parsing, `from_json`/`to_hash`, validators, persistence callbacks, targeted
-tests, and representative API examples. Upstream schemas and fixtures are inputs to that review,
-not a substitute for checking what Rails actually accepts, stores, normalizes, ignores, and returns.
-This repository describes the Rails API; do not change Rails implementation behavior to fit the
-schema. If upstream references and Rails disagree, document the observed Rails behavior in OpenAPI
-and call out the discrepancy separately.
+For reviewer process, follow the repository-wide `AGENTS.md` section `Review Against the Implemented
+API`; that is the canonical policy. This skill retains only sync-specific Rails behavior.
 
 ## RecordLinkField exception
 
