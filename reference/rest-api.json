@@ -2875,25 +2875,13 @@
           },
           "value": {
             "description": "Literal JSON value compared against the linked form field. May be any JSON value. Rails preserves its JSON type and serializes value (possibly null) when value_field_key is not set.",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "object"
-              },
-              {
-                "type": "array"
-              },
-              {
-                "type": "null"
-              }
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "object",
+              "array",
+              "null"
             ]
           },
           "value_field_key": {
