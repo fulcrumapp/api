@@ -170,11 +170,11 @@ this.featureUpdatedAccuracy
 ```
 
 ```js
-// Prevent saving if GPS accuracy at update is too low
+// Prevent saving if GPS accuracy at update is too poor
 ON('save-record', function(event) {
   var accuracy = this.featureUpdatedAccuracy;
   if (accuracy !== null && accuracy > 20) {
-    INVALID('GPS accuracy is too low (' + accuracy + 'm). Move to an open area and try again.');
+    INVALID('GPS uncertainty is too high (' + accuracy + 'm). Move to an open area and try again.');
   }
 });
 ```
