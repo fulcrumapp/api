@@ -118,7 +118,7 @@ Number — Meters above sea level (WGS84 ellipsoid). Returns `null` if altitude 
 ```js
 // Return the creation altitude
 this.featureCreatedAltitude
-// returns 27.770756908186286
+// returns 27.8
 ```
 
 ```js
