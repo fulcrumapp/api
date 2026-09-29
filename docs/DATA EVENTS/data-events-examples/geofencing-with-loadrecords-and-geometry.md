@@ -67,8 +67,7 @@ var updateFormWithBufferInfo = function () {
 
   // Load all polygon records from the boundary app
   LOADRECORDS({
-    form_id: BUFFER_APP_ID,
-    include_geometry: true
+    form_id: BUFFER_APP_ID
   }, function (error, result) {
     if (error) {
       ALERT('Error loading boundary records: ' + INSPECT(error));
