@@ -120,5 +120,3 @@ ON('change', LEVEL2_FIELD, () => {
 - LOADRECORDS returns up to 20,000 records. For very large lookup tables, consider pre-filtering with a `form_values` query parameter.
 - The lookup app can be hidden from end users using project or role restrictions — it only needs to be accessible to the data event context.
 - To also auto-populate non-choice fields on final selection (e.g. cost code, description), add a handler on the last level field that finds the matching lookup record and calls `SETVALUE()` for each field.
-
-*Credit: Mike Meesseman*
