@@ -97,7 +97,12 @@ ON('click', CALENDAR_BUTTON, () => {
     height: 500,
     data: {
       blackoutRanges: blackoutRanges,
-      today: new Date().toISOString().split('T')[0]
+      today: (function (d) {
+        const year  = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day   = String(d.getDate()).padStart(2, '0');
+        return year + '-' + month + '-' + day;
+      })(new Date())
     },
     onMessage: ({ data }) => {
       if (data.selectedDate) {
