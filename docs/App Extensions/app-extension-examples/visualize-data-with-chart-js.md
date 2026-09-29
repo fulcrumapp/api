@@ -140,8 +140,16 @@ The HTML file uses Chart.js loaded from a CDN to render a bar chart. It listens 
      * Fulcrum sends the data as a postMessage event to the iframe.
      */
     window.addEventListener('message', function(event) {
-      // Ignore messages that don't contain our expected data shape
-      if (!event.data || !event.data.surveyDate) return;
+      // Only accept messages from trusted origins (e.g., Fulcrum's web app or opaque origins for offline use)
+      const allowedOrigins = ['https://web.fulcrumapp.com', 'null'];
+      if (!allowedOrigins.includes(event.origin)) {
+        return;
+      }
+
+      // Ignore messages that don't contain an object payload
+      if (!event.data || typeof event.data !== 'object') {
+        return;
+      }
 
       chartData = event.data;
 
