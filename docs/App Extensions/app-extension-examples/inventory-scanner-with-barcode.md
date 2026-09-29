@@ -325,6 +325,41 @@ async function lookupBarcode(barcode) {
     { headers: { 'X-ApiToken': cfg.token } }
   );
 
+  if (!response.ok) {
+    let errorText = '';
+    try {
+      errorText = await response.text();
+    } catch (e) {
+      // ignore body read errors
+    }
+
+    console.error('Barcode lookup failed', {
+      status: response.status,
+      statusText: response.statusText,
+      body: errorText,
+    });
+
+    let message = `Lookup failed (${response.status} ${response.statusText}).`;
+    if (errorText) {
+      message += `\n\nDetails: ${errorText}`;
+    }
+    alert(message);
+
+    document.getElementById('header-subtitle').textContent = 'Ready to scan';
+    const scanPanel = document.getElementById('scan-panel');
+    const itemPanel = document.getElementById('item-panel');
+    if (scanPanel) {
+      scanPanel.classList.remove('hidden');
+      if (!scanPanel.classList.contains('flex')) {
+        scanPanel.classList.add('flex');
+      }
+    }
+    if (itemPanel) {
+      itemPanel.classList.add('hidden');
+    }
+
+    return;
+  }
   const data = await response.json();
   const record = data.records?.find(
     r => r.form_values?.[cfg.barcodeKey] === barcode
