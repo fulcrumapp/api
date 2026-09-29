@@ -134,9 +134,16 @@ this.featureUpdatedAltitude
 
 ```js
 // Show elevation change between creation and last update
-var gain = this.featureUpdatedAltitude - this.featureCreatedAltitude;
-SETRESULT(ROUND(gain, 2) + 'm elevation change');
-// returns "1.34m elevation change"
+var updatedAltitude = this.featureUpdatedAltitude;
+var createdAltitude = this.featureCreatedAltitude;
+
+if (updatedAltitude === null || createdAltitude === null) {
+  SETRESULT('Altitude unavailable');
+} else {
+  var gain = updatedAltitude - createdAltitude;
+  SETRESULT(ROUND(gain, 2) + 'm elevation change');
+}
+// returns "1.34m elevation change" or "Altitude unavailable"
 ```
 
 ## Notes
