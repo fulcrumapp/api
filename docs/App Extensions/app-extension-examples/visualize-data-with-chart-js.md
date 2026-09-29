@@ -134,6 +134,7 @@ The HTML file uses Chart.js loaded from a CDN to render a bar chart. It listens 
 
   <script>
     let chartData = {};
+    let chartInstance = null;
 
     /**
      * Listen for the data payload sent from Fulcrum via OPENEXTENSION's data property.
@@ -170,7 +171,12 @@ The HTML file uses Chart.js loaded from a CDN to render a bar chart. It listens 
     function renderChart(data) {
       const ctx = document.getElementById('surveyChart').getContext('2d');
 
-      new Chart(ctx, {
+      // Destroy existing chart instance before creating a new one to prevent stacking and memory leaks
+      if (chartInstance) {
+        chartInstance.destroy();
+      }
+
+      chartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
           // Labels for each measurement
