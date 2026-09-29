@@ -89,20 +89,30 @@ function checkSyncStatus() {
       // for the due_date field in your Tasks form (e.g. '0ed3')
       let taskDate = latestTask?.form_values?.['YOUR-DUE-DATE-FIELD-KEY'];
 
-      // Cache the task date for use in validate-record
-      storage.setItem(TASK_DATE_KEY, taskDate);
+      // Cache the task date for use in validate-record, but avoid storing undefined
+      if (taskDate) {
+        storage.setItem(TASK_DATE_KEY, taskDate);
+      } else {
+        // Clear any previously stored date if we don't have a valid value
+        storage.removeItem(TASK_DATE_KEY);
+      }
 
       let todayStr = getTodayString();
 
       if (taskDate === todayStr) {
         // Device has synced today — allow the user to proceed
+        // Ensure all fields are visible again in case they were previously hidden
+        DATANAMES().forEach(function(dataName) {
+          SETHIDDEN(dataName, false);
+        });
         ALERT('All clear', 'Your data is up to date. You may proceed.');
       } else {
         // Task date doesn't match today — device needs to sync
+        let lastSyncDisplay = taskDate ? taskDate : 'unknown';
         ALERT(
           'Sync Required',
           `Please close Fulcrum and sync your device before continuing. ` +
-          `Last sync date: ${taskDate}. Today: ${todayStr}.`
+          `Last sync date: ${lastSyncDisplay}. Today: ${todayStr}.`
         );
 
         // Hide all fields to prevent data entry until synced
