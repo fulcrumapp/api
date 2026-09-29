@@ -146,5 +146,3 @@ function findElementByDataName(obj, dataName) {
 - This pattern works on both mobile and web.
 - If the source and target apps have different field types for the same `data_name`, the value may not transfer correctly — test carefully.
 - The `rawSetValue` technique directly manipulates the results queue and should be used with care. It is the only reliable way to programmatically populate a repeatable section.
-
-*Credit: Mike Meesseman*
