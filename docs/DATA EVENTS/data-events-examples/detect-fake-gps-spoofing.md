@@ -159,16 +159,30 @@ const checkForLocationServices = () => {
 
 // Determine whether to run on new records only, or also on edits
 const locationCheckEventType = updateLocationOnEditRecord ? 'load-record' : 'new-record';
+let locationSamplingIntervalId = null;
 
 ON(locationCheckEventType, () => {
   // Only run GPS sampling on mobile devices (desktop GPS is not reliable)
   if (!ISMOBILE()) return;
 
-  SETINTERVAL(() => {
+  // Clear any existing sampling interval before starting a new one
+  if (locationSamplingIntervalId !== null) {
+    CLEARINTERVAL(locationSamplingIntervalId);
+    locationSamplingIntervalId = null;
+  }
+
+  locationSamplingIntervalId = SETINTERVAL(() => {
     checkForLocationServices();
   }, 500);
 });
 
+// Ensure the sampling interval is cleared when the record is unloaded
+ON('unload-record', () => {
+  if (locationSamplingIntervalId !== null) {
+    CLEARINTERVAL(locationSamplingIntervalId);
+    locationSamplingIntervalId = null;
+  }
+});
 // ─── Block Manual Map Edits ──────────────────────────────────────────────────
 
 ON('change-geometry', () => {
