@@ -52,10 +52,10 @@ When the user clicks a button on the form, `OPENEXTENSION` launches the calendar
 const BLACKOUT_FORM_ID = 'YOUR-BLACKOUT-DATES-APP-ID-HERE';
 
 // Field key of the start date field in the blackout app
-const START_DATE_KEY = 'start';
+const START_DATE_KEY = 'YOUR-START-DATE-FIELD-KEY';
 
 // Field key of the end date field in the blackout app
-const END_DATE_KEY = 'end';
+const END_DATE_KEY = 'YOUR-END-DATE-FIELD-KEY';
 
 // Data name of the date field to write the selected appointment date to
 const APPOINTMENT_FIELD = 'appointment_date';
