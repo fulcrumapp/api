@@ -85,9 +85,14 @@ this.featureCreatedLongitude
 
 ```js
 // Calculate displacement between creation and current longitude
-var drift = Math.abs(LONGITUDE() - this.featureCreatedLongitude);
-SETRESULT(ROUND(drift, 8));
-// returns the absolute difference in decimal degrees
+var createdLongitude = this.featureCreatedLongitude;
+if (createdLongitude !== null) {
+  var drift = Math.abs(LONGITUDE() - createdLongitude);
+  SETRESULT(ROUND(drift, 8));
+} else {
+  SETRESULT('No creation longitude available');
+}
+// returns the absolute difference in decimal degrees when available
 ```
 
 ## Notes
