@@ -24,7 +24,7 @@ photo = fulcrum.photos.find('{id}')
 print(photo['photo'])
 ```
 ```javascript JavaScript
-const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
 const client = new FulcrumClient({
   apiKey: '{token}',
   // Use the region configured for your Fulcrum account.

@@ -26,8 +26,8 @@ with open('data.geojson', 'w') as outfile:
   json.dump(response, outfile)
 ```
 ```javascript JavaScript
-const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
-const fs = require('fs').promises;
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+import * as fs from 'node:fs/promises';
 const client = new FulcrumClient({
   apiKey: '{token}',
   // Choose the region for your Fulcrum account (US, AU, CA, or EU).

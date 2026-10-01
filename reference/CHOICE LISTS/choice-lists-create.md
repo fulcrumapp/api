@@ -48,7 +48,7 @@ choice_list = fulcrum.choice_lists.create(obj)
 print(choice_list['choice_list']['id'] + ' has been created!')
 ```
 ```javascript JavaScript
-const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
 const client = new FulcrumClient({
   apiKey: '{token}',
   // Use the region configured for your Fulcrum account.

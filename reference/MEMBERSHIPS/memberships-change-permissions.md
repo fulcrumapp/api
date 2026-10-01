@@ -65,7 +65,7 @@ try:
     res = requests.post(url, headers=headers, json=body)
 ```
 ```javascript JavaScript
-const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
 const client = new FulcrumClient({
   apiKey: '{token}',
   // Use the region configured for your Fulcrum account.
@@ -107,7 +107,7 @@ curl --request POST 'https://api.fulcrumapp.com/api/v2/memberships/change_permis
 # Not currently supported
 ```
 ```javascript JavaScript
-const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
 const client = new FulcrumClient({
   apiKey: '{token}',
   // Use the region configured for your Fulcrum account.

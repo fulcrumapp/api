@@ -25,7 +25,7 @@ form = fulcrum.forms.find('{id}')
 print(form['form']['name']) # just the form name
 ```
 ```javascript JavaScript
-const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
 const client = new FulcrumClient({
   apiKey: '{token}',
   // Use the region configured for your Fulcrum account.

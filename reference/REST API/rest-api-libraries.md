@@ -20,6 +20,8 @@ There are several open source libraries available for working with the Fulcrum A
 
 The `@fulcrumapp/fulcrum-js` package is distributed through GitHub Packages' npm registry at `https://npm.pkg.github.com`. This is separate from the container registry at `ghcr.io`.
 
+The SDK is implemented in TypeScript and includes native type declarations. Its examples use ECMAScript modules (ESM); run JavaScript examples as `.mjs` files or in a project configured with `"type": "module"`. TypeScript projects can import the same exports and types.
+
 Create a GitHub personal access token (classic) with `read:packages` access to the package, then configure npm to use the GitHub Packages registry for the `@fulcrumapp` scope. Keep the token in an environment variable or CI secret; do not commit it.
 
 Add the following to your project's `.npmrc`:

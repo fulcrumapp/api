@@ -25,8 +25,8 @@ with open('{id}.mp4', 'wb') as f:
   f.write(video)
 ```
 ```javascript JavaScript
-const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
-const fs = require('node:fs/promises');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+import * as fs from 'node:fs/promises';
 const client = new FulcrumClient({
   apiKey: '{token}',
   // Use the region configured for your Fulcrum account.

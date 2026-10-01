@@ -31,7 +31,7 @@ history = fulcrum.forms.history('{id}')
 print(history)
 ```
 ```javascript JavaScript
-const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
 const client = new FulcrumClient({
   apiKey: '{token}',
   // Use the region configured for your Fulcrum account.
@@ -73,7 +73,7 @@ history = fulcrum.forms.history('{id}', {'version': 3})
 print(history)
 ```
 ```javascript JavaScript
-const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
 const client = new FulcrumClient({
   apiKey: '{token}',
   // Use the region configured for your Fulcrum account.
@@ -114,7 +114,7 @@ updated_form = fulcrum.forms.update(form_id, old_form['forms'][0])
 print(updated_form)
 ```
 ```javascript JavaScript
-const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
 const client = new FulcrumClient({
   apiKey: '{token}',
   // Use the region configured for your Fulcrum account.
