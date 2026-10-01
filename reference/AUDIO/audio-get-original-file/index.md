@@ -25,15 +25,18 @@ with open('{id}.m4a', 'wb') as f:
   f.write(audio)
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const fs = require('fs');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const fs = require('node:fs/promises');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-const writeStream = fs.createWriteStream('{id}.m4a');
-
-client.audio.media('{id}', 'original')
-  .then(audio => audio.pipe(writeStream))
-  .catch(error => console.log(error));
+client.client.audioGetOriginalFile({ audioId: '{id}' }, { responseType: 'arraybuffer' })
+  .then(response => fs.writeFile('{id}.m4a', Buffer.from(response.data)))
+  .then(() => console.log('File downloaded!'))
+  .catch(error => console.error(error.message));
 ```
 ```ruby Ruby
 require 'fulcrum'

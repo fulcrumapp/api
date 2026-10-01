@@ -26,15 +26,16 @@ for changeset in changesets['changesets']:
   print(changeset['id']) # just the changeset ID
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.changesets.all({'per_page':5,'page':1})
-  .then((page) => {
-    page.objects.forEach(changeset => {
-      // console.log(changeset);  // entire changeset
-      console.log(changeset.id); //  just the changesets ID
-    });
+client.changesets.getAll({perPage:5,page:1})
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

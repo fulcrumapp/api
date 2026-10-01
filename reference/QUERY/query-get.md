@@ -36,7 +36,7 @@ const client = new FulcrumClient({
 
 client.query.get({
   q: 'SELECT * FROM "My App" LIMIT 10;',
-  accept: 'application/geo+json'
+  format: 'geojson'
 })
   .then(response => fs.writeFile('data.geojson', JSON.stringify(response.data)))
   .then(() => console.log('data downloaded!'))

@@ -26,15 +26,18 @@ with open('track.gpx', 'w') as f:
   json.dump(tracks, f)
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const fs = require('fs');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const fs = require('node:fs/promises');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.videos.track('{id}', 'gpx')
-  .then(track => fs.writeFile('track.gpx', track, function () {
-    console.log('track downloaded!');
-  }))
-  .catch(err => console.log(err));
+client.videos.getSingleTrackGpx('{id}')
+  .then(response => fs.writeFile('track.gpx', response.data))
+  .then(() => console.log('Track downloaded!'))
+  .catch(error => console.error(error.message));
 ```
 ```ruby Ruby
 require 'fulcrum'

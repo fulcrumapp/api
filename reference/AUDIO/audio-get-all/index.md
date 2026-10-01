@@ -26,15 +26,16 @@ for audio in audios['audio']:
   print(audio['access_key']) # just the audio key
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.audio.all({'form_id':'{id}'})
-  .then((page) => {
-    page.objects.forEach(audio => {
-      // console.log(audio); // entire audio metadata
-      console.log(audio.access_key); // just the audio key
-    });
+client.audio.getAll({formId:'{id}'})
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

@@ -26,15 +26,16 @@ for authorization in authorizations['authorizations']:
   print(authorization['note'])
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.authorizations.all()
-  .then((page) => {
-    page.objects.forEach(authorization => {
-      // console.log(authorization); // entire authorization
-      console.log(authorization.id); // just the authorization id
-    });
+client.authorizations.getAll()
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

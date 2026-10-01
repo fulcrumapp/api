@@ -24,12 +24,16 @@ audio = fulcrum.audio.find('{id}')
 print(audio['audio'])
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.audio.find('{id}')
-  .then((audio) => {
-    console.log(audio);
+client.audio.getSingleMetadata('{id}')
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

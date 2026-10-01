@@ -26,15 +26,16 @@ for photo in photos['photos']:
   print(photo['access_key']) # just the photo key
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.photos.all({'form_id':'{id}'})
-  .then((page) => {
-    page.objects.forEach(photo => {
-      // console.log(photo); // entire photo metadata
-      console.log(photo.access_key); // just the photo key
-    });
+client.photos.getAllMetadata({formId:'{id}'})
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

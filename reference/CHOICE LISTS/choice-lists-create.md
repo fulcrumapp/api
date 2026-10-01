@@ -48,8 +48,12 @@ choice_list = fulcrum.choice_lists.create(obj)
 print(choice_list['choice_list']['id'] + ' has been created!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "name": "Bridge Inspection Conditions",
@@ -74,9 +78,9 @@ const obj = {
   }]
 };
 
-client.choiceLists.create(obj)
-  .then((choiceList) => {
-    console.log(choiceList.id + ' has been created!');
+client.choiceLists.create({ choiceListRequest: { choice_list: obj } })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

@@ -26,15 +26,16 @@ for layer in layers['layers']:
   print(layer['name'])
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.layers.all()
-  .then((page) => {
-    page.objects.forEach(layer => {
-      // console.log(layer);
-      console.log(layer.name);
-    });
+client.layers.getAll()
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

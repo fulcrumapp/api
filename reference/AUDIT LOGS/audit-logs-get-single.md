@@ -25,12 +25,16 @@ print(log['audit_log']) # entire log
 # print(log['audit_log']['description']) # just the log description
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.auditLogs.find('{id}')
-  .then((log) => {
-    console.log(log);
+client.auditLogs.getById('{id}')
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     // There was a problem with the request. Is the API token correct?

@@ -26,15 +26,16 @@ for webhook in webhooks['webhooks']:
   print(webhook['name']) # just the webhook name
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.webhooks.all()
-  .then((page) => {
-    page.objects.forEach(webhook => {
-      // console.log(webhook); // entire webhook
-      console.log(webhook.name); // just the webhook name
-    });
+client.webhooks.getAll()
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

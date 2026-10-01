@@ -26,15 +26,16 @@ for log in logs['audit_logs']:
   print(log['description']) # just the audit log description
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.auditLogs.all({'per_page':5,'page':1})
-  .then((page) => {
-    page.objects.forEach(log => {
-      // console.log(log); // entire audit log
-      console.log(log.description); // just the audit log description
-    });
+client.auditLogs.getAll({perPage:5,page:1})
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

@@ -26,15 +26,16 @@ for project in projects['projects']:
   print(project['name']) # just the project name
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.projects.all()
-  .then((page) => {
-    page.objects.forEach(project => {
-      // console.log(project);  // entire project
-      console.log(project.name); //  just the project name
-    });
+client.projects.getAll()
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

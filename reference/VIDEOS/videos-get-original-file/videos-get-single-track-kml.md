@@ -26,15 +26,18 @@ with open('track.kml', 'w') as f:
   json.dump(tracks, f)
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const fs = require('fs');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const fs = require('node:fs/promises');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.videos.track('{id}', 'kml')
-  .then(track => fs.writeFile('track.kml', track, function () {
-    console.log('track downloaded!');
-  }))
-  .catch(err => console.log(err));
+client.videos.getSingleTrackKml('{id}')
+  .then(response => fs.writeFile('track.kml', response.data))
+  .then(() => console.log('Track downloaded!'))
+  .catch(error => console.error(error.message));
 ```
 ```ruby Ruby
 require 'fulcrum'

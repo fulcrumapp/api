@@ -26,15 +26,16 @@ for role in roles['roles']:
   # print(roles['name']) # just the role name
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.roles.all()
-  .then((page) => {
-    page.objects.forEach(role => {
-      console.log(role); // entire role
-      // console.log(role.name); // just the role name
-    });
+client.roles.getAll()
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

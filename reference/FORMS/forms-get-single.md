@@ -25,13 +25,16 @@ form = fulcrum.forms.find('{id}')
 print(form['form']['name']) # just the form name
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.forms.find('{id}')
-  .then((form) => {
-    // console.log(form); // entire form definition
-    console.log(form.name); // just the form name
+client.forms.getById('{id}')
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

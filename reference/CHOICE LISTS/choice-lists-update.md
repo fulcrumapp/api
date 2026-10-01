@@ -51,8 +51,12 @@ choice_list = fulcrum.choice_lists.update('{id}', obj)
 print(choice_list['choice_list']['id'] + ' has been updated!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "name": "Bridge Inspection Conditions",
@@ -80,9 +84,9 @@ const obj = {
   }]
 };
 
-client.choiceLists.update('{id}', obj)
-  .then((choiceList) => {
-    console.log(choiceList.id + ' has been updated!');
+client.choiceLists.update('{id}', { choiceListRequest: { choice_list: obj } })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

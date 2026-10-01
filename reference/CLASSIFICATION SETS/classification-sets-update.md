@@ -90,8 +90,12 @@ classification_set = fulcrum.classification_sets.update('{id}', obj)
 print(classification_set['classification_set']['id'] + ' has been updated!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "name": "Wildlife Types",
@@ -158,9 +162,9 @@ const obj = {
   }]
 };
 
-client.classificationSets.update('{id}', obj)
-  .then((classificationSet) => {
-    console.log(classificationSet.id + ' has been updated!');
+client.classificationSets.update('{id}', { classificationSetRequest: { classification_set: obj } })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

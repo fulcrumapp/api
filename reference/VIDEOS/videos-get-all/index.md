@@ -26,15 +26,16 @@ for video in videos['videos']:
   print(video['access_key']) # just the video key
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.videos.all({'form_id':'{id}'})
-  .then((page) => {
-    page.objects.forEach(video => {
-      // console.log(video); // entire video metadata
-      console.log(video.access_key); // just the video key
-    });
+client.videos.getAll({formId:'{id}'})
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

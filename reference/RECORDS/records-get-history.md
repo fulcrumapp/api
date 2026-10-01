@@ -24,14 +24,16 @@ history = fulcrum.records.history('{id}')
 print(history)
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.records.history('{id}')
-  .then((page) => {
-    page.objects.forEach(version => {
-      console.log(version);
-    });
+client.records.getHistory('{id}')
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

@@ -26,17 +26,18 @@ for record in records['records']:
   print(record['id']) # just the record id
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.records.all({
-    form_id: '{id}'
+client.records.getAll({
+    formId: '{id}'
   })
-  .then((page) => {
-    page.objects.forEach(record => {
-      // console.log(record); // entire record
-      console.log(record.id); // just the record id
-    });
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

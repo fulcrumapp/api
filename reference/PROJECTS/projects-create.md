@@ -30,17 +30,21 @@ project = fulcrum.projects.create(obj)
 print(project['project']['id'] + ' has been created!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "name": "Pinellas County",
   "description": "For records in Pinellas County"
 };
 
-client.projects.create(obj)
-  .then((project) => {
-    console.log(project.id + ' has been created!');
+client.projects.create({ project: obj })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

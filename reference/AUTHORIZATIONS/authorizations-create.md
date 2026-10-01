@@ -29,23 +29,27 @@ auth = create_authorization(email, password, organization_id, note, timeout, use
 print(auth)
 ```
 ```javascript JavaScript
-const { createAuthorization } = require('fulcrum-app');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-const email = '{email}';
-const password = '{password}';
 const organizationId = 'organization-id-from-getUser';
 const note = 'My New API Token';
-const timeout = 3600; // optional, defaults to None
-const userId = 'bc95fb63-f664-46ce-b440-de8de85e4494'; // optional, defaults to user creating token
+const timeout = 3600;
 
-createAuthorization(email, password, organizationId, note, timeout, userId)
-  .then((authorization) => {
-    console.log(authorization);
-    // authorization.token is your API token to use with the rest of the API.
+client.authorizations.create({
+  authorizationRequest: {
+    authorization: { organization_id: organizationId, note, timeout }
+  }
+})
+  .then(response => {
+    console.log(response.data);
+    // response.data.authorization.token is the new API token.
   })
-  .catch((error) => {
-    console.log(error.message);
-  });
+  .catch(error => console.error(error.message));
 ```
 ```ruby Ruby
 require 'fulcrum'

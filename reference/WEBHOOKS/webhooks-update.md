@@ -32,8 +32,12 @@ webhook = fulcrum.webhooks.update('{id}', obj)
 print(webhook['webhook']['id'] + ' has been updated!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "name": "Fire Hydrant Inventory Emails",
@@ -42,9 +46,9 @@ const obj = {
   "run_for_bulk_actions": false
 };
 
-client.webhooks.update('{id}', obj)
-  .then((webhook) => {
-    console.log(webhook.id + ' has been updated!');
+client.webhooks.update('{id}', { webhook: obj })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

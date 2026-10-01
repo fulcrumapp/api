@@ -21,7 +21,6 @@ next:
   <input type="button" id="upload" value="upload" />
 </form>
 ```
-```javascript JavaScript
 $(document).ready(function(){
   /**
   * Generates a GUID string.
@@ -60,4 +59,3 @@ $(document).ready(function(){
     });
   });
 });
-```

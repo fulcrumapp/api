@@ -50,8 +50,12 @@ record = fulcrum.records.update('{record_id}', obj)
 print(record['record']['id'] + ' has been updated!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "form_id": "my-form-id",
@@ -78,9 +82,9 @@ const obj = {
   }
 };
 
-client.records.update('{record_id}', obj)
-  .then((record) => {
-    console.log(record.id + ' has been updated!');
+client.records.update('{record_id}', { record: obj })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

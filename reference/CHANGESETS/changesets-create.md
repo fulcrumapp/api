@@ -34,8 +34,12 @@ changeset = fulcrum.changesets.create(obj)
 print(changeset['changeset']['id'] + ' has been created!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "form_id": "my-form-id",
@@ -46,9 +50,9 @@ const obj = {
   }
 };
 
-client.changesets.create(obj)
-  .then((changeset) => {
-    console.log(changeset.id + ' has been created!');
+client.changesets.create({ changesetCreateRequest: { changeset: obj } })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

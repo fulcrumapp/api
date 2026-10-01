@@ -23,12 +23,16 @@ fulcrum.choice_lists.delete('{id}')
 print('{id} has been deleted!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 client.choiceLists.delete('{id}')
-  .then((choiceList) => {
-    console.log('{id} has been deleted!');
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

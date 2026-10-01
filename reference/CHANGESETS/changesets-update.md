@@ -34,8 +34,12 @@ changeset = fulcrum.changesets.update('{id}', obj)
 print(changeset['changeset']['id'] + ' has been updated!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "form_id": "my-form-id",
@@ -46,9 +50,9 @@ const obj = {
   }
 };
 
-client.changesets.update('{id}', obj)
-  .then((changeset) => {
-    console.log(changeset.id + ' has been updated!');
+client.changesets.update('{id}', { changesetRequest: { changeset: obj } })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

@@ -26,15 +26,16 @@ for signature in signatures['signatures']:
   print(signature['access_key']) # just the signature key
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.signatures.all({'form_id':'{id}'})
-  .then((page) => {
-    page.objects.forEach(signature => {
-      // console.log(signature); // entire signature metadata
-      console.log(signature.access_key); // just the signature key
-    });
+client.signatures.getAll({formId:'{id}'})
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);
