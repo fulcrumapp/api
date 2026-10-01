@@ -27,9 +27,10 @@ with open('data.geojson', 'w') as outfile:
 ```
 ```javascript JavaScript
 const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
-const fs = require('fs');
+const fs = require('fs').promises;
 const client = new FulcrumClient({
   apiKey: '{token}',
+  // Choose the region for your Fulcrum account (US, AU, CA, or EU).
   region: FulcrumRegion.US
 });
 
@@ -37,10 +38,8 @@ client.query.get({
   q: 'SELECT * FROM "My App" LIMIT 10;',
   accept: 'application/geo+json'
 })
-  .then(response => fs.writeFile('data.geojson', JSON.stringify(response.data), error => {
-    if (error) return console.error(error);
-    console.log('data downloaded!');
-  }))
+  .then(response => fs.writeFile('data.geojson', JSON.stringify(response.data)))
+  .then(() => console.log('data downloaded!'))
   .catch(error => console.error(error));
 ```
 ```ruby Ruby
