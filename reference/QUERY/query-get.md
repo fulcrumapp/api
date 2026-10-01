@@ -26,15 +26,22 @@ with open('data.geojson', 'w') as outfile:
   json.dump(response, outfile)
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
+const { FulcrumClient, FulcrumRegion } = require('@fulcrumapp/fulcrum-js');
 const fs = require('fs');
-const client = new Client('{token}');
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  region: FulcrumRegion.US
+});
 
-client.query('SELECT * FROM "My App" LIMIT 10;', 'geojson')
-  .then(geojson => fs.writeFile('data.geojson', JSON.stringify(geojson), function () {
+client.query.get({
+  q: 'SELECT * FROM "My App" LIMIT 10;',
+  accept: 'application/geo+json'
+})
+  .then(response => fs.writeFile('data.geojson', JSON.stringify(response.data), error => {
+    if (error) return console.error(error);
     console.log('data downloaded!');
   }))
-  .catch(error => console.log(error));
+  .catch(error => console.error(error));
 ```
 ```ruby Ruby
 require 'fulcrum'
