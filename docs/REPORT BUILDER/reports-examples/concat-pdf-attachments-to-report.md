@@ -26,7 +26,7 @@ Some workflows require that uploaded PDF files (inspection certs, third-party re
 3. Decode each PDF in the browser using **PDF.js** and render every page to a `<canvas>` element.
 4. Append each canvas to the document body — Puppeteer includes them in the final PDF.
 
-> **Important:** Because this process is async, you must also use the [Puppeteer stall technique](./puppeteer-stall-for-async-rendering) to prevent the renderer from capturing the page before all PDF pages are drawn.
+> **Important:** Because this process is async, you must also use the [Puppeteer stall technique](./puppeteer-stall-for-async-rendering.md) to prevent the renderer from capturing the page before all PDF pages are drawn.
 
 ## Dependencies
 
