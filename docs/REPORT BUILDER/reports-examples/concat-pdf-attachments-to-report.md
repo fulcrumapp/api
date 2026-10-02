@@ -130,5 +130,3 @@ Add the Puppeteer idle-blocker before `main()`, then include the PDF attachment 
 - The `scale: 1.1` viewport setting produces PDF pages at slightly above standard resolution. Increase for sharper output at the cost of larger canvases.
 - `pageBreakBefore: 'always'` on each canvas ensures each PDF page starts on a new page in the final output.
 - This example appends **all PDF attachments** on the record. To filter by attachment field (rather than all record attachments), query the specific field's attachment IDs from the record's form values.
-
-*Credit: Mike Meesseman, Kyle Pennell*
