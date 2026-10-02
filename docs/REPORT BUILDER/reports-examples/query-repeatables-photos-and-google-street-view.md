@@ -44,7 +44,7 @@ Also update the `data_name` references in the query columns to match your app's 
   const observations = QUERY(`
     SELECT *
     FROM "YOUR_APP_NAME/photo_observations"
-    WHERE _record_id = '${record.id}'
+    WHERE _parent_id = '${record.id}'
     ORDER BY photo_number ASC
   `);
 
