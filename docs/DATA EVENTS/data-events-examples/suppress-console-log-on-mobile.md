@@ -67,5 +67,3 @@ ON('load-record', () => {
 - This uses `ISMOBILE()`, which is a built-in Fulcrum expression that returns `true` when the record is open in the iOS or Android app.
 - This pattern is safe to add to all data events as a best practice. It has zero performance impact on mobile since the function body returns immediately without executing anything.
 - `console.error` and `console.warn` are not overridden here — those are typically intentional and less likely to cause mobile issues. Add them to the override if needed.
-
-*Credit: Mike Meesseman, Kyle Pennell*
