@@ -66,7 +66,7 @@ const rows = QUERY(`
 <script>
 $(function () {
   // Inject the server-side query results as a JSON array
-  const records = <%= JSON.stringify(rows) %>;
+  const records = <%- JSON.stringify(rows) %>;
 
   // Map event type strings to display colors.
   // Customize these to match your app's choice field values.
