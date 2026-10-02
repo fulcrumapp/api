@@ -215,4 +215,3 @@ Also update the `data_name` references in the query columns to match your app's 
 - The Google Street View link opens in a new tab. In a printed PDF it will appear as a hyperlink but won't be clickable — consider including the coordinates as plain text for printed output.
 - `_latitude` and `_longitude` on repeatable rows refer to the GPS coordinates captured when the repeatable item was created on mobile.
 
-*Credit: Kyle Pennell*
