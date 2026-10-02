@@ -30,17 +30,21 @@ project = fulcrum.projects.update('{id}', obj)
 print(project['project']['id'] + ' has been updated!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "name": "Pinellas County, FL",
   "description": "For records in Pinellas County, FL"
 };
 
-client.projects.update('{id}', obj)
-  .then((project) => {
-    console.log(project.id + ' has been updated!');
+client.projects.update('{id}', { project: obj })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

@@ -69,8 +69,12 @@ form = fulcrum.forms.update('{id}', obj)
 print(form['form']['id'] + ' has been updated!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "name": "Fire Hydrant Inventory",
@@ -116,9 +120,9 @@ const obj = {
   }]
 };
 
-client.forms.update('{id}', obj)
-  .then((form) => {
-    console.log(form.id + ' has been updated!');
+client.forms.update('{id}', { form: obj })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);
