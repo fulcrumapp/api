@@ -108,5 +108,3 @@ async function main() {
 - This technique does not affect normal report rendering speed — if your async work finishes in 2 seconds, Puppeteer captures the page in 2 seconds.
 - The `https://httpbin.org/delay/60` endpoint is a reliable public utility. If your org restricts outbound network access from the report renderer, substitute any URL that takes a long time to respond (or times out gracefully).
 - This pattern pairs well with the [concat PDF attachments to a report](./concat-pdf-attachments-to-report) example, which requires async rendering to complete before Puppeteer captures the page.
-
-*Credit: Mike Meesseman*
