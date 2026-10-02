@@ -161,5 +161,3 @@ const showPhotos = $params.query.photos !== 'false'; // default true
   const safeStatus = allowedStatuses.includes(rawStatus) ? rawStatus : null;
 %>
 ```
-
-*Credit: Diego Caplan*
