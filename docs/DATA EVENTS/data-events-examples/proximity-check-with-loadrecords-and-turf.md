@@ -55,8 +55,13 @@ ON('load-record', function () {
   const currentLat = LATITUDE();
   const currentLng = LONGITUDE();
 
-  // Skip the check if no location has been set yet
-  if (!currentLat || !currentLng) {
+  // Skip the check if no location has been set yet or values are invalid
+  if (
+    currentLat == null ||
+    currentLng == null ||
+    isNaN(currentLat) ||
+    isNaN(currentLng)
+  ) {
     return;
   }
 
