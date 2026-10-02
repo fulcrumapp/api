@@ -32,26 +32,6 @@ GROUP BY m.name, m.email
 ORDER BY changeset_count DESC;
 ```
 
-## Query — Inactive Users (No Activity in N Days)
-
-Find members who have never synced, or who haven't synced recently:
-
-```sql
-SELECT
-  m.name,
-  m.email,
-  m.status,
-  MAX(c.closed_at) AS last_active
-FROM memberships m
-LEFT JOIN changesets c ON c.created_by_id = m.user_id
-WHERE m.status = 'active'
-GROUP BY m.name, m.email, m.status
-HAVING MAX(c.closed_at) IS NULL
-    OR MAX(c.closed_at) < CURRENT_DATE - INTERVAL '90 days'
-ORDER BY last_active ASC NULLS FIRST;
-```
-
-Users with `last_active = NULL` have never created a changeset (no sync activity on record).
 
 ## Query — Activity Breakdown by App
 
