@@ -47,16 +47,29 @@ Replace the `<img>` element inside the photo column loop with the following:
 ```ejs
 <%
   // Fetch EXIF metadata for this specific photo from the photos system table
-  const imageData  = QUERY(`SELECT * FROM photos WHERE photo_id = '${item.mediaID}'`);
-  const meta       = imageData.rows[0];
-  const latitude   = meta.latitude;
-  const longitude  = meta.longitude;
-  const altitude   = meta.altitude;
-  const direction  = meta.direction;
+  const imageData = QUERY(`SELECT * FROM photos WHERE photo_id = '${item.mediaID}'`);
 
-  // Format the capture timestamp to YYYY-MM-DD
-  const capturedAt     = new Date(meta.updated_at);
-  const formattedDate  = capturedAt.toISOString().split('T')[0];
+  // Provide safe defaults in case no metadata is found
+  let latitude      = null;
+  let longitude     = null;
+  let altitude      = null;
+  let direction     = null;
+  let formattedDate = null;
+
+  if (imageData && Array.isArray(imageData.rows) && imageData.rows.length > 0) {
+    const meta = imageData.rows[0];
+
+    latitude  = meta.latitude;
+    longitude = meta.longitude;
+    altitude  = meta.altitude;
+    direction = meta.direction;
+
+    // Format the capture timestamp to YYYY-MM-DD
+    if (meta.updated_at) {
+      const capturedAt = new Date(meta.updated_at);
+      formattedDate    = capturedAt.toISOString().split('T')[0];
+    }
+  }
 %>
 
 <div class="photo-container" style="display: flex; align-items: center; justify-content: center; gap: 15px;">
