@@ -117,5 +117,3 @@ The `photos` system table contains the following columns you can query:
 - If a photo was uploaded from a device without GPS (or with location disabled), `latitude` and `longitude` will be `null`. Add a null check before displaying.
 - `direction` is the compass bearing the device camera was facing at the moment of capture, not the direction of travel. It may be `null` if the device does not have a compass.
 - This snippet works inside both the default report and custom HTML report templates.
-
-*Credit: Diego Caplan, Gus Ferrara, Diego Osorio*
