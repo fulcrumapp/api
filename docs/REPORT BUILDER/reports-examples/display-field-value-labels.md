@@ -34,10 +34,10 @@ Add these functions to the top of your report's JavaScript section (the `<script
  * @returns {string} The display value, or an empty string if not set
  */
 function getValue(dataName) {
-  return record.formValues.find(dataName)
-    ? record.formValues.find(dataName).displayValue
-    : '';
+  const value = record.formValues.find(dataName);
+  return value ? value.displayValue : '';
 }
+```
 
 /**
  * Gets the display value for a field inside a repeatable section.
