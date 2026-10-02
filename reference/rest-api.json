@@ -2453,6 +2453,26 @@
       },
       "FormPhotoFieldElement": {
         "description": "A photo capture field. Stores one or more photos per record.",
+        "examples": [
+          {
+            "type": "PhotoField",
+            "key": "a1b2",
+            "data_name": "site_photos",
+            "label": "Site photos",
+            "fastfill_settings": {
+              "target_fields": [
+                "c3d4"
+              ],
+              "type": "generic"
+            }
+          },
+          {
+            "type": "PhotoField",
+            "key": "a1b2",
+            "data_name": "site_photos",
+            "label": "Site photos"
+          }
+        ],
         "allOf": [
           {
             "$ref": "#/components/schemas/FormBaseElement"
@@ -2477,6 +2497,34 @@
                   "integer",
                   "null"
                 ]
+              },
+              "fastfill_settings": {
+                "type": "object",
+                "description": "Optional saved FastFill configuration. Omit this property when the PhotoField has no FastFill settings.",
+                "required": [
+                  "target_fields",
+                  "type"
+                ],
+                "properties": {
+                  "target_fields": {
+                    "type": "array",
+                    "description": "Non-empty list of unique, non-empty stable keys of supported target elements in this form.",
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "generic",
+                      "text_extraction"
+                    ],
+                    "description": "FastFill processing mode."
+                  }
+                }
               }
             }
           }
