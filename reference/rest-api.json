@@ -2468,9 +2468,9 @@
           },
           {
             "type": "PhotoField",
-            "key": "a1b2",
-            "data_name": "site_photos",
-            "label": "Site photos"
+            "key": "e5f6",
+            "data_name": "inspection_photos",
+            "label": "Inspection photos"
           }
         ],
         "allOf": [
