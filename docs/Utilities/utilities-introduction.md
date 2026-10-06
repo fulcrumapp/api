@@ -29,10 +29,6 @@ A browser-based interface for Fulcrum's [Query API](https://developer.fulcrumapp
 
 A photo-first data exploration tool that gives you a visual way to browse and manage your Fulcrum records across multiple records simultaneously. Rather than navigating record by record in the standard editor, Explorer surfaces all your Fulcrum photos in a unified gallery view, making it easy to review field imagery, identify gaps in photo documentation, and quickly locate records by their associated images. Explorer also supports inline data editing and bulk field updates, making it useful for quality assurance and post-collection data cleanup.
 
-## [Fulcrum Dispatcher](https://dispatcher.util.fulcrumapp.com/)
-
-A map-driven bulk assignment and triage tool for Fulcrum records. Use the lasso selection tool to draw a region on the map and select a group of records, then update their status, project, or assignment all at once. Dispatcher is especially valuable for dispatch coordinators and project managers who need to reassign work orders, update job statuses after a site visit, or organize records into projects across a geographic area — all without opening each record individually.
-
 ## [Fulcrum Photo Grouper](https://photo-grouper.util.fulcrumapp.com/)
 
 Automates the process of associating bulk photo uploads with the correct Fulcrum records based on GPS metadata. Upload a batch of photos — such as imagery captured by a drone or a field camera — and Photo Grouper reads the latitude and longitude from each photo's EXIF data to automatically attach it to the nearest matching Fulcrum record. This is particularly useful for drone survey workflows, environmental inspections, and any field operation where large volumes of geo-tagged imagery need to be linked to asset or site records in Fulcrum.
@@ -48,3 +44,7 @@ Simplifies the creation and maintenance of Fulcrum classification sets, which ar
 ## [Fulcrum Data Viewer](https://data-viewer.util.fulcrumapp.com/)
 
 A public-facing split-view data viewer powered by Fulcrum shared filters. Provide a Fulcrum shared filter URL and Data Viewer renders the matching records in a side-by-side map and detail view — no Fulcrum login required. This makes it easy to share live field data snapshots with clients, community stakeholders, or colleagues who don't have a Fulcrum account, without granting them access to your organization.
+
+## [Fulcrum Deploy Utility](https://fulcrum-deploy.util.fulcrumapp.com/)
+
+A tool for managing and promoting Fulcrum apps between sandbox and production environments. Deploy lets you copy form definitions and field configurations from a sandbox app to a production app without having to rebuild or manually replicate changes — making it safe to iterate on your form design, test new fields, and fix issues without touching live production data. Deploy also includes a form history tab that lets you browse previous versions of any form, compare what changed between versions, and revert to an earlier version if needed.

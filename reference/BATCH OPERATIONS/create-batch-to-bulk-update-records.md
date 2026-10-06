@@ -1,6 +1,6 @@
 ---
 title: Create Batch to Bulk Update Records
-excerpt: Using the batch operations API, you can bulk delete records from a form.
+excerpt: Using the batch operations API, you can bulk update records in a form.
 api:
   file: rest-api.json
   operationId: create-batch

@@ -71,7 +71,7 @@ The Forms API gives you access to your form fields, or app schema.
 
 | Property                   | Type    | Required | Description                                                                                                                                                                                                                                                                                                                                                                   |
 | -------------------------- | ------- | -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| type                       | string  | yes      | Must be one of the valid element types: `"TextField"`, `"YesNoField"`, `"Label"`, `"Section"`, `"ChoiceField"`, `"ClassificationField"`, `"PhotoField"`, `"VideoField"`, `"AudioField"`, `"BarcodeField"`, `"DateTimeField"`, `"TimeField"`, `"Section"`, `"Repeatable"`, `"AddressField"`, `"SignatureField"`, `"HyperlinkField"`, `"CalculatedField"`, `"RecordLinkField"`. |
+| type                       | string  | yes      | Must be one of the valid element types: `"TextField"`, `"YesNoField"`, `"Label"`, `"Section"`, `"ChoiceField"`, `"ClassificationField"`, `"PhotoField"`, `"VideoField"`, `"AudioField"`, `"SketchField"`, `"BarcodeField"`, `"DateTimeField"`, `"TimeField"`, `"Repeatable"`, `"AddressField"`, `"SignatureField"`, `"HyperlinkField"`, `"CalculatedField"`, `"RecordLinkField"`. |
 | key                        | string  | yes      | The id for the field. Must be unique to the form and lowercase. The Fulcrum app builder uses system generated 4 character codes.                                                                                                                                                                                                                                              |
 | label                      | string  | yes      | The field label, visible to mobile and web users.                                                                                                                                                                                                                                                                                                                             |
 | data\_name                 | string  | yes      | Can be set manually or auto generated using the label of the element. This field will be the column name on all exported files. It is recommended to use something that works easily with Esri Shapefiles that have a 10 character maximum column heading limitation.                                                                                                         |
@@ -128,7 +128,7 @@ For simple yes/no questions with optional neutral state.
 | neutral\_enabled         | boolean | yes                 | Enable N/A choice?                                                   |
 | neutral                  | object  | if neutral\_enabled | Label/Value for neutral choice (`{"label": "N/A","value": "n/a"}`).  |
 | positive                 | object  | yes                 | Label/Value for positive choice (`{"label": "Yes","value": "yes"}`). |
-| negative                 | object  | yes                 | Label/Value for positive choice (`{"label": "No","value": "no"}`).   |
+| negative                 | object  | yes                 | Label/Value for negative choice (`{"label": "No","value": "no"}`).   |
 | default\_previous\_value | boolean | `false`             | Whether to automatically set the previously used value.              |
 
 ## ChoiceField
@@ -183,6 +183,19 @@ Associate audio recordings with this field by launching the microphone or select
 | track\_enabled | boolean | no       | GPS track enabled?                  |
 | min\_length    | number  | no       | Minimum number of audio recordings. |
 | max\_length    | number  | no       | Maximum number of audio recordings. |
+
+## SketchField
+
+Associate sketches with this field by drawing on a canvas with an optional background. Each Sketch field allows any number of sketches to be added to it.
+
+| Property                      | Type    | Required | Description                                                                 |
+| ----------------------------- | ------- | -------- | --------------------------------------------------------------------------- |
+| backgrounds                   | array   | no       | Array of background image objects.                                          |
+| min\_length                   | number  | no       | Minimum number of sketches.                                                 |
+| max\_length                   | number  | no       | Maximum number of sketches.                                                 |
+| map\_background\_enabled      | boolean | no       | Enable map background option for sketches. Defaults to `false`.             |
+| blank\_canvas\_enabled        | boolean | no       | Enable blank canvas option for sketches. Defaults to `true`.                |
+| custom\_background\_enabled   | boolean | no       | Enable custom background image option for sketches. Defaults to `false`.    |
 
 ## Section
 
