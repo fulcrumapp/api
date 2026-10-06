@@ -4526,6 +4526,279 @@
           }
         }
       },
+      "ExportQuery": {
+        "type": "object",
+        "description": "Either `form_id` (export an app) or both `name` and `sql` (export the results of a SQL query).",
+        "properties": {
+          "form_id": {
+            "type": "string",
+            "description": "The ID of the app (form) to export. The app must exist and you must have access to it.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "A name for the query. Required when `sql` is provided."
+          },
+          "sql": {
+            "type": "string",
+            "description": "A SQL query to export the results of. When provided, `name` is required."
+          }
+        }
+      },
+      "ExportOptions": {
+        "type": "object",
+        "properties": {
+          "media_format": {
+            "type": "string",
+            "description": "How media columns are written in the export.",
+            "enum": [
+              "url",
+              "id",
+              "name"
+            ]
+          },
+          "record_link_format": {
+            "type": "string",
+            "description": "How record link columns are written in the export.",
+            "enum": [
+              "title",
+              "id"
+            ]
+          },
+          "media_file_name_format": {
+            "type": "string",
+            "description": "The file name pattern for exported media.",
+            "example": "{title}"
+          },
+          "include_photos": {
+            "type": "boolean",
+            "description": "Include photos"
+          },
+          "include_videos": {
+            "type": "boolean",
+            "description": "Include videos"
+          },
+          "include_audio": {
+            "type": "boolean",
+            "description": "Include audio"
+          },
+          "include_signatures": {
+            "type": "boolean",
+            "description": "Include signatures"
+          },
+          "include_attachments": {
+            "type": "boolean",
+            "description": "Include attachments"
+          },
+          "include_sketches": {
+            "type": "boolean",
+            "description": "Include sketches"
+          },
+          "include_reports": {
+            "type": "boolean",
+            "description": "Include PDF reports. When true and `report_template_id` is omitted, the app's default report template is used."
+          },
+          "report_template_id": {
+            "type": "string",
+            "description": "The report template to use when `include_reports` is true",
+            "format": "uuid"
+          },
+          "use_labels_as_headers": {
+            "type": "boolean",
+            "description": "Use field labels instead of data names as column headers (`csv` and `xlsx` only)"
+          }
+        }
+      },
+      "ExportRequest": {
+        "type": "object",
+        "required": [
+          "export"
+        ],
+        "properties": {
+          "export": {
+            "type": "object",
+            "required": [
+              "queries",
+              "format"
+            ],
+            "properties": {
+              "queries": {
+                "type": "array",
+                "minItems": 1,
+                "description": "What to export. Must contain at least one query.",
+                "items": {
+                  "$ref": "#/components/schemas/ExportQuery"
+                }
+              },
+              "format": {
+                "type": "string",
+                "description": "The export format. Use `none` for a media-only export, which requires at least one `include_*` media option.",
+                "enum": [
+                  "csv",
+                  "xlsx",
+                  "shp",
+                  "kml",
+                  "geojson",
+                  "json",
+                  "sqlite",
+                  "spatialite",
+                  "geopackage",
+                  "gdb",
+                  "postgres",
+                  "none"
+                ],
+                "example": "csv"
+              },
+              "options": {
+                "$ref": "#/components/schemas/ExportOptions"
+              }
+            }
+          }
+        }
+      },
+      "Export": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier for the export",
+            "format": "uuid"
+          },
+          "state": {
+            "type": "string",
+            "description": "The processing state of the export.",
+            "enum": [
+              "pending",
+              "queued",
+              "running",
+              "completed",
+              "failed"
+            ],
+            "example": "running"
+          },
+          "format": {
+            "type": "string",
+            "description": "The export format.",
+            "example": "csv"
+          },
+          "queries": {
+            "type": "array",
+            "description": "The queries the export was created with.",
+            "items": {
+              "$ref": "#/components/schemas/ExportQuery"
+            }
+          },
+          "options": {
+            "$ref": "#/components/schemas/ExportOptions"
+          },
+          "file": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A download URL for the exported file. `null` until the export is completed. Exports expire 7 days after they are created, so download the file promptly."
+          },
+          "file_size": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The size of the exported file in bytes"
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The error, if the export failed"
+          },
+          "message": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A status message for the export"
+          },
+          "completed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "When the export completed"
+          },
+          "failed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "When the export failed"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the export was created",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the export was last updated",
+            "format": "date-time"
+          },
+          "created_by": {
+            "type": "string",
+            "description": "The name of the user who created the export"
+          },
+          "created_by_id": {
+            "type": "string",
+            "description": "The ID of the user who created the export",
+            "format": "uuid"
+          },
+          "updated_by": {
+            "type": "string",
+            "description": "The name of the user who last updated the export"
+          },
+          "updated_by_id": {
+            "type": "string",
+            "description": "The ID of the user who last updated the export",
+            "format": "uuid"
+          }
+        }
+      },
+      "ExportResponse": {
+        "type": "object",
+        "required": [
+          "export"
+        ],
+        "properties": {
+          "export": {
+            "$ref": "#/components/schemas/Export"
+          }
+        }
+      },
+      "ExportListResponse": {
+        "type": "object",
+        "properties": {
+          "exports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Export"
+            }
+          },
+          "current_page": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          },
+          "total_count": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
+          }
+        }
+      },
       "UnauthorizedResponse": {
         "type": "object",
         "description": "Unauthorized error response",
@@ -14265,6 +14538,249 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2/exports": {
+      "get": {
+        "summary": "List exports",
+        "description": "List the data exports you have created. Exports expire 7 days after they are created, and expired exports are not returned.",
+        "operationId": "exports-list",
+        "parameters": [
+          {
+            "name": "newest_first",
+            "in": "query",
+            "description": "If present, exports are sorted newest first.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number requested.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "The number of items to return per page (maximum 20).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20,
+              "maximum": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "summary": "Create an export",
+        "description": "Trigger a data export. The export is processed asynchronously: the response returns immediately, so poll Get an export until `state` is `completed` (or `failed`), then download the file from the `file` URL.",
+        "operationId": "exports-create",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportRequest"
+              },
+              "examples": {
+                "form": {
+                  "summary": "Export an app as CSV",
+                  "value": {
+                    "export": {
+                      "queries": [
+                        {
+                          "form_id": "YOUR-FORM-ID"
+                        }
+                      ],
+                      "format": "csv",
+                      "options": {
+                        "use_labels_as_headers": false
+                      }
+                    }
+                  }
+                },
+                "sql": {
+                  "summary": "Export the results of a SQL query as CSV",
+                  "value": {
+                    "export": {
+                      "queries": [
+                        {
+                          "name": "Open work orders",
+                          "sql": "SELECT * FROM \"Work Orders\" WHERE status = 'open'"
+                        }
+                      ],
+                      "format": "csv"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Export created and queued for processing",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2/exports/{export_id}": {
+      "get": {
+        "summary": "Get an export",
+        "description": "Retrieve an export. When `state` is `completed`, the `file` attribute contains a download URL for the exported file.",
+        "operationId": "exports-get",
+        "parameters": [
+          {
+            "name": "export_id",
+            "in": "path",
+            "description": "The unique identifier of the export.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "summary": "Cancel an export",
+        "description": "Cancel a running export. The export is marked as `failed` and returned in the response.",
+        "operationId": "exports-delete",
+        "parameters": [
+          {
+            "name": "export_id",
+            "in": "path",
+            "description": "The unique identifier of the export.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Export cancelled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
                 }
               }
             }
