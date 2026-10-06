@@ -33,6 +33,50 @@ API("/choice_lists", { qs: { per_page: 1 } });
 
 ---
 
+## APIREQUEST
+
+Make a synchronous HTTP request. Unlike `API()`, which only makes `GET` requests to the Fulcrum API, `APIREQUEST()` accepts a full request object, so you can use other methods (for example `POST`) and send a body and headers.
+
+### Parameters
+
+`options` Object (**required**) - Request options
+
+- `url` String (**required**) - Request URL
+- `method` String - HTTP method, such as `GET` or `POST`
+- `headers` Object - Request headers
+- `body` String - Request body
+- `qs` Object - Query string parameters
+- `json` Boolean - Send and expect JSON. The response `body` is then parsed into an object. Otherwise `body` is returned as a string.
+- `api` Boolean - Set to `true` to send the report requester's Fulcrum API token with the request. Use this for calls to the Fulcrum API.
+- `cache` Boolean - Responses to `api: true` requests may be cached for the duration of a report run. Set to `false` to always make a fresh request.
+
+### Returns
+
+Object - `{ statusCode, body, headers }`
+
+### Examples
+
+```js
+// Generate a report for the current record using the Reports API
+const response = APIREQUEST({
+  url: "https://api.fulcrumapp.com/api/v2/reports.json",
+  method: "POST",
+  body: JSON.stringify({
+    report: {
+      record_id: RECORDID(),
+      template_id: "YOUR-TEMPLATE-ID",
+    },
+  }),
+  api: true,
+  cache: false,
+  headers: { "Content-Type": "application/json" },
+});
+
+const reportUrl = JSON.parse(response.body).report.url;
+```
+
+---
+
 ## AUDIOURL
 
 Generate a public audio URL
@@ -51,6 +95,26 @@ String
 
 ```js
 AUDIOURL($my_audio_field[0].audio_id, { version: "original" });
+```
+
+---
+
+## BUFFER2BASE64
+
+Encode a binary buffer, such as the result of `GETBLOB()`, as a Base64 string. This is useful for embedding a file's contents directly in the report HTML.
+
+### Parameters
+
+`arrayBuffer` ArrayBuffer (**required**) - The binary data to encode
+
+### Returns
+
+String
+
+### Examples
+
+```js
+BUFFER2BASE64(GETBLOB("https://learn.fulcrumapp.com/img/branding/fulcrum-icon.png"));
 ```
 
 ---

@@ -42,16 +42,26 @@ function fetchReport(templateId) {
     url: 'https://api.fulcrumapp.com/api/v2/reports.json',
     method: 'POST',
     body: JSON.stringify({
-      record_id: RECORDID(),
-      template_id: templateId,
+      report: {
+        record_id: RECORDID(),
+        template_id: templateId,
+      },
     }),
     api: true,
+    cache: false,   // always generate a fresh report
     headers: { 'Content-Type': 'application/json' },
   };
   const response = APIREQUEST(requestOptions);
-  const reportUrl = JSON.parse(response.body).report_url;
-  // Append the report viewer token so the client-side fetch is authenticated
-  return `${reportUrl}?token=${$params.token}`;
+  const report = JSON.parse(response.body).report;
+
+  if (!report || report.state !== 'completed') {
+    throw new Error('Report was not completed (state: ' + (report && report.state) + ')');
+  }
+
+  // Append the token so the client-side fetch is authenticated.
+  // $params.token is the token the report was requested with (?token=...).
+  const separator = report.url.includes('?') ? '&' : '?';
+  return `${report.url}${separator}token=${encodeURIComponent($params.token || '')}`;
 }
 
 // Generate each sub-report server-side and capture the authenticated URLs
@@ -59,7 +69,8 @@ const page1Url = fetchReport('YOUR-FIRST-TEMPLATE-ID');
 const page2Url = fetchReport('YOUR-SECOND-TEMPLATE-ID');
 // Add more fetchReport() calls here for additional templates
 
-// Fetch PDF attachments on this record (remove block if not needed)
+// Fetch PDF attachments on this record (remove block if not needed).
+// The Query API has no attachments table, so API() is used here instead of QUERY().
 const allAttachments = API(`/attachments?record_id=${RECORDID()}&owner_type=record`);
 %>
 
@@ -92,7 +103,9 @@ async function main() {
   //    injected as Base64 strings that pdf-lib can decode directly.
   <% for (let i = 0; i < allAttachments.attachments.length; i++) {
      const attachment = allAttachments.attachments[i];
-     if (!attachment.content_type || attachment.content_type.includes('pdf')) { %>
+     const isPdf = (attachment.content_type || '').includes('pdf') ||
+                   (attachment.name || '').toLowerCase().endsWith('.pdf');
+     if (isPdf) { %>
   pdfBytesArray.push(
     Uint8Array.from(atob('<%= BUFFER2BASE64(GETBLOB(attachment.download_url)) %>'), c => c.charCodeAt(0)).buffer
   );
@@ -141,15 +154,17 @@ main();
 
 ## How It Works
 
-`fetchReport(templateId)` is an EJS server-side function that calls `APIREQUEST()` to POST to the Fulcrum Reports API. Fulcrum generates the sub-report PDF and returns a signed `report_url`. The `$params.token` is appended so the client-side `fetch()` call can download the PDF without a separate auth header.
+`fetchReport(templateId)` is an EJS server-side function that calls `APIREQUEST()` to POST to the Fulcrum [Reports API](https://docs.fulcrumapp.com/reference/reports-create). The response contains a `report` object with a `state` and a `url`; the example checks that `state` is `completed` before using `url`. `$params.token` is appended so the client-side `fetch()` call can download the PDF without a separate auth header.
 
-PDF attachment bytes are fetched entirely server-side using `GETBLOB()` (which follows authenticated Fulcrum download URLs) wrapped in `BUFFER2BASE64()` to embed the binary data as a Base64 string directly into the HTML. This avoids CORS issues on the client.
+> **Note:** `$params.token` is only populated when the report is requested with a `token` query-string parameter (for example `...?token=YOUR-TOKEN`). If the report is requested with an `X-ApiToken` header instead, `$params.token` is empty. That token is passed to the browser, so only use this pattern when the report is delivered to the user who owns the token.
+
+PDF attachment bytes are fetched entirely server-side using `GETBLOB()` wrapped in `BUFFER2BASE64()` to embed the binary data as a Base64 string directly into the HTML. This avoids CORS issues on the client.
 
 On the client, `pdf-lib` loads each PDF, copies all of its pages into a new merged document, and saves the result as a data URI. A programmatic anchor click triggers the download.
 
 ## Usage Notes
 
 - Replace `YOUR-FIRST-TEMPLATE-ID` and `YOUR-SECOND-TEMPLATE-ID` with the UUIDs of the Report Builder templates you want to include. Find template IDs in the Report Builder URL or via the Fulcrum API at `GET /api/v2/report_templates.json`.
-- The `allAttachments` block merges every PDF attached to the record. Filter by `attachment.content_type` or attachment filename if you only want specific files.
-- This report template is best run as a standalone "merge" report, not embedded in a normal record view. Set `"output": "html"` in the report config and keep `"status": "inactive"` until ready to deploy.
+- The `allAttachments` block merges every PDF attached to the record (matched by content type or a `.pdf` file name). Add further checks on `attachment.name` if you only want specific files.
+- This report template is best run as a standalone "merge" report, not embedded in a normal record view. In the Report Builder, set **Output** to **HTML** so the browser runs the merge script (the Output selector appears after you [enable the `reportsEnabled` flag](../../Utilities/utilities-examples/enable-feature-flag-via-console.md)).
 - Because of the async download pattern, use this template alongside the [Puppeteer stall technique](./puppeteer-stall-for-async-rendering.md) if Puppeteer is involved in your report workflow.

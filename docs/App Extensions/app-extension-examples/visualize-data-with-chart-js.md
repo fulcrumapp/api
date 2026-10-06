@@ -2,9 +2,9 @@
 title: Visualize field data with Chart.js
 excerpt: >-
   This example shows how to use a Fulcrum App Extension to display an
-  interactive chart from field data. It uses Chart.js embedded in an offline
-  HTML attachment, opened via OPENEXTENSION, and sends a result back to the
-  Fulcrum record using onMessage.
+  interactive chart from field data. It uses Chart.js in an HTML attachment,
+  opened via OPENEXTENSION, and sends a result back to the Fulcrum record using
+  onMessage.
 deprecated: false
 hidden: false
 metadata:
@@ -19,7 +19,7 @@ next:
 
 This example demonstrates how to build an App Extension that renders an interactive bar chart using [Chart.js](https://www.chartjs.org/). The chart is driven by data collected in the Fulcrum form — the user taps a button, the extension opens a chart view, and can optionally write a result back to the record.
 
-This is useful for giving field workers a real-time visual summary of their collected data without needing an internet connection.
+This is useful for giving field workers a real-time visual summary of their collected data. The example loads Chart.js from a CDN, so the device must be online; see [Offline use](#offline-use) to bundle it for offline work.
 
 ## How it works
 
@@ -49,7 +49,7 @@ ON('click', 'view_chart', () => {
     title: 'Survey Data Chart',
 
     // Pass field values to the HTML extension as a data object.
-    // These are available in the HTML via the postMessage event.
+    // These are available in the HTML via Fulcrum.load().
     data: {
       surveyDate: $survey_date,
       locationName: $location_name,
@@ -61,7 +61,7 @@ ON('click', 'view_chart', () => {
     },
 
     // Receive a result back from the HTML extension.
-    // The HTML calls window.parent.postMessage({ result: '...' }, '*')
+    // The HTML calls Fulcrum.finish({ result: '...' })
     onMessage: ({ data }) => {
       // Write the result to a field in the record
       // Replace 'review_status' with your target field's data name
@@ -75,7 +75,7 @@ ON('click', 'view_chart', () => {
 
 ## HTML Extension File (`survey_chart.html`)
 
-The HTML file uses Chart.js loaded from a CDN to render a bar chart. It listens for the `message` event to receive data from Fulcrum, builds the chart, and provides a button to send a result back.
+The HTML file uses Chart.js loaded from a CDN to render a bar chart. It uses the Fulcrum App Extension bridge (`Fulcrum.load()` and `Fulcrum.finish()`) to receive the data from the Data Event, builds the chart, and provides a button to send a result back.
 
 > **Note:** Because this file uses a CDN-hosted Chart.js, the device must be online when opening the extension. For fully offline use, see the [offline bundling note](#offline-use) below.
 
@@ -129,6 +129,25 @@ The HTML file uses Chart.js loaded from a CDN to render a bar chart. It listens 
   <br>
   <button onclick="sendResult()">Mark as Reviewed</button>
 
+  <!-- Fulcrum App Extension communication bridge.
+       This is the standard bridge snippet from the App Extensions introduction
+       (https://docs.fulcrumapp.com/docs/app-extensions-introduction). It provides
+       Fulcrum.load() and Fulcrum.finish(). Copy the current version from that page. -->
+  <script>
+  (()=>{var s=(e,i)=>()=>(i||e((i={exports:{}}).exports,i),i.exports);
+  var o=s((a,r)=>{var l=new URLSearchParams(location.search);
+  function c(e){try{return JSON.parse(e)}catch(i){return null}}
+  r.exports=window.Fulcrum={isExtension:l.get("extension")==="1",
+  initialize:()=>{var i;let{params:e}=Fulcrum;Fulcrum.id=e?.id,Fulcrum.url=e?.url,Fulcrum.data=e?.data,Fulcrum.origin=e?.origin,(i=Fulcrum.onLoadOnce)?.call(Fulcrum)},
+  load:e=>{Fulcrum.onLoadOnce=()=>{Fulcrum.params&&!Fulcrum.isLoaded&&(Fulcrum.isLoaded=!0,e({data:Fulcrum.data}))},Fulcrum.onLoadOnce()},
+  send:(e,{close:i=!1}={})=>{var u;e=e||{};let n={id:Fulcrum.id,url:Fulcrum.url,data:e,close:i};
+  (u=window.webkit)?.messageHandlers?window.webkit.messageHandlers.extensionListener.postMessage(JSON.stringify(n)):
+  window.parent&&window.parent.postMessage({extensionMessage:n},Fulcrum.origin)},
+  receive:e=>{let i=c(e.data);i&&i.command==="initialize"&&!Fulcrum.params&&(Fulcrum.params=i.params,Fulcrum.initialize())},
+  finish:e=>{Fulcrum.send(e,{close:!0})}};Fulcrum.isExtension?
+  window.addEventListener("message",Fulcrum.receive,!1):window.addEventListener("DOMContentLoaded",Fulcrum.initialize)});o();})();
+  </script>
+
   <!-- Load Chart.js from CDN (requires internet connection) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 
@@ -137,22 +156,11 @@ The HTML file uses Chart.js loaded from a CDN to render a bar chart. It listens 
     let chartInstance = null;
 
     /**
-     * Listen for the data payload sent from Fulcrum via OPENEXTENSION's data property.
-     * Fulcrum sends the data as a postMessage event to the iframe.
+     * Receive the data object passed from the Data Event's OPENEXTENSION call.
+     * Fulcrum.load() fires once the extension has been initialized.
      */
-    window.addEventListener('message', function(event) {
-      // Only accept messages from trusted origins (e.g., Fulcrum's web app or opaque origins for offline use)
-      const allowedOrigins = ['https://web.fulcrumapp.com', 'null'];
-      if (!allowedOrigins.includes(event.origin)) {
-        return;
-      }
-
-      // Ignore messages that don't contain an object payload
-      if (!event.data || typeof event.data !== 'object') {
-        return;
-      }
-
-      chartData = event.data;
+    Fulcrum.load(function ({ data }) {
+      chartData = data || {};
 
       // Update the chart title and subtitle with the received data
       document.getElementById('chart-title').textContent =
@@ -236,7 +244,8 @@ The HTML file uses Chart.js loaded from a CDN to render a bar chart. It listens 
      * The onMessage handler in the Data Event will receive this.
      */
     function sendResult() {
-      window.parent.postMessage({ result: 'reviewed' }, '*');
+      // Sends the result to onMessage and closes the extension
+      Fulcrum.finish({ result: 'reviewed' });
     }
   </script>
 
@@ -252,6 +261,8 @@ The HTML file uses Chart.js loaded from a CDN to render a bar chart. It listens 
 4. The file will be available at `attachment://survey_chart.html` in your Data Event.
 5. Add a **Button** field to your form and note its data name (e.g. `view_chart`).
 6. Add the Data Event code above, updating the field names to match your form.
+
+> The bridge `<script>` in the HTML is the standard snippet from the [App Extensions introduction](https://docs.fulcrumapp.com/docs/app-extensions-introduction). Copy the current version from there if it changes.
 
 ## Offline use
 

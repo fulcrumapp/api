@@ -37,7 +37,6 @@ function getValue(dataName) {
   const value = record.formValues.find(dataName);
   return value ? value.displayValue : '';
 }
-```
 
 /**
  * Gets the display value for a field inside a repeatable section.

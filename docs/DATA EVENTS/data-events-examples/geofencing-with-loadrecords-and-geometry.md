@@ -29,18 +29,18 @@ When a matching boundary is found, the fields are revealed and the user sees an 
 1. Create a Fulcrum **boundary layer app** with polygon geometry enabled.
    - Add a text field for the area name (e.g. `area_name`). Note its **field key**.
    - Create polygon records for each valid location.
-   - Note the **App ID** (found in the URL when viewing the app in the web editor).
+   - Note the app's **Form ID** (the UUID in the URL when viewing the app's records in the web app).
 2. In your primary data collection app, add this Data Event.
-3. Replace `BUFFER_APP_ID` and `NAME_FIELD_KEY` with your values.
+3. Replace `BOUNDARY_FORM_ID` and `NAME_FIELD_KEY` with your values.
 
 ## Data Event Code
 
 ```js
 // ─── Configuration ───────────────────────────────────────────────────────────
 
-// App ID of the app containing your boundary polygons
-// Find this in the URL when editing the app: /apps/YOUR-APP-ID/edit
-var BUFFER_APP_ID = 'YOUR-BOUNDARY-APP-ID-HERE';
+// Form ID of the app containing your boundary polygons (the form_id passed to LOADRECORDS).
+// Find it in the URL when viewing the app's records in the web app.
+var BOUNDARY_FORM_ID = 'YOUR-BOUNDARY-FORM-ID-HERE';
 
 // Field key of the text field in the boundary app that holds the area name
 // Used in the alert message when the user enters a boundary
@@ -67,7 +67,7 @@ var updateFormWithBufferInfo = function () {
 
   // Load all polygon records from the boundary app
   LOADRECORDS({
-    form_id: BUFFER_APP_ID
+    form_id: BOUNDARY_FORM_ID
   }, function (error, result) {
     if (error) {
       ALERT('Error loading boundary records: ' + INSPECT(error));

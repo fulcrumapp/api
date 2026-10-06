@@ -75,26 +75,6 @@ ON('edit-record', () => {
 const locationsAreEqual = (loc1, loc2) =>
   loc1?.latitude === loc2?.latitude && loc1?.longitude === loc2?.longitude;
 
-/**
- * Filters out coordinates that appear more than once in the collected samples.
- * Real GPS locations drift slightly, so duplicate coordinates indicate spoofing.
- */
-function removeDuplicateCoords(arr) {
-  const coordCount = {};
-
-  // Count how many times each (lat, lng) pair appears
-  arr.forEach(({ latitude, longitude }) => {
-    const key = `${latitude},${longitude}`;
-    coordCount[key] = (coordCount[key] || 0) + 1;
-  });
-
-  // Keep only unique coordinates (i.e., not duplicated — genuine GPS drift)
-  return arr.filter(({ latitude, longitude }) => {
-    const key = `${latitude},${longitude}`;
-    return coordCount[key] === 1;
-  });
-}
-
 // ─── GPS Sampling Loop ───────────────────────────────────────────────────────
 
 /**
@@ -126,10 +106,9 @@ const checkForLocationServices = () => {
 
   // After 10 samples, evaluate whether the device location is genuine
   if (runCount === 10) {
+    // Duplicate coordinates were already skipped when samples were collected
+    // (see "alreadyCollected" above), so every entry here is a distinct reading.
     if (locationsCollected.length >= 3) {
-      // Filter out any repeated/static coordinates
-      locationsCollected = removeDuplicateCoords(locationsCollected);
-
       // Select the sample with the best accuracy (lowest accuracy value = more precise)
       let mostAccurateLocation = locationsCollected[0];
       locationsCollected.forEach((location, i) => {
@@ -186,10 +165,20 @@ ON('unload-record', () => {
 // ─── Block Manual Map Edits ──────────────────────────────────────────────────
 
 ON('change-geometry', () => {
-  // Override any manual pin drop with the validated GPS location
+  // Override any manual pin drop with the validated GPS location.
+  // Only write when the geometry differs, so our own SETGEOMETRY call
+  // doesn't re-trigger this handler in a loop.
+  const current = GEOMETRY();
+
   if (lastKnownRealLocation) {
-    SETGEOMETRY(lastKnownRealLocation);
-  } else {
+    const alreadyLocked =
+      current &&
+      current.coordinates &&
+      current.coordinates[0] === lastKnownRealLocation.coordinates[0] &&
+      current.coordinates[1] === lastKnownRealLocation.coordinates[1];
+
+    if (!alreadyLocked) SETGEOMETRY(lastKnownRealLocation);
+  } else if (current) {
     SETGEOMETRY(null);
   }
 });
@@ -217,7 +206,11 @@ ON('validate-record', () => {
 
 1. **GPS Sampling** — Once the record loads on a mobile device, the event polls `CURRENTLOCATION()` every 500ms.
 2. **Collecting unique readings** — After each sample, it checks whether the coordinate differs from the last reading. Real GPS signals naturally drift, producing a set of slightly different coordinates.
-3. **Spoofing detection** — After 10 samples, the collected coordinates are inspected. Fake GPS apps broadcast a perfectly static location, so the duplicate-filtering function (`removeDuplicateCoords`) will leave fewer than 3 usable points — causing the validation to fail.
+3. **Spoofing detection** — After 10 samples, the collected coordinates are inspected. Only distinct readings are kept, and fake GPS apps typically broadcast a perfectly static location, so fewer than 3 distinct readings are collected — the location is not accepted and validation fails.
 4. **Best location selection** — If at least 3 unique coordinates are found, the one with the best reported accuracy is selected as the confirmed location and written via `SETGEOMETRY`.
 5. **Override map edits** — The `change-geometry` handler immediately overrides any manual pin drops with the validated GPS coordinate (or clears it if none is confirmed yet).
 6. **Validation gate** — The `validate-record` handler enforces the GPS requirement and optionally blocks desktop saves for configured roles.
+
+## Limitations
+
+This is a heuristic, not a tamper-proof control. It catches the common case of a "Fake GPS" app that holds a single static coordinate. A more sophisticated spoofing tool that adds random drift to its coordinates can produce enough distinct readings to pass the check. Treat it as one layer of verification and combine it with other signals (for example, comparing photo EXIF locations to the record location) when location integrity is critical.

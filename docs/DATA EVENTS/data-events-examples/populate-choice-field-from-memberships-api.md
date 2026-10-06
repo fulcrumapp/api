@@ -45,6 +45,9 @@ var CHOICE_FIELD_NAME = 'request_reassignment';
 // Storage cache key — change this if you deploy to multiple apps to avoid conflicts
 var CACHE_KEY = 'memberships_choice_cache_v1';
 
+// Number of memberships to request per page
+var PER_PAGE = 1000;
+
 // ─── Main Logic ──────────────────────────────────────────────────────────────
 
 var storage = STORAGE();
@@ -76,41 +79,55 @@ ON('load-record', function () {
   }
 
   // ── Step 2: Fetch the live member list from the API ──────────────────────
-  var options = {
-    url: 'https://api.fulcrumapp.com/api/v2/memberships.json?per_page=20000',
-    method: 'GET',
-    headers: {
-      'Accept': 'application/json',
-      'X-ApiToken': API_TOKEN
+  // Memberships are fetched one page at a time. The response includes
+  // total_pages, so we keep requesting pages until we have them all.
+  function useCacheOrAlert(message) {
+    // If the request fails but we have a cached list, silently fall back to it
+    if (cachedChoices && Array.isArray(cachedChoices) && cachedChoices.length > 0) {
+      SETCHOICES(CHOICE_FIELD_NAME, cachedChoices);
+    } else {
+      ALERT(message);
     }
-  };
+  }
 
-  REQUEST(options, function (error, response, body) {
-    if (error) {
-      // If the request fails but we have a cached list, silently fall back to it
-      if (cachedChoices && Array.isArray(cachedChoices) && cachedChoices.length > 0) {
-        SETCHOICES(CHOICE_FIELD_NAME, cachedChoices);
-      } else {
-        ALERT('Error loading members: ' + INSPECT(error));
+  function fetchPage(page, collected) {
+    var options = {
+      url: 'https://api.fulcrumapp.com/api/v2/memberships.json?per_page=' + PER_PAGE + '&page=' + page,
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'X-ApiToken': API_TOKEN
       }
-      return;
-    }
+    };
 
-    // ── Step 3: Parse the response and build choice objects ────────────────
-    var data;
-    try {
-      data = JSON.parse(body);
-    } catch (e) {
-      // Fall back to cached data if parsing fails
-      if (cachedChoices && Array.isArray(cachedChoices) && cachedChoices.length > 0) {
-        SETCHOICES(CHOICE_FIELD_NAME, cachedChoices);
-      } else {
-        ALERT('Error parsing Memberships API response.');
+    REQUEST(options, function (error, response, body) {
+      if (error) {
+        useCacheOrAlert('Error loading members: ' + INSPECT(error));
+        return;
       }
-      return;
-    }
 
-    var memberships = data.memberships || [];
+      // ── Step 3: Parse the response ────────────────────────────────────────
+      var data;
+      try {
+        data = JSON.parse(body);
+      } catch (e) {
+        useCacheOrAlert('Error parsing Memberships API response.');
+        return;
+      }
+
+      collected = collected.concat(data.memberships || []);
+
+      // Keep going until every page has been fetched
+      if (page < (data.total_pages || 1)) {
+        fetchPage(page + 1, collected);
+      } else {
+        buildChoices(collected);
+      }
+    });
+  }
+
+  // ── Step 4: Build choice objects, update the field, and save to cache ────
+  function buildChoices(memberships) {
     var seenUserIds = {};
     var choices = [];
 
@@ -139,7 +156,6 @@ ON('load-record', function () {
       return a.label.localeCompare(b.label);
     });
 
-    // ── Step 4: Update the choice field and save to cache ─────────────────
     SETCHOICES(CHOICE_FIELD_NAME, choices);
 
     if (storage) {
@@ -155,14 +171,16 @@ ON('load-record', function () {
     if (current === '?' || current === '' || current == null) {
       SETVALUE(CHOICE_FIELD_NAME, null);
     }
-  });
+  }
+
+  fetchPage(1, []);
 });
 ```
 
 ## How it works
 
 1. **Cache first** — On `load-record`, the event immediately checks `STORAGE` for a previously cached member list. If found, the choice field is populated right away, giving instant offline support.
-2. **API fetch** — The event then fires an asynchronous `REQUEST` to the Memberships API. The `per_page=20000` parameter ensures all members are returned in a single call.
+2. **API fetch** — The event then requests the members from the Memberships API one page at a time (`PER_PAGE` members per request), using the `total_pages` value in each response to decide whether to request another page. This works for orgs of any size.
 3. **Deduplication and sorting** — The response is parsed, deduplicated by `user_id`, and sorted alphabetically. Each member becomes a `{ label, value }` choice object.
 4. **Update and cache** — The choice field is updated with the fresh list, and the result is saved back to `STORAGE` so future sessions can use it offline.
 
@@ -170,5 +188,5 @@ ON('load-record', function () {
 
 - `STORAGE` is scoped per device. If a user logs in on a different device, the first load will show "Loading members..." until the API responds.
 - To force a cache refresh, you can change `CACHE_KEY` to a new value (e.g. bump the version suffix from `_v1` to `_v2`).
-- The Memberships API returns up to 20,000 members per page. Very large orgs may need pagination.
+- Members are fetched in pages of `PER_PAGE` (1,000 by default), so large orgs are handled automatically.
 - The `value` stored in the choice field is the member's `user_id`, not their display name. This makes it easier to look up users programmatically via the API later.

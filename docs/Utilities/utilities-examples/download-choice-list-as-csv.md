@@ -1,9 +1,9 @@
 ---
 title: Download a Choice List as CSV
-excerpt: Run this browser console script while viewing a Fulcrum choice list to extract all choice labels and values into a CSV and open it as a download — useful for auditing choice lists, sharing them with stakeholders, or importing them into another tool.
+excerpt: Run this browser console script while viewing a Fulcrum choice list to extract all choice labels and values into a CSV and download it — useful for auditing choice lists, sharing them with stakeholders, or importing them into another tool.
 ---
 
-When viewing a choice list in the Fulcrum web application, this console script reads the choice labels and values from the page DOM and opens a CSV download — no API call required.
+When viewing a choice list in the Fulcrum web application, this console script reads the choice labels and values from the page DOM and downloads them as a CSV file — no API call required.
 
 ## Script
 
@@ -18,12 +18,16 @@ for (var i = 0; i < labels.length; i++) {
   rows.push('"' + labels[i].value + '","' + values[i].value + '"');
 }
 
-var csvContent = 'data:text/csv;charset=utf-8,label,value\r\n';
-rows.forEach(function (row) {
-  csvContent += row + '\r\n';
-});
+var csvContent = 'label,value\r\n' + rows.join('\r\n') + '\r\n';
 
-window.open(encodeURI(csvContent));
+// Download via a Blob URL (browsers block navigating to data: URLs)
+var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+var link = document.createElement('a');
+link.href = URL.createObjectURL(blob);
+link.download = 'choice-list.csv';
+document.body.appendChild(link);
+link.click();
+document.body.removeChild(link);
 ```
 
 ## How to Use
@@ -31,9 +35,9 @@ window.open(encodeURI(csvContent));
 1. Navigate to **Settings → Choice Lists** in the Fulcrum web app and open the choice list you want to export.
 2. Open the browser developer console (F12 → Console tab, or right-click → Inspect → Console).
 3. Paste the script and press Enter.
-4. A new tab opens with the CSV content. Use your browser's **File → Save As** to save it, or select all and copy into a spreadsheet.
+4. Your browser downloads `choice-list.csv`. Open it in a spreadsheet or text editor.
 
-If the new tab is blocked by your browser's pop-up blocker, allow pop-ups for `web.fulcrumapp.com` and try again.
+If the download is blocked, allow downloads for `web.fulcrumapp.com` and run the script again.
 
 ## Output Format
 

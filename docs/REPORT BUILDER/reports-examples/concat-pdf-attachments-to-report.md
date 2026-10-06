@@ -61,7 +61,11 @@ Add the Puppeteer idle-blocker before `main()`, then include the PDF attachment 
     // ── 1. Collect Base64-encoded PDF data server-side (EJS) ──────────────────
     const pdfBytesArray = [];
 
-    <% const allAttachments = API(`/attachments?record_id=${RECORDID()}&owner_type=record`); %>
+    <%
+      // The Query API has no attachments table, so this is one of the few cases
+      // where API() is used instead of QUERY().
+      const allAttachments = API(`/attachments?record_id=${RECORDID()}&owner_type=record`);
+    %>
     <% for (let i = 0; i < allAttachments.attachments.length; i++) { %>
       <% if (allAttachments.attachments[i].name.toLowerCase().endsWith('.pdf')) { %>
         pdfBytesArray.push("<%= BUFFER2BASE64(GETBLOB(allAttachments.attachments[i].download_url)) %>");
@@ -114,7 +118,7 @@ Add the Puppeteer idle-blocker before `main()`, then include the PDF attachment 
 
 | Step | Where it runs | What it does |
 |---|---|---|
-| `API('/attachments?...')` | Server (EJS) | Fetches attachment metadata for the record |
+| `API('/attachments?...')` | Server (EJS) | Fetches attachment metadata for the record (used instead of `QUERY()` because the Query API has no attachments table) |
 | `GETBLOB(url)` | Server (EJS) | Downloads the raw binary content of each PDF |
 | `BUFFER2BASE64(blob)` | Server (EJS) | Encodes the binary as a Base64 string embedded in the HTML |
 | `base64ToUint8Array()` | Browser (JS) | Decodes the Base64 string back to binary |

@@ -98,7 +98,7 @@ def features_to_csv(features, output_path):
     print(f"✅ Wrote {len(features)} rows to {output_path}")
 
 
-# ── Run ───────────────────────────────────────────────name────────────────────
+# ── Run ───────────────────────────────────────────────────────────────────
 print(f"Querying {FEATURE_SERVICE_URL}...")
 features = fetch_all_features(FEATURE_SERVICE_URL)
 print(f"Total features: {len(features)}")

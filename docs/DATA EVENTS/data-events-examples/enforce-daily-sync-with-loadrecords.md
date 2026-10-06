@@ -82,7 +82,24 @@ function checkSyncStatus() {
     // 2. No error — compare the latest Task due date to today
     let taskRecords = records.records;
 
-    if (taskRecords && taskRecords.length > 0) {
+    if (!taskRecords || taskRecords.length === 0) {
+      // No Task records came back (e.g. the device hasn't synced the Task yet,
+      // or the Task was deleted). Treat this as "not synced" and lock down the form.
+      storage.removeItem(TASK_DATE_KEY);
+
+      ALERT(
+        'Sync Required',
+        'No sync check-in was found on this device. Please close Fulcrum and sync before continuing.'
+      );
+
+      DATANAMES().forEach(function(dataName) {
+        SETHIDDEN(dataName, true);
+      });
+
+      return;
+    }
+
+    if (taskRecords.length > 0) {
       let latestTask = taskRecords[0];
 
       // Replace 'YOUR-DUE-DATE-FIELD-KEY' with the actual field key
@@ -105,7 +122,7 @@ function checkSyncStatus() {
         DATANAMES().forEach(function(dataName) {
           SETHIDDEN(dataName, false);
         });
-        ALERT('All clear', 'Your data is up to date. You may proceed.');
+        // No alert here — users only see a message when action is required
       } else {
         // Task date doesn't match today — device needs to sync
         let lastSyncDisplay = taskDate ? taskDate : 'unknown';
@@ -143,8 +160,8 @@ ON('validate-record', function(event) {
 
 When a record is opened (`load-record`), `checkSyncStatus` queries the latest Task in your org, sorted by due date descending. The most recent Task's due date acts as a heartbeat — it represents the last date the Task was synced to the device.
 
-- If the device has synced today, the due date will match today's date and the user is shown a green light.
+- If the device has synced today, the due date will match today's date and the user can proceed without any prompt.
 - If the device hasn't synced, the due date will be an older date. All fields are hidden and the user is prompted to sync.
-- If the LOADRECORDS call fails (e.g. due to a permissions error), the form is also locked down as a precaution.
+- If the LOADRECORDS call fails (e.g. due to a permissions error), or no Task records are returned at all, the form is also locked down as a precaution.
 
 The `validate-record` handler provides a second line of defense: even if the user had the form open before midnight, they cannot save a record after a new day begins without first syncing.

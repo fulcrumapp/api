@@ -12,11 +12,14 @@ Fulcrum records can be assigned to a project, but the `_project_id` column store
 //    This could also be driven by a $params value for a dynamic report.
 const projectName = 'Project Alpha';  // Replace with your project name
 
+// Escape single quotes so the name can't break out of the SQL string
+const safeProjectName = projectName.replace(/'/g, "''");
+
 // 2. Look up the project_id from the Fulcrum system projects table.
 const projectInfo = QUERY(`
   SELECT project_id
   FROM projects
-  WHERE name = '${projectName}'
+  WHERE name = '${safeProjectName}'
 `);
 
 const projectId = projectInfo?.rows?.[0]?.project_id;
@@ -41,14 +44,18 @@ Rather than hard-coding the project name, you can pass it as a URL parameter and
 
 ```javascript
 // Caller passes ?project_name=Project+Alpha in the report URL
-const projectName = $params.query?.project_name || $params.post?.project_name;
+const projectName = $params.query?.project_name || $params.post?.project_name || '';
+
+// $params values are external input — always escape single quotes before using them in SQL
+const safeProjectName = projectName.replace(/'/g, "''");
 
 const projectInfo = QUERY(`
-  SELECT project_id FROM projects WHERE name = '${projectName}'
+  SELECT project_id FROM projects WHERE name = '${safeProjectName}'
 `);
 
 const projectId = projectInfo?.rows?.[0]?.project_id;
 
+// If no project matched, the second query returns no rows
 const records = QUERY(`
   SELECT * FROM "Your App Name"
   WHERE _project_id = '${projectId}'

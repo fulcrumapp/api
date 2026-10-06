@@ -66,4 +66,4 @@ ORDER BY changeset_count DESC;
 
 **Web users also generate changesets.** Every save in the Fulcrum web app creates a changeset, so the counts include both mobile and web activity.
 
-**Deleted user accounts** may leave `created_by_id` values that no longer appear in `memberships`. The `LEFT JOIN` approach in the inactive-users query handles this gracefully.
+**Deleted user accounts** may leave `created_by_id` values that no longer appear in `memberships`. The `JOIN` to `memberships` in the second query drops those rows. Use a `LEFT JOIN` if you want to keep them.

@@ -1,6 +1,6 @@
 ---
 title: Inventory Scanner with Barcode Lookup
-excerpt: A self-contained HTML App Extension that uses the device camera or keyboard input to scan barcodes, looks up the matching inventory item via the Fulcrum Records API, and lets users make rapid quantity adjustments — all without leaving the Fulcrum mobile or web interface.
+excerpt: A self-contained HTML App Extension that uses the device camera or keyboard input to scan barcodes, looks up the matching inventory item via the Fulcrum Query API, and lets users make rapid quantity adjustments — all without leaving the Fulcrum mobile or web interface.
 ---
 
 This App Extension provides a purpose-built inventory management UI embedded directly inside a Fulcrum app. Users scan a barcode (via camera or physical scanner), the extension finds the matching record in Fulcrum, displays the item name and current quantity, and lets users increment or decrement the stock count with a single tap. Changes are saved back to the record via the Fulcrum REST API.
@@ -11,8 +11,10 @@ The extension is a single HTML file added to a Fulcrum App Extension field. It u
 
 - **[html5-qrcode](https://github.com/mebjas/html5-qrcode)** — camera-based QR/barcode scanning via the device camera
 - **Tailwind CSS** — utility-first styling optimized for mobile
-- **Fulcrum Records API** — `GET /api/v2/records.json` to look up by barcode, `PATCH /api/v2/records/{id}.json` to update quantity
-- **Settings panel** — auth token, form ID, and field key mapping entered once per device and stored in `localStorage`
+- **Fulcrum Query API** — `GET /api/v2/query` runs a SQL lookup of the record by barcode
+- **Fulcrum Records API** — `GET /api/v2/records/{id}.json` loads the matched record, and `PATCH /api/v2/records/{id}.json` updates the quantity
+- **Fulcrum Forms API** — `GET /api/v2/forms/{id}.json` maps field data names to the field keys the Records API uses
+- **Settings panel** — API token, form ID, and field data names. The form ID and field names are saved in `localStorage`; the token is kept in `sessionStorage` only, so it is cleared when the session ends and must be re-entered next time
 
 ## Prerequisites
 
@@ -201,20 +203,20 @@ The Fulcrum app must have at minimum:
                       focus:border-blue-500 focus:ring-0 outline-none font-mono text-sm">
       </label>
       <label class="block mb-3">
-        <span class="text-sm font-medium text-gray-700">Barcode Field Key</span>
-        <input type="text" id="setting-barcode-key" placeholder="e.g. abc1"
+        <span class="text-sm font-medium text-gray-700">Barcode Field Data Name</span>
+        <input type="text" id="setting-barcode-key" placeholder="e.g. part_number_barcode"
                class="mt-1 w-full p-3 border border-gray-200 rounded-lg
                       focus:border-blue-500 focus:ring-0 outline-none font-mono text-sm">
       </label>
       <label class="block mb-3">
-        <span class="text-sm font-medium text-gray-700">Item Name Field Key</span>
-        <input type="text" id="setting-name-key" placeholder="e.g. abc2"
+        <span class="text-sm font-medium text-gray-700">Item Name Field Data Name</span>
+        <input type="text" id="setting-name-key" placeholder="e.g. item_description"
                class="mt-1 w-full p-3 border border-gray-200 rounded-lg
                       focus:border-blue-500 focus:ring-0 outline-none font-mono text-sm">
       </label>
       <label class="block mb-4">
-        <span class="text-sm font-medium text-gray-700">Quantity Field Key</span>
-        <input type="text" id="setting-qty-key" placeholder="e.g. abc3"
+        <span class="text-sm font-medium text-gray-700">Quantity Field Data Name</span>
+        <input type="text" id="setting-qty-key" placeholder="e.g. quantity_on_hand"
                class="mt-1 w-full p-3 border border-gray-200 rounded-lg
                       focus:border-blue-500 focus:ring-0 outline-none font-mono text-sm">
       </label>
@@ -236,21 +238,35 @@ The Fulcrum app must have at minimum:
 // ── Configuration (loaded from localStorage) ──────────────────────────────
 const CONFIG_KEY = 'inventory_scanner_config';
 
+// The API token is kept in sessionStorage (cleared when the session ends) so it is
+// not persisted on the device. Non-sensitive settings stay in localStorage.
+const TOKEN_KEY = 'inventory_scanner_token';
+
 function loadConfig() {
+  let cfg = {};
   try {
-    return JSON.parse(localStorage.getItem(CONFIG_KEY)) || {};
-  } catch { return {}; }
+    cfg = JSON.parse(localStorage.getItem(CONFIG_KEY)) || {};
+  } catch { cfg = {}; }
+
+  try {
+    cfg.token = sessionStorage.getItem(TOKEN_KEY) || '';
+  } catch { cfg.token = ''; }
+
+  return cfg;
 }
 
 function saveSettings() {
   const config = {
     token:      document.getElementById('setting-token').value.trim(),
     formId:     document.getElementById('setting-form-id').value.trim(),
-    barcodeKey: document.getElementById('setting-barcode-key').value.trim(),
-    nameKey:    document.getElementById('setting-name-key').value.trim(),
-    qtyKey:     document.getElementById('setting-qty-key').value.trim(),
+    barcodeName: document.getElementById('setting-barcode-key').value.trim(),
+    nameName:    document.getElementById('setting-name-key').value.trim(),
+    qtyName:     document.getElementById('setting-qty-key').value.trim(),
   };
-  localStorage.setItem(CONFIG_KEY, JSON.stringify(config));
+  const { token, ...settings } = config;
+  localStorage.setItem(CONFIG_KEY, JSON.stringify(settings));
+  try { sessionStorage.setItem(TOKEN_KEY, token); } catch { /* storage unavailable */ }
+  formKeyCache = null; // field mapping may have changed
   toggleSettings(false);
   init();
 }
@@ -262,9 +278,9 @@ function toggleSettings(show) {
     const cfg = loadConfig();
     document.getElementById('setting-token').value      = cfg.token      || '';
     document.getElementById('setting-form-id').value    = cfg.formId     || '';
-    document.getElementById('setting-barcode-key').value = cfg.barcodeKey || '';
-    document.getElementById('setting-name-key').value   = cfg.nameKey    || '';
-    document.getElementById('setting-qty-key').value    = cfg.qtyKey     || '';
+    document.getElementById('setting-barcode-key').value = cfg.barcodeName || '';
+    document.getElementById('setting-name-key').value   = cfg.nameName    || '';
+    document.getElementById('setting-qty-key').value    = cfg.qtyName     || '';
   }
 }
 
@@ -272,6 +288,7 @@ function toggleSettings(show) {
 let currentRecord  = null;
 let currentQty     = 0;
 let html5QrScanner = null;
+let formKeyCache   = null;   // { data_name: field key } for the configured form
 
 // ── Initialization ─────────────────────────────────────────────────────────
 function init() {
@@ -315,73 +332,92 @@ function startCamera() {
   );
 }
 
-// ── Fulcrum Records API ────────────────────────────────────────────────────
+// ── Fulcrum API helpers ────────────────────────────────────────────────────
+const API_BASE = 'https://api.fulcrumapp.com/api/v2';
+
+async function apiGet(path, cfg) {
+  const response = await fetch(API_BASE + path, {
+    headers: { 'X-ApiToken': cfg.token, 'Accept': 'application/json' },
+  });
+  if (!response.ok) {
+    const body = await response.text().catch(() => '');
+    throw new Error(`${response.status} ${response.statusText} ${body}`.trim());
+  }
+  return response.json();
+}
+
+// The Query API uses field data names, but the Records API stores values by
+// field key. Load the form once and build a data_name -> key lookup.
+async function getFieldKeys(cfg) {
+  if (formKeyCache) return formKeyCache;
+
+  const data = await apiGet(`/forms/${encodeURIComponent(cfg.formId)}.json`, cfg);
+  const map = {};
+
+  (function walk(elements) {
+    (elements || []).forEach(el => {
+      if (el.data_name) map[el.data_name] = el.key;
+      if (el.elements) walk(el.elements);
+    });
+  })(data.form.elements);
+
+  formKeyCache = map;
+  return map;
+}
+
+// ── Barcode lookup ─────────────────────────────────────────────────────────
 async function lookupBarcode(barcode) {
   const cfg = loadConfig();
   document.getElementById('header-subtitle').textContent = 'Looking up…';
 
-  const response = await fetch(
-    `https://api.fulcrumapp.com/api/v2/records.json?form_id=${cfg.formId}&q=${encodeURIComponent(barcode)}`,
-    { headers: { 'X-ApiToken': cfg.token } }
-  );
-
-  if (!response.ok) {
-    let errorText = '';
-    try {
-      errorText = await response.text();
-    } catch (e) {
-      // ignore body read errors
+  try {
+    // Data names are used as SQL column names, so only allow safe characters.
+    if (!/^[A-Za-z0-9_]+$/.test(cfg.barcodeName || '')) {
+      throw new Error('Barcode field data name may only contain letters, numbers, and underscores.');
     }
 
-    console.error('Barcode lookup failed', {
-      status: response.status,
-      statusText: response.statusText,
-      body: errorText,
-    });
+    // 1. Find the matching record with the Query API (escape single quotes in the scanned value)
+    const safeBarcode = barcode.replace(/'/g, "''");
+    const sql = `SELECT _record_id FROM "${cfg.formId}" WHERE "${cfg.barcodeName}" = '${safeBarcode}' LIMIT 1`;
+    const result = await apiGet(`/query?format=json&q=${encodeURIComponent(sql)}`, cfg);
 
-    let message = `Lookup failed (${response.status} ${response.statusText}).`;
-    if (errorText) {
-      message += `\n\nDetails: ${errorText}`;
-    }
-    alert(message);
-
-    document.getElementById('header-subtitle').textContent = 'Ready to scan';
-    const scanPanel = document.getElementById('scan-panel');
-    const itemPanel = document.getElementById('item-panel');
-    if (scanPanel) {
-      scanPanel.classList.remove('hidden');
-      if (!scanPanel.classList.contains('flex')) {
-        scanPanel.classList.add('flex');
-      }
-    }
-    if (itemPanel) {
-      itemPanel.classList.add('hidden');
+    if (!result.rows || result.rows.length === 0) {
+      alert(`No record found for barcode: ${barcode}`);
+      document.getElementById('header-subtitle').textContent = 'Ready to scan';
+      return;
     }
 
-    return;
+    // 2. Load the full record and map data names to field keys
+    const recordId = result.rows[0]._record_id;
+    const [recordData, keys] = await Promise.all([
+      apiGet(`/records/${recordId}.json`, cfg),
+      getFieldKeys(cfg),
+    ]);
+
+    const record = recordData.record;
+    const nameKey = keys[cfg.nameName];
+    const qtyKey  = keys[cfg.qtyName];
+
+    if (!qtyKey) {
+      throw new Error(`Quantity field "${cfg.qtyName}" was not found in this form.`);
+    }
+
+    currentRecord = record;
+    currentQty    = parseFloat(record.form_values?.[qtyKey] ?? 0) || 0;
+
+    document.getElementById('item-name').textContent    = record.form_values?.[nameKey] || 'Unknown Item';
+    document.getElementById('item-barcode').textContent = barcode;
+    document.getElementById('quantity-display').textContent = currentQty;
+
+    document.getElementById('scan-panel').classList.add('hidden');
+    document.getElementById('scan-panel').classList.remove('flex');
+    document.getElementById('item-panel').classList.remove('hidden');
+    document.getElementById('header-subtitle').textContent = 'Item found';
+  } catch (err) {
+    console.error('Barcode lookup failed', err);
+    alert(`Lookup failed.\n\n${err.message}`);
+    resetToScan();
   }
-  const data = await response.json();
-  const record = data.records?.find(
-    r => r.form_values?.[cfg.barcodeKey] === barcode
-  );
-
-  if (!record) {
-    alert(`No record found for barcode: ${barcode}`);
-    document.getElementById('header-subtitle').textContent = 'Ready to scan';
-    return;
-  }
-
-  currentRecord = record;
-  currentQty    = parseFloat(record.form_values?.[cfg.qtyKey] ?? 0);
-
-  document.getElementById('item-name').textContent    = record.form_values?.[cfg.nameKey] || 'Unknown Item';
-  document.getElementById('item-barcode').textContent = barcode;
-  document.getElementById('quantity-display').textContent = currentQty;
-
-  document.getElementById('scan-panel').classList.add('hidden');
-  document.getElementById('scan-panel').classList.remove('flex');
-  document.getElementById('item-panel').classList.remove('hidden');
-  document.getElementById('header-subtitle').textContent = 'Item found';
 }
 
 function adjustQuantity(delta) {
@@ -391,14 +427,13 @@ function adjustQuantity(delta) {
 
 async function saveQuantity() {
   const cfg = loadConfig();
-  const updatedValues = {
-    ...currentRecord.form_values,
-    [cfg.qtyKey]: String(currentQty),
-  };
 
-  const response = await fetch(
-    `https://api.fulcrumapp.com/api/v2/records/${currentRecord.id}.json`,
-    {
+  try {
+    const keys   = await getFieldKeys(cfg);
+    const qtyKey = keys[cfg.qtyName];
+
+    // PATCH only the field that changed
+    const response = await fetch(`${API_BASE}/records/${currentRecord.id}.json`, {
       method: 'PATCH',
       headers: {
         'X-ApiToken': cfg.token,
@@ -406,17 +441,17 @@ async function saveQuantity() {
       },
       body: JSON.stringify({
         record: {
-          form_id:     cfg.formId,
-          form_values: updatedValues,
+          form_values: { [qtyKey]: String(currentQty) },
         },
       }),
-    }
-  );
+    });
 
-  if (response.ok) {
+    if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+
     document.getElementById('header-subtitle').textContent = 'Saved ✓';
     setTimeout(resetToScan, 800);
-  } else {
+  } catch (err) {
+    console.error('Save failed', err);
     alert('Save failed — check your API token and try again.');
   }
 }
@@ -446,12 +481,18 @@ init();
 4. Open the extension on mobile or web, tap **Settings**, and enter:
    - Your Fulcrum API token
    - The app's Form ID (from the URL or `GET /api/v2/forms.json`)
-   - The field keys for barcode, item name, and quantity (find these in the App Designer or via the field's `key` property in the API)
-5. Settings are saved in `localStorage` and persist across sessions.
+   - The **data names** of the barcode, item name, and quantity fields (shown in the App Designer's field settings)
+5. The form ID and field names are saved in `localStorage` and persist across sessions. The API token is kept in `sessionStorage` only, so you will be asked to enter it again in a new session.
 
 ## Notes
 
 - **Physical barcode scanners** work automatically via the text input field — most keyboard-mode scanners send an Enter key after the barcode, which triggers the lookup.
 - **Camera scanning** uses the device's rear camera via the html5-qrcode library and supports 1D barcodes (Code 128, EAN, UPC, etc.) as well as QR codes.
-- **CORS:** The Fulcrum API allows cross-origin requests from App Extensions. If hosting this HTML outside of Fulcrum, ensure your hosting environment has HTTPS.
-- The Settings panel stores the API token in `localStorage`. For shared devices, consider clearing settings when the session ends or using a shorter-lived token.
+- **Lookup method:** `GET /api/v2/records.json` has no free-text search parameter, so the extension finds the record with a Query API SQL lookup (`WHERE <barcode field> = '<scanned value>'`) and then loads it with the Records API. The scanned value is escaped and the data name is validated before being used in the query.
+- **Matching is exact.** The scanned barcode must equal the stored barcode value.
+- **Network requests:** The extension calls `api.fulcrumapp.com` directly from the browser or webview, so it needs a connection. Test it on each platform you plan to use (iOS, Android, and web) before rolling it out.
+- **Token security:** Any API token used in a client-side extension can be read by scripts running in the same page, so treat it as exposed to anyone who can use or inspect the extension.
+  - Create a dedicated token for this extension and give it to a user whose role can only read and update the inventory app. Never use an owner-level token.
+  - Prefer short-lived or revocable tokens, and revoke the token when a device is lost or a shift ends.
+  - Do not use this pattern on shared devices unless each person enters their own token.
+  - The token is stored in `sessionStorage` rather than `localStorage`, so it is not persisted, but it is still visible to scripts in the page.

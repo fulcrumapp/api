@@ -9,7 +9,7 @@ When a user creates a new child record from inside a parent record (for example,
 
 1. In the **parent app**, when the user interacts with the field that triggers child record creation, the parent stores its own `RECORDID()` in device-local storage.
 2. In the **child app**, the `new-record` event fires when the new record opens. The child retrieves the stored ID and calls `SETVALUE()` to pre-populate its Record Link field pointing back to the parent.
-3. Both apps clear storage immediately after use to prevent stale values from affecting future records.
+3. The child app removes the stored key immediately after use so a stale value can't affect future records.
 
 ## Parent App Code
 
@@ -26,12 +26,9 @@ ON('change', 'create_defect', () => {
   storage.setItem('parentRecordID', RECORDID());
 });
 
-// Clean up on record unload. Note: if the navigation to the child app
-// is very fast, a race condition is possible — that's why the child
-// also clears storage immediately after reading it.
-ON('unload-record', () => {
-  storage.clear();
-});
+// Note: do not clear storage when the parent record unloads. Opening the
+// child app unloads the parent, which could remove the ID before the child
+// has a chance to read it. The child removes the key after reading it instead.
 ```
 
 ## Child App Code
@@ -50,8 +47,9 @@ ON('new-record', () => {
     // IMPORTANT: Record Link fields require an array, even for a single record.
     SETVALUE('asset', [parentRecordID]);
 
-    // Clear storage immediately after use to prevent stale values.
-    storage.clear();
+    // Remove only this key immediately after use to prevent stale values.
+    // (Avoid storage.clear(), which removes every key, including ones used by other data events.)
+    storage.removeItem('parentRecordID');
 
     console.log('[Child App] Linked to parent record:', parentRecordID);
   } else {
@@ -68,7 +66,9 @@ ON('new-record', () => {
 
 **The `new-record` event is the correct hook.** It fires when a brand-new record is opened for the first time, before any user input. Using `load-record` would fire for existing records too.
 
-**Clean up in both apps.** The parent clears on `unload-record` as a safety net. The child clears immediately after reading to handle the race condition where the parent might unload before the child finishes initializing.
+**Remove only the key you set.** The child calls `storage.removeItem('parentRecordID')` right after reading it. Avoid `storage.clear()`, which wipes every stored key, and avoid clearing in the parent's `unload-record` handler, because opening the child unloads the parent and could remove the ID before the child reads it.
+
+**Test on your own devices.** This pattern relies on both apps reading the same device-local storage key. Confirm it works in your org on both mobile and web before rolling it out.
 
 ## Example Output
 

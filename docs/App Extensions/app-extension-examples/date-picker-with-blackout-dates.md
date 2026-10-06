@@ -34,7 +34,7 @@ When the user clicks a button on the form, `OPENEXTENSION` launches the calendar
 1. Create a **blackout dates app** with two Date fields:
    - `start` — the first day of the blocked range
    - `end` — the last day of the blocked range (inclusive)
-   Note the **App ID** and the field keys for `start` and `end`.
+   Note the app's **Form ID** and the field keys for `start` and `end`.
 2. Upload `calendar_picker.html` (below) as a **Reference File** in your Fulcrum org, or attach it directly to your app.
 3. In your data collection app, add:
    - A **Date** field for the appointment result (e.g. data name: `appointment_date`)
@@ -48,8 +48,8 @@ When the user clicks a button on the form, `OPENEXTENSION` launches the calendar
 ```js
 // ─── Configuration ───────────────────────────────────────────────────────────
 
-// App ID of the blackout dates app
-const BLACKOUT_FORM_ID = 'YOUR-BLACKOUT-DATES-APP-ID-HERE';
+// Form ID of the blackout dates app
+const BLACKOUT_FORM_ID = 'YOUR-BLACKOUT-DATES-FORM-ID-HERE';
 
 // Field key of the start date field in the blackout app
 const START_DATE_KEY = 'YOUR-START-DATE-FIELD-KEY';
@@ -152,7 +152,10 @@ Save the content below as `calendar_picker.html` and attach it to your Fulcrum a
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
-  <!-- Fulcrum App Extension communication bridge -->
+  <!-- Fulcrum App Extension communication bridge.
+       This is the standard bridge snippet from the App Extensions introduction
+       (https://docs.fulcrumapp.com/docs/app-extensions-introduction). It provides
+       Fulcrum.load() and Fulcrum.finish(). Copy the current version from that page. -->
   <script>
   (()=>{var s=(e,i)=>()=>(i||e((i={exports:{}}).exports,i),i.exports);
   var o=s((a,r)=>{var l=new URLSearchParams(location.search);
@@ -180,27 +183,28 @@ Fulcrum.load(({ data }) => {
 
   // Convert blackout ranges to the format Flatpickr expects for disabled dates
   // Each range disables all dates from start through end (inclusive)
-  const disabledDates = blackoutRanges.map(r => {
-    const start = new Date(r.start);
-    const end = new Date(r.end);
+  // Date strings are parsed as local dates (not UTC) so ranges line up with
+  // the calendar days the user sees. Flatpickr treats `to` as inclusive.
+  const parseLocalDate = (str) => {
+    const [y, m, d] = String(str).slice(0, 10).split('-').map(Number);
+    return new Date(y, m - 1, d);
+  };
 
-    start.setHours(0, 0, 0, 0);
-    end.setHours(23, 59, 59, 999);
-    end.setDate(end.getDate() + 1); // include the full end day
-
-    return { from: start, to: end };
-  });
+  const disabledDates = blackoutRanges.map(r => ({
+    from: parseLocalDate(r.start),
+    to:   parseLocalDate(r.end)
+  }));
 
   flatpickr('#calendar', {
     inline: true,
     minDate: data.today,      // Prevent selecting dates in the past
     disable: disabledDates,   // Grey out the blackout date ranges
     dateFormat: 'Y-m-d',      // ISO format compatible with Fulcrum date fields
-    onChange: (selectedDates) => {
+    onChange: (selectedDates, dateStr) => {
       if (selectedDates[0]) {
-        const selected = selectedDates[0].toISOString().split('T')[0];
-        // Send the selected date back to the Data Event and close the extension
-        Fulcrum.finish({ selectedDate: selected });
+        // dateStr is already formatted as YYYY-MM-DD in local time
+        // (avoid toISOString(), which converts to UTC and can shift the day)
+        Fulcrum.finish({ selectedDate: dateStr });
       }
     }
   });
@@ -217,6 +221,8 @@ Fulcrum.load(({ data }) => {
 
 ## Notes
 
+- Dates are handled as local calendar days (`YYYY-MM-DD`) end to end, so ranges and the selected date are not shifted by time zone.
+- The bridge `<script>` in the HTML is the standard snippet from the [App Extensions introduction](https://docs.fulcrumapp.com/docs/app-extensions-introduction). Copy the current version from there if it changes.
 - The blackout date ranges are fetched each time the record is opened. If the blackout app is updated while a user has the form open, they will need to close and reopen the record to get the latest dates.
 - Flatpickr's `disable` option accepts an array of `{ from, to }` objects. Dates within those ranges are greyed out and unselectable in the calendar UI.
 - The `minDate: data.today` setting prevents users from selecting any date in the past.

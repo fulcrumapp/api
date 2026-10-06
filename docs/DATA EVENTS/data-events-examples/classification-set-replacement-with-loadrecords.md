@@ -37,29 +37,32 @@ Replace the following values before deploying:
 
 | Constant | Description |
 |---|---|
-| `LOOKUP_APP_ID` | The form ID of your lookup / reference app |
+| `LOOKUP_FORM_ID` | The form ID of your lookup / reference app |
 | `'building'` | The `data_name` of the first-level choice field |
 | `'component_choice'` | The `data_name` of the second-level choice field |
 | `'3150'` | The field **key** in the lookup app for the first-level attribute |
 | `'1aba'` | The field **key** in the lookup app for the second-level attribute |
 
-> **Finding field keys:** In your lookup app's Data Events editor, run `ALERT(INSPECT(records[0].form_values))` after the LOADRECORDS callback to see all field keys and their current values.
+> **Finding field keys:** In your lookup app's Data Events editor, run `ALERT(INSPECT(result.records[0].form_values))` inside the LOADRECORDS callback to see all field keys and their current values.
 
 ## Code
 
 ```javascript
 // ─── CONFIGURATION ───────────────────────────────────────────────────────────
-const LOOKUP_APP_ID       = 'YOUR-LOOKUP-APP-ID';
+const LOOKUP_FORM_ID       = 'YOUR-LOOKUP-FORM-ID';
 const LEVEL1_FIELD        = 'building';           // data_name of first choice field
 const LEVEL2_FIELD        = 'component_choice';   // data_name of second choice field
 const LEVEL1_KEY          = '3150';               // field key in lookup app for level 1
 const LEVEL2_KEY          = '1aba';               // field key in lookup app for level 2
+// If you add a third level (see "Extending to more levels" below), also define:
+//   const LEVEL3_FIELD = 'sub_component_choice';  // data_name of third choice field
+//   const LEVEL3_KEY   = 'YOUR-LEVEL-3-FIELD-KEY'; // field key in lookup app for level 3
 // ─────────────────────────────────────────────────────────────────────────────
 
 let lookupRecords;
 
 ON('load-record', () => {
-  LOADRECORDS({ form_id: LOOKUP_APP_ID }, (err, result) => {
+  LOADRECORDS({ form_id: LOOKUP_FORM_ID }, (err, result) => {
     if (err) {
       ALERT(INSPECT(err));
       return;
@@ -72,6 +75,8 @@ ON('load-record', () => {
       .map(r => CHOICEVALUE(r.form_values[LEVEL1_KEY]))
       .filter(onlyUnique);
 
+    // SETCHOICES accepts an array of strings (label and value are the same).
+    // Use [{ label, value }] objects instead if you need a different stored value.
     SETCHOICES(LEVEL1_FIELD, level1Values);
   });
 });
