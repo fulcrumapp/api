@@ -21,19 +21,6 @@ This runs 7 validation checks including:
 
 ### Manual Validation
 
-#### Calculated-field display contract
-
-From the repository root, run the dependency-free regression checks for both
-calculated-field display schemas:
-
-```bash
-node --test reference/calculated-display.test.cjs
-```
-
-These checks preserve the JSON type `string` while requiring the display style
-values `text`, `number`, `date`, and `currency`. OpenAPI syntax validation alone
-does not detect unsupported API enum values.
-
 #### OpenAPI Spec Validation (rdme)
 
 ```bash
