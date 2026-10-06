@@ -240,6 +240,23 @@ Define dynamic expressions and perform calculations using values from other fiel
 | expression               | string  | no       | Calculation expression.                                              |
 | default\_previous\_value | boolean | `false`  | Whether to automatically set the previously used value.              |
 
+The `display.style` value must be `"text"`, `"number"`, `"date"`, or `"currency"`.
+For text results, use `"text"`, not `"string"`: `string` is the JSON data type of
+the style property, not a supported style value. For example:
+
+```json
+{
+  "display": {
+    "style": "text",
+    "currency": null
+  }
+}
+```
+
+When the style is `"currency"`, provide a currency code such as `"USD"` in
+`display.currency`. For other styles, the API ignores any supplied currency
+and returns `currency: null`.
+
 ## BarcodeField
 
 Scan a barcode or QR code and store the text value.
