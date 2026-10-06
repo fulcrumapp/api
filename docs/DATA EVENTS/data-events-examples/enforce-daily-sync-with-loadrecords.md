@@ -62,7 +62,7 @@ function checkSyncStatus() {
     form_id: 'YOUR-TASKS-FORM-ID-HERE',
     order: [['due_date', 'desc']],
     limit: 1
-  }, (err, records) => {
+  }, (err, result) => {
 
     // 1. Handle permission errors first (e.g. user lacks ITA access)
     if (err) {
@@ -80,7 +80,7 @@ function checkSyncStatus() {
     }
 
     // 2. No error — compare the latest Task due date to today
-    let taskRecords = records.records;
+    let taskRecords = result.records;
 
     if (!taskRecords || taskRecords.length === 0) {
       // No Task records came back (e.g. the device hasn't synced the Task yet,

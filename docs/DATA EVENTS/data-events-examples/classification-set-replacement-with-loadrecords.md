@@ -59,7 +59,7 @@ const LEVEL2_KEY          = '1aba';               // field key in lookup app for
 //   const LEVEL3_KEY   = 'YOUR-LEVEL-3-FIELD-KEY'; // field key in lookup app for level 3
 // ─────────────────────────────────────────────────────────────────────────────
 
-let lookupRecords;
+let lookupRecords = [];
 
 ON('load-record', () => {
   LOADRECORDS({ form_id: LOOKUP_FORM_ID }, (err, result) => {
@@ -82,7 +82,8 @@ ON('load-record', () => {
 });
 
 ON('change', LEVEL1_FIELD, () => {
-  if (ISBLANK(VALUE(LEVEL1_FIELD))) return;
+  // Lookup records may not have loaded yet (or the load may have failed)
+  if (ISBLANK(VALUE(LEVEL1_FIELD)) || lookupRecords.length === 0) return;
 
   // Filter lookup records to those matching the current level-1 selection
   const level2Values = lookupRecords

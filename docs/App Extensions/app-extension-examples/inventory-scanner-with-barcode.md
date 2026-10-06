@@ -432,6 +432,10 @@ async function saveQuantity() {
     const keys   = await getFieldKeys(cfg);
     const qtyKey = keys[cfg.qtyName];
 
+    if (!qtyKey) {
+      throw new Error(`Quantity field "${cfg.qtyName}" was not found in this form.`);
+    }
+
     // PATCH only the field that changed
     const response = await fetch(`${API_BASE}/records/${currentRecord.id}.json`, {
       method: 'PATCH',
@@ -452,7 +456,7 @@ async function saveQuantity() {
     setTimeout(resetToScan, 800);
   } catch (err) {
     console.error('Save failed', err);
-    alert('Save failed — check your API token and try again.');
+    alert(`Save failed — ${err.message}\n\nCheck your API token and field configuration and try again.`);
   }
 }
 

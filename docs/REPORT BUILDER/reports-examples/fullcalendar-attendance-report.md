@@ -116,10 +116,12 @@ $(function () {
     // Optionally append a tooltip description beneath each event title
     eventRender: function (event, element) {
       if (event.description) {
+        // Insert the description as text (not HTML) because it comes from
+        // record data and could otherwise inject markup into the report
         element.append(
-          `<div class="fc-description" style="font-size:0.75em;opacity:0.85;">
-             ${event.description}
-           </div>`
+          $('<div class="fc-description"></div>')
+            .css({ 'font-size': '0.75em', opacity: 0.85 })
+            .text(event.description)
         );
       }
     },
