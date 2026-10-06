@@ -23,6 +23,9 @@ const projectInfo = QUERY(`
 `);
 
 const projectId = projectInfo?.rows?.[0]?.project_id;
+if (!projectId) {
+  throw new Error('Project not found');
+}
 
 // 3. Use the resolved project_id to filter the main data query.
 //    Replace "Your App Name" with your app's exact name.
@@ -46,7 +49,12 @@ Rather than hard-coding the project name, you can pass it as a URL parameter and
 // Caller passes ?project_name=Project+Alpha in the report URL
 const projectName = $params.query?.project_name || $params.post?.project_name || '';
 
-// $params values are external input — always escape single quotes before using them in SQL
+// $params values are external input. Validate against an allow-list when you
+// can; otherwise escape single quotes before using the value in SQL.
+const allowedProjects = ['Project Alpha', 'Project Beta'];  // Replace with your project names
+if (!allowedProjects.includes(projectName)) {
+  throw new Error('Unknown project');
+}
 const safeProjectName = projectName.replace(/'/g, "''");
 
 const projectInfo = QUERY(`
@@ -55,7 +63,11 @@ const projectInfo = QUERY(`
 
 const projectId = projectInfo?.rows?.[0]?.project_id;
 
-// If no project matched, the second query returns no rows
+// Stop if no project matched, rather than querying with an undefined ID
+if (!projectId) {
+  throw new Error('Project not found');
+}
+
 const records = QUERY(`
   SELECT * FROM "Your App Name"
   WHERE _project_id = '${projectId}'

@@ -73,9 +73,23 @@ if (!storage.getItem(STORAGE_KEY)) {
   storage.setItem(STORAGE_KEY, 0);
 }
 
+// Parse a YYYY-MM-DD date field as a local calendar date and return the end of
+// that day, so a notification stays visible through its expiration date
+// regardless of the device's time zone.
+function endOfLocalDay(dateStr) {
+  const [year, month, day] = dateStr.split('-').map(Number);
+  return new Date(year, month - 1, day, 23, 59, 59, 999).getTime();
+}
+
 ON('load-record', () => {
-  // Fetch all records from the notifications app
-  LOADRECORDS({ form_id: NOTIFICATIONS_FORM_ID }, (err, result) => {
+  // Fetch only the most recent notifications, newest first, so form open time
+  // doesn't grow as the notifications app accumulates records.
+  // (limit/order require Fulcrum mobile app 2502.2.0+)
+  LOADRECORDS({
+    form_id: NOTIFICATIONS_FORM_ID,
+    order: [['updated_at', 'desc']],
+    limit: 25
+  }, (err, result) => {
     if (err) {
       console.log(INSPECT(err));
       return;
@@ -85,55 +99,56 @@ ON('load-record', () => {
 
     if (!notificationRecords || notificationRecords.length === 0) return;
 
-    notificationRecords.forEach((rec) => {
+    const lastSeen = Number(storage.getItem(STORAGE_KEY)) || 0;
+
+    for (const rec of notificationRecords) {
       // Convert the notification's last-updated timestamp to milliseconds
       const messageTimestamp = new Date(rec.updated_at).getTime();
+
+      // Records are sorted newest first, so once we reach one the user has
+      // already seen, every remaining record is older and can be skipped.
+      if (messageTimestamp <= lastSeen) break;
 
       // Get the roles this notification is targeted to (null = everyone)
       const allowedRoles = rec.form_values?.[FIELD_KEYS.allowedRoles]
         ? CHOICEVALUES(rec.form_values[FIELD_KEYS.allowedRoles])
         : null;
 
-      // Get the expiration date, if set
-      const expirationDate = rec.form_values?.[FIELD_KEYS.expirationDate]
-        ? new Date(rec.form_values[FIELD_KEYS.expirationDate])
-        : null;
-
-      const lastSeen = storage.getItem(STORAGE_KEY);
-
-      // Only show the notification if it is newer than the last one this user saw
-      if (lastSeen >= messageTimestamp) return;
+      // Get the expiration date, if set (as the end of that calendar day)
+      const expirationValue = rec.form_values?.[FIELD_KEYS.expirationDate];
+      const expiresAt = expirationValue ? endOfLocalDay(expirationValue) : null;
 
       // Check if this notification is targeted to the current user's role
       const isTargeted = allowedRoles === null || allowedRoles.includes(ROLE());
-      if (!isTargeted) return;
+      if (!isTargeted) continue;
 
       // Check if the notification has expired
-      const now = new Date().getTime();
-      const isExpired = expirationDate !== null && now > expirationDate;
-      if (isExpired) return;
+      const isExpired = expiresAt !== null && Date.now() > expiresAt;
+      if (isExpired) continue;
 
       // Display the notification and mark it as seen when the user dismisses it
       CONFIRM(
         rec.form_values[FIELD_KEYS.title],   // Dialog title
         rec.form_values[FIELD_KEYS.message], // Dialog body
         function () {
-          // Save the timestamp of this notification so it won't show again
-          storage.setItem(STORAGE_KEY, new Date(rec.updated_at).getTime());
+          // Keep the newest dismissed timestamp so this and any older
+          // notifications won't show again
+          const current = Number(storage.getItem(STORAGE_KEY)) || 0;
+          storage.setItem(STORAGE_KEY, Math.max(current, messageTimestamp));
         }
       );
-    });
+    }
   });
 });
 ```
 
 ## How it works
 
-1. When a record is opened, `LOADRECORDS` fetches all records from the notifications app.
+1. When a record is opened, `LOADRECORDS` fetches the 25 most recently updated records from the notifications app, newest first.
 2. For each notification record, the event checks three conditions:
-   - **Is it new?** The notification's `updated_at` timestamp is compared to the last timestamp stored in `STORAGE`. If it's older than or equal to what the user last dismissed, it is skipped.
+   - **Is it new?** The notification's `updated_at` timestamp is compared to the last timestamp stored in `STORAGE`. If it's older than or equal to what the user last dismissed, processing stops, since every remaining record is older.
    - **Is it targeted to this user?** If the Allowed Roles field has a value, the current user's `ROLE()` must appear in the list. A blank roles field means everyone sees it.
-   - **Has it expired?** If an Expiration Date is set and today is past that date, the notification is skipped.
+   - **Has it expired?** If an Expiration Date is set and that calendar day (in the device's local time zone) has passed, the notification is skipped.
 3. Notifications that pass all three checks are displayed using `CONFIRM`. When the user dismisses the dialog, the timestamp is written to `STORAGE` so the notification won't appear again.
 
 ## Notes
