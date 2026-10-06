@@ -241,8 +241,8 @@ Define dynamic expressions and perform calculations using values from other fiel
 | default\_previous\_value | boolean | `false`  | Whether to automatically set the previously used value.              |
 
 The `display.style` value must be `"text"`, `"number"`, `"date"`, or `"currency"`.
-For text results, use `"text"`, not `"string"`: `string` is the JSON data type of
-the style property, not a supported style value. For example:
+For text results, use `"text"`, not `"string"`: `string` is the OpenAPI/JSON Schema
+type of the style property, not a supported style value. For example:
 
 ```json
 {
