@@ -236,19 +236,18 @@ Define dynamic expressions and perform calculations using values from other fiel
 
 | Property                 | Type    | Required | Description                                                          |
 | ------------------------ | ------- | -------- | -------------------------------------------------------------------- |
-| display                  | object  | yes      | Calculation display object (`{"style": "number","currency": null}`). |
+| display                  | object  | yes      | Calculation display object (`{"style": "number"}`). |
 | expression               | string  | no       | Calculation expression.                                              |
 | default\_previous\_value | boolean | `false`  | Whether to automatically set the previously used value.              |
 
-The `display.style` value must be `"text"`, `"number"`, `"date"`, or `"currency"`.
+For calculated fields, `display.style` must be `"text"`, `"number"`, `"date"`, or `"currency"`.
 For text results, use `"text"`, not `"string"`: `string` is the OpenAPI/JSON Schema
 type of the style property, not a supported style value. For example:
 
 ```json
 {
   "display": {
-    "style": "text",
-    "currency": null
+    "style": "text"
   }
 }
 ```

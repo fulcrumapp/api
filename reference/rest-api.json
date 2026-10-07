@@ -1999,10 +1999,10 @@
             "type": "string",
             "description": "Calculated value display style. Use `text` for text results; `string` is the OpenAPI/JSON Schema type, not a supported style.",
             "enum": [
+              "text",
               "number",
-              "currency",
               "date",
-              "text"
+              "currency"
             ]
           },
           "currency": {
@@ -2187,10 +2187,10 @@
           "style": {
             "type": "string",
             "enum": [
+              "text",
               "number",
-              "currency",
               "date",
-              "text"
+              "currency"
             ],
             "description": "Display rendering style. Use `text` for text results; `string` is the OpenAPI/JSON Schema type, not a supported style."
           },
