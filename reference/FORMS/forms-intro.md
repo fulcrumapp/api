@@ -242,7 +242,7 @@ Define dynamic expressions and perform calculations using values from other fiel
 
 For calculated fields, `display.style` must be `"text"`, `"number"`, `"date"`, or `"currency"`.
 For text results, use `"text"`, not `"string"`: `string` is the OpenAPI/JSON Schema
-type of the style property, not a supported style value. For example:
+type of the style property, not a supported style value. For example, in a request:
 
 ```json
 {
@@ -253,8 +253,9 @@ type of the style property, not a supported style value. For example:
 ```
 
 When the style is `"currency"`, provide a currency code such as `"USD"` in
-`display.currency`. For other styles, the API ignores any supplied currency
-and returns `currency: null`.
+`display.currency`. For other styles, `display.currency` may be omitted in
+requests. The API ignores any supplied currency for those styles and includes
+`currency: null` in responses.
 
 ## BarcodeField
 
