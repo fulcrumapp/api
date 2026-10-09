@@ -24,12 +24,16 @@ classification_set = fulcrum.classification_sets.find('{id}')
 print(classification_set['classification_set'])
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.classificationSets.find('{id}')
-  .then((classificationSet) => {
-    console.log(classificationSet);
+client.classificationSets.getById('{id}')
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

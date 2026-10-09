@@ -26,17 +26,16 @@ except UnauthorizedException:
   print('email and/or password is incorrect')
 ```
 ```javascript JavaScript
-const { getUser } = require('fulcrum-app');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-getUser('{email}', '{password}')
-  .then((user) => {
-    console.log(user);
-    // user.contexts is an array of the organizations you belong to.
-    // Use these ids with createAuthorization to create API tokens.
-  })
-  .catch((error) => {
-    console.log(error.message);
-  });
+client.users.getUser()
+  .then(response => console.log(response.data))
+  .catch(error => console.error(error.message));
 ```
 ```ruby Ruby
 require 'fulcrum'
