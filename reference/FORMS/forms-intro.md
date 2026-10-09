@@ -236,7 +236,7 @@ Define dynamic expressions and perform calculations using values from other fiel
 
 | Property                 | Type    | Required | Description                                                          |
 | ------------------------ | ------- | -------- | -------------------------------------------------------------------- |
-| display                  | object  | yes      | Calculation display object (`{"style": "number"}`). |
+| display                  | object  | yes      | Calculation display object. Request example: `{"style": "number"}`. |
 | expression               | string  | no       | Calculation expression.                                              |
 | default\_previous\_value | boolean | `false`  | Whether to automatically set the previously used value.              |
 
