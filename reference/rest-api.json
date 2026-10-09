@@ -1997,12 +1997,12 @@
         "properties": {
           "style": {
             "type": "string",
-            "description": "Calculated value display style",
+            "description": "Calculated value display style. Use `text` for text results; `string` is the OpenAPI/JSON Schema type, not a supported style.",
             "enum": [
+              "text",
               "number",
-              "currency",
               "date",
-              "string"
+              "currency"
             ]
           },
           "currency": {
@@ -2186,13 +2186,13 @@
         "properties": {
           "style": {
             "type": "string",
+            "description": "Display rendering style. Use `text` for text results; `string` is the OpenAPI/JSON Schema type, not a supported style.",
             "enum": [
+              "text",
               "number",
-              "currency",
               "date",
-              "string"
-            ],
-            "description": "Display rendering style"
+              "currency"
+            ]
           },
           "currency": {
             "type": [

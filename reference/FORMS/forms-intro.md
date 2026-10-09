@@ -236,9 +236,26 @@ Define dynamic expressions and perform calculations using values from other fiel
 
 | Property                 | Type    | Required | Description                                                          |
 | ------------------------ | ------- | -------- | -------------------------------------------------------------------- |
-| display                  | object  | yes      | Calculation display object (`{"style": "number","currency": null}`). |
+| display                  | object  | yes      | Calculation display object. Request example: `{"style": "number"}`. |
 | expression               | string  | no       | Calculation expression.                                              |
 | default\_previous\_value | boolean | `false`  | Whether to automatically set the previously used value.              |
+
+For calculated fields, `display.style` must be `"text"`, `"number"`, `"date"`, or `"currency"`.
+For text results, use `"text"`, not `"string"`: `string` is the OpenAPI/JSON Schema
+type of the style property, not a supported style value. For example, in a request:
+
+```json
+{
+  "display": {
+    "style": "text"
+  }
+}
+```
+
+When the style is `"currency"`, provide a currency code such as `"USD"` in
+`display.currency`. For other styles, `display.currency` may be omitted in
+requests. When serializing calculated-field display settings, the Forms API
+ignores any supplied currency for those styles and includes `currency: null`.
 
 ## BarcodeField
 
