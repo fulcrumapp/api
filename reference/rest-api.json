@@ -2186,7 +2186,7 @@
         "properties": {
           "style": {
             "type": "string",
-            "description": "Display rendering style. Use `text` for text results; `string` is the OpenAPI/JSON Schema type, not a supported style.",
+            "description": "Calculated value display style. Use `text` for text results; `string` is the OpenAPI/JSON Schema type, not a supported style.",
             "enum": [
               "text",
               "number",
