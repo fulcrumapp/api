@@ -255,7 +255,7 @@ type of the style property, not a supported style value. For example, in a reque
 When the style is `"currency"`, provide a currency code such as `"USD"` in
 `display.currency`. For non-currency styles, `display.currency` may be omitted in
 requests. When serializing calculated-field display settings, the Forms API
-ignores any supplied currency for non-currency styles and includes `currency: null`.
+ignores any supplied currency for non-currency styles and includes `"currency": null`.
 
 ## BarcodeField
 
