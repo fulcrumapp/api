@@ -2500,7 +2500,7 @@
               },
               "fastfill_settings": {
                 "type": "object",
-                "description": "Optional saved FastFill configuration. Omit this property when the PhotoField has no FastFill settings.",
+                "description": "Optional saved Photo FastFill configuration. The property is omitted only when no configuration is saved. If configuration exists but effective Photo access is unavailable because the organization preference is off, Photo rollout is unavailable, or the plan is ineligible after beta, responses return this object with type `off` and the saved target_fields retained. Access requires the organization FastFill preference and Photo FastFill rollout to be enabled; after beta, only Elite and Enterprise plans are eligible.",
                 "required": [
                   "target_fields",
                   "type"
@@ -2520,9 +2520,10 @@
                     "type": "string",
                     "enum": [
                       "generic",
-                      "text_extraction"
-                    ],
-                    "description": "FastFill processing mode."
+                    "text_extraction",
+                    "off"
+                  ],
+                  "description": "Saved Photo FastFill processing mode. In responses, `off` means configured Photo FastFill is unavailable; it is an effective-access state, not a saved mode to submit in a create or update request."
                   }
                 }
               }
@@ -3503,6 +3504,10 @@
             "type": "boolean",
             "description": "When true, this form is hidden from the Fulcrum dashboard",
             "default": false
+          },
+          "fastfill_audio_enabled": {
+            "type": "boolean",
+            "description": "Whether Audio FastFill is enabled for this form. Setting this to true requires a subscription plan with Audio FastFill entitlement; otherwise the update fails validation."
           }
         }
       },
@@ -3628,66 +3633,175 @@
           }
         }
       },
+      "FormData": {
+        "type": "object",
+        "description": "Form object returned by the Forms API. Detailed responses may include additional form properties.",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique form ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Form name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Form description"
+          },
+          "elements": {
+            "type": "array",
+            "description": "Form elements",
+            "items": {
+              "$ref": "#/components/schemas/FormElement"
+            }
+          },
+          "status_field": {
+            "$ref": "#/components/schemas/StatusField"
+          },
+          "record_count": {
+            "type": "integer",
+            "description": "Number of records in this form"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 creation timestamp"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 last update timestamp"
+          },
+          "geometry_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "auto_assign": {
+            "type": "boolean"
+          },
+          "projects_enabled": {
+            "type": "boolean"
+          },
+          "assignment_enabled": {
+            "type": "boolean"
+          },
+          "fastfill_audio_enabled": {
+            "type": "boolean",
+            "description": "Effective Audio FastFill setting for this form. True only when the form's saved Audio FastFill setting is enabled and the current organization preference and subscription entitlements allow access; otherwise false. This field is omitted from basic-info responses."
+          }
+        }
+      },
       "FormResponse": {
         "type": "object",
         "description": "Response containing a single form object",
         "properties": {
           "form": {
+            "$ref": "#/components/schemas/FormData"
+          }
+        }
+      },
+      "FormListResponse": {
+        "type": "object",
+        "description": "Paginated response containing forms.",
+        "additionalProperties": true,
+        "properties": {
+          "current_page": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          },
+          "total_count": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
+          },
+          "next_sequence": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "forms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FormData"
+            }
+          }
+        }
+      },
+      "FormHistoryItem": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormData"
+          },
+          {
             "type": "object",
-            "description": "The form object with common properties and metadata. Additional form properties may also be returned by the API.",
-            "additionalProperties": true,
             "properties": {
-              "id": {
+              "version": {
+                "type": "integer"
+              },
+              "history_change_type": {
+                "type": "string"
+              },
+              "history_id": {
+                "type": "string"
+              },
+              "history_changed_by_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "history_changed_by": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "history_created_at": {
                 "type": "string",
-                "description": "Unique form ID"
+                "format": "date-time"
               },
-              "name": {
-                "type": "string",
-                "description": "Form name"
-              },
-              "description": {
-                "type": "string",
-                "description": "Form description"
-              },
-              "elements": {
-                "type": "array",
-                "description": "Form elements",
-                "items": {
-                  "$ref": "#/components/schemas/FormElement"
-                }
-              },
-              "status_field": {
-                "$ref": "#/components/schemas/StatusField"
-              },
-              "record_count": {
-                "type": "integer",
-                "description": "Number of records in this form"
-              },
-              "created_at": {
-                "type": "string",
-                "format": "date-time",
-                "description": "ISO 8601 creation timestamp"
-              },
-              "updated_at": {
-                "type": "string",
-                "format": "date-time",
-                "description": "ISO 8601 last update timestamp"
-              },
-              "geometry_types": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "auto_assign": {
-                "type": "boolean"
-              },
-              "projects_enabled": {
-                "type": "boolean"
-              },
-              "assignment_enabled": {
-                "type": "boolean"
+              "sequence": {
+                "type": "integer"
               }
+            }
+          }
+        ]
+      },
+      "FormHistoryResponse": {
+        "type": "object",
+        "description": "Paginated response containing form history snapshots and their history metadata.",
+        "additionalProperties": true,
+        "properties": {
+          "current_page": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          },
+          "total_count": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
+          },
+          "next_sequence": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "forms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FormHistoryItem"
             }
           }
         }
@@ -6616,7 +6730,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/FormListResponse"
                 }
               }
             }
@@ -6729,7 +6843,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/FormResponse"
                 }
               }
             }
@@ -6918,7 +7032,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/FormHistoryResponse"
                 }
               }
             }
