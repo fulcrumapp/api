@@ -2520,8 +2520,8 @@
                     "type": "string",
                     "enum": [
                       "generic",
-                    "text_extraction",
-                    "off"
+                      "text_extraction",
+                      "off"
                   ],
                   "description": "Saved Photo FastFill processing mode. In responses, `off` means configured Photo FastFill is unavailable; it is an effective-access state, not a saved mode to submit in a create or update request."
                   }
