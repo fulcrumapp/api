@@ -3507,7 +3507,8 @@
           },
           "fastfill_audio_enabled": {
             "type": "boolean",
-            "description": "Whether Audio FastFill is enabled for this form. Setting this to true requires a subscription plan with Audio FastFill entitlement; otherwise the update fails validation."
+            "description": "Whether Audio FastFill is enabled for this form as a saved configuration value when creating or updating the form. Setting this to true requires a subscription plan with Audio FastFill entitlement; otherwise the update fails validation. This field describes the persisted request value, not the effective access value returned by read models.",
+            "writeOnly": true
           }
         }
       },
