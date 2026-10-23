@@ -2535,7 +2535,7 @@
       },
       "PhotoFastFillSettingsResponse": {
         "type": "object",
-        "description": "Optional saved Photo FastFill settings. In responses, if configuration exists but effective access is unavailable, `type` is `off` and saved `target_fields` are retained. Access requires the organization preference and Photo FastFill rollout; after beta, access also requires an Elite or Enterprise plan.",
+        "description": "Optional saved Photo FastFill settings. If configuration exists but effective access is unavailable, responses return `type: off` and retain saved `target_fields`. Access requires the organization preference and Photo FastFill rollout. Photo FastFill is available on all plans during the public beta and included only with Elite or Enterprise plans outside the beta.",
         "required": [
           "target_fields",
           "type"
@@ -2558,7 +2558,7 @@
               "text_extraction",
               "off"
             ],
-            "description": "Configured Photo FastFill mode. In responses, `off` indicates unavailable effective access; it is not accepted in requests."
+            "description": "Effective Photo FastFill mode in this response. `off` indicates that saved settings are unavailable under the organization's current access settings; requests accept only `generic` or `text_extraction`."
           }
         }
       },
@@ -3804,6 +3804,9 @@
       },
       "FormElementRequest": {
         "description": "A single form element in a create or update request. Use the `type` property to determine which element-specific fields apply.",
+        "required": [
+          "type"
+        ],
         "oneOf": [
           {
             "$ref": "#/components/schemas/FormTextFieldElement"
