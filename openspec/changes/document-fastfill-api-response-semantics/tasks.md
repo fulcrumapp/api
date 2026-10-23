@@ -1,0 +1,7 @@
+- [x] 1. Inspect FLCRM-22922, open PR #100 comments, and relevant Forms API serialization and validation behavior
+- [x] 2. Separate Photo FastFill request and response schemas, including nested request elements
+- [x] 3. Mark effective Audio access read-only and clarify basic-info omission
+- [x] 4. Keep the shared form response schema; reply to and resolve the basic-info-schema thread with the verified endpoint behavior
+- [x] 5. Reply to and resolve duplicate readability threads with a concise rationale
+- [x] 6. Validate JSON syntax, OpenAPI schema, internal references, and ticket acceptance criteria
+- [x] 7. Reply to and resolve duplicate Photo `off` and Audio read-only review threads
