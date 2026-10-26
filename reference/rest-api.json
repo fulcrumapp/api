@@ -2499,31 +2499,211 @@
                 ]
               },
               "fastfill_settings": {
-                "type": "object",
-                "description": "Optional saved FastFill configuration. Omit this property when the PhotoField has no FastFill settings.",
-                "required": [
-                  "target_fields",
-                  "type"
+                "$ref": "#/components/schemas/PhotoFastFillSettingsResponse"
+              }
+            }
+          }
+        ]
+      },
+      "PhotoFastFillSettingsRequest": {
+        "type": "object",
+        "description": "Optional saved Photo FastFill configuration. Requests may use `generic`.",
+        "required": [
+          "target_fields",
+          "type"
+        ],
+        "properties": {
+          "target_fields": {
+            "type": "array",
+            "description": "Non-empty list of unique, non-empty stable keys of supported target elements in this form.",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "generic",
+              "text_extraction"
+            ],
+            "description": "Saved Photo FastFill processing mode."
+          }
+        }
+      },
+      "PhotoFastFillSettingsResponse": {
+        "type": "object",
+        "description": "Optional saved Photo FastFill settings. In responses, if configuration exists but fastfill is disabled, type will return off. Any previously configured targets will be retained.",
+        "required": [
+          "target_fields",
+          "type"
+        ],
+        "properties": {
+          "target_fields": {
+            "type": "array",
+            "description": "List of target field keys that are targeted by photo fastfill.",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "generic",
+              "off"
+            ],
+            "description": "Configured photo fastfill mode. off indicates it is not configured OR photo fastfill is not enabled for this organization."
+          }
+        }
+      },
+      "FormPhotoFieldElementRequest": {
+        "description": "A photo capture field in a form create or update request.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "PhotoField"
+                ]
+              },
+              "min_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "max_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "fastfill_settings": {
+                "$ref": "#/components/schemas/PhotoFastFillSettingsRequest"
+              }
+            }
+          }
+        ]
+      },
+      "FormRepeatableElementRequest": {
+        "description": "A repeatable section (child records) in a form create or update request.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "required": [
+              "elements"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "Repeatable"
+                ]
+              },
+              "elements": {
+                "type": "array",
+                "description": "Child elements within the repeatable",
+                "items": {
+                  "$ref": "#/components/schemas/FormElementRequest"
+                }
+              },
+              "title_field_key": {
+                "type": [
+                  "string",
+                  "null"
                 ],
-                "properties": {
-                  "target_fields": {
-                    "type": "array",
-                    "description": "Non-empty list of unique, non-empty stable keys of supported target elements in this form.",
-                    "minItems": 1,
-                    "uniqueItems": true,
-                    "items": {
-                      "type": "string",
-                      "minLength": 1
-                    }
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "generic",
-                      "text_extraction"
-                    ],
-                    "description": "FastFill processing mode."
-                  }
+                "description": "Key of the child field used as the repeatable row title"
+              },
+              "title_field_keys": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "description": "Keys of child fields used to compose the repeatable row title",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "geometry_types": {
+                "type": "array",
+                "description": "Allowed geometry types for child record location. Empty array disables location on children.",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Point",
+                    "LineString",
+                    "Polygon"
+                  ]
+                }
+              },
+              "geometry_required": {
+                "type": "boolean",
+                "description": "When true, a location is required on each child record",
+                "default": false
+              },
+              "min_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Minimum number of child records required"
+              },
+              "max_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Maximum number of child records allowed"
+              }
+            }
+          }
+        ]
+      },
+      "FormSectionElementRequest": {
+        "description": "A collapsible section in a form create or update request.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "required": [
+              "elements"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "Section"
+                ]
+              },
+              "display": {
+                "type": "string",
+                "description": "Layout style for the section",
+                "enum": [
+                  "inline",
+                  "drilldown"
+                ],
+                "default": "inline"
+              },
+              "elements": {
+                "type": "array",
+                "description": "Child elements contained within this section",
+                "items": {
+                  "$ref": "#/components/schemas/FormElementRequest"
                 }
               }
             }
@@ -3432,7 +3612,7 @@
             "type": "array",
             "description": "Ordered list of form elements (fields, sections, repeatables, labels, etc.)",
             "items": {
-              "$ref": "#/components/schemas/FormElement"
+              "$ref": "#/components/schemas/FormElementRequest"
             }
           },
           "status_field": {
@@ -3503,6 +3683,11 @@
             "type": "boolean",
             "description": "When true, this form is hidden from the Fulcrum dashboard",
             "default": false
+          },
+          "fastfill_audio_enabled": {
+            "type": "boolean",
+            "description": "Whether Audio FastFill is enabled for this form. The feature must be enabled for the organization's subscription",
+            "writeOnly": true
           }
         }
       },
@@ -3616,6 +3801,119 @@
           }
         }
       },
+      "FormElementRequest": {
+        "description": "A single form element in a create or update request. Use the `type` property to determine which element-specific fields apply.",
+        "required": [
+          "type"
+        ],
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/FormTextFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormChoiceFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormClassificationFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormYesNoFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormPhotoFieldElementRequest"
+          },
+          {
+            "$ref": "#/components/schemas/FormVideoFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormAudioFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormSignatureFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormBarcodeFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormDateTimeFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormDateFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormTimeFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormRepeatableElementRequest"
+          },
+          {
+            "$ref": "#/components/schemas/FormSectionElementRequest"
+          },
+          {
+            "$ref": "#/components/schemas/FormAddressFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormHyperlinkFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormCalculatedFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormRecordLinkFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormAttachmentFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormCheckboxFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormDynamicFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormLocationFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormButtonFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormSketchFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormLabelElement"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "TextField": "#/components/schemas/FormTextFieldElement",
+            "ChoiceField": "#/components/schemas/FormChoiceFieldElement",
+            "ClassificationField": "#/components/schemas/FormClassificationFieldElement",
+            "YesNoField": "#/components/schemas/FormYesNoFieldElement",
+            "PhotoField": "#/components/schemas/FormPhotoFieldElementRequest",
+            "VideoField": "#/components/schemas/FormVideoFieldElement",
+            "AudioField": "#/components/schemas/FormAudioFieldElement",
+            "SignatureField": "#/components/schemas/FormSignatureFieldElement",
+            "BarcodeField": "#/components/schemas/FormBarcodeFieldElement",
+            "DateTimeField": "#/components/schemas/FormDateTimeFieldElement",
+            "DateField": "#/components/schemas/FormDateFieldElement",
+            "TimeField": "#/components/schemas/FormTimeFieldElement",
+            "Repeatable": "#/components/schemas/FormRepeatableElementRequest",
+            "Section": "#/components/schemas/FormSectionElementRequest",
+            "AddressField": "#/components/schemas/FormAddressFieldElement",
+            "HyperlinkField": "#/components/schemas/FormHyperlinkFieldElement",
+            "CalculatedField": "#/components/schemas/FormCalculatedFieldElement",
+            "RecordLinkField": "#/components/schemas/FormRecordLinkFieldElement",
+            "AttachmentField": "#/components/schemas/FormAttachmentFieldElement",
+            "CheckboxField": "#/components/schemas/FormCheckboxFieldElement",
+            "DynamicField": "#/components/schemas/FormDynamicFieldElement",
+            "LocationField": "#/components/schemas/FormLocationFieldElement",
+            "ButtonField": "#/components/schemas/FormButtonFieldElement",
+            "SketchField": "#/components/schemas/FormSketchFieldElement",
+            "Label": "#/components/schemas/FormLabelElement"
+          }
+        }
+      },
       "FormRequest": {
         "type": "object",
         "description": "Request body for creating or updating a form",
@@ -3628,66 +3926,176 @@
           }
         }
       },
+      "FormData": {
+        "type": "object",
+        "description": "Form object returned by the Forms API. Properties may be omitted in basic-info responses; detailed responses may include additional form properties.",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique form ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Form name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Form description"
+          },
+          "elements": {
+            "type": "array",
+            "description": "Form elements",
+            "items": {
+              "$ref": "#/components/schemas/FormElement"
+            }
+          },
+          "status_field": {
+            "$ref": "#/components/schemas/StatusField"
+          },
+          "record_count": {
+            "type": "integer",
+            "description": "Number of records in this form"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 creation timestamp"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 last update timestamp"
+          },
+          "geometry_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "auto_assign": {
+            "type": "boolean"
+          },
+          "projects_enabled": {
+            "type": "boolean"
+          },
+          "assignment_enabled": {
+            "type": "boolean"
+          },
+          "fastfill_audio_enabled": {
+            "type": "boolean",
+            "description": "Effective Audio FastFill access for this form. True only when the saved setting, organization preference, and subscription entitlement allow access; otherwise false. Omitted when `basic_info=true`.",
+            "readOnly": true
+          }
+        }
+      },
       "FormResponse": {
         "type": "object",
         "description": "Response containing a single form object",
         "properties": {
           "form": {
+            "$ref": "#/components/schemas/FormData"
+          }
+        }
+      },
+      "FormListResponse": {
+        "type": "object",
+        "description": "Paginated response containing forms.",
+        "additionalProperties": true,
+        "properties": {
+          "current_page": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          },
+          "total_count": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
+          },
+          "next_sequence": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "forms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FormData"
+            }
+          }
+        }
+      },
+      "FormHistoryItem": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormData"
+          },
+          {
             "type": "object",
-            "description": "The form object with common properties and metadata. Additional form properties may also be returned by the API.",
-            "additionalProperties": true,
             "properties": {
-              "id": {
+              "version": {
+                "type": "integer"
+              },
+              "history_change_type": {
+                "type": "string"
+              },
+              "history_id": {
+                "type": "string"
+              },
+              "history_changed_by_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "history_changed_by": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "history_created_at": {
                 "type": "string",
-                "description": "Unique form ID"
+                "format": "date-time"
               },
-              "name": {
-                "type": "string",
-                "description": "Form name"
-              },
-              "description": {
-                "type": "string",
-                "description": "Form description"
-              },
-              "elements": {
-                "type": "array",
-                "description": "Form elements",
-                "items": {
-                  "$ref": "#/components/schemas/FormElement"
-                }
-              },
-              "status_field": {
-                "$ref": "#/components/schemas/StatusField"
-              },
-              "record_count": {
-                "type": "integer",
-                "description": "Number of records in this form"
-              },
-              "created_at": {
-                "type": "string",
-                "format": "date-time",
-                "description": "ISO 8601 creation timestamp"
-              },
-              "updated_at": {
-                "type": "string",
-                "format": "date-time",
-                "description": "ISO 8601 last update timestamp"
-              },
-              "geometry_types": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "auto_assign": {
-                "type": "boolean"
-              },
-              "projects_enabled": {
-                "type": "boolean"
-              },
-              "assignment_enabled": {
-                "type": "boolean"
+              "sequence": {
+                "type": "integer"
               }
+            }
+          }
+        ]
+      },
+      "FormHistoryResponse": {
+        "type": "object",
+        "description": "Paginated response containing form history snapshots and their history metadata.",
+        "additionalProperties": true,
+        "properties": {
+          "current_page": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          },
+          "total_count": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
+          },
+          "next_sequence": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "forms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FormHistoryItem"
             }
           }
         }
@@ -6616,7 +7024,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/FormListResponse"
                 }
               }
             }
@@ -6729,7 +7137,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/FormResponse"
                 }
               }
             }
@@ -6918,7 +7326,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/FormHistoryResponse"
                 }
               }
             }
