@@ -1997,12 +1997,12 @@
         "properties": {
           "style": {
             "type": "string",
-            "description": "Calculated value display style",
+            "description": "Calculated value display style. Use `text` for text results; `string` is the OpenAPI/JSON Schema type, not a supported style.",
             "enum": [
+              "text",
               "number",
-              "currency",
               "date",
-              "string"
+              "currency"
             ]
           },
           "currency": {
@@ -2186,13 +2186,13 @@
         "properties": {
           "style": {
             "type": "string",
+            "description": "Calculated value display style. Use `text` for text results; `string` is the OpenAPI/JSON Schema type, not a supported style.",
             "enum": [
+              "text",
               "number",
-              "currency",
               "date",
-              "string"
-            ],
-            "description": "Display rendering style"
+              "currency"
+            ]
           },
           "currency": {
             "type": [
@@ -2453,6 +2453,26 @@
       },
       "FormPhotoFieldElement": {
         "description": "A photo capture field. Stores one or more photos per record.",
+        "examples": [
+          {
+            "type": "PhotoField",
+            "key": "a1b2",
+            "data_name": "site_photos",
+            "label": "Site photos",
+            "fastfill_settings": {
+              "target_fields": [
+                "c3d4"
+              ],
+              "type": "generic"
+            }
+          },
+          {
+            "type": "PhotoField",
+            "key": "e5f6",
+            "data_name": "inspection_photos",
+            "label": "Inspection photos"
+          }
+        ],
         "allOf": [
           {
             "$ref": "#/components/schemas/FormBaseElement"
@@ -2477,6 +2497,214 @@
                   "integer",
                   "null"
                 ]
+              },
+              "fastfill_settings": {
+                "$ref": "#/components/schemas/PhotoFastFillSettingsResponse"
+              }
+            }
+          }
+        ]
+      },
+      "PhotoFastFillSettingsRequest": {
+        "type": "object",
+        "description": "Optional saved Photo FastFill configuration. Requests may use `generic`.",
+        "required": [
+          "target_fields",
+          "type"
+        ],
+        "properties": {
+          "target_fields": {
+            "type": "array",
+            "description": "Non-empty list of unique, non-empty stable keys of supported target elements in this form.",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "generic",
+              "text_extraction"
+            ],
+            "description": "Saved Photo FastFill processing mode."
+          }
+        }
+      },
+      "PhotoFastFillSettingsResponse": {
+        "type": "object",
+        "description": "Optional saved Photo FastFill settings. In responses, if configuration exists but fastfill is disabled, type will return off. Any previously configured targets will be retained.",
+        "required": [
+          "target_fields",
+          "type"
+        ],
+        "properties": {
+          "target_fields": {
+            "type": "array",
+            "description": "List of target field keys that are targeted by photo fastfill.",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "generic",
+              "off"
+            ],
+            "description": "Configured photo fastfill mode. off indicates it is not configured OR photo fastfill is not enabled for this organization."
+          }
+        }
+      },
+      "FormPhotoFieldElementRequest": {
+        "description": "A photo capture field in a form create or update request.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "PhotoField"
+                ]
+              },
+              "min_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "max_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "fastfill_settings": {
+                "$ref": "#/components/schemas/PhotoFastFillSettingsRequest"
+              }
+            }
+          }
+        ]
+      },
+      "FormRepeatableElementRequest": {
+        "description": "A repeatable section (child records) in a form create or update request.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "required": [
+              "elements"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "Repeatable"
+                ]
+              },
+              "elements": {
+                "type": "array",
+                "description": "Child elements within the repeatable",
+                "items": {
+                  "$ref": "#/components/schemas/FormElementRequest"
+                }
+              },
+              "title_field_key": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Key of the child field used as the repeatable row title"
+              },
+              "title_field_keys": {
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "description": "Keys of child fields used to compose the repeatable row title",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "geometry_types": {
+                "type": "array",
+                "description": "Allowed geometry types for child record location. Empty array disables location on children.",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "Point",
+                    "LineString",
+                    "Polygon"
+                  ]
+                }
+              },
+              "geometry_required": {
+                "type": "boolean",
+                "description": "When true, a location is required on each child record",
+                "default": false
+              },
+              "min_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Minimum number of child records required"
+              },
+              "max_length": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Maximum number of child records allowed"
+              }
+            }
+          }
+        ]
+      },
+      "FormSectionElementRequest": {
+        "description": "A collapsible section in a form create or update request.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormBaseElement"
+          },
+          {
+            "type": "object",
+            "required": [
+              "elements"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "Section"
+                ]
+              },
+              "display": {
+                "type": "string",
+                "description": "Layout style for the section",
+                "enum": [
+                  "inline",
+                  "drilldown"
+                ],
+                "default": "inline"
+              },
+              "elements": {
+                "type": "array",
+                "description": "Child elements contained within this section",
+                "items": {
+                  "$ref": "#/components/schemas/FormElementRequest"
+                }
               }
             }
           }
@@ -3384,7 +3612,7 @@
             "type": "array",
             "description": "Ordered list of form elements (fields, sections, repeatables, labels, etc.)",
             "items": {
-              "$ref": "#/components/schemas/FormElement"
+              "$ref": "#/components/schemas/FormElementRequest"
             }
           },
           "status_field": {
@@ -3455,6 +3683,11 @@
             "type": "boolean",
             "description": "When true, this form is hidden from the Fulcrum dashboard",
             "default": false
+          },
+          "fastfill_audio_enabled": {
+            "type": "boolean",
+            "description": "Whether Audio FastFill is enabled for this form. The feature must be enabled for the organization's subscription",
+            "writeOnly": true
           }
         }
       },
@@ -3568,6 +3801,119 @@
           }
         }
       },
+      "FormElementRequest": {
+        "description": "A single form element in a create or update request. Use the `type` property to determine which element-specific fields apply.",
+        "required": [
+          "type"
+        ],
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/FormTextFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormChoiceFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormClassificationFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormYesNoFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormPhotoFieldElementRequest"
+          },
+          {
+            "$ref": "#/components/schemas/FormVideoFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormAudioFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormSignatureFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormBarcodeFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormDateTimeFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormDateFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormTimeFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormRepeatableElementRequest"
+          },
+          {
+            "$ref": "#/components/schemas/FormSectionElementRequest"
+          },
+          {
+            "$ref": "#/components/schemas/FormAddressFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormHyperlinkFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormCalculatedFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormRecordLinkFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormAttachmentFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormCheckboxFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormDynamicFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormLocationFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormButtonFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormSketchFieldElement"
+          },
+          {
+            "$ref": "#/components/schemas/FormLabelElement"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "type",
+          "mapping": {
+            "TextField": "#/components/schemas/FormTextFieldElement",
+            "ChoiceField": "#/components/schemas/FormChoiceFieldElement",
+            "ClassificationField": "#/components/schemas/FormClassificationFieldElement",
+            "YesNoField": "#/components/schemas/FormYesNoFieldElement",
+            "PhotoField": "#/components/schemas/FormPhotoFieldElementRequest",
+            "VideoField": "#/components/schemas/FormVideoFieldElement",
+            "AudioField": "#/components/schemas/FormAudioFieldElement",
+            "SignatureField": "#/components/schemas/FormSignatureFieldElement",
+            "BarcodeField": "#/components/schemas/FormBarcodeFieldElement",
+            "DateTimeField": "#/components/schemas/FormDateTimeFieldElement",
+            "DateField": "#/components/schemas/FormDateFieldElement",
+            "TimeField": "#/components/schemas/FormTimeFieldElement",
+            "Repeatable": "#/components/schemas/FormRepeatableElementRequest",
+            "Section": "#/components/schemas/FormSectionElementRequest",
+            "AddressField": "#/components/schemas/FormAddressFieldElement",
+            "HyperlinkField": "#/components/schemas/FormHyperlinkFieldElement",
+            "CalculatedField": "#/components/schemas/FormCalculatedFieldElement",
+            "RecordLinkField": "#/components/schemas/FormRecordLinkFieldElement",
+            "AttachmentField": "#/components/schemas/FormAttachmentFieldElement",
+            "CheckboxField": "#/components/schemas/FormCheckboxFieldElement",
+            "DynamicField": "#/components/schemas/FormDynamicFieldElement",
+            "LocationField": "#/components/schemas/FormLocationFieldElement",
+            "ButtonField": "#/components/schemas/FormButtonFieldElement",
+            "SketchField": "#/components/schemas/FormSketchFieldElement",
+            "Label": "#/components/schemas/FormLabelElement"
+          }
+        }
+      },
       "FormRequest": {
         "type": "object",
         "description": "Request body for creating or updating a form",
@@ -3580,66 +3926,176 @@
           }
         }
       },
+      "FormData": {
+        "type": "object",
+        "description": "Form object returned by the Forms API. Properties may be omitted in basic-info responses; detailed responses may include additional form properties.",
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique form ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "Form name"
+          },
+          "description": {
+            "type": "string",
+            "description": "Form description"
+          },
+          "elements": {
+            "type": "array",
+            "description": "Form elements",
+            "items": {
+              "$ref": "#/components/schemas/FormElement"
+            }
+          },
+          "status_field": {
+            "$ref": "#/components/schemas/StatusField"
+          },
+          "record_count": {
+            "type": "integer",
+            "description": "Number of records in this form"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 creation timestamp"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "ISO 8601 last update timestamp"
+          },
+          "geometry_types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "auto_assign": {
+            "type": "boolean"
+          },
+          "projects_enabled": {
+            "type": "boolean"
+          },
+          "assignment_enabled": {
+            "type": "boolean"
+          },
+          "fastfill_audio_enabled": {
+            "type": "boolean",
+            "description": "Effective Audio FastFill access for this form. True only when the saved setting, organization preference, and subscription entitlement allow access; otherwise false. Omitted when `basic_info=true`.",
+            "readOnly": true
+          }
+        }
+      },
       "FormResponse": {
         "type": "object",
         "description": "Response containing a single form object",
         "properties": {
           "form": {
+            "$ref": "#/components/schemas/FormData"
+          }
+        }
+      },
+      "FormListResponse": {
+        "type": "object",
+        "description": "Paginated response containing forms.",
+        "additionalProperties": true,
+        "properties": {
+          "current_page": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          },
+          "total_count": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
+          },
+          "next_sequence": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "forms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FormData"
+            }
+          }
+        }
+      },
+      "FormHistoryItem": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FormData"
+          },
+          {
             "type": "object",
-            "description": "The form object with common properties and metadata. Additional form properties may also be returned by the API.",
-            "additionalProperties": true,
             "properties": {
-              "id": {
+              "version": {
+                "type": "integer"
+              },
+              "history_change_type": {
+                "type": "string"
+              },
+              "history_id": {
+                "type": "string"
+              },
+              "history_changed_by_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "history_changed_by": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "history_created_at": {
                 "type": "string",
-                "description": "Unique form ID"
+                "format": "date-time"
               },
-              "name": {
-                "type": "string",
-                "description": "Form name"
-              },
-              "description": {
-                "type": "string",
-                "description": "Form description"
-              },
-              "elements": {
-                "type": "array",
-                "description": "Form elements",
-                "items": {
-                  "$ref": "#/components/schemas/FormElement"
-                }
-              },
-              "status_field": {
-                "$ref": "#/components/schemas/StatusField"
-              },
-              "record_count": {
-                "type": "integer",
-                "description": "Number of records in this form"
-              },
-              "created_at": {
-                "type": "string",
-                "format": "date-time",
-                "description": "ISO 8601 creation timestamp"
-              },
-              "updated_at": {
-                "type": "string",
-                "format": "date-time",
-                "description": "ISO 8601 last update timestamp"
-              },
-              "geometry_types": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "auto_assign": {
-                "type": "boolean"
-              },
-              "projects_enabled": {
-                "type": "boolean"
-              },
-              "assignment_enabled": {
-                "type": "boolean"
+              "sequence": {
+                "type": "integer"
               }
+            }
+          }
+        ]
+      },
+      "FormHistoryResponse": {
+        "type": "object",
+        "description": "Paginated response containing form history snapshots and their history metadata.",
+        "additionalProperties": true,
+        "properties": {
+          "current_page": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          },
+          "total_count": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
+          },
+          "next_sequence": {
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "forms": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FormHistoryItem"
             }
           }
         }
@@ -4475,6 +4931,279 @@
                 "description": "The URL to download the generated report"
               }
             }
+          }
+        }
+      },
+      "ExportQuery": {
+        "type": "object",
+        "description": "Either `form_id` (export an app) or both `name` and `sql` (export the results of a SQL query).",
+        "properties": {
+          "form_id": {
+            "type": "string",
+            "description": "The ID of the app (form) to export. The app must exist and you must have access to it.",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "A name for the query. Required when `sql` is provided."
+          },
+          "sql": {
+            "type": "string",
+            "description": "A SQL query to export the results of. When provided, `name` is required."
+          }
+        }
+      },
+      "ExportOptions": {
+        "type": "object",
+        "properties": {
+          "media_format": {
+            "type": "string",
+            "description": "How media columns are written in the export.",
+            "enum": [
+              "url",
+              "id",
+              "name"
+            ]
+          },
+          "record_link_format": {
+            "type": "string",
+            "description": "How record link columns are written in the export.",
+            "enum": [
+              "title",
+              "id"
+            ]
+          },
+          "media_file_name_format": {
+            "type": "string",
+            "description": "The file name pattern for exported media.",
+            "example": "{title}"
+          },
+          "include_photos": {
+            "type": "boolean",
+            "description": "Include photos"
+          },
+          "include_videos": {
+            "type": "boolean",
+            "description": "Include videos"
+          },
+          "include_audio": {
+            "type": "boolean",
+            "description": "Include audio"
+          },
+          "include_signatures": {
+            "type": "boolean",
+            "description": "Include signatures"
+          },
+          "include_attachments": {
+            "type": "boolean",
+            "description": "Include attachments"
+          },
+          "include_sketches": {
+            "type": "boolean",
+            "description": "Include sketches"
+          },
+          "include_reports": {
+            "type": "boolean",
+            "description": "Include PDF reports. When true and `report_template_id` is omitted, the app's default report template is used."
+          },
+          "report_template_id": {
+            "type": "string",
+            "description": "The report template to use when `include_reports` is true",
+            "format": "uuid"
+          },
+          "use_labels_as_headers": {
+            "type": "boolean",
+            "description": "Use field labels instead of data names as column headers (`csv` and `xlsx` only)"
+          }
+        }
+      },
+      "ExportRequest": {
+        "type": "object",
+        "required": [
+          "export"
+        ],
+        "properties": {
+          "export": {
+            "type": "object",
+            "required": [
+              "queries",
+              "format"
+            ],
+            "properties": {
+              "queries": {
+                "type": "array",
+                "minItems": 1,
+                "description": "What to export. Must contain at least one query.",
+                "items": {
+                  "$ref": "#/components/schemas/ExportQuery"
+                }
+              },
+              "format": {
+                "type": "string",
+                "description": "The export format. Use `none` for a media-only export, which requires at least one `include_*` media option.",
+                "enum": [
+                  "csv",
+                  "xlsx",
+                  "shp",
+                  "kml",
+                  "geojson",
+                  "json",
+                  "sqlite",
+                  "spatialite",
+                  "geopackage",
+                  "gdb",
+                  "postgres",
+                  "none"
+                ],
+                "example": "csv"
+              },
+              "options": {
+                "$ref": "#/components/schemas/ExportOptions"
+              }
+            }
+          }
+        }
+      },
+      "Export": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The unique identifier for the export",
+            "format": "uuid"
+          },
+          "state": {
+            "type": "string",
+            "description": "The processing state of the export.",
+            "enum": [
+              "pending",
+              "queued",
+              "running",
+              "completed",
+              "failed"
+            ],
+            "example": "running"
+          },
+          "format": {
+            "type": "string",
+            "description": "The export format.",
+            "example": "csv"
+          },
+          "queries": {
+            "type": "array",
+            "description": "The queries the export was created with.",
+            "items": {
+              "$ref": "#/components/schemas/ExportQuery"
+            }
+          },
+          "options": {
+            "$ref": "#/components/schemas/ExportOptions"
+          },
+          "file": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A download URL for the exported file. `null` until the export is completed. Exports expire 7 days after they are created, so download the file promptly."
+          },
+          "file_size": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "description": "The size of the exported file in bytes"
+          },
+          "error": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The error, if the export failed"
+          },
+          "message": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "A status message for the export"
+          },
+          "completed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "When the export completed"
+          },
+          "failed_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time",
+            "description": "When the export failed"
+          },
+          "created_at": {
+            "type": "string",
+            "description": "When the export was created",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "description": "When the export was last updated",
+            "format": "date-time"
+          },
+          "created_by": {
+            "type": "string",
+            "description": "The name of the user who created the export"
+          },
+          "created_by_id": {
+            "type": "string",
+            "description": "The ID of the user who created the export",
+            "format": "uuid"
+          },
+          "updated_by": {
+            "type": "string",
+            "description": "The name of the user who last updated the export"
+          },
+          "updated_by_id": {
+            "type": "string",
+            "description": "The ID of the user who last updated the export",
+            "format": "uuid"
+          }
+        }
+      },
+      "ExportResponse": {
+        "type": "object",
+        "required": [
+          "export"
+        ],
+        "properties": {
+          "export": {
+            "$ref": "#/components/schemas/Export"
+          }
+        }
+      },
+      "ExportListResponse": {
+        "type": "object",
+        "properties": {
+          "exports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Export"
+            }
+          },
+          "current_page": {
+            "type": "integer"
+          },
+          "total_pages": {
+            "type": "integer"
+          },
+          "total_count": {
+            "type": "integer"
+          },
+          "per_page": {
+            "type": "integer"
           }
         }
       },
@@ -6295,7 +7024,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/FormListResponse"
                 }
               }
             }
@@ -6408,7 +7137,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/FormResponse"
                 }
               }
             }
@@ -6597,7 +7326,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/FormHistoryResponse"
                 }
               }
             }
@@ -14217,6 +14946,249 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2/exports": {
+      "get": {
+        "summary": "List exports",
+        "description": "List the data exports you have created. Exports expire 7 days after they are created, and expired exports are not returned.",
+        "operationId": "exports-list",
+        "parameters": [
+          {
+            "name": "newest_first",
+            "in": "query",
+            "description": "If present, exports are sorted newest first.",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The page number requested.",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "The number of items to return per page (maximum 20).",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20,
+              "maximum": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportListResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "summary": "Create an export",
+        "description": "Trigger a data export. The export is processed asynchronously: the response returns immediately, so poll Get an export until `state` is `completed` (or `failed`), then download the file from the `file` URL.",
+        "operationId": "exports-create",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ExportRequest"
+              },
+              "examples": {
+                "form": {
+                  "summary": "Export an app as CSV",
+                  "value": {
+                    "export": {
+                      "queries": [
+                        {
+                          "form_id": "YOUR-FORM-ID"
+                        }
+                      ],
+                      "format": "csv",
+                      "options": {
+                        "use_labels_as_headers": false
+                      }
+                    }
+                  }
+                },
+                "sql": {
+                  "summary": "Export the results of a SQL query as CSV",
+                  "value": {
+                    "export": {
+                      "queries": [
+                        {
+                          "name": "Open work orders",
+                          "sql": "SELECT * FROM \"Work Orders\" WHERE status = 'open'"
+                        }
+                      ],
+                      "format": "csv"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Export created and queued for processing",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequestResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v2/exports/{export_id}": {
+      "get": {
+        "summary": "Get an export",
+        "description": "Retrieve an export. When `state` is `completed`, the `file` attribute contains a download URL for the exported file.",
+        "operationId": "exports-get",
+        "parameters": [
+          {
+            "name": "export_id",
+            "in": "path",
+            "description": "The unique identifier of the export.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotFoundResponse"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "summary": "Cancel an export",
+        "description": "Cancel a running export. The export is marked as `failed` and returned in the response.",
+        "operationId": "exports-delete",
+        "parameters": [
+          {
+            "name": "export_id",
+            "in": "path",
+            "description": "The unique identifier of the export.",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Export cancelled",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExportResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnauthorizedResponse"
                 }
               }
             }
