@@ -14,22 +14,28 @@
 - >-
   check-fields-in-sections-for-values-and-either-add-a-checkmark-or-a-x-to-the-section-label
 - check-if-a-photos-altitude-is-within-5m-of-currentlocation-altitude
+- classification-set-replacement-with-loadrecords
 - compare-photo-location-to-record-location
 - compare-photo-timestamp-with-current-time
 - conditionally-persist-values-across-records
 - >-
   create-a-summary-field-of-comments-entered-when-record-is-edited-multiple-times
 - create-buffer-from-point
+- cross-app-push-notifications
+- detect-fake-gps-spoofing
 - disable-auto-sync
 - disable-requirements-by-user-or-role
 - display-the-current-gps-info-on-the-form
 - dynamically-translate-form-elements
+- enforce-daily-sync-with-loadrecords
 - enforce-regex-pattern-validation-by-role
 - fetch-data-from-a-socrata-service
+- geofencing-with-loadrecords-and-geometry
 - get-elevation-information
 - opening-google-maps-street-view
 - hide-fields-based-on-user-role
 - how-to-show-hyperlink-fields-default-url
+- import-npm-packages-into-data-events
 - integrating-fulcrum-with-what3words
 - intelligently-updating-record-locations
 - limit-the-amount-of-characters-in-a-caption
@@ -38,11 +44,14 @@
 - make-fields-read-only-based-on-user-role
 - measure-area-and-length-of-polygon
 - measure-length-of-line
+- pass-record-id-between-apps-with-storage
 - phone-number-validation
 - point-in-polygon-with-carto-api
+- populate-choice-field-from-memberships-api
 - prevent-changes-after-signing
 - prevent-editing-an-old-record
 - prevent-users-from-uploading-photos-from-the-device-gallery
+- proximity-check-with-loadrecords-and-turf
 - query-a-geoserver-instance
 - query-esri-rest-services
 - repeatable-record-sorting
@@ -55,6 +64,7 @@
 - set-the-status-field-options-based-on-role
 - show-description-inline-with-label
 - snap-point-to-line
+- suppress-console-log-on-mobile
 - basic-timer
 - update-carto-table-from-fulcrum
 - validate-if-point-is-in-polygon
