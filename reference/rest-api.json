@@ -2507,7 +2507,7 @@
       },
       "PhotoFastFillSettingsRequest": {
         "type": "object",
-        "description": "Optional saved Photo FastFill configuration. Requests may use `generic` or `text_extraction`.",
+        "description": "Optional saved Photo FastFill configuration. Requests may use `generic`.",
         "required": [
           "target_fields",
           "type"
@@ -2535,7 +2535,7 @@
       },
       "PhotoFastFillSettingsResponse": {
         "type": "object",
-        "description": "Optional saved Photo FastFill settings. If configuration exists but effective access is unavailable, responses return `type: off` and retain saved `target_fields`. Access requires the organization preference and Photo FastFill rollout. Photo FastFill is available on all plans during the public beta and included only with Elite or Enterprise plans outside the beta.",
+        "description": "Optional saved Photo FastFill settings. In responses, if configuration exists but fastfill is disabled, type will return off. Any previously configured targets will be retained.",
         "required": [
           "target_fields",
           "type"
@@ -2543,7 +2543,7 @@
         "properties": {
           "target_fields": {
             "type": "array",
-            "description": "Non-empty list of unique, non-empty stable keys of supported target elements in this form.",
+            "description": "List of target field keys that are targeted by photo fastfill.",
             "minItems": 1,
             "uniqueItems": true,
             "items": {
@@ -2555,10 +2555,9 @@
             "type": "string",
             "enum": [
               "generic",
-              "text_extraction",
               "off"
             ],
-            "description": "Effective Photo FastFill mode in this response. `off` indicates that saved settings are unavailable under the organization's current access settings; requests accept only `generic` or `text_extraction`."
+            "description": "Configured photo fastfill mode. off indicates it is not configured OR photo fastfill is not enabled for this organization."
           }
         }
       },
@@ -3687,7 +3686,7 @@
           },
           "fastfill_audio_enabled": {
             "type": "boolean",
-            "description": "Whether Audio FastFill is enabled for this form as a saved configuration value when creating or updating the form. Setting this to true requires a subscription plan with Audio FastFill entitlement; otherwise the update fails validation. This field describes the persisted request value, not the effective access value returned by read models.",
+            "description": "Whether Audio FastFill is enabled for this form. The feature must be enabled for the organization's subscription",
             "writeOnly": true
           }
         }
