@@ -26,15 +26,18 @@ with open('track.gpx', 'w') as f:
   json.dump(tracks, f)
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const fs = require('fs');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+import * as fs from 'node:fs/promises';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.audio.track('{id}', 'gpx')
-  .then(track => fs.writeFile('track.gpx', track, function () {
-    console.log('track downloaded!');
-  }))
-  .catch(err => console.log(err));
+client.audio.getSingleTrackGpx('{id}')
+  .then(response => fs.writeFile('track.gpx', response.data))
+  .then(() => console.log('Track downloaded!'))
+  .catch(error => console.error(error.message));
 ```
 ```ruby Ruby
 require 'fulcrum'

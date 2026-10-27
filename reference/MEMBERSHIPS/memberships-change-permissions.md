@@ -65,14 +65,20 @@ try:
     res = requests.post(url, headers=headers, json=body)
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.memberships.change('form', '{my-form-id}', 'add', ['{my-member-id}'])
-  .then((membership) => {
-    membership.forEach(membership => {
-      console.log(membership.user + ' added!');
-    });
+client.memberships.changePermissions({
+  permissionChangeRequest: {
+    change: { type: 'form_members', form_id: '{my-form-id}', add: ['{my-member-id}'] }
+  }
+})
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);
@@ -101,14 +107,20 @@ curl --request POST 'https://api.fulcrumapp.com/api/v2/memberships/change_permis
 # Not currently supported
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.memberships.change('project', '{my-project-id}', 'remove', ['{my-member-id}'])
-  .then((membership) => {
-    membership.forEach(membership => {
-      console.log(membership.user + ' removed!');
-    });
+client.memberships.changePermissions({
+  permissionChangeRequest: {
+    change: { type: 'project_members', project_id: '{my-project-id}', remove: ['{my-member-id}'] }
+  }
+})
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

@@ -32,8 +32,12 @@ layer = fulcrum.layers.update('{id}', obj)
 print(layer['layer']['id'] + ' has been updated!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "name": "USGS Topo",
@@ -42,9 +46,9 @@ const obj = {
   "source": "http://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}"
 };
 
-client.layers.update('{id}', obj)
-  .then((layer) => {
-    console.log(layer.id + ' has been updated!');
+client.layers.update('{id}', { layerRequest: { layer: obj } })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

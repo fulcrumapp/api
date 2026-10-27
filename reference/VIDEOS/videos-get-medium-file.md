@@ -25,15 +25,18 @@ with open('{id}.mp4', 'wb') as f:
   f.write(video)
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const fs = require('fs');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+import * as fs from 'node:fs/promises';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-const writeStream = fs.createWriteStream('{id}.mp4');
-
-client.videos.media('{id}', 'medium')
-  .then(video => video.pipe(writeStream))
-  .catch(error => console.log(error));
+client.client.videosGetMediumFile({ videoId: '{id}' }, { responseType: 'arraybuffer' })
+  .then(response => fs.writeFile('{id}.mp4', Buffer.from(response.data)))
+  .then(() => console.log('File downloaded!'))
+  .catch(error => console.error(error.message));
 ```
 ```ruby Ruby
 require 'fulcrum'

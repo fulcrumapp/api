@@ -32,17 +32,21 @@ webhook = fulcrum.webhooks.create(obj)
 print(webhook['webhook']['id'] + ' has been created!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "name": "Fire Hydrant Inventory Emails",
   "url": "https://my-webhook-processing-script.php"
 };
 
-client.webhooks.create(obj)
-  .then((webhook) => {
-    console.log(webhook.id + ' has been created!');
+client.webhooks.create({ webhook: obj })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

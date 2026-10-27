@@ -26,15 +26,16 @@ for form in forms['forms']:
   print(form['name']) # just the form name
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.forms.all({schema: false})
-  .then((page) => {
-    page.objects.forEach(form => {
-      // console.log(form); // entire form definition
-      console.log(form.name); // just the form name
-    });
+client.forms.getAll({schema: false})
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

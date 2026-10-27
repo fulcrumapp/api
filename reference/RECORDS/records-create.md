@@ -50,8 +50,12 @@ record = fulcrum.records.create(obj)
 print(record['record']['id'] + ' has been created!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "form_id": "my-form-id",
@@ -78,9 +82,9 @@ const obj = {
   }
 };
 
-client.records.create(obj)
-  .then((record) => {
-    console.log(record.id + ' has been created!');
+client.records.create({ record: obj })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

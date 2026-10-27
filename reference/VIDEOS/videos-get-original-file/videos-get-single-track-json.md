@@ -26,15 +26,18 @@ with open('track.json', 'w') as f:
   json.dump(tracks, f)
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const fs = require('fs');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+import * as fs from 'node:fs/promises';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.videos.track('{id}', 'json')
-  .then(track => fs.writeFile('track.json', track, function () {
-    console.log('track downloaded!');
-  }))
-  .catch(err => console.log(err));
+client.videos.getSingleTrackJson('{id}')
+  .then(response => fs.writeFile('track.json', JSON.stringify(response.data, null, 2)))
+  .then(() => console.log('Track downloaded!'))
+  .catch(error => console.error(error.message));
 ```
 ```ruby Ruby
 require 'fulcrum'

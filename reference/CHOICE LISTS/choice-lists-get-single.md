@@ -24,12 +24,16 @@ choice_list = fulcrum.choice_lists.find('{id}')
 print(choice_list['choice_list'])
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.choiceLists.find('{id}')
-  .then((choiceList) => {
-    console.log(choiceList);
+client.choiceLists.getById('{id}')
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

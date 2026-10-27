@@ -26,15 +26,16 @@ for membership in memberships['memberships']:
   print(membership['user']) # just the user name
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.memberships.all()
-  .then((page) => {
-    page.objects.forEach(membership => {
-      // console.log(membership); // entire membership
-      console.log(membership.user); // just the user name
-    });
+client.memberships.getAll()
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);
@@ -70,15 +71,16 @@ for membership in memberships['memberships']:
   print(membership['user']) # just the user name
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.memberships.all({'form_id':'{id}'})
-  .then((page) => {
-    page.objects.forEach(membership => {
-      // console.log(membership); // entire membership
-      console.log(membership.user); // just the user name
-    });
+client.memberships.getAll({formId:'{id}'})
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);
