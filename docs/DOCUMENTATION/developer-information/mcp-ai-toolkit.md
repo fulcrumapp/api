@@ -87,10 +87,16 @@ Query MCP tools provide read-only data access, and are prefixed with `query-mcp_
 | Claude Code | `/plugin marketplace add https://github.com/fulcrumapp/fulcrum-ai-toolkit.git`<br>`/plugin install fulcrum-ai-toolkit@fulcrum-ai-toolkit` |
 | Codex | `codex plugin marketplace add fulcrumapp/fulcrum-ai-toolkit`<br>`codex plugin add fulcrum-ai-toolkit@fulcrum-ai-toolkit` |
 | GitHub Copilot CLI | `copilot plugin marketplace add fulcrumapp/fulcrum-ai-toolkit`<br>`copilot plugin install fulcrum-ai-toolkit@fulcrum-ai-toolkit` |
-| Microsoft 365 Copilot / Copilot Studio | Open the [latest release](https://github.com/fulcrumapp/fulcrum-ai-toolkit/releases/latest), expand **Assets**, and download `fulcrum-ai-toolkit-m365.zip`. Upload the complete ZIP without extracting it; do not use GitHub's Source code ZIP or a ZIP of the repository. See the [Copilot Studio setup guide](https://help.fulcrumapp.com/en/articles/17219744-setting-up-fulcrum-mcp-and-the-ai-toolkit-in-microsoft-copilot-studio) for the upload and separate Fulcrum MCP connection steps. |
+| Microsoft 365 Copilot / Copilot Studio | Download `fulcrum-ai-toolkit-m365.zip`, then upload it in Copilot Studio (**Build > Skills > Add skill > Upload a skill**). See the [Copilot Studio setup guide](https://help.fulcrumapp.com/en/articles/17219744-setting-up-fulcrum-mcp-and-the-ai-toolkit-in-microsoft-copilot-studio). |
 | Other MCP-compatible / generic skills loader | `npx skills@latest add https://github.com/fulcrumapp/fulcrum-ai-toolkit/tree/main/plugins/fulcrum-ai-toolkit/skills --skill '*'` |
 | Claude Desktop chat / Cowork | Not yet supported — needs account-level skill packaging support. |
 | ChatGPT | No direct Toolkit install path yet. Connect MCP only, or use the pre-built Fulcrum Builder Custom GPT. |
+
+Microsoft 365 quick notes:
+
+1. Download `fulcrum-ai-toolkit-m365.zip` from the [latest release](https://github.com/fulcrumapp/fulcrum-ai-toolkit/releases/latest/download/fulcrum-ai-toolkit-m365.zip).
+2. Upload the complete ZIP without extracting it.
+3. Do not use GitHub's **Source code (zip)**/**Source code (tar.gz)** archives or a ZIP of the repository.
 
 The Toolkit contains skills covering the build lifecycle: discovery, field/structure selection, safe automation, data-event patterns, safety-field flagging, and querying data. Full skill list and source: [github.com/fulcrumapp/fulcrum-ai-toolkit](https://github.com/fulcrumapp/fulcrum-ai-toolkit).
 
