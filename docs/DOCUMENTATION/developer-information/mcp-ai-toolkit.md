@@ -87,7 +87,7 @@ Query MCP tools provide read-only data access, and are prefixed with `query-mcp_
 | Claude Code | `/plugin marketplace add https://github.com/fulcrumapp/fulcrum-ai-toolkit.git`<br>`/plugin install fulcrum-ai-toolkit@fulcrum-ai-toolkit` |
 | Codex | `codex plugin marketplace add fulcrumapp/fulcrum-ai-toolkit`<br>`codex plugin add fulcrum-ai-toolkit@fulcrum-ai-toolkit` |
 | GitHub Copilot CLI | `copilot plugin marketplace add fulcrumapp/fulcrum-ai-toolkit`<br>`copilot plugin install fulcrum-ai-toolkit@fulcrum-ai-toolkit` |
-| Microsoft 365 Copilot / Copilot Studio | Download `fulcrum-ai-toolkit-m365.zip`, then upload it in Copilot Studio (**Build > Skills > Add skill > Upload a skill**). See the [Copilot Studio setup guide](https://help.fulcrumapp.com/en/articles/17219744-setting-up-fulcrum-mcp-and-the-ai-toolkit-in-microsoft-copilot-studio). |
+| Microsoft 365 Copilot / Copilot Studio | Use `fulcrum-ai-toolkit-m365.zip` for Copilot Studio uploads (**Build > Skills > Add skill > Upload a skill**). See the [Copilot Studio setup guide](https://help.fulcrumapp.com/en/articles/17219744-setting-up-fulcrum-mcp-and-the-ai-toolkit-in-microsoft-copilot-studio). |
 | Other MCP-compatible / generic skills loader | `npx skills@latest add https://github.com/fulcrumapp/fulcrum-ai-toolkit/tree/main/plugins/fulcrum-ai-toolkit/skills --skill '*'` |
 | Claude Desktop chat / Cowork | Not yet supported — needs account-level skill packaging support. |
 | ChatGPT | No direct Toolkit install path yet. Connect MCP only, or use the pre-built Fulcrum Builder Custom GPT. |
