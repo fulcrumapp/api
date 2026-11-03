@@ -28,7 +28,7 @@ user_id = 'bc95fb63-f664-46ce-b440-de8de85e4494' # optional, defaults to user cr
 auth = create_authorization(email, password, organization_id, note, timeout, user_id)
 print(auth)
 ```
-The `POST` method requires HTTP Basic authentication, while `@fulcrumapp/fulcrum-js` authenticates with an API token. To create an authorization without an existing API token, use a server-side Basic-auth request. This example requires Node.js 18 or later and reads credentials from environment variables; set `FULCRUM_API_URL` to the regional API base URL for your account.
+The `POST` method requires HTTP Basic authentication, while `@fulcrumapp/fulcrum-js` authenticates with an API token. To create a first authorization, first retrieve the organization ID using the Basic-auth example in [Get User Information](../USERS/users-get-user.md), then send this request using the same credentials. This server-side example requires Node.js 18 or later and reads credentials from environment variables; set `FULCRUM_API_URL` to the regional API base URL for your account.
 
 ```javascript JavaScript
 const apiBaseUrl = process.env.FULCRUM_API_URL ?? 'https://api.fulcrumapp.com/api';
@@ -49,7 +49,7 @@ async function createAuthorization() {
     },
     body: JSON.stringify({
       authorization: {
-        organization_id: 'organization-id-from-getUser',
+        organization_id: 'organization-id-from-get-user',
         note: 'My New API Token',
         timeout: 3600
       }
