@@ -1,6 +1,6 @@
 ---
-title: URL Actions
-excerpt: ''
+title: URL Actions (Deep Linking)
+excerpt: Use URL actions, also known as deep linking, to launch Fulcrum and create or edit records from other apps.
 deprecated: false
 hidden: false
 metadata:
@@ -12,7 +12,7 @@ next:
 ---
 # Introduction 
 
-You can directly launch Fulcrum, create new records and update existing records via URL parameters on both the web and mobile apps. This allows you to easily integrate Fulcrum with other applications and services to build custom workflows, such as:
+URL actions, also commonly referred to as deep linking, let you directly launch Fulcrum, create new records and update existing records via URL parameters on both the web and mobile apps. This allows you to easily integrate Fulcrum with other applications and services to build custom workflows, such as:
 
 * Scheduling work outside of Fulcrum and sending daily worksheets to your field crews.
 
@@ -22,7 +22,7 @@ You can directly launch Fulcrum, create new records and update existing records 
 
 * Passing coordinates from another application or web map to create a new Fulcrum record.
 
-# Web Actions
+# Web Actions (Web Deep Links)
 
 Records can be viewed, created, and edited directly on the web using the following actions:
 
@@ -33,9 +33,9 @@ Records can be viewed, created, and edited directly on the web using the followi
 | `https://web.fulcrumapp.com/records/{record_id}`           | Open an existing record                                                                                                               |
 | `https://web.fulcrumapp.com/records/{record_id}?mode=edit` | Edit an existing record                                                                                                               |
 
-# Mobile Actions
+# Mobile Actions (Mobile Deep Links)
 
-Both the Android and iOS apps support opening the app using the `fulcrumapp://` URL scheme.
+Both the Android and iOS apps support opening the app using the `fulcrumapp://` URL scheme. This custom URL scheme is what makes deep linking into the mobile apps possible.
 
 | Action                     | Description             |
 | -------------------------- | ----------------------- |
