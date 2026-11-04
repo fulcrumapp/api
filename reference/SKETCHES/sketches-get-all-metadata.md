@@ -28,15 +28,16 @@ for sketch in sketches['sketches']:
 ```
 
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.sketches.all({'form_id':'{id}'})
-  .then((page) => {
-    page.objects.forEach(sketch => {
-      // console.log(sketch); // entire sketch metadata
-      console.log(sketch.access_key); // just the sketch key
-    });
+client.client.sketchesGetAllMetadata({formId:'{id}'})
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

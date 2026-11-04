@@ -26,15 +26,16 @@ for choice_list in choice_lists['choice_lists']:
   print(choice_list['name']) # just the choice list name
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.choiceLists.all()
-  .then((page) => {
-    page.objects.forEach(choiceList => {
-      // console.log(choiceLists); // entire choice list
-      console.log(choiceList.name); // just the choice list name
-    });
+client.choiceLists.getAll()
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

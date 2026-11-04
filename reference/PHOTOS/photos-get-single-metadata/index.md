@@ -24,12 +24,16 @@ photo = fulcrum.photos.find('{id}')
 print(photo['photo'])
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.photos.find('{id}')
-  .then((photo) => {
-    console.log(photo);
+client.photos.getSingleMetadata('{id}')
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

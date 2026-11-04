@@ -24,13 +24,16 @@ authorization = fulcrum.authorizations.find('{id}')
 print(authorization['authorization'])
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.authorizations.find('{id}')
-  .then((authorization) => {
-    console.log(authorization); // entire authorization
-    // console.log(authorization.id); // just the authorization id
+client.authorizations.getById('{id}')
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

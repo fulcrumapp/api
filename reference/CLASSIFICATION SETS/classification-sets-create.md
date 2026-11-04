@@ -87,8 +87,12 @@ classification_set = fulcrum.classification_sets.create(obj)
 print(classification_set['classification_set']['id'] + ' has been created!')
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
 const obj = {
   "name": "Wildlife Types",
@@ -152,9 +156,9 @@ const obj = {
   }]
 };
 
-client.classificationSets.create(obj)
-  .then((classificationSet) => {
-    console.log(classificationSet.id + ' has been created!');
+client.classificationSets.create({ classificationSetRequest: { classification_set: obj } })
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

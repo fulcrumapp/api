@@ -28,23 +28,50 @@ user_id = 'bc95fb63-f664-46ce-b440-de8de85e4494' # optional, defaults to user cr
 auth = create_authorization(email, password, organization_id, note, timeout, user_id)
 print(auth)
 ```
+The `POST` method requires HTTP Basic authentication, while `@fulcrumapp/fulcrum-js` authenticates with an API token. To create a first authorization, first retrieve the organization ID using the Basic-auth example in [Get User Information](../USERS/users-get-user.md), then send this request using the same credentials. This server-side example requires Node.js 18 or later and reads credentials from environment variables; set `FULCRUM_API_URL` to the regional API base URL for your account.
+
 ```javascript JavaScript
-const { createAuthorization } = require('fulcrum-app');
+const apiBaseUrl = process.env.FULCRUM_API_URL ?? 'https://api.fulcrumapp.com/api';
+const email = process.env.FULCRUM_EMAIL;
+const password = process.env.FULCRUM_PASSWORD;
 
-const email = '{email}';
-const password = '{password}';
-const organizationId = 'organization-id-from-getUser';
-const note = 'My New API Token';
-const timeout = 3600; // optional, defaults to None
-const userId = 'bc95fb63-f664-46ce-b440-de8de85e4494'; // optional, defaults to user creating token
+async function createAuthorization() {
+  if (!email || !password) {
+    throw new Error('Set FULCRUM_EMAIL and FULCRUM_PASSWORD before running this example.');
+  }
 
-createAuthorization(email, password, organizationId, note, timeout, userId)
-  .then((authorization) => {
-    console.log(authorization);
-    // authorization.token is your API token to use with the rest of the API.
+  const response = await fetch(`${apiBaseUrl}/v2/authorizations.json`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${Buffer.from(`${email}:${password}`).toString('base64')}`,
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      authorization: {
+        organization_id: 'organization-id-from-get-user',
+        note: 'My New API Token',
+        timeout: 3600
+      }
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`Authorization creation failed (${response.status}): ${await response.text()}`);
+  }
+
+  const { authorization } = await response.json();
+  return authorization.token;
+}
+
+createAuthorization()
+  .then((token) => {
+    // Capture this output securely; do not commit it or include it in browser code.
+    process.stdout.write(`${token}\n`);
   })
   .catch((error) => {
-    console.log(error.message);
+    console.error(error.message);
+    process.exitCode = 1;
   });
 ```
 ```ruby Ruby

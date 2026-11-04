@@ -24,12 +24,16 @@ project = fulcrum.projects.find('{id}')
 print(project['project'])
 ```
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-client.projects.find('{id}')
-  .then((project) => {
-    console.log(projects);
+client.projects.getById('{id}')
+  .then((response) => {
+    console.log(response.data);
   })
   .catch((error) => {
     console.log(error.message);

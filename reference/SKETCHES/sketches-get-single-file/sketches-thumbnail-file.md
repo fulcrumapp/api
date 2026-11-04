@@ -26,15 +26,18 @@ with open('{id}.jpeg', 'wb') as f:
 ```
 
 ```javascript JavaScript
-const { Client } = require('fulcrum-app');
-const client = new Client('{token}');
+import { FulcrumClient, FulcrumRegion } from '@fulcrumapp/fulcrum-js';
+import * as fs from 'node:fs/promises';
+const client = new FulcrumClient({
+  apiKey: '{token}',
+  // Use the region configured for your Fulcrum account.
+  region: FulcrumRegion.US
+});
 
-const fs = require('fs');
-const writeStream = fs.createWriteStream('{id}.jpeg');
-
-client.sketches.media('{id}', 'thumbnail')
-  .then(sketch => sketch.pipe(writeStream))
-  .catch(error => console.log(error));
+client.client.sketchesThumbnailFile({ sketchId: '{id}' }, { responseType: 'arraybuffer' })
+  .then(response => fs.writeFile('{id}.jpeg', Buffer.from(response.data)))
+  .then(() => console.log('File downloaded!'))
+  .catch(error => console.error(error.message));
 ```
 
 ```ruby Ruby
