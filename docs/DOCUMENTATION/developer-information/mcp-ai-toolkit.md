@@ -22,7 +22,7 @@ This page is the developer reference for Fulcrum MCP and the Fulcrum AI Toolkit.
 
 Fulcrum MCP is an MCP server that lets any MCP-compatible client (Claude, ChatGPT, Copilot, custom agents, etc.) build and manage Fulcrum apps and query live data.
 
-The Fulcrum AI Toolkit is a library of skills: prompt-level guidance, not a server. It teaches a client Fulcrum's platform conventions (field types, safe automation patterns, what to flag) so it uses the MCP tools correctly. The Toolkit currently does not bundle or configure any MCP server itself; its `mcp.json` is intentionally empty.
+The Fulcrum AI Toolkit is a library of skills (prompt-level guidance), not a server. It teaches a client Fulcrum's platform conventions (field types, safe automation patterns, what to flag) so it uses the MCP tools correctly. The Toolkit currently does not bundle or configure any MCP server itself; its `mcp.json` is intentionally empty.
 
 The two can be installed and operated independently, but are meant to be used together.
 
@@ -49,22 +49,15 @@ initialize → notifications/initialized → tools/list / tools/call
 
 ## Auth
 
-Fulcrum MCP supports OAuth sign-in and API tokens. Use OAuth sign-in when your client supports it. Existing Bearer token connections need no changes.
+Fulcrum MCP supports OAuth 2.0 sign-in and API tokens. Use OAuth sign-in when your client supports it. Existing Bearer token connections need no changes.
 
 ### OAuth sign-in
-
-| Parameter | Value |
-| --- | --- |
-| Flow | OAuth 2.0 authorization-code flow |
-| Client identification | Client ID Metadata Documents (CIMD) |
-| PKCE | Required, using S256 |
-| Scope | `mcp` |
 
 1. **Discovery:** The client discovers the authorization server from the MCP endpoint using standard MCP authorization discovery.
 2. **Client identification:** The client identifies itself using a Client ID Metadata Document. Its client ID is the HTTPS URL of its JSON metadata document. No pre-registration with Fulcrum is needed. For example, VS Code uses `https://vscode.dev/oauth/client-metadata.json`.
 3. **Login:** The user signs in with their normal Fulcrum login, including SAML single sign-on.
 4. **Consent:** The consent page shows the requesting client name and the organization, with **Allow access** and **Deny access** buttons. Allow access authorizes the client for what the signed-in member is permitted to access. Deny access returns an access denied response to the client and issues no token.
-5. **Token:** Fulcrum issues short-lived access tokens (JWTs) and forwards them to the underlying App MCP and Query MCP services.
+5. **Token:** Fulcrum issues short-lived access tokens and forwards them to the underlying App MCP and Query MCP services.
 
 ### API token
 
