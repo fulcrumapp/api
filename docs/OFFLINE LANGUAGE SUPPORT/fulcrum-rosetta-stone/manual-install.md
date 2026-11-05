@@ -692,6 +692,7 @@ async function translateCurrentFormIos() {
                 'Translation extension returned no data'
               );
 
+              iosTranslationInProgress = false;
               return;
             }
 
