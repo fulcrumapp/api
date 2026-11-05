@@ -118,4 +118,4 @@ The Toolkit contains skills covering the build lifecycle: discovery, field/struc
 | --- | --- | --- |
 | Invalid/malformed API token | For API token connections, returns transport-level `200 OK`; failure is `isError: true` inside the JSON-RPC result, not an HTTP 401/403. | Check `isError` on every `tools/call` response; don't infer success from the HTTP status alone. |
 | Post-`initialize` session error | Fulcrum MCP can return a one-time `400 invalid session ID header` on the request immediately after `initialize`. | Retry once with the same session ID. This is a known backend session-affinity issue on the MCP gateway. |
-| OAuth capabilities | Refresh tokens, device authorization, and immediate token revocation are not supported yet. | |
+| OAuth capabilities | Immediate token revocation is not supported yet. | |
