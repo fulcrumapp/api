@@ -78,7 +78,7 @@ The Section is optional (it only keeps the controls together at the top). Name i
 
 Only add the languages you uploaded files for. A language without its files will open a blank viewer.
 
-To reuse a field the app already has, keep its data name and change the matching name in the Data Event (`language_field`, the `ON('click', ...)` field name and `cache_field`). Existing fields should be a single-choice field, a hyperlink field and a non-numeric text field.
+To reuse a field the app already has, keep its data name and update every occurrence in both Data Event scripts: the `ON('click', ...)` field, `VALUE('language')`/`$language`, `language_field`, `cache_field`, and each `exclude_fields` array. Existing fields should be a single-choice field, a hyperlink field and a non-numeric text field.
 
 ## Step 2A: Android, Desktop and Web package
 
