@@ -49,7 +49,7 @@ initialize → notifications/initialized → tools/list / tools/call
 
 ## Auth
 
-Fulcrum MCP supports OAuth 2.0 sign-in and API tokens. Use OAuth sign-in when your client supports it. Existing Bearer token connections need no changes.
+Fulcrum MCP supports OAuth 2.0 sign-in and API tokens. Use OAuth sign-in when your client supports it. If using a Bearer token, we recommend switching to this OAuth setup.
 
 ### OAuth sign-in
 
@@ -60,6 +60,8 @@ Fulcrum MCP supports OAuth 2.0 sign-in and API tokens. Use OAuth sign-in when yo
 5. **Token:** Fulcrum issues short-lived access tokens and forwards them to the underlying App MCP and Query MCP services.
 
 ### API token
+
+Existing API token connections continue to work and need no changes.
 
 Generate an API token from your Fulcrum account.
 
