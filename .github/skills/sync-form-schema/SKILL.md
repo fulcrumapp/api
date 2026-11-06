@@ -26,11 +26,7 @@ The authoritative form model lives in two GitHub repos:
 
 ## OpenAPI Schemas to Keep Current
 
-All schemas live inline in `reference/rest-api.json` under `components.schemas`. The current
-form model in that file is **not** split into per-element OpenAPI schemas such as
-`FormBaseElement`, `FormTextFieldElement`, or `FormChoiceFieldElement`, and `FormElement` is not
-currently documented there as a `oneOf` discriminated union. Do not update this skill as if that
-refactor has already happened.
+All schemas live inline in `reference/rest-api.json` under `components.schemas`.
 
 Use the schema names that actually exist in `reference/rest-api.json` today:
 
@@ -143,7 +139,7 @@ Per `AGENTS.md`, run ALL of these after any edit to `rest-api.json`:
 node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid JSON:', e.message); process.exit(1); }"
 
 # 2. OpenAPI spec validation
-cd reference && npx --yes rdme openapi validate rest-api.json
+(cd reference && npx --yes rdme openapi validate rest-api.json)
 
 # 3. VS Code errors
 # Use get_errors tool on reference/rest-api.json
@@ -193,6 +189,4 @@ gh pr create \
 ## Critical Rules (from AGENTS.md)
 
 - **Never use external `$ref` files** — ReadMe won't render them
-- **Never add RAW_BODY properties** — anti-pattern
-- **Always validate after every change** — even small edits
 - **All schemas must be in `components.schemas`** — no inline anonymous schemas in endpoints
