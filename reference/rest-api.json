@@ -714,7 +714,7 @@
                 "description": "Note about this authorization"
               },
               "timeout": {
-                "type": "integer",
+                "type": ["integer", "null"],
                 "description": "Timeout in seconds. A missing, blank, or non-positive value uses the maximum allowed timeout, normally 24 hours; a caller's expiring API token can impose a shorter limit."
               }
             },
@@ -6275,6 +6275,17 @@
       }
     },
     "/v2/memberships.json": {
+      "parameters": [
+        {
+          "name": "associations",
+          "in": "query",
+          "description": "Set to true to include the member's layer_ids, project_ids, and form_ids in the response.",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
       "get": {
         "summary": "Get a list of memberships",
         "description": "Before a new member personally accesses the organization in the web app, names, sign-in, image and device details are null. API or mobile access alone does not confirm the membership. Searches by name or managed user name and device filters do not match unconfirmed members; email and role searches remain available.",
@@ -6430,6 +6441,17 @@
       }
     },
     "/v2/memberships/{membership_id}.json": {
+      "parameters": [
+        {
+          "name": "associations",
+          "in": "query",
+          "description": "Set to true to include the member's layer_ids, project_ids, and form_ids in the response.",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
       "get": {
         "summary": "Get a membership",
         "description": "Before a member accesses the organization, names, sign-in, image and device details are null.",
@@ -9380,6 +9402,17 @@
       }
     },
     "/v2/projects.json": {
+      "parameters": [
+        {
+          "name": "associations",
+          "in": "query",
+          "description": "Set to true to include project_manager_id, group_ids, and member_ids in project responses.",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
       "get": {
         "summary": "Get a list of projects",
         "description": "When project manager names are enabled, a pending manager is shown as 'Awaiting user'.",
@@ -9505,6 +9538,17 @@
       }
     },
     "/v2/projects/{project_id}.json": {
+      "parameters": [
+        {
+          "name": "associations",
+          "in": "query",
+          "description": "Set to true to include project_manager_id, group_ids, and member_ids in project responses.",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
       "get": {
         "summary": "Get a project",
         "description": "When project manager names are enabled, a pending manager is shown as 'Awaiting user'.",
