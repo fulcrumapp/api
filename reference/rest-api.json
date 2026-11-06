@@ -6318,7 +6318,7 @@
           {
             "name": "device_info",
             "in": "query",
-            "description": "Include recent device information. The value is null for an unconfirmed member.",
+            "description": "Provide any non-empty value to include recent device information. The value is null for an unconfirmed member.",
             "schema": {
               "type": "string"
             }
@@ -6477,7 +6477,7 @@
           {
             "name": "device_info",
             "in": "query",
-            "description": "Include recent device information. The value is null for an unconfirmed member.",
+            "description": "Provide any non-empty value to include recent device information. The value is null for an unconfirmed member.",
             "schema": {
               "type": "string"
             }
@@ -6517,7 +6517,7 @@
       },
       "put": {
         "summary": "Update a membership",
-        "description": "You can use this to update parameters of a member, but this will not work if the member is apart of multiple organizations. Before a member accesses the organization, names, sign-in, image and device details in the response are null.",
+        "description": "You can use this to update parameters of a member, but this will not work if the member is a part of multiple organizations. Before a member accesses the organization, names, sign-in, image and device details in the response are null.",
         "operationId": "update-membership",
         "parameters": [
           {
