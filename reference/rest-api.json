@@ -705,6 +705,10 @@
                 "type": "string",
                 "description": "ID of the organization"
               },
+              "user_id": {
+                "type": "string",
+                "description": "ID of the user for whom to create the authorization. Creating an authorization for another login-enabled user requires that user to have accessed the organization."
+              },
               "note": {
                 "type": "string",
                 "description": "Note about this authorization"
@@ -722,6 +726,148 @@
         "required": [
           "authorization"
         ]
+      },
+      "AuthorizationResponse": {
+        "type": "object",
+        "properties": {
+          "authorization": {
+            "$ref": "#/components/schemas/Authorization"
+          }
+        }
+      },
+      "AuthorizationListResponse": {
+        "type": "object",
+        "properties": {
+          "authorizations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Authorization"
+            }
+          }
+        }
+      },
+      "Authorization": {
+        "type": "object",
+        "description": "For a membership that has not yet accessed the organization, user_name and usage details are null.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "user_name": {
+            "type": ["string", "null"]
+          },
+          "last_used_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "last_ip_address": {
+            "type": ["string", "null"]
+          },
+          "last_user_agent": {
+            "type": ["string", "null"]
+          }
+        },
+        "additionalProperties": true
+      },
+      "MembershipResponse": {
+        "type": "object",
+        "properties": {
+          "membership": {
+            "$ref": "#/components/schemas/Membership"
+          }
+        }
+      },
+      "MembershipListResponse": {
+        "type": "object",
+        "properties": {
+          "memberships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Membership"
+            }
+          }
+        }
+      },
+      "Membership": {
+        "type": "object",
+        "description": "For a new membership, names, sign-in, image and device details are null until the member personally accesses the organization in the web app. API or mobile access alone does not confirm the membership. Existing memberships remain visible. The member ID, user ID, email and role remain available.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role_id": {
+            "type": "string"
+          },
+          "role_name": {
+            "type": "string"
+          },
+          "user": {
+            "type": ["string", "null"]
+          },
+          "first_name": {
+            "type": ["string", "null"]
+          },
+          "last_name": {
+            "type": ["string", "null"]
+          },
+          "last_sign_in_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "gravatar_email": {
+            "type": ["string", "null"]
+          },
+          "gravatar_image_url": {
+            "type": ["string", "null"]
+          },
+          "image_small": {
+            "type": ["string", "null"]
+          },
+          "image_large": {
+            "type": ["string", "null"]
+          },
+          "device_info": {
+            "type": ["object", "null"],
+            "description": "Included when device_info is requested; null for an unconfirmed member or when no device information is available.",
+            "additionalProperties": true
+          },
+          "is_editable": {
+            "type": "boolean",
+            "description": "Included when editing_info is requested; false for an unconfirmed member."
+          }
+        },
+        "additionalProperties": true
+      },
+      "AuthorizationValidationErrorResponse": {
+        "type": "object",
+        "properties": {
+          "authorization": {
+            "type": "object",
+            "properties": {
+              "errors": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        }
       },
       "BadRequestResponse": {
         "type": "object",
@@ -5633,7 +5779,7 @@
     "/v2/authorizations.json": {
       "get": {
         "summary": "Get a list of authorizations",
-        "description": "",
+        "description": "For members who have not yet accessed the organization, user_name and usage details are null. Sorting by last_used_at does not use their hidden activity.",
         "operationId": "authorizations-get-all",
         "parameters": [
           {
@@ -5671,7 +5817,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/AuthorizationListResponse"
                 }
               }
             }
@@ -5691,7 +5837,7 @@
       },
       "post": {
         "summary": "Create an authorization",
-        "description": "",
+        "description": "A login-enabled member must access the organization before another user can create an authorization for them. This restriction does not apply to non-login system users.",
         "operationId": "authorizations-create",
         "parameters": [
           {
@@ -5721,12 +5867,12 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/AuthorizationResponse"
                 }
               }
             }
@@ -5740,6 +5886,16 @@
                 }
               }
             }
+          },
+          "422": {
+            "description": "Validation failed, including when a login-enabled member has not accessed the organization before another user creates a token for them.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthorizationValidationErrorResponse"
+                }
+              }
+            }
           }
         },
         "deprecated": false
@@ -5748,7 +5904,7 @@
     "/v2/authorizations/{authorization_id}.json": {
       "get": {
         "summary": "Get an authorization",
-        "description": "",
+        "description": "For a member who has not yet accessed the organization, user_name and usage details are null.",
         "operationId": "authorizations-get-single",
         "parameters": [
           {
@@ -5775,7 +5931,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/AuthorizationResponse"
                 }
               }
             }
@@ -5795,7 +5951,7 @@
       },
       "put": {
         "summary": "Update Authorization",
-        "description": "",
+        "description": "For a member who has not yet accessed the organization, user_name and usage details in the response are null.",
         "operationId": "authorizations-update",
         "parameters": [
           {
@@ -5839,7 +5995,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/AuthorizationResponse"
                 }
               }
             }
@@ -5859,7 +6015,7 @@
       },
       "delete": {
         "summary": "Delete an authorization",
-        "description": "",
+        "description": "For a member who has not yet accessed the organization, user_name and usage details in the response are null.",
         "operationId": "authorizations-delete",
         "parameters": [
           {
@@ -5886,7 +6042,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/AuthorizationResponse"
                 }
               }
             }
@@ -5985,7 +6141,7 @@
     "/v2/memberships.json": {
       "get": {
         "summary": "Get a list of memberships",
-        "description": "",
+        "description": "Before a new member personally accesses the organization in the web app, names, sign-in, image and device details are null. API or mobile access alone does not confirm the membership. Searches by name or managed user name and device filters do not match unconfirmed members; email and role searches remain available.",
         "operationId": "memberships-get-all",
         "parameters": [
           {
@@ -6008,6 +6164,22 @@
             "name": "layer_id",
             "in": "query",
             "description": "Limit members to a specific Layer",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "device_info",
+            "in": "query",
+            "description": "Include recent device information. The value is null for an unconfirmed member.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "editing_info",
+            "in": "query",
+            "description": "Include editing information. is_editable is false for an unconfirmed member.",
             "schema": {
               "type": "string"
             }
@@ -6047,7 +6219,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/MembershipListResponse"
                 }
               }
             }
@@ -6067,7 +6239,7 @@
       },
       "post": {
         "summary": "Create a membership",
-        "description": "",
+        "description": "A newly created member's names, sign-in, image and device details remain hidden until the member personally accesses the organization in the web app.",
         "operationId": "create-membership",
         "parameters": [
           {
@@ -6097,12 +6269,12 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/MembershipResponse"
                 }
               }
             }
@@ -6124,7 +6296,7 @@
     "/v2/memberships/{membership_id}.json": {
       "get": {
         "summary": "Get a membership",
-        "description": "",
+        "description": "Before a member accesses the organization, names, sign-in, image and device details are null.",
         "operationId": "memberships-get-single",
         "parameters": [
           {
@@ -6143,6 +6315,22 @@
               "type": "string"
             },
             "required": true
+          },
+          {
+            "name": "device_info",
+            "in": "query",
+            "description": "Include recent device information. The value is null for an unconfirmed member.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "editing_info",
+            "in": "query",
+            "description": "Include editing information. is_editable is false for an unconfirmed member.",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -6151,7 +6339,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/MembershipResponse"
                 }
               }
             }
@@ -6171,7 +6359,7 @@
       },
       "put": {
         "summary": "Update a membership",
-        "description": "You can use this to update parameters of a member, but this will not work if the member is apart of multiple organizations.",
+        "description": "You can use this to update parameters of a member, but this will not work if the member is apart of multiple organizations. Before a member accesses the organization, names, sign-in, image and device details in the response are null.",
         "operationId": "update-membership",
         "parameters": [
           {
@@ -6199,7 +6387,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/MembershipResponse"
                 }
               }
             }
@@ -6219,7 +6407,7 @@
       },
       "delete": {
         "summary": "Delete a membership",
-        "description": "",
+        "description": "Before a member accesses the organization, names, sign-in, image and device details in the response are null.",
         "operationId": "delete-membership",
         "parameters": [
           {
@@ -6247,7 +6435,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/MembershipResponse"
                 }
               }
             }
@@ -6738,7 +6926,7 @@
     "/v2/groups/{group_id}/{resource}.json": {
       "get": {
         "summary": "Get Group Resource",
-        "description": "",
+        "description": "When resource is members, each membership's user and avatar are null until that member accesses the organization; email and role_name remain available. Name and device filters do not match unconfirmed members.",
         "operationId": "get-group-resource",
         "parameters": [
           {
@@ -13847,7 +14035,7 @@
     "/v2/audit_logs.json": {
       "get": {
         "summary": "Get a list of audit logs",
-        "description": "",
+        "description": "Activity by a login-enabled member who has not yet accessed the organization is excluded. Activity recorded before access remains hidden if that membership is removed before the member accesses the organization.",
         "operationId": "audit-logs-get-all",
         "parameters": [
           {
@@ -13957,7 +14145,7 @@
     "/v2/audit_logs/{audit_log_id}.json": {
       "get": {
         "summary": "Get an audit log",
-        "description": "",
+        "description": "Activity by a login-enabled member who has not yet accessed the organization is hidden and returns 404. Activity recorded before access remains hidden if that membership is removed before the member accesses the organization.",
         "operationId": "audit-logs-get-single",
         "parameters": [
           {
@@ -13998,6 +14186,9 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "The audit log was not found or is not visible."
           }
         },
         "deprecated": false

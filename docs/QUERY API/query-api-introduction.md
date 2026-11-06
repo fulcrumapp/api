@@ -25,3 +25,5 @@ For the endpoint reference, supported functions, and request details, see the [Q
 - Feeding data into Report Builder templates and external tools
 
 The examples in this section show complete, working queries for these and other tasks. You can also try queries in the [Fulcrum Query Utility](https://query.util.fulcrumapp.com/).
+
+For new memberships, the `first_name`, `last_name`, and `name` columns in the `memberships` table are `NULL` until the member personally accesses the organization in the web app. API or mobile access alone does not confirm the membership. Existing memberships remain visible.
