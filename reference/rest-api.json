@@ -707,7 +707,7 @@
               },
               "user_id": {
                 "type": "string",
-                "description": "ID of the user for whom to create the authorization. Creating an authorization for another login-enabled user requires that user to have accessed the organization."
+                "description": "ID of the user for whom to create the authorization. Creating an authorization for another organization member requires the can_manage_roles permission; the target must not belong to another organization, and a login-enabled target must have accessed this organization."
               },
               "note": {
                 "type": "string",
@@ -715,7 +715,7 @@
               },
               "timeout": {
                 "type": "integer",
-                "description": "Timeout in milliseconds"
+                "description": "Timeout in seconds. A missing, blank, or non-positive value uses the maximum allowed timeout, normally 24 hours; a caller's expiring API token can impose a shorter limit."
               }
             },
             "required": [
@@ -738,6 +738,10 @@
       "AuthorizationListResponse": {
         "type": "object",
         "properties": {
+          "current_page": { "type": "integer" },
+          "total_pages": { "type": "integer" },
+          "total_count": { "type": "integer" },
+          "per_page": { "type": "integer" },
           "authorizations": {
             "type": "array",
             "items": {
@@ -752,6 +756,32 @@
         "properties": {
           "id": {
             "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "expires_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "timeout": {
+            "type": ["integer", "null"],
+            "description": "Timeout in seconds."
+          },
+          "token_last_8": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string",
+            "description": "The full token, returned when generated, such as on creation or regeneration. Store it securely; it is not returned on later reads."
+          },
+          "created_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
           },
           "user_id": {
             "type": "string"
@@ -783,6 +813,10 @@
       "MembershipListResponse": {
         "type": "object",
         "properties": {
+          "current_page": { "type": "integer" },
+          "total_pages": { "type": "integer" },
+          "total_count": { "type": "integer" },
+          "per_page": { "type": "integer" },
           "memberships": {
             "type": "array",
             "items": {
@@ -798,7 +832,18 @@
           "id": {
             "type": "string"
           },
+          "created_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
           "user_id": {
+            "type": "string"
+          },
+          "user_type": {
             "type": "string"
           },
           "email": {
@@ -838,11 +883,43 @@
           "device_info": {
             "type": ["object", "null"],
             "description": "Included when device_info is requested; null for an unconfirmed member or when no device information is available.",
-            "additionalProperties": true
+            "properties": {
+              "last_sync": { "type": ["string", "null"], "format": "date-time" },
+              "platform": { "type": ["string", "null"] },
+              "platform_version": { "type": ["string", "null"] },
+              "model": { "type": ["string", "null"] },
+              "app_version": { "type": ["string", "null"] },
+              "ip_address": { "type": ["string", "null"] },
+              "version_status": { "type": "string" }
+            }
           },
           "is_editable": {
             "type": "boolean",
             "description": "Included when editing_info is requested; false for an unconfirmed member."
+          },
+          "is_managed": {
+            "type": "boolean",
+            "description": "Included when managed_info or editing_info is requested."
+          },
+          "layer_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Included when associations=true."
+          },
+          "project_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Included when associations=true."
+          },
+          "form_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Included when associations=true."
+          },
+          "group_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Included when group_memberships is requested."
           }
         },
         "additionalProperties": true
@@ -4637,6 +4714,32 @@
       "Project": {
         "type": "object",
         "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": ["string", "null"] },
+          "record_count": { "type": ["integer", "null"] },
+          "form_count": { "type": "integer" },
+          "status": { "type": ["string", "null"] },
+          "customer": { "type": ["string", "null"] },
+          "external_job_id": { "type": ["string", "null"] },
+          "start_date": { "type": ["string", "null"], "format": "date-time" },
+          "end_date": { "type": ["string", "null"], "format": "date-time" },
+          "created_at": { "type": ["string", "null"], "format": "date-time" },
+          "updated_at": { "type": ["string", "null"], "format": "date-time" },
+          "project_manager_id": {
+            "type": ["string", "null"],
+            "description": "Included when associations=true."
+          },
+          "group_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Included when associations=true."
+          },
+          "member_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Included when associations=true."
+          },
           "project_manager_name": {
             "type": ["string", "null"],
             "description": "When project manager names are enabled, the manager's name, 'Awaiting user' if the manager has not accessed the organization, or null if no manager is assigned."
@@ -4655,6 +4758,10 @@
       "ProjectListResponse": {
         "type": "object",
         "properties": {
+          "current_page": { "type": "integer" },
+          "total_pages": { "type": "integer" },
+          "total_count": { "type": "integer" },
+          "per_page": { "type": "integer" },
           "projects": {
             "type": "array",
             "items": {
