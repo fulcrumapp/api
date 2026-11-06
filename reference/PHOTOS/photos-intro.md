@@ -40,14 +40,14 @@ The Photos API gives you access to a record's photos, including thumbnails. In o
 
 # Validations
 
-The following properties must be included in order to create/update a photo object in our system. Any validation errors will return a `422` and an object with a list of validation errors.
+Creating or updating a photo requires `photo[access_key]`. A new photo also requires `photo[file]`. Updating an existing photo requires update permission for that photo; an access key alone does not grant permission. For an authorized update, omit `photo[file]` to retain the existing file, or include it to replace the image. An existing photo without a file, such as a placeholder, still requires a file. Any validation errors will return a `422` and an object with a list of validation errors.
 
-## Required Properties
+## Upload Properties
 
-| Property            | Type                | Description          | Example                                   |
-| ------------------- | ------------------- | -------------------- | ----------------------------------------- |
-| photo\[access\_key] | string              | The id of the photo. | `"7A8ABC73-A41B-4F1E-BA16-F7C03DAE1E22"`  |
-| photo\[file]        | multipart/form-data | The photo file.      | See [example](#upload-a-new-photo) below. |
+| Property            | Type                | Required | Description | Example |
+| ------------------- | ------------------- | -------- | ----------- | ------- |
+| photo\[access\_key] | string              | Always | A valid new UUID creates a photo; an existing photo's UUID identifies the photo to update. | `"7A8ABC73-A41B-4F1E-BA16-F7C03DAE1E22"` |
+| photo\[file]        | binary file in multipart/form-data | When the photo has no existing file | The photo file. Omit on authorized updates to retain the existing file. | See [Upload Photo](photos-upload). |
 
 Example validation response if `access_key` is not included:
 
