@@ -1,5 +1,5 @@
 ---
-title: Fulcrum MCP & AI Toolkit (Labs)
+title: Fulcrum MCP & AI Toolkit (Alpha)
 excerpt: >-
   Connect an MCP-compatible client to Fulcrum, and install the AI Toolkit
   skills that teach it how to use the platform correctly.
@@ -12,23 +12,23 @@ metadata:
 next:
   description: ''
 ---
-> 📘 Status: Labs
+> 📘 Status: Alpha
 >
-> Early release, still in progress. No API stability guarantees yet — expect breaking changes as this moves toward general availability. Feedback: product@fulcrumapp.com.
+> Early release, still in progress. No API stability guarantees yet. Expect breaking changes before general availability. Feedback: product@fulcrumapp.com.
 
-This page is the developer reference for Fulcrum MCP and the Fulcrum AI Toolkit. For a setup walkthrough aimed at non-technical users, see the [Fulcrum MCP & AI Toolkit (Labs)](https://help.fulcrumapp.com/en/articles/16926261-fulcrum-mcp-ai-toolkit-labs) help article.
+This page is the developer reference for Fulcrum MCP and the Fulcrum AI Toolkit. For a setup walkthrough aimed at non-technical users, see the [Fulcrum MCP & AI Toolkit (Alpha)](https://help.fulcrumapp.com/en/articles/16926261) help article.
 
 ## Overview
 
 Fulcrum MCP is an MCP server that lets any MCP-compatible client (Claude, ChatGPT, Copilot, custom agents, etc.) build and manage Fulcrum apps and query live data.
 
-The Fulcrum AI Toolkit is a library of skills — prompt-level guidance, not a server — that teaches a client Fulcrum's platform conventions (field types, safe automation patterns, what to flag) so it uses the MCP tools correctly. The Toolkit currently does not bundle or configure any MCP server itself; its `mcp.json` is intentionally empty.
+The Fulcrum AI Toolkit is a library of skills (prompt-level guidance), not a server. It teaches a client Fulcrum's platform conventions (field types, safe automation patterns, what to flag) so it uses the MCP tools correctly. The Toolkit currently does not bundle or configure any MCP server itself; its `mcp.json` is intentionally empty.
 
 The two can be installed and operated independently, but are meant to be used together.
 
 ## Endpoints
 
-One endpoint per region. Use the endpoint that matches your organization's Fulcrum instance, not your physical location — there is no automatic fallback between regions.
+One endpoint per region. Use the endpoint that matches your organization's Fulcrum instance, not your physical location. There is no automatic fallback between regions.
 
 | Region | Endpoint |
 | --- | --- |
@@ -49,7 +49,21 @@ initialize → notifications/initialized → tools/list / tools/call
 
 ## Auth
 
-Bearer token only — no OAuth yet. Generate an API token from your Fulcrum account.
+Fulcrum MCP supports OAuth 2.0 sign-in and API tokens. Use OAuth sign-in when your client supports it. If using a Bearer token, we recommend switching to this OAuth setup.
+
+### OAuth sign-in
+
+1. **Discovery:** The client discovers the authorization server from the MCP endpoint using standard MCP authorization discovery.
+2. **Client identification:** The client identifies itself using a Client ID Metadata Document. Its client ID is the HTTPS URL of its JSON metadata document. No pre-registration with Fulcrum is needed. For example, VS Code uses `https://vscode.dev/oauth/client-metadata.json`.
+3. **Login:** The user signs in with their normal Fulcrum login, including SAML single sign-on.
+4. **Consent:** The consent page shows the requesting client name and the organization, with **Allow access** and **Deny access** buttons. Allow access authorizes the client for what the signed-in member is permitted to access. Deny access returns an access denied response to the client and issues no token.
+5. **Token:** Fulcrum issues short-lived access tokens and forwards them to the underlying App MCP and Query MCP services.
+
+### API token
+
+Existing API token connections continue to work and need no changes.
+
+Generate an API token from your Fulcrum account.
 
 ```http
 Authorization: Bearer YOUR_FULCRUM_API_TOKEN
@@ -70,7 +84,7 @@ Minimal config example:
 
 Two failure modes worth calling out explicitly for implementers:
 
-1. **An invalid or malformed token does not produce a transport-level 401/403.** The HTTP call returns `200 OK`; the failure surfaces inside the JSON-RPC result as `isError: true`, e.g. `{"content":[{"type":"text","text":"fulcrum request failed: HTTP 401"}],"isError":true}`. Check for this — don't assume `200` means success. (A request with *no* `Authorization` header at all does get a clean `401`.)
+1. **For API token connections, an invalid or malformed token does not produce a transport-level 401/403.** The HTTP call returns `200 OK`; the failure surfaces inside the JSON-RPC result as `isError: true`, e.g. `{"content":[{"type":"text","text":"fulcrum request failed: HTTP 401"}],"isError":true}`. Check for this; don't assume `200` means success. (A request with *no* `Authorization` header at all does get a clean `401`.)
 2. **Immediately after `initialize`, MCP can return a one-time `400 invalid session ID header`.** Retrying the same request with the same session ID succeeds. This is a known backend session-affinity issue on the MCP gateway, not a client bug — implement one retry on this specific error rather than surfacing it to the user.
 
 ## Tools
@@ -89,7 +103,7 @@ Query MCP tools provide read-only data access, and are prefixed with `query-mcp_
 | GitHub Copilot CLI | `copilot plugin marketplace add fulcrumapp/fulcrum-ai-toolkit`<br>`copilot plugin install fulcrum-ai-toolkit@fulcrum-ai-toolkit` |
 | Microsoft 365 Copilot / Copilot Studio | Use `fulcrum-ai-toolkit-m365.zip` for Copilot Studio uploads (**Build > Skills > Add skill > Upload a skill**). See the [Copilot Studio setup guide](https://help.fulcrumapp.com/en/articles/17219744-setting-up-fulcrum-mcp-and-the-ai-toolkit-in-microsoft-copilot-studio). |
 | Other MCP-compatible / generic skills loader | `npx skills@latest add https://github.com/fulcrumapp/fulcrum-ai-toolkit/tree/main/plugins/fulcrum-ai-toolkit/skills --skill '*'` |
-| Claude Desktop chat / Cowork | Not yet supported — needs account-level skill packaging support. |
+| Claude Desktop chat / Cowork | Not yet supported. Needs account-level skill packaging support. |
 | ChatGPT | No direct Toolkit install path yet. Connect MCP only, or use the pre-built Fulcrum Builder Custom GPT. |
 
 Microsoft 365 quick notes:
@@ -100,9 +114,10 @@ Microsoft 365 quick notes:
 
 The Toolkit contains skills covering the build lifecycle: discovery, field/structure selection, safe automation, data-event patterns, safety-field flagging, and querying data. Full skill list and source: [github.com/fulcrumapp/fulcrum-ai-toolkit](https://github.com/fulcrumapp/fulcrum-ai-toolkit).
 
-## Known limitations (Labs)
+## Known limitations (Alpha)
 
 | Issue | Behavior | Workaround |
 | --- | --- | --- |
-| Invalid/malformed token | Returns transport-level `200 OK`; failure is `isError: true` inside the JSON-RPC result, not an HTTP 401/403. | Check `isError` on every `tools/call` response — don't infer success from the HTTP status alone. |
+| Invalid/malformed API token | For API token connections, returns transport-level `200 OK`; failure is `isError: true` inside the JSON-RPC result, not an HTTP 401/403. | Check `isError` on every `tools/call` response; don't infer success from the HTTP status alone. |
 | Post-`initialize` session error | Fulcrum MCP can return a one-time `400 invalid session ID header` on the request immediately after `initialize`. | Retry once with the same session ID. This is a known backend session-affinity issue on the MCP gateway. |
+| OAuth capabilities | Immediate token revocation is not supported yet. | |
