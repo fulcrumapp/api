@@ -4141,6 +4141,10 @@
               "description": {
                 "type": "string",
                 "description": "Optional description of the group"
+              },
+              "is_managed": {
+                "type": "boolean",
+                "description": "Whether to create a managed group. An explicit value overrides the default. When omitted, the group is managed only if SAML is enabled for the organization's subscription and the organization has a configured domain. The subscription's effective SAML setting includes its plan default."
               }
             }
           }
@@ -4366,6 +4370,10 @@
               "role_id": {
                 "type": "string",
                 "description": "ID of the role to assign"
+              },
+              "is_managed": {
+                "type": "boolean",
+                "description": "Whether to create a managed member. An explicit value overrides the default. When omitted, the member is managed only if SAML is enabled for the organization's subscription and the organization has a configured domain. The subscription's effective SAML setting includes its plan default."
               }
             },
             "required": [
