@@ -4634,6 +4634,35 @@
           "project"
         ]
       },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "project_manager_name": {
+            "type": ["string", "null"],
+            "description": "When project manager names are enabled, the manager's name, 'Awaiting user' if the manager has not accessed the organization, or null if no manager is assigned."
+          }
+        },
+        "additionalProperties": true
+      },
+      "ProjectResponse": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          }
+        }
+      },
+      "ProjectListResponse": {
+        "type": "object",
+        "properties": {
+          "projects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Project"
+            }
+          }
+        }
+      },
       "QueryRequest": {
         "type": "object",
         "properties": {
@@ -5779,7 +5808,7 @@
     "/v2/authorizations.json": {
       "get": {
         "summary": "Get a list of authorizations",
-        "description": "For members who have not yet accessed the organization, user_name and usage details are null. Sorting by last_used_at does not use their hidden activity.",
+        "description": "For members who have not yet accessed the organization, user_name and usage details are null. Sorting by last_used_at places hidden and null activity after visible activity in both directions.",
         "operationId": "authorizations-get-all",
         "parameters": [
           {
@@ -9246,7 +9275,7 @@
     "/v2/projects.json": {
       "get": {
         "summary": "Get a list of projects",
-        "description": "",
+        "description": "When project manager names are enabled, a pending manager is shown as 'Awaiting user'.",
         "operationId": "projects-get-all",
         "parameters": [
           {
@@ -9284,7 +9313,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ProjectListResponse"
                 }
               }
             }
@@ -9359,7 +9388,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ProjectResponse"
                 }
               }
             }
@@ -9371,7 +9400,7 @@
     "/v2/projects/{project_id}.json": {
       "get": {
         "summary": "Get a project",
-        "description": "",
+        "description": "When project manager names are enabled, a pending manager is shown as 'Awaiting user'.",
         "operationId": "projects-get-single",
         "parameters": [
           {
@@ -9398,7 +9427,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ProjectResponse"
                 }
               }
             }
@@ -9462,7 +9491,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ProjectResponse"
                 }
               }
             }
