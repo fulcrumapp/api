@@ -202,7 +202,7 @@
           "created_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of user who created the record"
+            "description": "Display name of user who created the record; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -212,7 +212,7 @@
           "updated_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of user who last updated the record"
+            "description": "Display name of user who last updated the record; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -222,7 +222,7 @@
           "assigned_to": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of assigned user"
+            "description": "Display name of assigned user; null if the member has not accessed the organization."
           },
           "assigned_to_id": {
             "type": "string",
@@ -350,7 +350,7 @@
           "history_changed_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of user who made this change"
+            "description": "Display name of user who made this change; null if the member has not accessed the organization."
           },
           "history_created_at": {
             "type": "string",
@@ -392,14 +392,18 @@
             "format": "date-time"
           },
           "created_by": {
-            "type": "string"
+            "type": "string",
+            "nullable": true,
+            "description": "Null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
             "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
           },
           "updated_by": {
-            "type": "string"
+            "type": "string",
+            "nullable": true,
+            "description": "Null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -437,7 +441,8 @@
           },
           "assigned_to": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "description": "Null if the member has not accessed the organization."
           },
           "assigned_to_id": {
             "type": "string",
@@ -1341,7 +1346,7 @@
           "created_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of user who created the photo"
+            "description": "Display name of user who created the photo; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -1351,7 +1356,7 @@
           "updated_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of user who last updated the photo"
+            "description": "Display name of user who last updated the photo; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -1453,7 +1458,7 @@
           "created_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who created the audio"
+            "description": "Display name of the user who created the audio; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -1463,7 +1468,7 @@
           "updated_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who last updated the audio"
+            "description": "Display name of the user who last updated the audio; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -1629,7 +1634,7 @@
           "created_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who created the video"
+            "description": "Display name of the user who created the video; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -1639,7 +1644,7 @@
           "updated_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who last updated the video"
+            "description": "Display name of the user who last updated the video; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -1856,7 +1861,7 @@
           "created_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who created the signature"
+            "description": "Display name of the user who created the signature; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -1866,7 +1871,7 @@
           "updated_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who last updated the signature"
+            "description": "Display name of the user who last updated the signature; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -1967,7 +1972,7 @@
           "created_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who created the sketch"
+            "description": "Display name of the user who created the sketch; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -1977,7 +1982,7 @@
           "updated_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who last updated the sketch"
+            "description": "Display name of the user who last updated the sketch; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -5056,7 +5061,8 @@
           },
           "created_by": {
             "type": "string",
-            "description": "Display name of the user who created the report template"
+            "nullable": true,
+            "description": "Display name of the user who created the report template; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -5064,7 +5070,8 @@
           },
           "updated_by": {
             "type": "string",
-            "description": "Display name of the user who last updated the report template"
+            "nullable": true,
+            "description": "Display name of the user who last updated the report template; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -5437,7 +5444,8 @@
           },
           "created_by": {
             "type": "string",
-            "description": "The name of the user who created the export"
+            "nullable": true,
+            "description": "The name of the user who created the export; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -5446,7 +5454,8 @@
           },
           "updated_by": {
             "type": "string",
-            "description": "The name of the user who last updated the export"
+            "nullable": true,
+            "description": "The name of the user who last updated the export; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -13412,7 +13421,7 @@
     "/v2/changesets.json": {
       "get": {
         "summary": "Get a list of changesets",
-        "description": "",
+        "description": "Creator, updater and closer names, and creator avatar and Gravatar fields, are null while the corresponding member has not accessed the organization. User IDs remain available.",
         "operationId": "changesets-get-all",
         "parameters": [
           {
@@ -13470,7 +13479,7 @@
       },
       "post": {
         "summary": "Create a changeset",
-        "description": "",
+        "description": "Creator, updater and closer names, and creator avatar and Gravatar fields, are null while the corresponding member has not accessed the organization. User IDs remain available.",
         "operationId": "changesets-create",
         "parameters": [
           {
@@ -13527,7 +13536,7 @@
     "/v2/changesets/{changeset_id}.json": {
       "get": {
         "summary": "Get a changeset",
-        "description": "",
+        "description": "Creator, updater and closer names, and creator avatar and Gravatar fields, are null while the corresponding member has not accessed the organization. User IDs remain available.",
         "operationId": "changesets-get-single",
         "parameters": [
           {
@@ -13574,7 +13583,7 @@
       },
       "put": {
         "summary": "Update Changeset",
-        "description": "",
+        "description": "Creator, updater and closer names, and creator avatar and Gravatar fields, are null while the corresponding member has not accessed the organization. User IDs remain available.",
         "operationId": "changesets-update",
         "parameters": [
           {
@@ -13640,7 +13649,7 @@
     "/v2/changesets/{changeset_id}/close.json": {
       "put": {
         "summary": "Close Changeset",
-        "description": "",
+        "description": "Creator, updater and closer names, and creator avatar and Gravatar fields, are null while the corresponding member has not accessed the organization. User IDs remain available.",
         "operationId": "changesets-close",
         "parameters": [
           {
