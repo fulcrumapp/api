@@ -13,6 +13,12 @@ metadata:
 next:
   description: ''
 ---
+# Uploading or updating a photo
+
+Send a `multipart/form-data` request with `photo[access_key]`, a UUID identifying the photo. A valid new access key creates a photo and requires `photo[file]`. Updating an existing photo requires update permission for that photo; knowing its access key alone does not grant permission.
+
+For an authorized update, include `photo[file]` to replace the image, or omit it to retain the existing file. An existing photo without a file, such as a placeholder, still requires a file.
+
 # jQuery Web Form Example
 
 ```html HTML
