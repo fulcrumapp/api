@@ -1440,6 +1440,74 @@
           }
         }
       },
+      "PhotoUploadRequest": {
+        "type": "object",
+        "required": [
+          "photo[access_key]"
+        ],
+        "properties": {
+          "photo[access_key]": {
+            "type": "string",
+            "format": "uuid",
+            "description": "A client-generated UUID identifying the photo. A valid new access key creates a photo. Reusing an existing photo's access key requires update permission for that photo; knowing its access key alone does not grant permission.",
+            "example": "550e8400-e29b-41d4-a716-446655440000"
+          },
+          "photo[file]": {
+            "type": "string",
+            "format": "binary",
+            "description": "The image file bytes. Required when creating a new photo; an existing photo can retain its current file if this field is omitted. Supported formats are JPEG, PNG, GIF, TIFF, WebP, HEIC, and HEIF. The server detects the image type from the actual bytes, not the filename, extension, or declared multipart MIME type, and stores the detected content type. Non-image or unsupported content is rejected even if declared as an image."
+          }
+        }
+      },
+      "PhotoUploadValidationErrorResponse": {
+        "type": "object",
+        "required": [
+          "photo"
+        ],
+        "properties": {
+          "photo": {
+            "type": "object",
+            "required": [
+              "errors"
+            ],
+            "properties": {
+              "errors": {
+                "description": "Field validation errors, or a string when the photo parameter structure is invalid.",
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "file": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "File errors, including missing files, files exceeding the configured upload size limit, and unsupported image content."
+                      },
+                      "access_key": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Access-key errors, including missing or invalid UUIDs, conflicting parallel uploads, and lack of update permission for an existing photo."
+                      }
+                    },
+                    "additionalProperties": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
       "SinglePhotoResponse": {
         "type": "object",
         "required": [
@@ -10222,7 +10290,7 @@
       },
       "post": {
         "summary": "Upload a photo",
-        "description": "Upload a photo file to associate with a record.",
+        "description": "Upload a photo file to associate with a record using multipart/form-data with photo[access_key] and photo[file]. Let your HTTP client set the multipart Content-Type header and boundary. Supported formats are JPEG, PNG, GIF, TIFF, WebP, HEIC, and HEIF. The server detects the type from the actual file bytes rather than the filename, extension, or declared MIME type, and stores the detected content type. Unsupported content is rejected with a file validation error. A verified image with a valid new access key can create a photo. Uploading to an existing photo's access key requires update permission for that photo; an access key alone is not authorization. Both successful creation and authorized updates return 201 with photo metadata. Image processing occurs asynchronously.",
         "operationId": "photos-upload",
         "parameters": [
           {
@@ -10232,23 +10300,97 @@
               "type": "string",
               "default": "application/json"
             }
-          },
-          {
-            "name": "Content-Type",
-            "in": "header",
-            "schema": {
-              "type": "string",
-              "default": "application/json"
-            }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/PhotoUploadRequest"
+              }
+            }
+          }
+        },
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Photo created or updated successfully. Returns photo metadata; processing may not yet be complete.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/SinglePhotoResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation failed. File errors include missing files, files exceeding the configured size limit, and unsupported image content. Access-key errors include missing or invalid UUIDs, conflicting parallel uploads, and lack of update permission for an existing photo. Rejected unsupported uploads do not create or modify a photo.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PhotoUploadValidationErrorResponse"
+                },
+                "examples": {
+                  "unsupportedContent": {
+                    "summary": "File bytes are not a supported image",
+                    "value": {
+                      "photo": {
+                        "errors": {
+                          "file": [
+                            "must be a supported image"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "missingFile": {
+                    "summary": "No file supplied for a new photo",
+                    "value": {
+                      "photo": {
+                        "errors": {
+                          "file": [
+                            "can't be blank"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "invalidAccessKey": {
+                    "summary": "Access key is not a UUID",
+                    "value": {
+                      "photo": {
+                        "errors": {
+                          "access_key": [
+                            "must be a UUID"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "unauthorizedAccessKey": {
+                    "summary": "Caller cannot update the existing photo",
+                    "value": {
+                      "photo": {
+                        "errors": {
+                          "access_key": [
+                            "is not authorized"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "accessKeyConflict": {
+                    "summary": "Parallel uploads conflict on the same access key",
+                    "value": {
+                      "photo": {
+                        "errors": {
+                          "access_key": [
+                            "Access key is already taken. This usually happens if you upload multiple times in parallel to the same access_key"
+                          ]
+                        }
+                      }
+                    }
+                  }
                 }
               }
             }
