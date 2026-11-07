@@ -50,6 +50,26 @@
           "description": { "type": ["string", "null"] },
           "created_at": { "type": "string", "format": "date-time" },
           "is_managed": { "type": "boolean" },
+          "member_ids": {
+            "type": "array",
+            "description": "Membership resource IDs assigned to the group. Included only with associations=true.",
+            "items": { "type": "string", "format": "uuid" }
+          },
+          "layer_ids": {
+            "type": "array",
+            "description": "Layer resource IDs assigned to the group. Included only with associations=true.",
+            "items": { "type": "string", "format": "uuid" }
+          },
+          "project_ids": {
+            "type": "array",
+            "description": "Project resource IDs assigned to the group. Included only with associations=true.",
+            "items": { "type": "string", "format": "uuid" }
+          },
+          "form_ids": {
+            "type": "array",
+            "description": "Form resource IDs assigned to the group. Included only with associations=true.",
+            "items": { "type": "string", "format": "uuid" }
+          },
           "created_by": { "$ref": "#/components/schemas/GroupCreator" }
         }
       },
