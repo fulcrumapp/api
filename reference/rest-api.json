@@ -780,8 +780,11 @@
                 "description": "Note about this authorization"
               },
               "timeout": {
-                "type": ["integer", "null"],
-                "description": "Timeout in seconds. A missing, blank, or non-positive value uses the maximum allowed timeout, normally 24 hours; a caller's expiring API token can impose a shorter limit."
+                "oneOf": [
+                  { "type": ["integer", "null"] },
+                  { "type": "string", "enum": [""] }
+                ],
+                "description": "Timeout in seconds. A missing, null, empty-string, or non-positive value uses the maximum allowed timeout, normally 24 hours; a caller's expiring API token can impose a shorter limit."
               }
             },
             "required": [
@@ -6470,6 +6473,14 @@
             }
           },
           {
+            "name": "managed_info",
+            "in": "query",
+            "description": "Provide any non-empty value to include is_managed.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "page",
             "in": "query",
             "description": "The page number requested",
@@ -6624,6 +6635,14 @@
             "name": "editing_info",
             "in": "query",
             "description": "Include editing information. is_editable is false for an unconfirmed member.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "managed_info",
+            "in": "query",
+            "description": "Provide any non-empty value to include is_managed.",
             "schema": {
               "type": "string"
             }
