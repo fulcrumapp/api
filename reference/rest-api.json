@@ -31,6 +31,67 @@
       }
     },
     "schemas": {
+      "GroupCreator": {
+        "type": "object",
+        "description": "Included only with associations=true. For a human member who has not personally accessed this organization, profile fields are null while resource_id is preserved. Non-loginable system users retain their existing attribution.",
+        "required": ["resource_id", "first_name", "last_name", "email"],
+        "properties": {
+          "resource_id": { "type": "string", "format": "uuid" },
+          "first_name": { "type": ["string", "null"] },
+          "last_name": { "type": ["string", "null"] },
+          "email": { "type": ["string", "null"] }
+        }
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "description": { "type": ["string", "null"] },
+          "created_at": { "type": "string", "format": "date-time" },
+          "is_managed": { "type": "boolean" },
+          "member_ids": {
+            "type": "array",
+            "description": "Membership resource IDs assigned to the group. Included only with associations=true.",
+            "items": { "type": "string", "format": "uuid" }
+          },
+          "layer_ids": {
+            "type": "array",
+            "description": "Layer resource IDs assigned to the group. Included only with associations=true.",
+            "items": { "type": "string", "format": "uuid" }
+          },
+          "project_ids": {
+            "type": "array",
+            "description": "Project resource IDs assigned to the group. Included only with associations=true.",
+            "items": { "type": "string", "format": "uuid" }
+          },
+          "form_ids": {
+            "type": "array",
+            "description": "Form resource IDs assigned to the group. Included only with associations=true.",
+            "items": { "type": "string", "format": "uuid" }
+          },
+          "created_by": { "$ref": "#/components/schemas/GroupCreator" }
+        }
+      },
+      "RecordSeries": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "enabled": { "type": "boolean" },
+          "rrule": { "type": ["string", "null"] },
+          "template": { "type": ["object", "null"] },
+          "created_at": { "type": "string", "format": "date-time" },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "created_by": {
+            "type": ["object", "null"],
+            "description": "Existing serialized user object, or null when the creator is a human member who has not personally accessed this organization. Non-loginable system users retain their existing attribution."
+          },
+          "updated_by": {
+            "type": ["object", "null"],
+            "description": "Existing serialized user object, or null when the editor is a human member who has not personally accessed this organization. Evaluated independently of created_by. Non-loginable system users retain their existing attribution."
+          }
+        }
+      },
       "Geometry": {
         "type": "object",
         "required": [
@@ -202,7 +263,7 @@
           "created_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of user who created the record"
+            "description": "Display name of user who created the record; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -212,7 +273,7 @@
           "updated_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of user who last updated the record"
+            "description": "Display name of user who last updated the record; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -222,7 +283,7 @@
           "assigned_to": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of assigned user"
+            "description": "Display name of assigned user; null if the member has not accessed the organization."
           },
           "assigned_to_id": {
             "type": "string",
@@ -350,7 +411,7 @@
           "history_changed_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of user who made this change"
+            "description": "Display name of user who made this change; null if the member has not accessed the organization."
           },
           "history_created_at": {
             "type": "string",
@@ -392,14 +453,18 @@
             "format": "date-time"
           },
           "created_by": {
-            "type": "string"
+            "type": "string",
+            "nullable": true,
+            "description": "Null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
             "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
           },
           "updated_by": {
-            "type": "string"
+            "type": "string",
+            "nullable": true,
+            "description": "Null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -437,7 +502,8 @@
           },
           "assigned_to": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "description": "Null if the member has not accessed the organization."
           },
           "assigned_to_id": {
             "type": "string",
@@ -705,13 +771,20 @@
                 "type": "string",
                 "description": "ID of the organization"
               },
+              "user_id": {
+                "type": "string",
+                "description": "ID of the user for whom to create the authorization. Creating an authorization for another organization member requires the can_manage_roles permission; the target must not belong to another organization, and a login-enabled target must have accessed this organization."
+              },
               "note": {
                 "type": "string",
                 "description": "Note about this authorization"
               },
               "timeout": {
-                "type": "integer",
-                "description": "Timeout in milliseconds"
+                "oneOf": [
+                  { "type": ["integer", "null"] },
+                  { "type": "string", "enum": [""] }
+                ],
+                "description": "Timeout in seconds. A missing, null, empty-string, or non-positive value uses the maximum allowed timeout, normally 24 hours; a caller's expiring API token can impose a shorter limit."
               }
             },
             "required": [
@@ -722,6 +795,225 @@
         "required": [
           "authorization"
         ]
+      },
+      "AuthorizationResponse": {
+        "type": "object",
+        "properties": {
+          "authorization": {
+            "$ref": "#/components/schemas/Authorization"
+          }
+        }
+      },
+      "AuthorizationListResponse": {
+        "type": "object",
+        "properties": {
+          "current_page": { "type": "integer" },
+          "total_pages": { "type": "integer" },
+          "total_count": { "type": "integer" },
+          "per_page": { "type": "integer" },
+          "authorizations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Authorization"
+            }
+          }
+        }
+      },
+      "Authorization": {
+        "type": "object",
+        "description": "For a membership that has not yet accessed the organization, user_name and usage details are null.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "expires_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "timeout": {
+            "type": ["integer", "null"],
+            "description": "Timeout in seconds."
+          },
+          "token_last_8": {
+            "type": "string"
+          },
+          "token": {
+            "type": "string",
+            "description": "The full token, returned when generated, such as on creation or regeneration. Store it securely; it is not returned on later reads."
+          },
+          "created_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "user_name": {
+            "type": ["string", "null"]
+          },
+          "last_used_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "last_ip_address": {
+            "type": ["string", "null"]
+          },
+          "last_user_agent": {
+            "type": ["string", "null"]
+          }
+        },
+        "additionalProperties": true
+      },
+      "MembershipResponse": {
+        "type": "object",
+        "properties": {
+          "membership": {
+            "$ref": "#/components/schemas/Membership"
+          }
+        }
+      },
+      "MembershipListResponse": {
+        "type": "object",
+        "properties": {
+          "current_page": { "type": "integer" },
+          "total_pages": { "type": "integer" },
+          "total_count": { "type": "integer" },
+          "per_page": { "type": "integer" },
+          "memberships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Membership"
+            }
+          }
+        }
+      },
+      "Membership": {
+        "type": "object",
+        "description": "For a new membership, names, sign-in, image and device details are null until the member personally accesses the organization in the web app. API or mobile access alone does not confirm the membership. Existing memberships remain visible. The member ID, user ID, email and role remain available.",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "user_id": {
+            "type": "string"
+          },
+          "user_type": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "role_id": {
+            "type": "string"
+          },
+          "role_name": {
+            "type": "string"
+          },
+          "user": {
+            "type": ["string", "null"]
+          },
+          "first_name": {
+            "type": ["string", "null"]
+          },
+          "last_name": {
+            "type": ["string", "null"]
+          },
+          "last_sign_in_at": {
+            "type": ["string", "null"],
+            "format": "date-time"
+          },
+          "gravatar_email": {
+            "type": ["string", "null"]
+          },
+          "gravatar_image_url": {
+            "type": ["string", "null"]
+          },
+          "image_small": {
+            "type": ["string", "null"]
+          },
+          "image_large": {
+            "type": ["string", "null"]
+          },
+          "device_info": {
+            "type": ["object", "null"],
+            "description": "Included when device_info is requested; null for an unconfirmed member or when no device information is available.",
+            "properties": {
+              "last_sync": { "type": ["string", "null"], "format": "date-time" },
+              "platform": { "type": ["string", "null"] },
+              "platform_version": { "type": ["string", "null"] },
+              "model": { "type": ["string", "null"] },
+              "app_version": { "type": ["string", "null"] },
+              "ip_address": { "type": ["string", "null"] },
+              "version_status": { "type": "string" }
+            }
+          },
+          "is_editable": {
+            "type": "boolean",
+            "description": "Included when editing_info is requested; false for an unconfirmed member."
+          },
+          "is_managed": {
+            "type": "boolean",
+            "description": "Included when managed_info or editing_info is requested."
+          },
+          "layer_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Included when associations=true."
+          },
+          "project_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Included when associations=true."
+          },
+          "form_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Included when associations=true."
+          },
+          "group_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Included when group_memberships is requested."
+          }
+        },
+        "additionalProperties": true
+      },
+      "AuthorizationValidationErrorResponse": {
+        "type": "object",
+        "properties": {
+          "authorization": {
+            "type": "object",
+            "properties": {
+              "errors": {
+                "type": "object",
+                "properties": {
+                  "user_id": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "additionalProperties": true
+              }
+            }
+          }
+        }
       },
       "BadRequestResponse": {
         "type": "object",
@@ -1118,7 +1410,7 @@
           "created_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of user who created the photo"
+            "description": "Display name of user who created the photo; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -1128,7 +1420,7 @@
           "updated_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of user who last updated the photo"
+            "description": "Display name of user who last updated the photo; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -1298,7 +1590,7 @@
           "created_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who created the audio"
+            "description": "Display name of the user who created the audio; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -1308,7 +1600,7 @@
           "updated_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who last updated the audio"
+            "description": "Display name of the user who last updated the audio; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -1474,7 +1766,7 @@
           "created_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who created the video"
+            "description": "Display name of the user who created the video; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -1484,7 +1776,7 @@
           "updated_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who last updated the video"
+            "description": "Display name of the user who last updated the video; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -1701,7 +1993,7 @@
           "created_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who created the signature"
+            "description": "Display name of the user who created the signature; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -1711,7 +2003,7 @@
           "updated_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who last updated the signature"
+            "description": "Display name of the user who last updated the signature; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -1812,7 +2104,7 @@
           "created_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who created the sketch"
+            "description": "Display name of the user who created the sketch; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -1822,7 +2114,7 @@
           "updated_by": {
             "type": "string",
             "nullable": true,
-            "description": "Display name of the user who last updated the sketch"
+            "description": "Display name of the user who last updated the sketch; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -4556,6 +4848,65 @@
           "project"
         ]
       },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": ["string", "null"] },
+          "record_count": { "type": ["integer", "null"] },
+          "form_count": { "type": "integer" },
+          "status": { "type": ["string", "null"] },
+          "customer": { "type": ["string", "null"] },
+          "external_job_id": { "type": ["string", "null"] },
+          "start_date": { "type": ["string", "null"], "format": "date-time" },
+          "end_date": { "type": ["string", "null"], "format": "date-time" },
+          "created_at": { "type": ["string", "null"], "format": "date-time" },
+          "updated_at": { "type": ["string", "null"], "format": "date-time" },
+          "project_manager_id": {
+            "type": ["string", "null"],
+            "description": "Included when associations=true."
+          },
+          "group_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Included when associations=true."
+          },
+          "member_ids": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "Included when associations=true."
+          },
+          "project_manager_name": {
+            "type": ["string", "null"],
+            "description": "When project manager names are enabled, the manager's name, 'Awaiting user' if the manager has not accessed the organization, or null if no manager is assigned."
+          }
+        },
+        "additionalProperties": true
+      },
+      "ProjectResponse": {
+        "type": "object",
+        "properties": {
+          "project": {
+            "$ref": "#/components/schemas/Project"
+          }
+        }
+      },
+      "ProjectListResponse": {
+        "type": "object",
+        "properties": {
+          "current_page": { "type": "integer" },
+          "total_pages": { "type": "integer" },
+          "total_count": { "type": "integer" },
+          "per_page": { "type": "integer" },
+          "projects": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Project"
+            }
+          }
+        }
+      },
       "QueryRequest": {
         "type": "object",
         "properties": {
@@ -4842,7 +5193,8 @@
           },
           "created_by": {
             "type": "string",
-            "description": "Display name of the user who created the report template"
+            "nullable": true,
+            "description": "Display name of the user who created the report template; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -4850,7 +5202,8 @@
           },
           "updated_by": {
             "type": "string",
-            "description": "Display name of the user who last updated the report template"
+            "nullable": true,
+            "description": "Display name of the user who last updated the report template; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -5223,7 +5576,8 @@
           },
           "created_by": {
             "type": "string",
-            "description": "The name of the user who created the export"
+            "nullable": true,
+            "description": "The name of the user who created the export; null if the member has not accessed the organization."
           },
           "created_by_id": {
             "type": "string",
@@ -5232,7 +5586,8 @@
           },
           "updated_by": {
             "type": "string",
-            "description": "The name of the user who last updated the export"
+            "nullable": true,
+            "description": "The name of the user who last updated the export; null if the member has not accessed the organization."
           },
           "updated_by_id": {
             "type": "string",
@@ -5701,7 +6056,7 @@
     "/v2/authorizations.json": {
       "get": {
         "summary": "Get a list of authorizations",
-        "description": "",
+        "description": "For members who have not yet accessed the organization, user_name and usage details are null. Sorting by last_used_at places hidden and null activity after visible activity in both directions.",
         "operationId": "authorizations-get-all",
         "parameters": [
           {
@@ -5739,7 +6094,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/AuthorizationListResponse"
                 }
               }
             }
@@ -5759,7 +6114,7 @@
       },
       "post": {
         "summary": "Create an authorization",
-        "description": "",
+        "description": "A login-enabled member must access the organization before another user can create an authorization for them. This restriction does not apply to non-login system users.",
         "operationId": "authorizations-create",
         "parameters": [
           {
@@ -5789,12 +6144,12 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/AuthorizationResponse"
                 }
               }
             }
@@ -5808,6 +6163,16 @@
                 }
               }
             }
+          },
+          "422": {
+            "description": "Validation failed, including when a login-enabled member has not accessed the organization before another user creates a token for them.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthorizationValidationErrorResponse"
+                }
+              }
+            }
           }
         },
         "deprecated": false
@@ -5816,7 +6181,7 @@
     "/v2/authorizations/{authorization_id}.json": {
       "get": {
         "summary": "Get an authorization",
-        "description": "",
+        "description": "For a member who has not yet accessed the organization, user_name and usage details are null.",
         "operationId": "authorizations-get-single",
         "parameters": [
           {
@@ -5843,7 +6208,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/AuthorizationResponse"
                 }
               }
             }
@@ -5863,7 +6228,7 @@
       },
       "put": {
         "summary": "Update Authorization",
-        "description": "",
+        "description": "For a member who has not yet accessed the organization, user_name and usage details in the response are null.",
         "operationId": "authorizations-update",
         "parameters": [
           {
@@ -5907,7 +6272,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/AuthorizationResponse"
                 }
               }
             }
@@ -5927,7 +6292,7 @@
       },
       "delete": {
         "summary": "Delete an authorization",
-        "description": "",
+        "description": "For a member who has not yet accessed the organization, user_name and usage details in the response are null.",
         "operationId": "authorizations-delete",
         "parameters": [
           {
@@ -5954,7 +6319,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/AuthorizationResponse"
                 }
               }
             }
@@ -6051,9 +6416,20 @@
       }
     },
     "/v2/memberships.json": {
+      "parameters": [
+        {
+          "name": "associations",
+          "in": "query",
+          "description": "Set to true to include the member's layer_ids, project_ids, and form_ids in the response.",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
       "get": {
         "summary": "Get a list of memberships",
-        "description": "",
+        "description": "Before a new member personally accesses the organization in the web app, names, sign-in, image and device details are null. API or mobile access alone does not confirm the membership. Searches by name or managed user name and device filters do not match unconfirmed members; email and role searches remain available.",
         "operationId": "memberships-get-all",
         "parameters": [
           {
@@ -6076,6 +6452,30 @@
             "name": "layer_id",
             "in": "query",
             "description": "Limit members to a specific Layer",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "device_info",
+            "in": "query",
+            "description": "Provide any non-empty value to include recent device information. The value is null for an unconfirmed member.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "editing_info",
+            "in": "query",
+            "description": "Include editing information. is_editable is false for an unconfirmed member.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "managed_info",
+            "in": "query",
+            "description": "Provide any non-empty value to include is_managed.",
             "schema": {
               "type": "string"
             }
@@ -6115,7 +6515,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/MembershipListResponse"
                 }
               }
             }
@@ -6135,7 +6535,7 @@
       },
       "post": {
         "summary": "Create a membership",
-        "description": "",
+        "description": "A newly created member's names, sign-in, image and device details remain hidden until the member personally accesses the organization in the web app.",
         "operationId": "create-membership",
         "parameters": [
           {
@@ -6165,12 +6565,12 @@
           }
         },
         "responses": {
-          "200": {
-            "description": "Success",
+          "201": {
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/MembershipResponse"
                 }
               }
             }
@@ -6190,9 +6590,20 @@
       }
     },
     "/v2/memberships/{membership_id}.json": {
+      "parameters": [
+        {
+          "name": "associations",
+          "in": "query",
+          "description": "Set to true to include the member's layer_ids, project_ids, and form_ids in the response.",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
       "get": {
         "summary": "Get a membership",
-        "description": "",
+        "description": "Before a member accesses the organization, names, sign-in, image and device details are null.",
         "operationId": "memberships-get-single",
         "parameters": [
           {
@@ -6211,6 +6622,30 @@
               "type": "string"
             },
             "required": true
+          },
+          {
+            "name": "device_info",
+            "in": "query",
+            "description": "Provide any non-empty value to include recent device information. The value is null for an unconfirmed member.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "editing_info",
+            "in": "query",
+            "description": "Include editing information. is_editable is false for an unconfirmed member.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "managed_info",
+            "in": "query",
+            "description": "Provide any non-empty value to include is_managed.",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -6219,7 +6654,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/MembershipResponse"
                 }
               }
             }
@@ -6239,7 +6674,7 @@
       },
       "put": {
         "summary": "Update a membership",
-        "description": "You can use this to update parameters of a member, but this will not work if the member is apart of multiple organizations.",
+        "description": "You can use this to update parameters of a member, but this will not work if the member is a part of multiple organizations. Before a member accesses the organization, names, sign-in, image and device details in the response are null.",
         "operationId": "update-membership",
         "parameters": [
           {
@@ -6267,7 +6702,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/MembershipResponse"
                 }
               }
             }
@@ -6287,7 +6722,7 @@
       },
       "delete": {
         "summary": "Delete a membership",
-        "description": "",
+        "description": "Before a member accesses the organization, names, sign-in, image and device details in the response are null.",
         "operationId": "delete-membership",
         "parameters": [
           {
@@ -6315,7 +6750,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/MembershipResponse"
                 }
               }
             }
@@ -6473,7 +6908,7 @@
     "/v2/groups.json": {
       "get": {
         "summary": "Get a list of groups",
-        "description": "",
+        "description": "With associations=true, each group's created_by preserves resource_id but returns null first_name, last_name and email for a human member who has not personally accessed this organization.",
         "operationId": "get-all-groups",
         "parameters": [
           {
@@ -6495,7 +6930,7 @@
           {
             "name": "associations",
             "in": "query",
-            "description": "Set to `true` in order to see each group's assigned `member_ids`, `layer_ids`, `project_ids` and `form_ids`",
+            "description": "Set to `true` to include assigned `member_ids`, `layer_ids`, `project_ids`, `form_ids` and the privacy-aware `created_by` profile.",
             "schema": {
               "type": "boolean",
               "default": false
@@ -6508,7 +6943,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "object",
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Group" }
+                    }
+                  }
                 }
               }
             }
@@ -6611,7 +7052,7 @@
     "/v2/groups/{group_id}.json": {
       "get": {
         "summary": "Get a group",
-        "description": "",
+        "description": "With associations=true, created_by preserves resource_id but returns null first_name, last_name and email for a human member who has not personally accessed this organization.",
         "operationId": "get-single-group",
         "parameters": [
           {
@@ -6634,7 +7075,7 @@
           {
             "name": "associations",
             "in": "query",
-            "description": "Set to `true` in order to see each group's assigned `member_ids`, `layer_ids`, `project_ids` and `form_ids`",
+            "description": "Set to `true` to include assigned `member_ids`, `layer_ids`, `project_ids`, `form_ids` and the privacy-aware `created_by` profile.",
             "schema": {
               "type": "boolean",
               "default": false
@@ -6647,7 +7088,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "object",
+                  "properties": {
+                    "group": { "$ref": "#/components/schemas/Group" }
+                  }
                 }
               }
             }
@@ -6806,7 +7250,7 @@
     "/v2/groups/{group_id}/{resource}.json": {
       "get": {
         "summary": "Get Group Resource",
-        "description": "",
+        "description": "When resource is members, each membership's user and avatar are null until that member accesses the organization; email and role_name remain available. Name and device filters do not match unconfirmed members.",
         "operationId": "get-group-resource",
         "parameters": [
           {
@@ -7411,6 +7855,74 @@
           }
         },
         "deprecated": false
+      }
+    },
+    "/v2/record_series.json": {
+      "get": {
+        "summary": "Get a list of record series",
+        "operationId": "get-all-record-series",
+        "description": "Returns accessible record series with pagination metadata. Creator and editor objects are independently null for human members who have not personally accessed this organization; visible users keep the existing object representation.",
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer", "minimum": 1 } },
+          { "name": "per_page", "in": "query", "schema": { "type": "integer", "minimum": 1 } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "record_series": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/RecordSeries" }
+                    },
+                    "current_page": { "type": "integer" },
+                    "total_pages": { "type": "integer" },
+                    "total_count": { "type": "integer" },
+                    "per_page": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Authentication required" },
+          "403": { "description": "Access denied" }
+        }
+      }
+    },
+    "/v2/record_series/{record_series_id}.json": {
+      "get": {
+        "summary": "Get a record series",
+        "operationId": "get-single-record-series",
+        "description": "Creator and editor objects are independently null for human members who have not personally accessed this organization; visible users keep the existing object representation.",
+        "parameters": [
+          {
+            "name": "record_series_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "record_series": { "$ref": "#/components/schemas/RecordSeries" }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Authentication required" },
+          "403": { "description": "Access denied" },
+          "404": { "description": "Record series not found" }
+        }
       }
     },
     "/v2/records.json": {
@@ -9124,9 +9636,20 @@
       }
     },
     "/v2/projects.json": {
+      "parameters": [
+        {
+          "name": "associations",
+          "in": "query",
+          "description": "Set to true to include project_manager_id, group_ids, and member_ids in project responses.",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
       "get": {
         "summary": "Get a list of projects",
-        "description": "",
+        "description": "When project manager names are enabled, a pending manager is shown as 'Awaiting user'.",
         "operationId": "projects-get-all",
         "parameters": [
           {
@@ -9164,7 +9687,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ProjectListResponse"
                 }
               }
             }
@@ -9239,7 +9762,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ProjectResponse"
                 }
               }
             }
@@ -9249,9 +9772,20 @@
       }
     },
     "/v2/projects/{project_id}.json": {
+      "parameters": [
+        {
+          "name": "associations",
+          "in": "query",
+          "description": "Set to true to include project_manager_id, group_ids, and member_ids in project responses.",
+          "schema": {
+            "type": "boolean",
+            "default": false
+          }
+        }
+      ],
       "get": {
         "summary": "Get a project",
-        "description": "",
+        "description": "When project manager names are enabled, a pending manager is shown as 'Awaiting user'.",
         "operationId": "projects-get-single",
         "parameters": [
           {
@@ -9278,7 +9812,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ProjectResponse"
                 }
               }
             }
@@ -9342,7 +9876,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/ProjectResponse"
                 }
               }
             }
@@ -13186,7 +13720,7 @@
     "/v2/changesets.json": {
       "get": {
         "summary": "Get a list of changesets",
-        "description": "",
+        "description": "Creator, updater and closer names, and creator avatar and Gravatar fields, are null while the corresponding member has not accessed the organization. User IDs remain available.",
         "operationId": "changesets-get-all",
         "parameters": [
           {
@@ -13244,7 +13778,7 @@
       },
       "post": {
         "summary": "Create a changeset",
-        "description": "",
+        "description": "Creator, updater and closer names, and creator avatar and Gravatar fields, are null while the corresponding member has not accessed the organization. User IDs remain available.",
         "operationId": "changesets-create",
         "parameters": [
           {
@@ -13301,7 +13835,7 @@
     "/v2/changesets/{changeset_id}.json": {
       "get": {
         "summary": "Get a changeset",
-        "description": "",
+        "description": "Creator, updater and closer names, and creator avatar and Gravatar fields, are null while the corresponding member has not accessed the organization. User IDs remain available.",
         "operationId": "changesets-get-single",
         "parameters": [
           {
@@ -13348,7 +13882,7 @@
       },
       "put": {
         "summary": "Update Changeset",
-        "description": "",
+        "description": "Creator, updater and closer names, and creator avatar and Gravatar fields, are null while the corresponding member has not accessed the organization. User IDs remain available.",
         "operationId": "changesets-update",
         "parameters": [
           {
@@ -13414,7 +13948,7 @@
     "/v2/changesets/{changeset_id}/close.json": {
       "put": {
         "summary": "Close Changeset",
-        "description": "",
+        "description": "Creator, updater and closer names, and creator avatar and Gravatar fields, are null while the corresponding member has not accessed the organization. User IDs remain available.",
         "operationId": "changesets-close",
         "parameters": [
           {
@@ -13989,7 +14523,7 @@
     "/v2/audit_logs.json": {
       "get": {
         "summary": "Get a list of audit logs",
-        "description": "",
+        "description": "Activity by a login-enabled member who has not yet accessed the organization is excluded. Activity recorded before access remains hidden if that membership is removed before the member accesses the organization.",
         "operationId": "audit-logs-get-all",
         "parameters": [
           {
@@ -14099,7 +14633,7 @@
     "/v2/audit_logs/{audit_log_id}.json": {
       "get": {
         "summary": "Get an audit log",
-        "description": "",
+        "description": "Activity by a login-enabled member who has not yet accessed the organization is hidden and returns 404. Activity recorded before access remains hidden if that membership is removed before the member accesses the organization.",
         "operationId": "audit-logs-get-single",
         "parameters": [
           {
@@ -14140,6 +14674,9 @@
                 }
               }
             }
+          },
+          "404": {
+            "description": "The audit log was not found or is not visible."
           }
         },
         "deprecated": false
