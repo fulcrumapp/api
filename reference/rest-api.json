@@ -31,6 +31,47 @@
       }
     },
     "schemas": {
+      "GroupCreator": {
+        "type": "object",
+        "description": "Included only with associations=true. For a human member who has not personally accessed this organization, profile fields are null while resource_id is preserved. Non-loginable system users retain their existing attribution.",
+        "required": ["resource_id", "first_name", "last_name", "email"],
+        "properties": {
+          "resource_id": { "type": "string", "format": "uuid" },
+          "first_name": { "type": ["string", "null"] },
+          "last_name": { "type": ["string", "null"] },
+          "email": { "type": ["string", "null"] }
+        }
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "name": { "type": "string" },
+          "description": { "type": ["string", "null"] },
+          "created_at": { "type": "string", "format": "date-time" },
+          "is_managed": { "type": "boolean" },
+          "created_by": { "$ref": "#/components/schemas/GroupCreator" }
+        }
+      },
+      "RecordSeries": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "enabled": { "type": "boolean" },
+          "rrule": { "type": ["string", "null"] },
+          "template": { "type": ["object", "null"] },
+          "created_at": { "type": "string", "format": "date-time" },
+          "updated_at": { "type": "string", "format": "date-time" },
+          "created_by": {
+            "type": ["object", "null"],
+            "description": "Existing serialized user object, or null when the creator is a human member who has not personally accessed this organization. Non-loginable system users retain their existing attribution."
+          },
+          "updated_by": {
+            "type": ["object", "null"],
+            "description": "Existing serialized user object, or null when the editor is a human member who has not personally accessed this organization. Evaluated independently of created_by. Non-loginable system users retain their existing attribution."
+          }
+        }
+      },
       "Geometry": {
         "type": "object",
         "required": [
@@ -6760,7 +6801,7 @@
     "/v2/groups.json": {
       "get": {
         "summary": "Get a list of groups",
-        "description": "",
+        "description": "With associations=true, each group's created_by preserves resource_id but returns null first_name, last_name and email for a human member who has not personally accessed this organization.",
         "operationId": "get-all-groups",
         "parameters": [
           {
@@ -6782,7 +6823,7 @@
           {
             "name": "associations",
             "in": "query",
-            "description": "Set to `true` in order to see each group's assigned `member_ids`, `layer_ids`, `project_ids` and `form_ids`",
+            "description": "Set to `true` to include assigned `member_ids`, `layer_ids`, `project_ids`, `form_ids` and the privacy-aware `created_by` profile.",
             "schema": {
               "type": "boolean",
               "default": false
@@ -6795,7 +6836,13 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "object",
+                  "properties": {
+                    "groups": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/Group" }
+                    }
+                  }
                 }
               }
             }
@@ -6898,7 +6945,7 @@
     "/v2/groups/{group_id}.json": {
       "get": {
         "summary": "Get a group",
-        "description": "",
+        "description": "With associations=true, created_by preserves resource_id but returns null first_name, last_name and email for a human member who has not personally accessed this organization.",
         "operationId": "get-single-group",
         "parameters": [
           {
@@ -6921,7 +6968,7 @@
           {
             "name": "associations",
             "in": "query",
-            "description": "Set to `true` in order to see each group's assigned `member_ids`, `layer_ids`, `project_ids` and `form_ids`",
+            "description": "Set to `true` to include assigned `member_ids`, `layer_ids`, `project_ids`, `form_ids` and the privacy-aware `created_by` profile.",
             "schema": {
               "type": "boolean",
               "default": false
@@ -6934,7 +6981,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "type": "object",
+                  "properties": {
+                    "group": { "$ref": "#/components/schemas/Group" }
+                  }
                 }
               }
             }
@@ -7698,6 +7748,74 @@
           }
         },
         "deprecated": false
+      }
+    },
+    "/v2/record_series.json": {
+      "get": {
+        "summary": "Get a list of record series",
+        "operationId": "get-all-record-series",
+        "description": "Returns accessible record series with pagination metadata. Creator and editor objects are independently null for human members who have not personally accessed this organization; visible users keep the existing object representation.",
+        "parameters": [
+          { "name": "page", "in": "query", "schema": { "type": "integer", "minimum": 1 } },
+          { "name": "per_page", "in": "query", "schema": { "type": "integer", "minimum": 1 } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "record_series": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/RecordSeries" }
+                    },
+                    "current_page": { "type": "integer" },
+                    "total_pages": { "type": "integer" },
+                    "total_count": { "type": "integer" },
+                    "per_page": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Authentication required" },
+          "403": { "description": "Access denied" }
+        }
+      }
+    },
+    "/v2/record_series/{record_series_id}.json": {
+      "get": {
+        "summary": "Get a record series",
+        "operationId": "get-single-record-series",
+        "description": "Creator and editor objects are independently null for human members who have not personally accessed this organization; visible users keep the existing object representation.",
+        "parameters": [
+          {
+            "name": "record_series_id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string", "format": "uuid" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "record_series": { "$ref": "#/components/schemas/RecordSeries" }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Authentication required" },
+          "403": { "description": "Access denied" },
+          "404": { "description": "Record series not found" }
+        }
       }
     },
     "/v2/records.json": {
