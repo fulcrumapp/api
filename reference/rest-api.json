@@ -73,6 +73,16 @@
           "created_by": { "$ref": "#/components/schemas/GroupCreator" }
         }
       },
+      "RecordSeriesAttribution": {
+        "type": ["object", "null"],
+        "description": "Allowlisted author identity, or null when the user is a human member who has not personally accessed this organization. Non-loginable system users retain their attribution. Account, contact, sign-in, network, and device attributes are not serialized.",
+        "required": ["resource_id", "display_name"],
+        "additionalProperties": false,
+        "properties": {
+          "resource_id": { "type": "string", "format": "uuid" },
+          "display_name": { "type": "string" }
+        }
+      },
       "RecordSeries": {
         "type": "object",
         "properties": {
@@ -83,12 +93,12 @@
           "created_at": { "type": "string", "format": "date-time" },
           "updated_at": { "type": "string", "format": "date-time" },
           "created_by": {
-            "type": ["object", "null"],
-            "description": "Existing serialized user object, or null when the creator is a human member who has not personally accessed this organization. Non-loginable system users retain their existing attribution."
+            "$ref": "#/components/schemas/RecordSeriesAttribution",
+            "description": "Creator identity, independently filtered by organization access."
           },
           "updated_by": {
-            "type": ["object", "null"],
-            "description": "Existing serialized user object, or null when the editor is a human member who has not personally accessed this organization. Evaluated independently of created_by. Non-loginable system users retain their existing attribution."
+            "$ref": "#/components/schemas/RecordSeriesAttribution",
+            "description": "Editor identity, independently filtered by organization access."
           }
         }
       },
