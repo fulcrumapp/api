@@ -204,7 +204,6 @@ Run comprehensive validation on reference/rest-api.json using multiple validatio
 - JSON syntax validation
 - RAW_BODY anti-pattern search
 - External schema reference count
-- Schema file verification
 - File size metrics and reduction tracking
 
 **Usage in Copilot Chat:**
