@@ -84,7 +84,7 @@ Use this multi-tool validation approach after completing any changes:
 # Combined validation report
 printf "=== VALIDATION REPORT ===\n\n" && \
 printf "1. File Size:\n" && wc -l reference/rest-api.json && \
-printf "\n2. JSON Syntax:\n" && node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid:', e.message); }" && \
+printf "\n2. JSON Syntax:\n" && node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid:', e.message); process.exit(1); }" && \
 printf "\n3. Internal Component References:\n" && grep -c '"#/components/schemas/' reference/rest-api.json && \
 printf "\n4. External References (should be 0):\n" && (grep -c '"\./components/schemas' reference/rest-api.json 2>/dev/null || echo "0 - None found ✅") && \
 printf "\n5. RAW_BODY Check:\n" && (grep -c "RAW_BODY" reference/rest-api.json 2>/dev/null || echo "0 - None found ✅") && \
