@@ -137,7 +137,7 @@ Per `AGENTS.md`, run ALL of these after any edit to `rest-api.json`:
 node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid JSON:', e.message); process.exit(1); }"
 
 # 2. OpenAPI spec validation
-cd reference && npx --yes rdme openapi validate rest-api.json
+(cd reference && npx --yes rdme openapi validate rest-api.json)
 
 # 3. VS Code errors
 # Use get_errors tool on reference/rest-api.json
