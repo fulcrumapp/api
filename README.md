@@ -17,7 +17,7 @@ This runs 7 validation checks including:
 - JSON syntax validation
 - RAW_BODY anti-pattern detection
 - External schema reference verification
-- File metrics and reduction tracking
+- File metrics
 
 ### Manual Validation
 
