@@ -36,8 +36,6 @@ Use the schema names that actually exist in `reference/rest-api.json` today:
 | `StatusField` | Status field definition used by the current spec. Keep it aligned with the upstream status field shape. |
 | `StatusFieldChoice` | Status choice objects nested under status fields. Keep choice properties and enums aligned with upstream data. |
 
-If you find new upstream element-specific attributes in `fulcrum-schema` or `fulcrum-core`, first
-check whether they belong on the existing `FormElement` schema in `reference/rest-api.json`.
 Only document or edit per-element schemas after `reference/rest-api.json` has been explicitly
 refactored to introduce them.
 
