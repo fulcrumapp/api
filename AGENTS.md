@@ -21,7 +21,7 @@ After editing `reference/rest-api.json`, run ALL of these validations:
 get_errors(filePaths=["/Users/trey/code/api/reference/rest-api.json"])
 
 # 2. OpenAPI specification validation (rdme - REQUIRED)
-cd reference && npx --yes rdme openapi validate rest-api.json
+(cd reference && npx --yes rdme openapi validate rest-api.json)
 
 # 3. JSON syntax validation (Node.js parser)
 node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid JSON:', e.message); }"
