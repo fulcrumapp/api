@@ -2877,7 +2877,7 @@
       },
       "PhotoFastFillSettingsRequest": {
         "type": "object",
-        "description": "Optional saved Photo FastFill configuration. Requests may use `generic`.",
+        "description": "Optional saved Photo FastFill configuration. Requests may use `generic` or `text_extraction`. When the `text_extraction_enabled` feature flag is false, the saved type is always `generic`, even if `text_extraction` is requested.",
         "required": [
           "target_fields",
           "type"
@@ -2899,13 +2899,13 @@
               "generic",
               "text_extraction"
             ],
-            "description": "Saved Photo FastFill processing mode."
+            "description": "Requested Photo FastFill processing mode. `text_extraction` is saved as `generic` when the `text_extraction_enabled` feature flag is false."
           }
         }
       },
       "PhotoFastFillSettingsResponse": {
         "type": "object",
-        "description": "Optional saved Photo FastFill settings. In responses, if configuration exists but fastfill is disabled, type will return off. Any previously configured targets will be retained.",
+        "description": "Optional saved Photo FastFill settings. When Photo FastFill is disabled for the organization, the response type is `off` and previously configured targets are retained. If the `text_extraction_enabled` feature flag is false, a requested `text_extraction` type is saved and returned as `generic` instead.",
         "required": [
           "target_fields",
           "type"
@@ -2925,9 +2925,10 @@
             "type": "string",
             "enum": [
               "generic",
+              "text_extraction",
               "off"
             ],
-            "description": "Configured photo fastfill mode. off indicates it is not configured OR photo fastfill is not enabled for this organization."
+            "description": "Configured Photo FastFill mode. `off` indicates Photo FastFill is not enabled for the organization; `generic` is returned when `text_extraction_enabled` is false, even if `text_extraction` was requested."
           }
         }
       },
