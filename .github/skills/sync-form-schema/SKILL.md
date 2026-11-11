@@ -32,7 +32,7 @@ Use the schema names that actually exist in `reference/rest-api.json` today:
 
 | OpenAPI Schema | Maps From |
 |----------------|-----------|
-| `FormElement` | Primary form element schema. Keep its properties, enums, and required fields aligned with the upstream Fulcrum element model and fixture JSON. |
+| `FormElement` | Primary form element schema. Keep its `oneOf` references and discriminator mapping aligned with the upstream Fulcrum element model and fixture JSON. |
 | `StatusField` | Status field definition used by the current spec. Keep it aligned with the upstream status field shape. |
 | `StatusFieldChoice` | Status choice objects nested under status fields. Keep choice properties and enums aligned with upstream data. |
 
