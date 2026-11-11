@@ -24,7 +24,7 @@ get_errors(filePaths=["/Users/trey/code/api/reference/rest-api.json"])
 (cd reference && npx --yes rdme openapi validate rest-api.json)
 
 # 3. JSON syntax validation (Node.js parser)
-node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid JSON:', e.message); }"
+node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid JSON:', e.message); process.exit(1); }"
 
 # 4. Check for RAW_BODY anti-patterns
 grep -c "RAW_BODY" reference/rest-api.json || echo "0 (None - Good!)"
