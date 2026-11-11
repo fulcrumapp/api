@@ -24,12 +24,14 @@ The Authorizations API can be used to create client-side applications that do no
 | expires\_at       | timestamp | no       | no       | Token expiration timestamp.                                                                      |
 | timeout           | number    | no       | no       | The number of seconds before the token expires.                                                  |
 | token\_last\_8    | string    | no       | no       | The last 8 characters of the token.                                                              |
-| last\_ip\_address | string    | no       | no       | The IP Address of the last token user.                                                           |
-| last\_user\_agent | string    | no       | no       | The User Agent of the last token user.                                                           |
-| last\_used\_at    | timestamp | no       | no       | Timestamp when the token was last used.                                                          |
+| last\_ip\_address | string or null | no | no | The IP address of the last token user, or null when unavailable or protected. |
+| last\_user\_agent | string or null | no | no | The user agent of the last token user, or null when unavailable or protected. |
+| last\_used\_at    | timestamp or null | no | no | When the token was last used, or null when unavailable or protected. |
 | created\_at       | timestamp | no       | no       | Timestamp when the token was created.                                                            |
 | updated\_at       | timestamp | no       | no       | Timestamp when the token was updated.                                                            |
-| id                | timestamp | no       | no       | Authorization ID.                                                                                |
+| id                | string    | no       | no       | Authorization ID.                                                                                |
+| user\_name        | string or null | no | yes | The member's name, or null while their membership is unconfirmed. |
+| token             | string    | no       | yes      | The full token, returned when generated, such as on creation or regeneration.                     |
 
 # Validations
 
@@ -50,9 +52,11 @@ The following properties must be included in order to create/update an authoriza
 
 * Using an authorization with a set timeout will push back its expiration that number of seconds from when it is used, effectively allowing you to create an authorization with a short timeout that keeps working as long as you use it.
 
-* Omitting a `timeout` when creating an authorization (or setting it to `null`) will create an authorization that never expires.
+* When creating an authorization through this API, omitting `timeout`, setting it to `null`, or providing a non-positive value uses the maximum permitted timeout. The maximum is normally 24 hours, but an expiring API token used to create another token can impose a shorter limit.
 
-* Users with the `can_manage_roles` permission can explicity set the `user_id` property to create an authorization token on behalf of another organization member, but only if that user is not a member of any other Fulcrum organizations.
+* Users with the `can_manage_roles` permission can explicitly set `user_id` to create an authorization for another organization member only if that user does not belong to another organization. A login-enabled target must also have personally accessed this organization in the web app. System users that cannot log in are exempt from the access requirement.
+
+* For an unconfirmed membership, `user_name`, `last_used_at`, `last_ip_address`, and `last_user_agent` are null. Sorting by `last_used_at` places hidden and null activity after visible activity in either direction.
 
 # Sample Response
 

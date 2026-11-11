@@ -19,18 +19,20 @@ The Memberships API allows you to view, add, or remove non-owner users associate
 | id                   | string    | no       | yes      | The member ID                    |
 | created\_at          | timestamp | no       | yes      | When the member was created      |
 | updated\_at          | timestamp | no       | yes      | Last time the member was updated |
-| gravatar\_email      | string    | no       | yes      | Email used for gravatar image    |
-| gravatar\_image\_url | string    | no       | yes      | URL to gravatar image            |
+| gravatar\_email      | string or null | no  | yes      | Email used for gravatar image    |
+| gravatar\_image\_url | string or null | no  | yes      | URL to gravatar image            |
 | user\_id             | string    | no       | yes      | User ID                          |
-| user                 | string    | no       | yes      | User full name                   |
-| first\_name          | string    | no       | yes      | User first name                  |
-| last\_name           | string    | no       | yes      | User last name                   |
+| user                 | string or null | no  | yes      | User full name                   |
+| first\_name          | string or null | no  | yes      | User first name                  |
+| last\_name           | string or null | no  | yes      | User last name                   |
 | email                | string    | no       | yes      | User email                       |
 | role\_id             | string    | no       | yes      | ID of the user's role            |
-| image\_small         | string    | no       | yes      | User profile image (300px)       |
-| image\_large         | string    | no       | yes      | User profile image (600px)       |
+| image\_small         | string or null | no  | yes      | User profile image (300px)       |
+| image\_large         | string or null | no  | yes      | User profile image (600px)       |
 
 # Notes
+
+* For new memberships, names, sign-in, image, and device details are null until the member personally accesses the organization in the web app. API or mobile access alone does not confirm the membership. Existing memberships remain visible; IDs, email, and role remain available.
 
 * Users with a role of *Owner* always have access to all resources within the organization.
 

@@ -37,6 +37,8 @@ The [Forms API](https://fulcrum.readme.io/reference#forms-intro) has been update
 
 The [Authorizations API](https://fulcrum.readme.io/reference#authorizations-intro) has been updated to allow users with the `can_manage_roles` permission to explicitly set the `user_id` property to create an authorization token on behalf of another organization member, but only if that user is not a member of any other Fulcrum organizations.
 
+For current requirements, including the additional access requirement for login-enabled members, see [Authorizations API](../AUTHORIZATIONS/authorizations-intro.md#notes).
+
 # August 2016
 
 To support disabling the project and assignment fields on apps, 2 new attributes have been added to the `forms` endpoint. You will now see `projects_enabled` and `assignment_enabled` boolean attributes when retrieving form definitions. As their name implies, these control whether the features are enabled on the form.

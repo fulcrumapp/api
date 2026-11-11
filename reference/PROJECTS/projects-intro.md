@@ -23,9 +23,10 @@ The Projects API gives you access to the [projects](http://help.fulcrumapp.com/w
 | status               | string  | no       | no       | Status of the project.                                |
 | customer             | string  | no       | no       | Optional name of customer.                            |
 | external\_job\_id    | string  | no       | no       | Optional job ID.                                      |
-| start\_date          | string  | no       | no       | Optional start date of the project.                   |
-| end\_date            | string  | no       | no       | Optional end date of the project.                     |
-| project\_manager\_id | string  | no       | no       | Optional user who is assigned as the project manager. |
+| start\_date          | string  | no       | no       | Optional start date of the project, returned as a timestamp. |
+| end\_date            | string  | no       | no       | Optional end date of the project, returned as a timestamp. |
+| project\_manager\_id | string  | no       | no       | Optional user assigned as the project manager. Included in responses when `associations=true`. |
+| project\_manager\_name | string or null | no | yes | When enabled, the manager's name, `Awaiting user` for an unconfirmed manager, or null if no manager is assigned. |
 | id                   | string  | no       | yes      | The id of the project.                                |
 | created\_at          | string  | no       | yes      | Timestamp when the project was created.               |
 | updated\_at          | string  | no       | yes      | Timestamp when the project was last updated.          |
