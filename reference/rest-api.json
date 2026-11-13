@@ -906,7 +906,7 @@
       },
       "Membership": {
         "type": "object",
-        "description": "For a new membership, names, sign-in, image and device details are null until the member personally accesses the organization in the web app. API or mobile access alone does not confirm the membership. Existing memberships remain visible. The member ID, user ID, email and role remain available.",
+        "description": "For a new membership, user, first_name, and last_name are empty strings until the member personally accesses the organization in the web app. image_large is a generic Gravatar URL until that access. last_sign_in_at, gravatar_email, gravatar_image_url, image_small, and device_info remain null until access. API or mobile access alone does not confirm the membership. Existing memberships remain visible. The member ID, user ID, email and role remain available.",
         "properties": {
           "id": {
             "type": "string"
@@ -935,13 +935,16 @@
             "type": "string"
           },
           "user": {
-            "type": ["string", "null"]
+            "type": "string",
+            "description": "Display name; empty until the member personally accesses the organization in the web app."
           },
           "first_name": {
-            "type": ["string", "null"]
+            "type": "string",
+            "description": "First name; empty until the member personally accesses the organization in the web app."
           },
           "last_name": {
-            "type": ["string", "null"]
+            "type": "string",
+            "description": "Last name; empty until the member personally accesses the organization in the web app."
           },
           "last_sign_in_at": {
             "type": ["string", "null"],
@@ -957,7 +960,8 @@
             "type": ["string", "null"]
           },
           "image_large": {
-            "type": ["string", "null"]
+            "type": "string",
+            "description": "Large avatar URL; a generic Gravatar URL is returned until the member personally accesses the organization in the web app."
           },
           "device_info": {
             "type": ["object", "null"],
