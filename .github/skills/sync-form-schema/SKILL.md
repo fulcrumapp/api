@@ -26,22 +26,16 @@ The authoritative form model lives in two GitHub repos:
 
 ## OpenAPI Schemas to Keep Current
 
-All schemas live inline in `reference/rest-api.json` under `components.schemas`. The current
-form model in that file is **not** split into per-element OpenAPI schemas such as
-`FormBaseElement`, `FormTextFieldElement`, or `FormChoiceFieldElement`, and `FormElement` is not
-currently documented there as a `oneOf` discriminated union. Do not update this skill as if that
-refactor has already happened.
+All schemas live inline in `reference/rest-api.json` under `components.schemas`.
 
 Use the schema names that actually exist in `reference/rest-api.json` today:
 
 | OpenAPI Schema | Maps From |
 |----------------|-----------|
-| `FormElement` | Primary form element schema. Keep its properties, enums, and required fields aligned with the upstream Fulcrum element model and fixture JSON. |
+| `FormElement` | Primary form element schema. Keep its `oneOf` references and discriminator mapping aligned with the upstream Fulcrum element model and fixture JSON. |
 | `StatusField` | Status field definition used by the current spec. Keep it aligned with the upstream status field shape. |
 | `StatusFieldChoice` | Status choice objects nested under status fields. Keep choice properties and enums aligned with upstream data. |
 
-If you find new upstream element-specific attributes in `fulcrum-schema` or `fulcrum-core`, first
-check whether they belong on the existing `FormElement` schema in `reference/rest-api.json`.
 Only document or edit per-element schemas after `reference/rest-api.json` has been explicitly
 refactored to introduce them.
 
@@ -143,7 +137,7 @@ Per `AGENTS.md`, run ALL of these after any edit to `rest-api.json`:
 node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid JSON:', e.message); process.exit(1); }"
 
 # 2. OpenAPI spec validation
-cd reference && npx --yes rdme openapi validate rest-api.json
+(cd reference && npx --yes rdme openapi validate rest-api.json)
 
 # 3. VS Code errors
 # Use get_errors tool on reference/rest-api.json

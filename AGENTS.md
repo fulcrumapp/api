@@ -21,10 +21,10 @@ After editing `reference/rest-api.json`, run ALL of these validations:
 get_errors(filePaths=["/Users/trey/code/api/reference/rest-api.json"])
 
 # 2. OpenAPI specification validation (rdme - REQUIRED)
-cd reference && npx --yes rdme openapi validate rest-api.json
+(cd reference && npx --yes rdme openapi validate rest-api.json)
 
 # 3. JSON syntax validation (Node.js parser)
-node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid JSON:', e.message); }"
+node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid JSON:', e.message); process.exit(1); }"
 
 # 4. Check for RAW_BODY anti-patterns
 grep -c "RAW_BODY" reference/rest-api.json || echo "0 (None - Good!)"
@@ -84,7 +84,7 @@ Use this multi-tool validation approach after completing any changes:
 # Combined validation report
 printf "=== VALIDATION REPORT ===\n\n" && \
 printf "1. File Size:\n" && wc -l reference/rest-api.json && \
-printf "\n2. JSON Syntax:\n" && node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid:', e.message); }" && \
+printf "\n2. JSON Syntax:\n" && node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid:', e.message); process.exit(1); }" && \
 printf "\n3. Internal Component References:\n" && grep -c '"#/components/schemas/' reference/rest-api.json && \
 printf "\n4. External References (should be 0):\n" && (grep -c '"\./components/schemas' reference/rest-api.json 2>/dev/null || echo "0 - None found ✅") && \
 printf "\n5. RAW_BODY Check:\n" && (grep -c "RAW_BODY" reference/rest-api.json 2>/dev/null || echo "0 - None found ✅") && \
@@ -204,8 +204,7 @@ Run comprehensive validation on reference/rest-api.json using multiple validatio
 - JSON syntax validation
 - RAW_BODY anti-pattern search
 - External schema reference count
-- Schema file verification
-- File size metrics and reduction tracking
+- File size metrics
 
 **Usage in Copilot Chat:**
 
