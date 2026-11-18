@@ -26,11 +26,7 @@ The authoritative form model lives in two GitHub repos:
 
 ## OpenAPI Schemas to Keep Current
 
-All schemas live inline in `reference/rest-api.json` under `components.schemas`. The current
-form model in that file is **not** split into per-element OpenAPI schemas such as
-`FormBaseElement`, `FormTextFieldElement`, or `FormChoiceFieldElement`, and `FormElement` is not
-currently documented there as a `oneOf` discriminated union. Do not update this skill as if that
-refactor has already happened.
+All schemas live inline in `reference/rest-api.json` under `components.schemas`.
 
 Use the schema names that actually exist in `reference/rest-api.json` today:
 
