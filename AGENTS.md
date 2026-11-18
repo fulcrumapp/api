@@ -181,7 +181,6 @@ Before considering work complete:
 
 ## Notes for AI Agents
 
-- **Never skip validation**: Even small changes can break JSON structure
 - **Use multi_replace_string_in_file**: When making multiple changes to reduce tool calls
 - **Include sufficient context**: When using replace_string_in_file, include 3-5 lines before/after
 - **Fix errors immediately**: Don't proceed with other work if validation fails
