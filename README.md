@@ -42,7 +42,7 @@ swagger-cli validate rest-api.json
 printf "=== VALIDATION REPORT ===\n\n" && \
 printf "1. File Size:\n" && wc -l reference/rest-api.json && \
 printf "\n2. OpenAPI Spec:\n" && cd reference && npx --yes rdme openapi validate rest-api.json && cd .. && \
-printf "\n3. JSON Syntax:\n" && node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid:', e.message); }" && \
+printf "\n3. JSON Syntax:\n" && node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')); console.log('✅ Valid JSON'); } catch(e) { console.log('❌ Invalid:', e.message); process.exit(1); }" && \
 printf "\n4. External References:\n" && grep -c "\$ref.*components/schemas" reference/rest-api.json && \
 printf "\n5. RAW_BODY Check:\n" && (grep -c "RAW_BODY" reference/rest-api.json 2>/dev/null || echo "0 - None found ✅") && \
 printf "\n6. Schema Files:\n" && ls reference/components/schemas/*.json | wc -l
