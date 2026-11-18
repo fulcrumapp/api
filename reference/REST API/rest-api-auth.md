@@ -10,7 +10,9 @@ metadata:
 next:
   description: ''
 ---
-API calls are authenticated with a simple API Token that is provided with the request. The API Token can be passed as an HTTP request header or as a parameter in the query string.
+Third-party API integrations authenticate with an API Token provided with the request. The API Token can be passed as an HTTP request header or as a parameter in the query string.
+
+The first-party Fulcrum iOS and Android apps use a personal Kratos session for requests scoped to the currently selected organization. This mobile authentication flow is not supported for third-party integrations; they should continue to use an organization's API Token.
 
 # Managing your API Tokens
 
