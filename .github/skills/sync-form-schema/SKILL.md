@@ -190,5 +190,4 @@ gh pr create \
 
 - **Never use external `$ref` files** — ReadMe won't render them
 - **Never add RAW_BODY properties** — anti-pattern
-- **Always validate after every change** — even small edits
 - **All schemas must be in `components.schemas`** — no inline anonymous schemas in endpoints
