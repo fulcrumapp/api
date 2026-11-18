@@ -183,7 +183,6 @@ Before considering work complete:
 
 - **Use multi_replace_string_in_file**: When making multiple changes to reduce tool calls
 - **Include sufficient context**: When using replace_string_in_file, include 3-5 lines before/after
-- **Fix errors immediately**: Don't proceed with other work if validation fails
 - **Read before writing**: Always read file content before making changes to understand structure
 
 ---
