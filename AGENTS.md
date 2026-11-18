@@ -10,8 +10,6 @@
 
 ### Validation Steps
 
-**CRITICAL**: You MUST validate after EVERY change. No exceptions.
-
 #### 1. Validate OpenAPI Document
 
 After editing `reference/rest-api.json`, run ALL of these validations:
