@@ -2942,7 +2942,7 @@
       },
       "PhotoFastFillSettingsResponse": {
         "type": "object",
-        "description": "Optional saved Photo FastFill settings. Photo access is evaluated separately from Audio. When Photo access is unavailable, the response type is `off` and previously configured targets are retained, even if Audio is available. A saved `text_extraction` mode may be returned as `generic` when unavailable.",
+        "description": "Photo FastFill settings returned with the form. Photo and Audio access are evaluated independently. When Photo FastFill is unavailable, the response type is `off` and previously configured targets are retained. Reading the form does not change the saved settings.",
         "required": [
           "target_fields",
           "type"
@@ -2965,7 +2965,7 @@
               "text_extraction",
               "off"
             ],
-            "description": "Configured Photo FastFill mode. `off` indicates Photo FastFill is not available for the organization; `text_extraction` may be returned as `generic` when unavailable."
+            "description": "Photo FastFill mode returned for the form. If Photo FastFill is available but text extraction is unavailable, a saved `text_extraction` mode may be returned as `generic` without changing the saved setting. If Photo FastFill is unavailable, the mode is `off`."
           }
         }
       },
