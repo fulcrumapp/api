@@ -148,7 +148,8 @@ count=$(grep -c "RAW_BODY" reference/rest-api.json || true)
 [ "$count" -eq 0 ] || exit 1
 
 # 5. External ref check (must be 0)
-grep -c '"./components/schemas' reference/rest-api.json
+count=$(grep -cF '"./components/schemas' reference/rest-api.json || true)
+[ "$count" -eq 0 ] || exit 1
 ```
 
 Fix any errors before proceeding.
