@@ -1325,6 +1325,39 @@
         "description": "Empty success response",
         "properties": {}
       },
+      "UserResponse": {
+        "type": "object",
+        "required": ["user"],
+        "properties": {
+          "user": {
+            "type": "object",
+            "required": ["contexts"],
+            "properties": {
+              "contexts": {
+                "type": "array",
+                "description": "Organization contexts associated with the user.",
+                "items": {
+                  "type": "object",
+                  "required": ["plan"],
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Organization ID."
+                    },
+                    "name": {
+                      "type": "string",
+                      "description": "Organization name."
+                    },
+                    "plan": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "Photo": {
         "type": "object",
         "properties": {
@@ -2881,7 +2914,7 @@
       },
       "PhotoFastFillSettingsRequest": {
         "type": "object",
-        "description": "Optional saved Photo FastFill configuration. Requests may use `generic` or `text_extraction`. When the `text_extraction_enabled` feature flag is false, the saved type is always `generic`, even if `text_extraction` is requested.",
+        "description": "Optional saved Photo FastFill configuration. Requests may use `generic` or `text_extraction`. Depending on availability, a `text_extraction` request may be saved as `generic`, retain an existing mode, or be rejected.",
         "required": [
           "target_fields",
           "type"
@@ -2903,13 +2936,13 @@
               "generic",
               "text_extraction"
             ],
-            "description": "Requested Photo FastFill processing mode. `text_extraction` is saved as `generic` when the `text_extraction_enabled` feature flag is false."
+            "description": "Requested Photo FastFill processing mode. The saved mode may differ from the requested mode."
           }
         }
       },
       "PhotoFastFillSettingsResponse": {
         "type": "object",
-        "description": "Optional saved Photo FastFill settings. When Photo FastFill is disabled for the organization, the response type is `off` and previously configured targets are retained. If the `text_extraction_enabled` feature flag is false, a requested `text_extraction` type is saved and returned as `generic` instead.",
+        "description": "Optional saved Photo FastFill settings. Photo access is evaluated separately from Audio. When Photo access is unavailable, the response type is `off` and previously configured targets are retained, even if Audio is available. A saved `text_extraction` mode may be returned as `generic` when unavailable.",
         "required": [
           "target_fields",
           "type"
@@ -2932,7 +2965,7 @@
               "text_extraction",
               "off"
             ],
-            "description": "Configured Photo FastFill mode. `off` indicates Photo FastFill is not enabled for the organization; `generic` is returned when `text_extraction_enabled` is false, even if `text_extraction` was requested."
+            "description": "Configured Photo FastFill mode. `off` indicates Photo FastFill is not available for the organization; `text_extraction` may be returned as `generic` when unavailable."
           }
         }
       },
@@ -6057,7 +6090,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/EmptySuccessResponse"
+                  "$ref": "#/components/schemas/UserResponse"
                 }
               }
             }
