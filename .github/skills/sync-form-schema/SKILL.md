@@ -144,7 +144,8 @@ node -e "const fs = require('fs'); try { JSON.parse(fs.readFileSync('reference/r
 # Use get_errors tool on reference/rest-api.json
 
 # 4. RAW_BODY anti-pattern check (must be 0)
-grep -c "RAW_BODY" reference/rest-api.json
+count=$(grep -c "RAW_BODY" reference/rest-api.json || true)
+[ "$count" -eq 0 ] || exit 1
 
 # 5. External ref check (must be 0)
 grep -c '"./components/schemas' reference/rest-api.json
