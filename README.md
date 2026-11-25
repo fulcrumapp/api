@@ -46,7 +46,7 @@ printf "\n3. JSON Syntax:\n" && node -e "const fs = require('fs'); try { JSON.pa
 printf "\n4. Internal Component References:\n" && grep -c "\$ref.*components/schemas" reference/rest-api.json && \
 printf "\n5. External References:\n" && (grep -cF '"./components/schemas' reference/rest-api.json || [ "$?" -eq 1 ]) && \
 printf "\n6. RAW_BODY Check:\n" && (grep -c "RAW_BODY" reference/rest-api.json 2>/dev/null || echo "0 - None found ✅") && \
-printf "\n7. Schema Files:\n" && ls reference/components/schemas/*.json | wc -l
+printf "\n7. Schemas in components:\n" && node -e "const fs = require('fs'); console.log(Object.keys(JSON.parse(fs.readFileSync('reference/rest-api.json', 'utf-8')).components.schemas).length);"
 ```
 
 ## Documentation Guidelines
